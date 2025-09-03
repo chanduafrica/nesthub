@@ -42,7 +42,7 @@ import {
   DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
 import { NestIcon } from '@/components/icons';
-import { CurrencyProvider } from '@/hooks/use-currency';
+import { CurrencyProvider, useCurrency } from '@/hooks/use-currency';
 
 
 export default function AdminLayout({
@@ -50,7 +50,6 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [currency, setCurrency] = useState('KES');
 
   return (
     <CurrencyProvider>
@@ -236,4 +235,3 @@ function AdminCurrencySwitcher() {
         </DropdownMenu>
     );
 }
-
