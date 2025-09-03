@@ -96,7 +96,7 @@ const conversionRates: { [key: string]: number } = {
 
 export default function Client360Page({ params }: { params: { id: string } }) {
   const [allClients, setAllClients] = useState(mockClients);
-  const [client, setClient] = useState(() => allClients.find((c) => c.id === params.id));
+  const [client, setClient] = useState(allClients.find((c) => c.id === params.id));
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
 
   const { currency } = useCurrency();
@@ -384,5 +384,3 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    
