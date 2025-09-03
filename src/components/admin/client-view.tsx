@@ -244,12 +244,10 @@ export function ClientView({ client }: { client: Client }) {
                 Deactivate
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                 <DialogTrigger asChild>
-                    <DropdownMenuItem className="text-primary" onSelect={() => setDiscountModalOpen(true)}>
-                        <Gift className="mr-2 h-4 w-4" />
-                        Offer Discount
-                    </DropdownMenuItem>
-                </DialogTrigger>
+                <DropdownMenuItem className="text-primary" onSelect={() => setDiscountModalOpen(true)}>
+                    <Gift className="mr-2 h-4 w-4" />
+                    Offer Discount
+                </DropdownMenuItem>
             </DropdownMenuContent>
             </DropdownMenu>
             <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
