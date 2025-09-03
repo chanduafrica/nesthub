@@ -94,7 +94,8 @@ const conversionRates: { [key: string]: number } = {
 
 export default function Client360Page({ params }: { params: { id: string } }) {
   const [allClients, setAllClients] = useState(mockClients);
-  const client = allClients.find((c) => c.id === params.id);
+  
+  const client = useMemo(() => allClients.find((c) => c.id === params.id), [allClients, params.id]);
 
   const [clientStatus, setClientStatus] = useState(client?.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
@@ -486,3 +487,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
