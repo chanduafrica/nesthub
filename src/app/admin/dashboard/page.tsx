@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
                     <CardContent>
                          <div className="text-xl font-bold">342</div>
                         <p className="text-xs text-muted-foreground">Properties Listed</p>
-                    </CardContent>
+                    </Content>
                 </Card>
                  <Card>
                     <CardHeader>

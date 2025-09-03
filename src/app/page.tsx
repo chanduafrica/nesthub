@@ -29,7 +29,7 @@ const Header = () => (
         <span className="ml-2 font-bold text-lg">DIGITALNEST</span>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
-         <Link href="/admin">
+         <Link href="/admin/login">
           <Button variant="ghost">
             <UserCog className="mr-2 h-4 w-4" />
             Admin
@@ -138,7 +138,7 @@ const modules = [
   { slug: "jobs", icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs." },
   { slug: "biz", icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings." },
   { slug: "eats", icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
-  { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations. Power digital commerce with seamless logistics." },
+  { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce and food order integrations. Power digital commerce with seamless logistics." },
   { slug: "media", icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
 ];
 

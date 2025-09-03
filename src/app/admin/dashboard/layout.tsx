@@ -61,7 +61,7 @@ export default function AdminLayout({
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild isActive>
-                <Link href="/admin">
+                <Link href="/admin/dashboard">
                   <LayoutDashboard />
                   <span>Dashboard</span>
                 </Link>
@@ -197,4 +197,3 @@ export default function AdminLayout({
     </SidebarProvider>
   );
 }
-

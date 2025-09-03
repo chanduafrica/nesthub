@@ -19,7 +19,7 @@ export default function OtpPage() {
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/admin');
+    router.push('/admin/dashboard');
   };
 
   return (
