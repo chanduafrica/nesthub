@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/admin/otp');
+    router.push('/admin/dashboard');
   };
 
   return (
