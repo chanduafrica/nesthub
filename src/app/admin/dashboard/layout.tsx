@@ -86,7 +86,7 @@ export default function AdminLayout({
                  </SidebarMenuItem>
                 <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                    <Link href="#">
+                    <Link href="/admin/clients">
                     <Users />
                     <span>All Clients</span>
                     </Link>
