@@ -1,6 +1,15 @@
 
 
-export const mockClients = [
+export type Client = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  business: number;
+  status: ClientStatus;
+};
+
+export const mockClients: Client[] = [
     { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku.kamau@gmail.com', phone: '254712345678', business: 125500, status: 'Active' },
     { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '254787654321', business: 89000, status: 'Active' },
     { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '254711223344', business: 45000, status: 'Inactive' },
