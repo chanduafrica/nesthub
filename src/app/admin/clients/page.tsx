@@ -38,12 +38,33 @@ const mockClients = [
   { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '254787654321', business: 89000, status: 'Active' },
   { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '254711223344', business: 45000, status: 'Inactive' },
   { id: '4', name: 'Fatima Al-Hassan', email: 'fatima.hassan@protonmail.com', phone: '254722334455', business: 250000, status: 'Active' },
-  { id: '5', name: 'Chinedu Okoro', email: 'chinedu.o@icloud.com', phone: '254733445566', business: 15200, status: 'Suspended' },
+  { id: '5', name: 'John Magufuli', email: 'j.magufuli@tanzaniamail.com', phone: '255767123456', business: 15200, status: 'Suspended' },
   { id: '6', name: 'Amina Yusuf', email: 'amina.yusuf@zoho.com', phone: '254701234567', business: 76500, status: 'Active' },
-  { id: '7', name: 'Kofi Annan', email: 'kofi.annan@aol.com', phone: '254702345678', business: 180000, status: 'Active' },
+  { id: '7', name: 'Samia Suluhu', email: 'samia.s@gov.tz', phone: '255655123456', business: 180000, status: 'Active' },
   { id: '8', name: 'Zainab Ibrahim', email: 'zainab.ibrahim@mail.com', phone: '254744556677', business: 32000, status: 'Inactive' },
   { id: '9', name: 'Juma Omondi', email: 'juma.omondi@yandex.com', phone: '254755667788', business: 99000, status: 'Active' },
-  { id: '10', name: 'Ngozi Okonjo-Iweala', email: 'ngozi.oi@live.com', phone: '254766778899', business: 550000, status: 'Active' },
+  { id: '10', name: 'Paul Kagame', email: 'paulk@rwandanet.rw', phone: '250788123456', business: 550000, status: 'Active' },
+  { id: '11', name: 'Halima Aden', email: 'halima.aden@somalinet.so', phone: '252615123456', business: 12000, status: 'Active' },
+  { id: '12', name: 'Idris Sultan', email: 'idris.sultan@bongomail.com', phone: '255715123456', business: 68000, status: 'Active' },
+  { id: '13', name: 'Vanessa Mdee', email: 'vanessa.mdee@gmail.com', phone: '255754123456', business: 210000, status: 'Active' },
+  { id: '14', name: 'Lupita Nyong\'o', email: 'lupita.n@hollywood.com', phone: '254721123456', business: 1200000, status: 'Active' },
+  { id: '15', name: 'Eddy Kenzo', email: 'eddy.kenzo@ugandabeats.ug', phone: '256772123456', business: 95000, status: 'Active' },
+  { id: '16', name: 'Juliana Kanyomozi', email: 'juliana.k@yahoo.com', phone: '256701123456', business: 150000, status: 'Inactive' },
+  { id: '17', name: 'Ali Kiba', email: 'alikiba@outlook.com', phone: '255713123456', business: 320000, status: 'Active' },
+  { id: '18', name: 'Brenda Wairimu', email: 'brenda.wairimu@me.com', phone: '254722987654', business: 58000, status: 'Active' },
+  { id: '19', name: 'Eric Omondi', email: 'eric.omondi@gmail.com', phone: '254720123456', business: 45000, status: 'Suspended' },
+  { id: '20', name: 'Yoweri Museveni', email: 'yoweri.m@statehouse.ug', phone: '256782123456', business: 890000, status: 'Active' },
+  { id: '21', name: 'Oliver Mtukudzi', email: 'oliver.m@zimail.co.zw', phone: '263772123456', business: 75000, status: 'Inactive' },
+  { id: '22', name: 'Salva Kiir', email: 's.kiir@southsudan.gov', phone: '211912123456', business: 43000, status: 'Active' },
+  { id: '23', name: 'Pierre Nkurunziza', email: 'pierre.n@burundimail.bi', phone: '25779123456', business: 22000, status: 'Active' },
+  { id: '24', name: 'Denise Nkurunziza', email: 'denise.n@icloud.com', phone: '25775123456', business: 19000, status: 'Active' },
+  { id: '25', name: 'Churchill Ndambuki', email: 'mwalimuchurchill@gmail.com', phone: '254722222222', business: 180000, status: 'Active' },
+  { id: '26', name: 'Diamond Platnumz', email: 'diamond.p@wcbwasafi.com', phone: '255718123456', business: 1500000, status: 'Active' },
+  { id: '27', name: 'Fena Gitu', email: 'fena.gitu@fenamenal.com', phone: '254711123456', business: 92000, status: 'Active' },
+  { id: '28', name: 'Uhuru Kenyatta', email: 'uhuru.k@gmail.com', phone: '254700123456', business: 2500000, status: 'Inactive' },
+  { id: '29', name: 'Margaret Kenyatta', email: 'margaret.k@outlook.com', phone: '254733123456', business: 450000, status: 'Active' },
+  { id: '30', name: 'Bobi Wine', email: 'bobi.wine@protonmail.com', phone: '256752123456', business: 130000, status: 'Suspended' },
+  { id: '31', name: 'Zari Hassan', email: 'zari.hassan@gmail.com', phone: '256776123456', business: 600000, status: 'Active' },
 ];
 
 type ClientStatus = 'Active' | 'Inactive' | 'Suspended';
@@ -58,10 +79,11 @@ export default function AllClientsPage() {
     });
     
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
     const handleStatusFilterChange = (status: ClientStatus, checked: boolean) => {
         setStatusFilters(prev => ({ ...prev, [status]: checked }));
+        setCurrentPage(1); // Reset to first page on filter change
     };
 
     const filteredClients = clients.filter(client => {
@@ -108,7 +130,10 @@ export default function AllClientsPage() {
                 placeholder="Search by name or email..." 
                 className="pl-10" 
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1); // Reset to first page on search
+                }}
             />
           </div>
           <DropdownMenu>
@@ -153,7 +178,7 @@ export default function AllClientsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedClients.map(client => (
+              {paginatedClients.length > 0 ? paginatedClients.map(client => (
                 <TableRow key={client.id}>
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell className="hidden md:table-cell">{client.email}</TableCell>
@@ -179,11 +204,11 @@ export default function AllClientsPage() {
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem asChild><Link href="#">View Client 360</Link></DropdownMenuItem>
                          <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleAction('Activate', client.id)}>
+                        <DropdownMenuItem onClick={() => handleAction('Activate', client.id)} disabled={client.status === 'Active'}>
                             <UserCheck className="mr-2 h-4 w-4" />
                             Activate
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive" onClick={() => handleAction('Deactivate', client.id)}>
+                        <DropdownMenuItem className="text-destructive" onClick={() => handleAction('Deactivate', client.id)} disabled={client.status !== 'Active'}>
                             <UserX className="mr-2 h-4 w-4" />
                             Deactivate
                         </DropdownMenuItem>
@@ -196,7 +221,13 @@ export default function AllClientsPage() {
                     </DropdownMenu>
                   </TableCell>
                 </TableRow>
-              ))}
+              )) : (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center h-24">
+                        No clients found.
+                    </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </div>
@@ -227,3 +258,5 @@ export default function AllClientsPage() {
     </Card>
   );
 }
+
+    
