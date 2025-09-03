@@ -1,6 +1,6 @@
 
 'use client';
-import { useState } from 'react';
+import { useState }from 'react';
 import {
   SidebarProvider,
   Sidebar,
@@ -42,6 +42,7 @@ import {
   DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
 import { NestIcon } from '@/components/icons';
+import { CurrencyProvider } from '@/hooks/use-currency';
 
 
 export default function AdminLayout({
@@ -52,6 +53,7 @@ export default function AdminLayout({
   const [currency, setCurrency] = useState('KES');
 
   return (
+    <CurrencyProvider>
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
@@ -172,29 +174,7 @@ export default function AdminLayout({
           <SidebarTrigger className="sm:hidden" />
           <h1 className="text-lg font-semibold md:text-xl">Command Center</h1>
           <div className="ml-auto flex items-center gap-4">
-             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="overflow-hidden rounded-full"
-                  >
-                    <Globe className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Currency</DropdownMenuLabel>
-                   <DropdownMenuRadioGroup value={currency} onValueChange={setCurrency}>
-                    <DropdownMenuRadioItem value="KES">KES</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="UGX">UGX</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="TZS">TZS</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="RWF">RWF</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="BIF">BIF</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="SSP">SSP</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="SOS">SOS</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+             <AdminCurrencySwitcher />
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -223,5 +203,37 @@ export default function AdminLayout({
         </main>
       </SidebarInset>
     </SidebarProvider>
+    </CurrencyProvider>
   );
 }
+
+function AdminCurrencySwitcher() {
+    const { currency, setCurrency } = useCurrency();
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                variant="ghost"
+                size="icon"
+                className="overflow-hidden rounded-full"
+                >
+                <Globe className="h-5 w-5" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Currency</DropdownMenuLabel>
+                <DropdownMenuRadioGroup value={currency} onValueChange={setCurrency}>
+                <DropdownMenuRadioItem value="KES">KES</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="UGX">UGX</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="TZS">TZS</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="RWF">RWF</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="BIF">BIF</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="SSP">SSP</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="SOS">SOS</DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
+

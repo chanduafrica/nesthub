@@ -3,15 +3,36 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Users, DollarSign, ShoppingCart, Truck, TrendingUp, BarChart, Bell, AlertTriangle, CheckCircle, PieChart, LineChart } from "lucide-react";
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart as RechartsBarChart, Pie, Cell, PieChart as RechartsPieChart, Line, LineChart as RechartsLineChart } from 'recharts';
+import { useCurrency } from '@/hooks/use-currency';
 
+const conversionRates: { [key: string]: number } = {
+    KES: 1,
+    UGX: 29.45,
+    TZS: 20.45,
+    RWF: 10.33,
+    BIF: 22.58,
+    SSP: 1.22,
+    SOS: 4.55,
+};
 
 export default function AdminDashboardPage() {
+    const { currency } = useCurrency();
+
+    const convertCurrency = (amount: number) => {
+        const rate = conversionRates[currency] || 1;
+        return (amount * rate).toLocaleString('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        });
+    };
 
   const salesByModuleData = [
-    { name: 'Mall', sales: 4000 },
-    { name: 'Travel', sales: 3000 },
-    { name: 'Events', sales: 2000 },
-    { name: 'Food', sales: 2780 },
+    { name: 'Mall', sales: 4000 * conversionRates[currency] },
+    { name: 'Travel', sales: 3000 * conversionRates[currency] },
+    { name: 'Events', sales: 2000 * conversionRates[currency] },
+    { name: 'Food', sales: 2780 * conversionRates[currency] },
   ];
 
   const userGrowthData = [
@@ -55,7 +76,7 @@ export default function AdminDashboardPage() {
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">KES 1,250,450.00</div>
+                        <div className="text-2xl font-bold">{convertCurrency(1250450)}</div>
                          <p className="text-xs text-muted-foreground">+15% from last month</p>
                     </CardContent>
                 </Card>
@@ -75,7 +96,7 @@ export default function AdminDashboardPage() {
                         <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">KES 12,350</div>
+                        <div className="text-2xl font-bold">{convertCurrency(12350)}</div>
                         <p className="text-xs text-muted-foreground">MRR</p>
                     </CardContent>
                 </Card>
@@ -85,7 +106,7 @@ export default function AdminDashboardPage() {
                         <BarChart className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">KES 4,800</div>
+                        <div className="text-2xl font-bold">{convertCurrency(4800)}</div>
                          <p className="text-xs text-muted-foreground">From banners & featured listings</p>
                     </CardContent>
                 </Card>
@@ -95,7 +116,7 @@ export default function AdminDashboardPage() {
                         <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">KES 89,400</div>
+                        <div className="text-2xl font-bold">{convertCurrency(89400)}</div>
                          <p className="text-xs text-muted-foreground">From external partner products</p>
                     </CardContent>
                 </Card>
@@ -108,7 +129,7 @@ export default function AdminDashboardPage() {
             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Sales by Module</CardTitle>
+                        <CardTitle>Sales by Module ({currency})</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ResponsiveContainer width="100%" height={300}>
@@ -116,9 +137,9 @@ export default function AdminDashboardPage() {
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
                                 <YAxis />
-                                <Tooltip />
+                                <Tooltip formatter={(value: number) => convertCurrency(value / conversionRates[currency])} />
                                 <Legend />
-                                <Bar dataKey="sales" fill="hsl(var(--primary))" />
+                                <Bar dataKey="sales" fill="hsl(var(--primary))" name="Sales" />
                             </RechartsBarChart>
                         </ResponsiveContainer>
                     </CardContent>
