@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UtensilsCrossed } from "lucide-react";
+import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
 import type { SVGProps } from "react";
+import Link from "next/link";
 
 const NestIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -48,7 +49,16 @@ const Header = () => (
         <NestIcon className="h-6 w-6 text-primary" />
         <span className="ml-2 font-bold text-lg">DIGITALNEST</span>
       </div>
-      <div className="flex flex-1 items-center justify-end space-x-4">
+      <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
+         <Link href="/admin">
+          <Button variant="ghost">
+            <UserCog className="mr-2 h-4 w-4" />
+            Admin
+          </Button>
+        </Link>
+        <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">Request a Demo</Button>
+      </nav>
+      <div className="flex flex-1 items-center justify-end space-x-4 md:hidden">
         <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">Request a Demo</Button>
       </div>
     </div>
@@ -141,16 +151,16 @@ const ValuePropositionSection = () => (
 );
 
 const modules = [
-  { icon: ShoppingCart, title: "NestMall (Marketplace-as-a-Service)", description: "Multi-vendor store management, wholesale pricing, logistics integration, vendor POS. Enables partners to launch digital malls in weeks." },
-  { icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage/insurance calculators. Monetize property transactions and financial services." },
-  { icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons. Create revenue streams from travel and tourism ecosystems." },
-  { icon: MessageSquare, title: "Campfire (Community-as-a-Service)", description: "Topic forums (money, careers, mental health, society), live AMAs, polls and challenges. Gamified loyalty (“Sparks” points), anonymous wellness support, youth stories/podcasts." },
-  { icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships. Unlock ticketing plus media monetization." },
-  { icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs." },
-  { icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings." },
-  { icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
-  { icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations. Power digital commerce with seamless logistics." },
-  { icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
+  { slug: "mall", icon: ShoppingCart, title: "NestMall (Marketplace-as-a-Service)", description: "Multi-vendor store management, wholesale pricing, logistics integration, vendor POS. Enables partners to launch digital malls in weeks." },
+  { slug: "homes", icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage/insurance calculators. Monetize property transactions and financial services." },
+  { slug: "travel", icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons. Create revenue streams from travel and tourism ecosystems." },
+  { slug: "campfire", icon: MessageSquare, title: "Campfire (Community-as-a-Service)", description: "Topic forums (money, careers, mental health, society), live AMAs, polls and challenges. Gamified loyalty (“Sparks” points), anonymous wellness support, youth stories/podcasts." },
+  { slug: "events", icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships. Unlock ticketing plus media monetization." },
+  { slug: "jobs", icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs." },
+  { slug: "biz", icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings." },
+  { slug: "eats", icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
+  { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations. Power digital commerce with seamless logistics." },
+  { slug: "media", icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
 ];
 
 
@@ -165,17 +175,19 @@ const CoreModulesSection = () => (
       </div>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((mod) => (
-          <Card key={mod.title} className="flex flex-col">
-            <CardHeader>
-              <div className="flex items-center gap-4">
-                <mod.icon className="h-8 w-8 text-accent" />
-                <CardTitle>{mod.title}</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-muted-foreground">{mod.description}</p>
-            </CardContent>
-          </Card>
+          <Link href={`/modules/${mod.slug}`} key={mod.slug}>
+            <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-4">
+                  <mod.icon className="h-8 w-8 text-accent" />
+                  <CardTitle>{mod.title}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <p className="text-muted-foreground">{mod.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>
