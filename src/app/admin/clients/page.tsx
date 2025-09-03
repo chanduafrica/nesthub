@@ -33,20 +33,19 @@ import { Badge } from '@/components/ui/badge';
 import { MoreHorizontal, PlusCircle, Search, Gift } from 'lucide-react';
 
 const mockClients = [
-  { id: '1', name: 'John Doe', email: 'john@example.com', phone: '254712345678', portal: 'NestMall', status: 'Active' },
-  { id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '254787654321', portal: 'NestTravel', status: 'Active' },
-  { id: '3', name: 'Peter Jones', email: 'peter@example.com', phone: '254711223344', portal: 'NestEvents', status: 'Inactive' },
-  { id: '4', name: 'Mary Anne', email: 'mary@example.com', phone: '254722334455', portal: 'NestHomes', status: 'Active' },
-  { id: '5', name: 'Chris Kim', email: 'chris@example.com', phone: '254733445566', portal: 'NestEats', status: 'Suspended' },
-  { id: '6', name: 'Alice Williams', email: 'alice@example.com', phone: '254701234567', portal: 'NestMall', status: 'Active' },
-  { id: '7', name: 'Bob Brown', email: 'bob@example.com', phone: '254702345678', portal: 'NestTravel', status: 'Active' },
+  { id: '1', name: 'John Doe', email: 'john@example.com', phone: '254712345678', business: 'NestMall', status: 'Active' },
+  { id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '254787654321', business: 'NestTravel', status: 'Active' },
+  { id: '3', name: 'Peter Jones', email: 'peter@example.com', phone: '254711223344', business: 'NestEvents', status: 'Inactive' },
+  { id: '4', name: 'Mary Anne', email: 'mary@example.com', phone: '254722334455', business: 'NestHomes', status: 'Active' },
+  { id: '5', name: 'Chris Kim', email: 'chris@example.com', phone: '254733445566', business: 'NestEats', status: 'Suspended' },
+  { id: '6', name: 'Alice Williams', email: 'alice@example.com', phone: '254701234567', business: 'NestMall', status: 'Active' },
+  { id: '7', name: 'Bob Brown', email: 'bob@example.com', phone: '254702345678', business: 'NestTravel', status: 'Active' },
 ];
 
 export default function AllClientsPage() {
     const [clients, setClients] = useState(mockClients);
     const [searchTerm, setSearchTerm] = useState('');
     
-    // Simple pagination state
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -105,7 +104,7 @@ export default function AllClientsPage() {
                 <TableHead>Client Name</TableHead>
                 <TableHead className="hidden md:table-cell">Email</TableHead>
                 <TableHead className="hidden lg:table-cell">Phone</TableHead>
-                <TableHead>Portal</TableHead>
+                <TableHead>Consolidated Business</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -116,7 +115,7 @@ export default function AllClientsPage() {
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell className="hidden md:table-cell">{client.email}</TableCell>
                    <TableCell className="hidden lg:table-cell">{client.phone}</TableCell>
-                  <TableCell>{client.portal}</TableCell>
+                  <TableCell>{client.business}</TableCell>
                   <TableCell>
                     <Badge variant={
                         client.status === 'Active' ? 'default' : 

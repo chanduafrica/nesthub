@@ -1,4 +1,3 @@
-
 'use client';
 import { useState }from 'react';
 import {
@@ -71,7 +70,7 @@ export default function AdminLayout({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive>
+              <SidebarMenuButton asChild>
                 <Link href="/admin/dashboard">
                   <LayoutDashboard />
                   <span>Dashboard</span>
