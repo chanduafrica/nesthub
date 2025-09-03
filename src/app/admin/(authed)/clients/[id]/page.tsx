@@ -4,21 +4,14 @@
 import { useState, useMemo } from 'react';
 import {
   ArrowLeft,
-  Briefcase,
   DollarSign,
   Gift,
   Globe,
-  Home,
   Mail,
   MoreVertical,
   Phone,
-  Plane,
-  ShoppingCart,
-  Ticket,
-  User,
   UserCheck,
   UserX,
-  UtensilsCrossed,
   Percent,
   RefreshCw,
 } from 'lucide-react';
@@ -386,3 +379,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
