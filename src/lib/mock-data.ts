@@ -74,3 +74,5 @@ export type Offer = {
 };
 
 export type ClientStatus = 'Active' | 'Inactive' | 'Suspended';
+
+    
