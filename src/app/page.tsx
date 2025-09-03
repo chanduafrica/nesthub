@@ -1,29 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
-import type { SVGProps } from "react";
 import Link from "next/link";
-
-const NestIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-    <path d="M12 12a5 5 0 0 0-5 5" />
-    <path d="M12 7a5 5 0 0 1 5 5" />
-    <path d="M7 12a5 5 0 0 0 5 5" />
-    <path d="M17 12a5 5 0 0 1-5 5" />
-  </svg>
-);
+import { NestIcon } from "@/components/icons";
 
 
 export default function HomePage() {
@@ -50,7 +29,7 @@ const Header = () => (
         <span className="ml-2 font-bold text-lg">DIGITALNEST</span>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
-         <Link href="/admin/login">
+         <Link href="/admin">
           <Button variant="ghost">
             <UserCog className="mr-2 h-4 w-4" />
             Admin
@@ -227,3 +206,4 @@ const Footer = () => (
     </div>
   </footer>
 );
+
