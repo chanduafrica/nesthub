@@ -1,5 +1,6 @@
 
 'use client';
+import { useState } from 'react';
 import {
   SidebarProvider,
   Sidebar,
@@ -26,6 +27,7 @@ import {
   PlayCircle,
   Settings,
   UserCircle,
+  Globe,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -36,6 +38,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
 import { NestIcon } from '@/components/icons';
 
@@ -45,6 +49,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [currency, setCurrency] = useState('KES');
 
   return (
     <SidebarProvider>
@@ -167,6 +172,29 @@ export default function AdminLayout({
           <SidebarTrigger className="sm:hidden" />
           <h1 className="text-lg font-semibold md:text-xl">Command Center</h1>
           <div className="ml-auto flex items-center gap-4">
+             <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="overflow-hidden rounded-full"
+                  >
+                    <Globe className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Currency</DropdownMenuLabel>
+                   <DropdownMenuRadioGroup value={currency} onValueChange={setCurrency}>
+                    <DropdownMenuRadioItem value="KES">KES</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="UGX">UGX</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="TZS">TZS</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="RWF">RWF</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="BIF">BIF</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="SSP">SSP</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="SOS">SOS</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
