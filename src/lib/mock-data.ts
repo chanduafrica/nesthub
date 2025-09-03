@@ -1,4 +1,5 @@
 
+
 export const mockClients = [
     { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku.kamau@gmail.com', phone: '254712345678', business: 125500, status: 'Active' },
     { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '254787654321', business: 89000, status: 'Active' },
@@ -19,10 +20,10 @@ export const mockClients = [
     { id: '17', name: 'Ali Kiba', email: 'alikiba@outlook.com', phone: '255713123456', business: 320000, status: 'Active' },
     { id: '18', name: 'Brenda Wairimu', email: 'brenda.wairimu@me.com', phone: '254722987654', business: 58000, status: 'Active' },
     { id: '19', name: 'Eric Omondi', email: 'eric.omondi@gmail.com', phone: '254720123456', business: 45000, status: 'Suspended' },
-    { id: '20', name: 'General Mutumba', email: 'general.mutumba@statehouse.ug', phone: '256782123456', business: 890000, status: 'Active' },
-    { id: '21', name: 'Oliver Mtukudzi', email: 'oliver.m@zimail.co.zw', phone: '263772123456', business: 75000, status: 'Inactive' },
-    { id: '22', name: 'Kapito', email: 'kapito@southsudan.gov', phone: '211912123456', business: 43000, status: 'Active' },
-    { id: '23', name: 'Man Stevo', email: 'manstevo@burundimail.bi', phone: '25779123456', business: 22000, status: 'Active' },
+    { id: '20', name: 'Jose Chameleone', email: 'jose.chameleone@music.ug', phone: '256782123456', business: 890000, status: 'Active' },
+    { id: '21', name: 'Wema Sepetu', email: 'wema.sepetu@bongomovie.com', phone: '255772123456', business: 75000, status: 'Inactive' },
+    { id: '22', name: 'John Garang', email: 'john.garang@southsudan.gov', phone: '211912123456', business: 43000, status: 'Active' },
+    { id: '23', name: 'Pierre Nkurunziza', email: 'pierre.n@burundimail.bi', phone: '25779123456', business: 22000, status: 'Active' },
     { id: '24', name: 'Naliaka Shukisha', email: 'naliaka.shukisha@icloud.com', phone: '25775123456', business: 19000, status: 'Active' },
     { id: '25', name: 'Churchill Ndambuki', email: 'mwalimuchurchill@gmail.com', phone: '254722222222', business: 180000, status: 'Active' },
     { id: '26', name: 'Diamond Platnumz', email: 'diamond.p@wcbwasafi.com', phone: '255718123456', business: 1500000, status: 'Active' },
@@ -50,6 +51,23 @@ export const mockModuleEngagement = [
     { name: 'MamaAfrica', value: 12000 },
     { name: 'NestParcel', value: 9500 },
     { name: 'NestBiz', value: 8500 },
+];
+
+export type Offer = {
+  id: string;
+  clientId: string;
+  code: string;
+  type: 'percentage' | 'amount';
+  value: number;
+  portal: string;
+  dateSent: string;
+  status: 'Sent' | 'Redeemed';
+};
+
+export const mockOffers: Offer[] = [
+    { id: 'offer-1', clientId: '1', code: 'WANJIKU10', type: 'percentage', value: 10, portal: 'NestMall', dateSent: '2024-07-20', status: 'Sent' },
+    { id: 'offer-2', clientId: '1', code: 'SAVE500', type: 'amount', value: 500, portal: 'NestTravel', dateSent: '2024-07-15', status: 'Redeemed' },
+    { id: 'offer-3', clientId: '2', code: 'MUSA20', type: 'percentage', value: 20, portal: 'all', dateSent: '2024-07-22', status: 'Sent' },
 ];
 
 export type ClientStatus = 'Active' | 'Inactive' | 'Suspended';

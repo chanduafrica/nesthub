@@ -14,9 +14,10 @@ import {
   UserX,
   Percent,
   RefreshCw,
+  Calendar as CalendarIcon,
 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus } from '@/lib/mock-data';
+import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus, mockOffers, Offer } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -75,6 +76,10 @@ import {
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useToast } from '@/hooks/use-toast';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { DateRange } from 'react-day-picker';
+import { format } from 'date-fns';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -88,11 +93,14 @@ const conversionRates: { [key: string]: number } = {
 
 
 export default function Client360Page({ params }: { params: { id: string } }) {
-  const initialClient = useMemo(() => mockClients.find((c) => c.id === params.id), [params.id]);
-
   const [allClients, setAllClients] = useState(mockClients);
-  const [client, setClient] = useState(initialClient);
+  const client = allClients.find((c) => c.id === params.id);
+
+  const [clientStatus, setClientStatus] = useState(client?.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
+  const [sentOffers, setSentOffers] = useState<Offer[]>(mockOffers.filter(o => o.clientId === params.id));
+  
+  const [date, setDate] = useState<DateRange | undefined>(undefined);
 
   const { currency } = useCurrency();
   const { toast } = useToast();
@@ -112,7 +120,7 @@ export default function Client360Page({ params }: { params: { id: string } }) {
   }
 
   const handleStatusChange = (newStatus: ClientStatus) => {
-    setClient(prevClient => prevClient ? { ...prevClient, status: newStatus } : undefined);
+    setClientStatus(newStatus);
     setAllClients(allClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
   };
   
@@ -120,8 +128,20 @@ export default function Client360Page({ params }: { params: { id: string } }) {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
-      console.log('Discount Offer:', data);
       
+      const newOffer: Offer = {
+        id: `offer-${Date.now()}`,
+        clientId: client.id,
+        code: data.code as string,
+        type: data.discountType as 'percentage' | 'amount',
+        value: Number(data.value),
+        portal: data.portal as string,
+        dateSent: new Date().toISOString().split('T')[0],
+        status: 'Sent'
+      };
+      
+      setSentOffers(prev => [newOffer, ...prev]);
+
       toast({
         title: 'Discount Sent!',
         description: `Offer code ${data.code} has been sent to ${client.name}.`,
@@ -164,14 +184,14 @@ export default function Client360Page({ params }: { params: { id: string } }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                     onClick={() => handleStatusChange('Active')} 
-                    disabled={client.status === 'Active'}>
+                    disabled={clientStatus === 'Active'}>
                 <UserCheck className="mr-2 h-4 w-4" />
                 Activate
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                     className="text-destructive" 
                     onClick={() => handleStatusChange('Inactive')} 
-                    disabled={client.status !== 'Active'}>
+                    disabled={clientStatus !== 'Active'}>
                 <UserX className="mr-2 h-4 w-4" />
                 Deactivate
                 </DropdownMenuItem>
@@ -200,10 +220,10 @@ export default function Client360Page({ params }: { params: { id: string } }) {
               <CardTitle className="text-2xl">{client.name}</CardTitle>
               <CardDescription>
                  <Badge variant={
-                    client.status === 'Active' ? 'default' : 
-                    client.status === 'Inactive' ? 'secondary' : 'destructive'
+                    clientStatus === 'Active' ? 'default' : 
+                    clientStatus === 'Inactive' ? 'secondary' : 'destructive'
                 }>
-                    {client.status}
+                    {clientStatus}
                 </Badge>
               </CardDescription>
             </CardHeader>
@@ -238,10 +258,40 @@ export default function Client360Page({ params }: { params: { id: string } }) {
                 <p className="text-xs text-muted-foreground">Across all DigitalNest portals</p>
               </CardContent>
             </Card>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Recent Offers</CardTitle>
+                    <CardDescription>Discounts and prizes sent to the client.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {sentOffers.length > 0 ? (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Code</TableHead>
+                                    <TableHead>Value</TableHead>
+                                    <TableHead>Portal</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {sentOffers.slice(0, 5).map(offer => (
+                                    <TableRow key={offer.id}>
+                                        <TableCell className="font-mono">{offer.code}</TableCell>
+                                        <TableCell>{offer.type === 'percentage' ? `${offer.value}%` : convertCurrency(offer.value)}</TableCell>
+                                        <TableCell>{offer.portal}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    ) : (
+                        <p className="text-sm text-muted-foreground text-center py-4">No offers sent yet.</p>
+                    )}
+                </CardContent>
+            </Card>
         </div>
 
         {/* Right Column: Engagement & Transactions */}
-        <div className="lg    :col-span-2 flex flex-col gap-8">
+        <div className="lg:col-span-2 flex flex-col gap-8">
           <Card>
              <CardHeader>
                 <CardTitle>Module Engagement ({currency})</CardTitle>
@@ -265,6 +315,63 @@ export default function Client360Page({ params }: { params: { id: string } }) {
               <CardDescription>A log of the client's latest activities.</CardDescription>
             </CardHeader>
             <CardContent>
+                <div className="flex flex-wrap items-center gap-4 mb-4">
+                    <Select>
+                        <SelectTrigger className="w-full sm:w-[180px]">
+                            <SelectValue placeholder="Filter by Portal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Portals</SelectItem>
+                            {mockModuleEngagement.map(mod => (
+                                <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                     <Popover>
+                        <PopoverTrigger asChild>
+                        <Button
+                            id="date"
+                            variant={"outline"}
+                            className="w-full sm:w-[300px] justify-start text-left font-normal"
+                        >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date?.from ? (
+                            date.to ? (
+                                <>
+                                {format(date.from, "LLL dd, y")} -{" "}
+                                {format(date.to, "LLL dd, y")}
+                                </>
+                            ) : (
+                                format(date.from, "LLL dd, y")
+                            )
+                            ) : (
+                            <span>Pick a date range</span>
+                            )}
+                        </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                            initialFocus
+                            mode="range"
+                            defaultMonth={date?.from}
+                            selected={date}
+                            onSelect={setDate}
+                            numberOfMonths={2}
+                        />
+                        </PopoverContent>
+                    </Popover>
+                    <Select>
+                        <SelectTrigger className="w-full sm:w-[180px]">
+                            <SelectValue placeholder="Filter by Status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Statuses</SelectItem>
+                            <SelectItem value="Completed">Completed</SelectItem>
+                            <SelectItem value="Pending">Pending</SelectItem>
+                            <SelectItem value="Refunded">Refunded</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
                 <Table>
                     <TableHeader>
                         <TableRow>
@@ -379,5 +486,3 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    
