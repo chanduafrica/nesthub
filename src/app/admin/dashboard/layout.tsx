@@ -12,6 +12,7 @@ import {
   SidebarFooter,
   SidebarTrigger,
   SidebarInset,
+  SidebarSeparator,
 } from '@/components/ui/sidebar';
 import {
   LayoutDashboard,
@@ -28,6 +29,10 @@ import {
   Settings,
   UserCircle,
   Globe,
+  Users,
+  Handshake,
+  ArrowRightLeft,
+  ShieldAlert,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -73,6 +78,59 @@ export default function AdminLayout({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            </SidebarMenu>
+            <SidebarSeparator />
+             <SidebarMenu>
+                 <SidebarMenuItem>
+                    <span className="px-2 text-xs font-medium text-muted-foreground">Consolidated</span>
+                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="#">
+                    <Users />
+                    <span>All Clients</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="#">
+                    <Store />
+                    <span>All Vendors</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="#">
+                    <Handshake />
+                    <span>All Partners</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="#">
+                    <ArrowRightLeft />
+                    <span>Transactions</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="#">
+                    <ShieldAlert />
+                    <span>Complaints</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+            </SidebarMenu>
+
+           <SidebarSeparator />
+            <SidebarMenu>
+                 <SidebarMenuItem>
+                    <span className="px-2 text-xs font-medium text-muted-foreground">Modules</span>
+                 </SidebarMenuItem>
              <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
