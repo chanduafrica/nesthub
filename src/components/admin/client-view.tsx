@@ -16,6 +16,7 @@ import {
   RefreshCw,
   Calendar as CalendarIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus, Offer, Client } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -249,7 +250,7 @@ export function ClientView({ client }: { client: Client }) {
           <Card>
             <CardHeader className="items-center text-center">
               <Avatar className="h-24 w-24 mb-4">
-                <AvatarImage src={`https://i.pravatar.cc/150?u=${client.id}`} alt={client.name} />
+                <AvatarImage src={`https://picsum.photos/150/150?random=${client.id}`} alt={client.name} data-ai-hint="African person" />
                 <AvatarFallback>{client.name.charAt(0)}</AvatarFallback>
               </Avatar>
               <CardTitle className="text-2xl">{client.name}</CardTitle>
@@ -548,5 +549,7 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
 
     
