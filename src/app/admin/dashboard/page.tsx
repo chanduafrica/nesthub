@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">$1,250,450.00</div>
+                        <div className="text-2xl font-bold">KES 1,250,450.00</div>
                          <p className="text-xs text-muted-foreground">+15% from last month</p>
                     </CardContent>
                 </Card>
@@ -75,7 +75,7 @@ export default function AdminDashboardPage() {
                         <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">$12,350</div>
+                        <div className="text-2xl font-bold">KES 12,350</div>
                         <p className="text-xs text-muted-foreground">MRR</p>
                     </CardContent>
                 </Card>
@@ -85,18 +85,18 @@ export default function AdminDashboardPage() {
                         <BarChart className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">$4,800</div>
+                        <div className="text-2xl font-bold">KES 4,800</div>
                          <p className="text-xs text-muted-foreground">From banners & featured listings</p>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">BNPL Utilization</CardTitle>
-                        <PieChart className="h-4 w-4 text-muted-foreground" />
+                        <CardTitle className="text-sm font-medium">VAS Utilization Revenue</CardTitle>
+                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">$89,400</div>
-                         <p className="text-xs text-muted-foreground">Loans issued vs repaid</p>
+                        <div className="text-2xl font-bold">KES 89,400</div>
+                         <p className="text-xs text-muted-foreground">From external partner products</p>
                     </CardContent>
                 </Card>
             </div>
@@ -195,5 +195,3 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
-
-    
