@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Users, DollarSign, ShoppingCart, Truck, TrendingUp, BarChart, Bell, AlertTriangle, CheckCircle, PieChart, LineChart } from "lucide-react";
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart as RechartsBarChart, Pie, Cell, PieChart as RechartsPieChart, Line, LineChart as RechartsLineChart } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
+import { mockClients, mockModuleEngagement, mockTransactions } from '@/lib/mock-data';
+import { useMemo } from "react";
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -23,17 +25,22 @@ export default function AdminDashboardPage() {
         return (amount * rate).toLocaleString('en-US', {
         style: 'currency',
         currency: currency,
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
         });
     };
 
-  const salesByModuleData = [
-    { name: 'Mall', sales: 4000 * conversionRates[currency] },
-    { name: 'Travel', sales: 3000 * conversionRates[currency] },
-    { name: 'Events', sales: 2000 * conversionRates[currency] },
-    { name: 'Food', sales: 2780 * conversionRates[currency] },
-  ];
+    const totalUsers = mockClients.length;
+    const gmv = mockTransactions
+        .filter(tx => tx.status === 'Completed' && tx.amount > 0)
+        .reduce((sum, tx) => sum + tx.amount, 0);
+
+    const salesByModuleData = useMemo(() => {
+        return mockModuleEngagement.map(mod => ({
+            name: mod.name,
+            sales: mod.value * (conversionRates[currency] || 1)
+        }));
+    }, [currency]);
 
   const userGrowthData = [
       { name: 'Jan', users: 400 },
@@ -43,14 +50,24 @@ export default function AdminDashboardPage() {
       { name: 'May', users: 700 },
       { name: 'Jun', users: 1200 },
   ];
+  
+    const topCategoriesData = useMemo(() => {
+        const categoryMap = new Map<string, number>();
+        mockTransactions.forEach(tx => {
+            if (tx.status === 'Completed' && tx.amount > 0) {
+                // Simple logic to extract a "category" from description
+                const category = tx.description.split(' ')[1] || tx.module;
+                categoryMap.set(category, (categoryMap.get(category) || 0) + tx.amount);
+            }
+        });
 
-  const topCategoriesData = [
-    { name: 'Electronics', value: 400 },
-    { name: 'Flights', value: 300 },
-    { name: 'Concerts', value: 300 },
-    { name: 'Groceries', value: 200 },
-    { name: 'Fashion', value: 100 },
-  ];
+        return Array.from(categoryMap.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([name, value]) => ({ name, value }));
+
+    }, []);
+
 
   const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
@@ -66,8 +83,8 @@ export default function AdminDashboardPage() {
                         <Users className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">15,231</div>
-                        <p className="text-xs text-muted-foreground">Buyers / Vendors / Forum Members</p>
+                        <div className="text-2xl font-bold">{totalUsers.toLocaleString()}</div>
+                        <p className="text-xs text-muted-foreground">Active clients on the platform</p>
                     </CardContent>
                 </Card>
                  <Card>
@@ -76,13 +93,13 @@ export default function AdminDashboardPage() {
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{convertCurrency(1250450)}</div>
-                         <p className="text-xs text-muted-foreground">+15% from last month</p>
+                        <div className="text-2xl font-bold">{convertCurrency(gmv)}</div>
+                         <p className="text-xs text-muted-foreground">Total completed transactions</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Active Orders & Deliveries</CardTitle>
+                        <CardTitle className="text-sm font-medium">Active Orders</CardTitle>
                         <ShoppingCart className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
@@ -136,8 +153,8 @@ export default function AdminDashboardPage() {
                             <RechartsBarChart data={salesByModuleData}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip formatter={(value: number) => convertCurrency(value / conversionRates[currency])} />
+                                <YAxis tickFormatter={(value) => convertCurrency(value as number / (conversionRates[currency] || 1))} />
+                                <Tooltip formatter={(value: number) => convertCurrency(value / (conversionRates[currency] || 1))} />
                                 <Legend />
                                 <Bar dataKey="sales" fill="hsl(var(--primary))" name="Sales" />
                             </RechartsBarChart>
@@ -173,7 +190,7 @@ export default function AdminDashboardPage() {
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
-                                <Tooltip />
+                                <Tooltip formatter={(value) => convertCurrency(value as number)} />
                                 <Legend />
                             </RechartsPieChart>
                         </ResponsiveContainer>
