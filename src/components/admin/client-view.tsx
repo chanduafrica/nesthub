@@ -219,39 +219,43 @@ export function ClientView({ client }: { client: Client }) {
           </Button>
           <h1 className="text-2xl font-bold">Client 360 View</h1>
         </div>
-        <Dialog open={isDiscountModalOpen} onOpenChange={setDiscountModalOpen}>
+        <div className="flex items-center gap-2">
+            <Dialog open={isDiscountModalOpen} onOpenChange={setDiscountModalOpen}>
+                <DialogTrigger asChild>
+                    <Button variant="outline">
+                        <Gift className="mr-2 h-4 w-4" />
+                        Offer Discount
+                    </Button>
+                </DialogTrigger>
+                <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
+            </Dialog>
+
             <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
-                <MoreVertical className="h-4 w-4" />
-                <span className="sr-only">Client Actions</span>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Client Actions</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem 
-                    onClick={() => handleStatusChange('Active')} 
-                    disabled={clientStatus === 'Active'}>
-                <UserCheck className="mr-2 h-4 w-4" />
-                Activate
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                    className="text-destructive" 
-                    onClick={() => handleStatusChange('Inactive')} 
-                    disabled={clientStatus !== 'Active'}>
-                <UserX className="mr-2 h-4 w-4" />
-                Deactivate
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-primary" onSelect={() => setDiscountModalOpen(true)}>
-                    <Gift className="mr-2 h-4 w-4" />
-                    Offer Discount
-                </DropdownMenuItem>
-            </DropdownMenuContent>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                    <MoreVertical className="h-4 w-4" />
+                    <span className="sr-only">Client Actions</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>Client Actions</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                        onClick={() => handleStatusChange('Active')} 
+                        disabled={clientStatus === 'Active'}>
+                    <UserCheck className="mr-2 h-4 w-4" />
+                    Activate
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                        className="text-destructive" 
+                        onClick={() => handleStatusChange('Inactive')} 
+                        disabled={clientStatus !== 'Active'}>
+                    <UserX className="mr-2 h-4 w-4" />
+                    Deactivate
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
             </DropdownMenu>
-            <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
-        </Dialog>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
