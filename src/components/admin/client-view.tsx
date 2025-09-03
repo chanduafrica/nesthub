@@ -91,13 +91,11 @@ const conversionRates: { [key: string]: number } = {
     SOS: 4.55,
 };
 
-export function ClientView({ client: initialClient }: { client: Client }) {
+export function ClientView({ client }: { client: Client }) {
   const [allClients, setAllClients] = useState(mockClients);
-  const [client, setClient] = useState(initialClient);
-
-  const [clientStatus, setClientStatus] = useState(client?.status);
+  const [clientStatus, setClientStatus] = useState(client.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
-  const [sentOffers, setSentOffers] = useState<Offer[]>(mockOffers.filter(o => o.clientId === client.id));
+  const [sentOffers, setSentOffers] = useState<Offer[]>(() => mockOffers.filter(o => o.clientId === client.id));
   
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   
@@ -108,7 +106,6 @@ export function ClientView({ client: initialClient }: { client: Client }) {
       (offersCurrentPage - 1) * offersItemsPerPage,
       offersCurrentPage * offersItemsPerPage
   );
-
 
   const { currency } = useCurrency();
   const { toast } = useToast();
@@ -125,7 +122,7 @@ export function ClientView({ client: initialClient }: { client: Client }) {
   
   const handleStatusChange = (newStatus: ClientStatus) => {
     setClientStatus(newStatus);
-    setClient(prev => prev ? { ...prev, status: newStatus } : null);
+    setAllClients(prevClients => prevClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
   };
   
   const handleSendDiscount = (e: React.FormEvent<HTMLFormElement>) => {
@@ -163,8 +160,7 @@ export function ClientView({ client: initialClient }: { client: Client }) {
   }, [currency]);
 
   if (!client) {
-    // This can happen briefly while state is initializing, or if something goes wrong.
-    return <div>Loading client...</div>;
+    return <div>Client not found.</div>;
   }
 
   return (
