@@ -60,7 +60,7 @@ export type Transaction = {
 export const mockTransactions: Transaction[] = [
   { id: 'txn_1', clientId: '1', vendorId: 'v1', date: '2024-07-22', module: 'NestMall', description: 'Purchase of "Super-fly Sneakers"', amount: 5500, currency: 'KES', status: 'Completed' },
   { id: 'txn_2', clientId: '2', vendorId: 'v5', date: '2024-07-21', module: 'NestTravel', description: 'Flight booking NBO-MBA', amount: 8200, currency: 'KES', status: 'Completed' },
-  { id: 'txn_3', clientId: '1', vendorId: 'v2', date: '2024-07-20', module: 'MamaAfrica', description: 'Order from "Mama\'s Kitchen"', amount: 1500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_3', clientId: '1', vendorId: 'v2', date: '2024-07-20', module: 'MamaAfrica', description: 'Order of "Pilau & Beef Stew"', amount: 1500, currency: 'KES', status: 'Completed' },
   { id: 'txn_4', clientId: '4', vendorId: 'v6', date: '2024-07-19', module: 'NestEvents', description: 'Ticket for "Sauti Sol Concert"', amount: 3000, currency: 'KES', status: 'Completed' },
   { id: 'txn_5', clientId: '1', vendorId: 'v7', date: '2024-07-18', module: 'NestParcel', description: 'Delivery to Westlands', amount: 500, currency: 'KES', status: 'Pending' },
   { id: 'txn_6', clientId: '10', vendorId: 'v1', date: '2024-07-15', module: 'NestMall', description: 'Refund for "Faulty Earbuds"', amount: -2500, currency: 'KES', status: 'Refunded' },
@@ -68,13 +68,18 @@ export const mockTransactions: Transaction[] = [
   { id: 'txn_8', clientId: '14', vendorId: 'v4', date: '2024-07-11', module: 'NestHomes', description: 'Agency Fee for Karen Property', amount: 150000, currency: 'KES', status: 'Completed' },
   { id: 'txn_9', clientId: '26', vendorId: 'v9', date: '2024-07-10', module: 'NestMedia', description: 'Royalty Payout Q2', amount: 75000, currency: 'KES', status: 'Completed' },
   { id: 'txn_10', clientId: '5', vendorId: 'v5', date: '2024-07-09', module: 'NestTravel', description: 'Zanzibar Hotel Booking', amount: 45000, currency: 'KES', status: 'Failed' },
-  { id: 'txn_11', clientId: '9', vendorId: 'v2', date: '2024-07-09', module: 'MamaAfrica', description: 'Weekly Grocery Box', amount: 4500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_11', clientId: '9', vendorId: 'v2', date: '2024-07-09', module: 'MamaAfrica', description: 'Weekly "Grocery Box"', amount: 4500, currency: 'KES', status: 'Completed' },
   { id: 'txn_12', clientId: '13', vendorId: 'v6', date: '2024-07-08', module: 'NestEvents', description: 'Blankets & Wine VIP', amount: 10000, currency: 'KES', status: 'Completed' },
   { id: 'txn_13', clientId: '19', vendorId: 'v1', date: '2024-07-07', module: 'NestMall', description: 'Chargeback on "Designer Watch"', amount: -12000, currency: 'KES', status: 'Refunded' },
   { id: 'txn_14', clientId: '3', vendorId: 'v10', date: '2024-07-06', module: 'NestJobs', description: 'Featured Job Application', amount: 500, currency: 'KES', status: 'Completed' },
   { id: 'txn_15', clientId: '22', vendorId: 'v7', date: '2024-07-05', module: 'NestParcel', description: 'Juba to Nairobi shipment', amount: 2500, currency: 'KES', status: 'Pending' },
-  { id: 'txn_16', clientId: '2', vendorId: 'v2', date: '2024-07-04', module: 'MamaAfrica', description: 'Order from "Kampala Delights"', amount: 3500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_16', clientId: '2', vendorId: 'v2', date: '2024-07-04', module: 'MamaAfrica', description: 'Order of "Chapati & Ndengu"', amount: 850, currency: 'KES', status: 'Completed' },
+  { id: 'txn_17', clientId: '1', vendorId: 'v1', date: '2024-07-03', module: 'NestMall', description: 'Purchase of "Ankara Print Dress"', amount: 3500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_18', clientId: '4', vendorId: 'v1', date: '2024-07-02', module: 'NestMall', description: 'Purchase of "Beaded Necklace"', amount: 1200, currency: 'KES', status: 'Completed' },
+  { id: 'txn_19', clientId: '9', vendorId: 'v2', date: '2024-07-01', module: 'MamaAfrica', description: 'Order of "Mukimo & Beef"', amount: 1250, currency: 'KES', status: 'Completed' },
+  { id: 'txn_20', clientId: '10', vendorId: 'v1', date: '2024-06-30', module: 'NestMall', description: 'Purchase of "Super-fly Sneakers"', amount: 5500, currency: 'KES', status: 'Completed' },
 ];
+
 
 export const mockModuleEngagement = [
     { name: 'NestMall', value: 45000 },
@@ -109,21 +114,20 @@ export type Vendor = {
   email: string;
   phone: string;
   portal: string;
-  business: number;
   products: number;
   rating: number;
   status: VendorStatus;
 };
 
 export const mockVendors: Vendor[] = [
-    { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '254711111111', portal: 'NestMall', business: 350000, products: 50, rating: 4.5, status: 'Active' },
-    { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '255788888888', portal: 'MamaAfrica', business: 120000, products: 25, rating: 4.8, status: 'Active' },
-    { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '254722000000', portal: 'NestJobs', business: 50000, products: 15, rating: 4.2, status: 'Active' },
-    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '254733333333', portal: 'NestHomes', business: 1200000, products: 200, rating: 4.0, status: 'Inactive' },
-    { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '254709000000', portal: 'NestTravel', business: 2500000, products: 100, rating: 3.8, status: 'Active' },
-    { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '254744444444', portal: 'NestEvents', business: 800000, products: 10, rating: 4.9, status: 'Pending' },
-    { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '254755555555', portal: 'NestParcel', business: 450000, products: 1, rating: 4.3, status: 'Active' },
-    { id: 'v8', name: 'Tuskys Supermarket', email: 'customercare@tuskys.com', phone: '254766666666', portal: 'NestMall', business: 5500000, products: 10000, rating: 3.5, status: 'Inactive' },
-    { id: 'v9', name: 'Pulse Live', email: 'editor@pulselive.co.ke', phone: '254777777777', portal: 'NestMedia', business: 600000, products: 500, rating: 4.6, status: 'Active' },
-    { id: 'v10', name: 'Kazi Mtaani Initiative', email: 'jobs@kazimtaani.go.ke', phone: '254788888888', portal: 'NestJobs', business: 150000, products: 30, rating: 4.1, status: 'Pending' },
+    { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '254711111111', portal: 'NestMall', products: 50, rating: 4.5, status: 'Active' },
+    { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '255788888888', portal: 'MamaAfrica', products: 25, rating: 4.8, status: 'Active' },
+    { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '254722000000', portal: 'NestJobs', products: 15, rating: 4.2, status: 'Active' },
+    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '254733333333', portal: 'NestHomes', products: 200, rating: 4.0, status: 'Inactive' },
+    { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '254709000000', portal: 'NestTravel', products: 100, rating: 3.8, status: 'Active' },
+    { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '254744444444', portal: 'NestEvents', products: 10, rating: 4.9, status: 'Pending' },
+    { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '254755555555', portal: 'NestParcel', products: 1, rating: 4.3, status: 'Active' },
+    { id: 'v8', name: 'Tuskys Supermarket', email: 'customercare@tuskys.com', phone: '254766666666', portal: 'NestMall', products: 10000, rating: 3.5, status: 'Inactive' },
+    { id: 'v9', name: 'Pulse Live', email: 'editor@pulselive.co.ke', phone: '254777777777', portal: 'NestMedia', products: 500, rating: 4.6, status: 'Active' },
+    { id: 'v10', name: 'Kazi Mtaani Initiative', email: 'jobs@kazimtaani.go.ke', phone: '254788888888', portal: 'NestJobs', products: 30, rating: 4.1, status: 'Pending' },
 ];

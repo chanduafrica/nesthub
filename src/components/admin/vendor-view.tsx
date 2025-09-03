@@ -95,15 +95,30 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
   };
 
   const productPerformanceData = useMemo(() => {
-    // Dummy data for product performance
-    return [
-      { name: 'Product A', sales: 4000, units: 240 },
-      { name: 'Product B', sales: 3000, units: 139 },
-      { name: 'Product C', sales: 2000, units: 980 },
-      { name: 'Product D', sales: 2780, units: 390 },
-      { name: 'Product E', sales: 1890, units: 480 },
-    ].map(p => ({...p, sales: p.sales * (conversionRates[currency] || 1)}));
-  }, [currency]);
+    const productSales = new Map<string, { sales: number; units: number }>();
+
+    vendorTransactions.forEach(tx => {
+      if (tx.status === 'Completed' && tx.amount > 0) {
+        // Extract product name from description. E.g., "Purchase of 'Product Name'"
+        const match = tx.description.match(/'([^']*)'/);
+        const productName = match ? match[1] : tx.module; // Fallback to module name
+
+        const current = productSales.get(productName) || { sales: 0, units: 0 };
+        current.sales += tx.amount;
+        current.units += 1;
+        productSales.set(productName, current);
+      }
+    });
+
+    return Array.from(productSales.entries())
+      .map(([name, data]) => ({
+        name,
+        sales: data.sales * (conversionRates[currency] || 1),
+        units: data.units,
+      }))
+      .sort((a, b) => b.sales - a.sales)
+      .slice(0, 5); // Get top 5 products
+  }, [vendorTransactions, currency]);
 
 
   const getStatusBadgeVariant = (status: VendorStatus) => {
@@ -200,7 +215,7 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
               </CardHeader>
               <CardContent>
                 <p className="text-4xl font-bold">{convertCurrency(totalBusiness)}</p>
-                <p className="text-xs text-muted-foreground">Across all DigitalNest portals</p>
+                <p className="text-xs text-muted-foreground">Based on completed transactions</p>
               </CardContent>
             </Card>
             <Card>
@@ -225,24 +240,33 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
           <Card>
              <CardHeader>
                 <CardTitle>Top Product Performance ({currency})</CardTitle>
-                <CardDescription>Sales performance of the vendor's top 5 products.</CardDescription>
+                <CardDescription>Sales performance of the vendor's top products.</CardDescription>
              </CardHeader>
              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={productPerformanceData}>
-                         <CartesianGrid strokeDasharray="3 3" />
-                         <XAxis dataKey="name" />
-                         <YAxis yAxisId="left" orientation="left" stroke="hsl(var(--primary))" tickFormatter={(value) => convertCurrency(value as number / (conversionRates[currency] || 1))}/>
-                         <YAxis yAxisId="right" orientation="right" stroke="hsl(var(--secondary-foreground))" />
-                         <Tooltip formatter={(value: number, name: string) => {
-                            if(name === 'Sales') return convertCurrency(value / (conversionRates[currency] || 1));
-                            return value;
-                         }} />
-                         <Legend />
-                         <Bar yAxisId="left" dataKey="sales" fill="hsl(var(--primary))" name="Sales" />
-                         <Bar yAxisId="right" dataKey="units" fill="hsl(var(--secondary))" name="Units Sold" />
-                    </BarChart>
-                </ResponsiveContainer>
+                 {productPerformanceData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={productPerformanceData} layout="vertical">
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis type="number" tickFormatter={(value) => convertCurrency(value as number / (conversionRates[currency] || 1))}/>
+                            <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 12 }} />
+                            <Tooltip
+                                formatter={(value: number, name: string) => {
+                                    if (name === 'Sales') return convertCurrency(value / (conversionRates[currency] || 1));
+                                    return value;
+                                }}
+                                cursor={{ fill: 'hsl(var(--muted))' }}
+                                contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                            />
+                            <Legend />
+                            <Bar dataKey="sales" fill="hsl(var(--primary))" name="Sales" />
+                            <Bar dataKey="units" fill="hsl(var(--secondary))" name="Units Sold" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                 ) : (
+                    <div className="flex items-center justify-center h-[300px] text-muted-foreground">
+                        No product performance data available.
+                    </div>
+                 )}
              </CardContent>
           </Card>
           <Card>
