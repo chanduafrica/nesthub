@@ -30,16 +30,17 @@ import {
   DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, PlusCircle, Search, Gift } from 'lucide-react';
+import { MoreHorizontal, Search, Gift, UserCheck, UserX } from 'lucide-react';
+import Link from 'next/link';
 
 const mockClients = [
-  { id: '1', name: 'John Doe', email: 'john@example.com', phone: '254712345678', business: 'NestMall', status: 'Active' },
-  { id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '254787654321', business: 'NestTravel', status: 'Active' },
-  { id: '3', name: 'Peter Jones', email: 'peter@example.com', phone: '254711223344', business: 'NestEvents', status: 'Inactive' },
-  { id: '4', name: 'Mary Anne', email: 'mary@example.com', phone: '254722334455', business: 'NestHomes', status: 'Active' },
-  { id: '5', name: 'Chris Kim', email: 'chris@example.com', phone: '254733445566', business: 'NestEats', status: 'Suspended' },
-  { id: '6', name: 'Alice Williams', email: 'alice@example.com', phone: '254701234567', business: 'NestMall', status: 'Active' },
-  { id: '7', name: 'Bob Brown', email: 'bob@example.com', phone: '254702345678', business: 'NestTravel', status: 'Active' },
+  { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku@example.com', phone: '254712345678', business: 125500, status: 'Active' },
+  { id: '2', name: 'Musa Okello', email: 'musa@example.com', phone: '254787654321', business: 89000, status: 'Active' },
+  { id: '3', name: 'Abebe Bikila', email: 'abebe@example.com', phone: '254711223344', business: 45000, status: 'Inactive' },
+  { id: '4', name: 'Fatima Al-Hassan', email: 'fatima@example.com', phone: '254722334455', business: 250000, status: 'Active' },
+  { id: '5', name: 'Chinedu Okoro', email: 'chinedu@example.com', phone: '254733445566', business: 15200, status: 'Suspended' },
+  { id: '6', name: 'Amina Yusuf', email: 'amina@example.com', phone: '254701234567', business: 76500, status: 'Active' },
+  { id: '7', name: 'Kofi Annan', email: 'kofi@example.com', phone: '254702345678', business: 180000, status: 'Active' },
 ];
 
 export default function AllClientsPage() {
@@ -60,6 +61,10 @@ export default function AllClientsPage() {
     );
 
     const totalPages = Math.ceil(filteredClients.length / itemsPerPage);
+
+    const formatCurrency = (amount: number) => {
+        return `KES ${amount.toLocaleString('en-US')}`;
+    }
 
   return (
     <Card>
@@ -92,9 +97,6 @@ export default function AllClientsPage() {
               <DropdownMenuCheckboxItem>Suspended</DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button>
-            <PlusCircle className="mr-2 h-4 w-4" /> Add Client
-          </Button>
         </div>
 
         <div className="rounded-md border">
@@ -115,7 +117,7 @@ export default function AllClientsPage() {
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell className="hidden md:table-cell">{client.email}</TableCell>
                    <TableCell className="hidden lg:table-cell">{client.phone}</TableCell>
-                  <TableCell>{client.business}</TableCell>
+                  <TableCell>{formatCurrency(client.business)}</TableCell>
                   <TableCell>
                     <Badge variant={
                         client.status === 'Active' ? 'default' : 
@@ -134,7 +136,16 @@ export default function AllClientsPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>View Client 360</DropdownMenuItem>
+                        <DropdownMenuItem asChild><Link href="#">View Client 360</Link></DropdownMenuItem>
+                         <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                            <UserCheck className="mr-2 h-4 w-4" />
+                            Activate
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-destructive">
+                            <UserX className="mr-2 h-4 w-4" />
+                            Deactivate
+                        </DropdownMenuItem>
                          <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-primary">
                             <Gift className="mr-2 h-4 w-4" />
