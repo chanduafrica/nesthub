@@ -96,7 +96,7 @@ const conversionRates: { [key: string]: number } = {
 
 export default function Client360Page({ params }: { params: { id: string } }) {
   const [allClients, setAllClients] = useState(mockClients);
-  const client = allClients.find((c) => c.id === params.id);
+  const [client, setClient] = useState(() => allClients.find((c) => c.id === params.id));
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
 
   const { currency } = useCurrency();
@@ -117,6 +117,7 @@ export default function Client360Page({ params }: { params: { id: string } }) {
   }
 
   const handleStatusChange = (newStatus: ClientStatus) => {
+    setClient(prevClient => prevClient ? { ...prevClient, status: newStatus } : undefined);
     setAllClients(allClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
   };
   
@@ -383,3 +384,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
