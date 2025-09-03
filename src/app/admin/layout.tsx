@@ -188,9 +188,9 @@ export default function AdminLayout({
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/modules/eats">
                   <UtensilsCrossed />
-                  <span>NestEats</span>
+                  <span>MamaAfrica</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
