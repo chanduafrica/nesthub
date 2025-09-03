@@ -107,7 +107,7 @@ const valueProps = [
   { icon: LayoutGrid, title: "Multi-Vertical", description: "One platform, multiple modules." },
   { icon: Cpu, title: "PaaS Flexibility", description: "Extend into fintech, logistics, events, media, and more." },
   { icon: ShieldCheck, title: "Africa-First", description: "Mobile money, escrow, USSD, fraud protection, KYC compliance." },
-  { icon: Rocket, title: "Rapid Deployment", description: "Go live in 4–6 weeks." },
+  { icon: Rocket, title: "Rapid Deployment", description: "Go live in 8–10 Weeks." },
   { icon: DollarSign, title: "Revenue Engine", description: "Subscriptions, commissions, ads, BNPL, loyalty, APIs." },
   { icon: Database, title: "Scalable & Secure", description: "Cloud-native architecture." },
 ];
