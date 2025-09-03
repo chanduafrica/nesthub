@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { mockVendors, VendorStatus, mockModuleEngagement } from '@/lib/mock-data';
+import { mockVendors, VendorStatus, mockModuleEngagement, mockTransactions } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -53,6 +53,16 @@ export default function AllVendorsPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const { currency } = useCurrency();
+
+    const vendorBusiness = useMemo(() => {
+        const businessMap = new Map<string, number>();
+        mockTransactions.forEach(tx => {
+            if (tx.vendorId && tx.status === 'Completed') {
+                businessMap.set(tx.vendorId, (businessMap.get(tx.vendorId) || 0) + tx.amount);
+            }
+        });
+        return businessMap;
+    }, []);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -158,7 +168,7 @@ export default function AllVendorsPage() {
                 <TableRow key={vendor.id}>
                   <TableCell className="font-medium">{vendor.name}</TableCell>
                   <TableCell>{vendor.portal}</TableCell>
-                  <TableCell className="hidden md:table-cell font-mono">{convertCurrency(vendor.business)}</TableCell>
+                  <TableCell className="hidden md:table-cell font-mono">{convertCurrency(vendorBusiness.get(vendor.id) || 0)}</TableCell>
                   <TableCell className="hidden sm:table-cell text-center">{vendor.products}</TableCell>
                   <TableCell className="text-center">
                     <Badge variant={getStatusBadgeVariant(vendor.status)}>

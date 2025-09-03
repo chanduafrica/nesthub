@@ -17,7 +17,7 @@ import {
   FileX
 } from 'lucide-react';
 import Image from 'next/image';
-import { mockVendors, Vendor, VendorStatus } from '@/lib/mock-data';
+import { mockVendors, Vendor, VendorStatus, mockTransactions, TransactionStatus } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -73,6 +73,12 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
   const [vendorStatus, setVendorStatus] = useState(vendor.status);
   const { currency } = useCurrency();
 
+  const { totalBusiness, vendorTransactions } = useMemo(() => {
+    const vendorTransactions = mockTransactions.filter(tx => tx.vendorId === vendor.id);
+    const totalBusiness = vendorTransactions.reduce((sum, tx) => tx.status === 'Completed' ? sum + tx.amount : sum, 0);
+    return { totalBusiness, vendorTransactions };
+  }, [vendor.id]);
+
   const convertCurrency = (amount: number) => {
     const rate = conversionRates[currency] || 1;
     return (amount * rate).toLocaleString('en-US', {
@@ -108,6 +114,16 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
             default: return 'secondary';
         }
     };
+    
+  const getTransactionStatusBadgeVariant = (status: TransactionStatus) => {
+      switch (status) {
+          case 'Completed': return 'default';
+          case 'Pending': return 'secondary';
+          case 'Refunded': return 'outline';
+          case 'Failed': return 'destructive';
+          default: return 'secondary';
+      }
+  };
 
 
   if (!vendor) {
@@ -183,7 +199,7 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-4xl font-bold">{convertCurrency(vendor.business)}</p>
+                <p className="text-4xl font-bold">{convertCurrency(totalBusiness)}</p>
                 <p className="text-xs text-muted-foreground">Across all DigitalNest portals</p>
               </CardContent>
             </Card>
@@ -239,37 +255,30 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Date</TableHead>
-                            <TableHead>Type</TableHead>
+                            <TableHead>Status</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead className="text-right">Amount ({currency})</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                       {/* Dummy Data */}
-                       <TableRow>
-                            <TableCell>2024-07-22</TableCell>
-                            <TableCell><Badge variant="default">Sale</Badge></TableCell>
-                            <TableCell>Order #12345 - iPhone 15 Pro</TableCell>
-                            <TableCell className="text-right">{convertCurrency(150000)}</TableCell>
-                         </TableRow>
-                         <TableRow>
-                            <TableCell>2024-07-21</TableCell>
-                             <TableCell><Badge variant="secondary">Payout</Badge></TableCell>
-                            <TableCell>Weekly Payout - 2024-W29</TableCell>
-                            <TableCell className="text-right text-destructive">{convertCurrency(-285000)}</TableCell>
-                         </TableRow>
-                         <TableRow>
-                            <TableCell>2024-07-20</TableCell>
-                            <TableCell><Badge variant="default">Sale</Badge></TableCell>
-                            <TableCell>Order #12344 - Samsung TV</TableCell>
-                            <TableCell className="text-right">{convertCurrency(85000)}</TableCell>
-                         </TableRow>
-                         <TableRow>
-                            <TableCell>2024-07-19</TableCell>
-                            <TableCell><Badge variant="outline">Refund</Badge></TableCell>
-                            <TableCell>Refund for Order #12301</TableCell>
-                            <TableCell className="text-right">{convertCurrency(-5500)}</TableCell>
-                         </TableRow>
+                        {vendorTransactions.length > 0 ? vendorTransactions.slice(0, 10).map(tx => (
+                            <TableRow key={tx.id}>
+                                <TableCell>{tx.date}</TableCell>
+                                <TableCell>
+                                    <Badge variant={getTransactionStatusBadgeVariant(tx.status)}>
+                                        {tx.status}
+                                    </Badge>
+                                </TableCell>
+                                <TableCell>{tx.description}</TableCell>
+                                <TableCell className="text-right font-mono">{convertCurrency(tx.amount)}</TableCell>
+                            </TableRow>
+                        )) : (
+                            <TableRow>
+                                <TableCell colSpan={4} className="text-center h-24">
+                                    No transactions found for this vendor.
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </CardContent>
