@@ -53,7 +53,8 @@ export default function AllClientsPage() {
 
     const filteredClients = clients.filter(client => {
         const searchMatch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            client.email.toLowerCase().includes(searchTerm.toLowerCase());
+                            client.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            client.country.toLowerCase().includes(searchTerm.toLowerCase());
         const statusMatch = statusFilters[client.status as ClientStatus];
         return searchMatch && statusMatch;
     });
@@ -92,7 +93,7 @@ export default function AllClientsPage() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
-                placeholder="Search by name or email..." 
+                placeholder="Search by name, email or country..." 
                 className="pl-10" 
                 value={searchTerm}
                 onChange={(e) => {
@@ -136,7 +137,7 @@ export default function AllClientsPage() {
               <TableRow>
                 <TableHead>Client Name</TableHead>
                 <TableHead className="hidden md:table-cell">Email</TableHead>
-                <TableHead className="hidden lg:table-cell">Phone</TableHead>
+                <TableHead className="hidden lg:table-cell">Country</TableHead>
                 <TableHead>Consolidated Business</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -147,7 +148,7 @@ export default function AllClientsPage() {
                 <TableRow key={client.id}>
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell className="hidden md:table-cell">{client.email}</TableCell>
-                   <TableCell className="hidden lg:table-cell">{client.phone}</TableCell>
+                   <TableCell className="hidden lg:table-cell">{client.country}</TableCell>
                   <TableCell>{formatCurrency(client.business)}</TableCell>
                   <TableCell>
                     <Badge variant={

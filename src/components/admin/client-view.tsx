@@ -291,7 +291,7 @@ export function ClientView({ client }: { client: Client }) {
                 </div>
                  <div className="flex items-center gap-3">
                   <Globe className="h-4 w-4" />
-                  <span>Nairobi, Kenya</span>
+                  <span>{client.country}</span>
                 </div>
               </div>
             </CardContent>
@@ -594,5 +594,3 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    

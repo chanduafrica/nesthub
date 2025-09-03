@@ -1,5 +1,5 @@
 
-'use client';
+'use-client';
 
 import { useState, useMemo } from 'react';
 import {
@@ -14,7 +14,8 @@ import {
   Package,
   Building,
   FileCheck,
-  FileX
+  FileX,
+  Globe
 } from 'lucide-react';
 import Image from 'next/image';
 import { mockVendors, Vendor, VendorStatus, mockTransactions, TransactionStatus } from '@/lib/mock-data';
@@ -202,6 +203,10 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4" />
                   <span>{vendor.phone}</span>
+                </div>
+                 <div className="flex items-center gap-3">
+                  <Globe className="h-4 w-4" />
+                  <span>{vendor.country}</span>
                 </div>
               </div>
             </CardContent>

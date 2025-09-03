@@ -5,42 +5,43 @@ export type Client = {
   name: string;
   email: string;
   phone: string;
+  country: string;
   business: number;
   status: ClientStatus;
 };
 
 export const mockClients: Client[] = [
-    { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku.kamau@gmail.com', phone: '254712345678', business: 125500, status: 'Active' },
-    { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '254787654321', business: 89000, status: 'Active' },
-    { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '254711223344', business: 45000, status: 'Inactive' },
-    { id: '4', name: 'Fatuma Al-Hassan', email: 'fatuma.hassan@protonmail.com', phone: '254722334455', business: 250000, status: 'Active' },
-    { id: '5', name: 'Mzee Jembe', email: 'mzee.jembe@tanzaniamail.com', phone: '255767123456', business: 15200, status: 'Suspended' },
-    { id: '6', name: 'Amina Yusuf', email: 'amina.yusuf@zoho.com', phone: '254701234567', business: 76500, status: 'Active' },
-    { id: '7', name: 'Supa Modo', email: 'supa.modo@gov.tz', phone: '255655123456', business: 180000, status: 'Active' },
-    { id: '8', name: 'Zainabu Ibrahim', email: 'zainabu.ibrahim@mail.com', phone: '254744556677', business: 32000, status: 'Inactive' },
-    { id: '9', name: 'Juma Omondi', email: 'juma.omondi@yandex.com', phone: '254755667788', business: 99000, status: 'Active' },
-    { id: '10', name: 'Bwana Drip', email: 'bwanadrip@rwandanet.rw', phone: '250788123456', business: 550000, status: 'Active' },
-    { id: '11', name: 'Halima Aden', email: 'halima.aden@somalinet.so', phone: '252615123456', business: 12000, status: 'Active' },
-    { id: '12', name: 'Idris Sultan', email: 'idris.sultan@bongomail.com', phone: '255715123456', business: 68000, status: 'Active' },
-    { id: '13', name: 'Vanessa Mdee', email: 'vanessa.mdee@gmail.com', phone: '255754123456', business: 210000, status: 'Active' },
-    { id: '14', name: 'Lupita Nyong\'o', email: 'lupita.n@hollywood.com', phone: '254721123456', business: 1200000, status: 'Active' },
-    { id: '15', name: 'Eddy Kenzo', email: 'eddy.kenzo@ugandabeats.ug', phone: '256772123456', business: 95000, status: 'Active' },
-    { id: '16',name: 'Juliana Kanyomozi', email: 'juliana.k@yahoo.com', phone: '256701123456', business: 150000, status: 'Inactive' },
-    { id: '17', name: 'Ali Kiba', email: 'alikiba@outlook.com', phone: '255713123456', business: 320000, status: 'Active' },
-    { id: '18', name: 'Brenda Wairimu', email: 'brenda.wairimu@me.com', phone: '254722987654', business: 58000, status: 'Active' },
-    { id: '19', name: 'Eric Omondi', email: 'eric.omondi@gmail.com', phone: '254720123456', business: 45000, status: 'Suspended' },
-    { id: '20', name: 'Jose Chameleone', email: 'jose.chameleone@music.ug', phone: '256782123456', business: 890000, status: 'Active' },
-    { id: '21', name: 'Wema Sepetu', email: 'wema.sepetu@bongomovie.com', phone: '255772123456', business: 75000, status: 'Inactive' },
-    { id: '22', name: 'John Garang', email: 'john.garang@southsudan.gov', phone: '211912123456', business: 43000, status: 'Active' },
-    { id: '23', name: 'Pierre Nkurunziza', email: 'pierre.n@burundimail.bi', phone: '25779123456', business: 22000, status: 'Active' },
-    { id: '24', name: 'Naliaka Shukisha', email: 'naliaka.shukisha@icloud.com', phone: '25775123456', business: 19000, status: 'Active' },
-    { id: '25', name: 'Churchill Ndambuki', email: 'mwalimuchurchill@gmail.com', phone: '254722222222', business: 180000, status: 'Active' },
-    { id: '26', name: 'Diamond Platnumz', email: 'diamond.p@wcbwasafi.com', phone: '255718123456', business: 1500000, status: 'Active' },
-    { id: '27', name: 'Fena Gitu', email: 'fena.gitu@fenamenal.com', phone: '254711123456', business: 92000, status: 'Active' },
-    { id: '28', name: 'Onyi Papa Jey', email: 'onyi.papajey@gmail.com', phone: '254700123456', business: 2500000, status: 'Inactive' },
-    { id: '29', name: 'Consolata Mrembo', email: 'consolata.mrembo@outlook.com', phone: '254733123456', business: 450000, status: 'Active' },
-    { id: '30', name: 'Brayo Yule Msee', email: 'brayo.yulemsee@protonmail.com', phone: '256752123456', business: 130000, status: 'Suspended' },
-    { id: '31', name: 'Zari Hassan', email: 'zari.hassan@gmail.com', phone: '256776123456', business: 600000, status: 'Active' },
+    { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku.kamau@gmail.com', phone: '254712345678', country: 'Kenya', business: 125500, status: 'Active' },
+    { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '254787654321', country: 'Kenya', business: 89000, status: 'Active' },
+    { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '254711223344', country: 'Kenya', business: 45000, status: 'Inactive' },
+    { id: '4', name: 'Fatuma Al-Hassan', email: 'fatuma.hassan@protonmail.com', phone: '254722334455', country: 'Kenya', business: 250000, status: 'Active' },
+    { id: '5', name: 'Mzee Jembe', email: 'mzee.jembe@tanzaniamail.com', phone: '255767123456', country: 'Tanzania', business: 15200, status: 'Suspended' },
+    { id: '6', name: 'Amina Yusuf', email: 'amina.yusuf@zoho.com', phone: '254701234567', country: 'Kenya', business: 76500, status: 'Active' },
+    { id: '7', name: 'Supa Modo', email: 'supa.modo@gov.tz', phone: '255655123456', country: 'Tanzania', business: 180000, status: 'Active' },
+    { id: '8', name: 'Zainabu Ibrahim', email: 'zainabu.ibrahim@mail.com', phone: '254744556677', country: 'Kenya', business: 32000, status: 'Inactive' },
+    { id: '9', name: 'Juma Omondi', email: 'juma.omondi@yandex.com', phone: '254755667788', country: 'Kenya', business: 99000, status: 'Active' },
+    { id: '10', name: 'Bwana Drip', email: 'bwanadrip@rwandanet.rw', phone: '250788123456', country: 'Rwanda', business: 550000, status: 'Active' },
+    { id: '11', name: 'Halima Aden', email: 'halima.aden@somalinet.so', phone: '252615123456', country: 'Somalia', business: 12000, status: 'Active' },
+    { id: '12', name: 'Idris Sultan', email: 'idris.sultan@bongomail.com', phone: '255715123456', country: 'Tanzania', business: 68000, status: 'Active' },
+    { id: '13', name: 'Vanessa Mdee', email: 'vanessa.mdee@gmail.com', phone: '255754123456', country: 'Tanzania', business: 210000, status: 'Active' },
+    { id: '14', name: 'Lupita Nyong\'o', email: 'lupita.n@hollywood.com', phone: '254721123456', country: 'Kenya', business: 1200000, status: 'Active' },
+    { id: '15', name: 'Eddy Kenzo', email: 'eddy.kenzo@ugandabeats.ug', phone: '256772123456', country: 'Uganda', business: 95000, status: 'Active' },
+    { id: '16',name: 'Juliana Kanyomozi', email: 'juliana.k@yahoo.com', phone: '256701123456', country: 'Uganda', business: 150000, status: 'Inactive' },
+    { id: '17', name: 'Ali Kiba', email: 'alikiba@outlook.com', phone: '255713123456', country: 'Tanzania', business: 320000, status: 'Active' },
+    { id: '18', name: 'Brenda Wairimu', email: 'brenda.wairimu@me.com', phone: '254722987654', country: 'Kenya', business: 58000, status: 'Active' },
+    { id: '19', name: 'Eric Omondi', email: 'eric.omondi@gmail.com', phone: '254720123456', country: 'Kenya', business: 45000, status: 'Suspended' },
+    { id: '20', name: 'Jose Chameleone', email: 'jose.chameleone@music.ug', phone: '256782123456', country: 'Uganda', business: 890000, status: 'Active' },
+    { id: '21', name: 'Wema Sepetu', email: 'wema.sepetu@bongomovie.com', phone: '255772123456', country: 'Tanzania', business: 75000, status: 'Inactive' },
+    { id: '22', name: 'John Garang', email: 'john.garang@southsudan.gov', phone: '211912123456', country: 'South Sudan', business: 43000, status: 'Active' },
+    { id: '23', name: 'Pierre Nkurunziza', email: 'pierre.n@burundimail.bi', phone: '25779123456', country: 'Burundi', business: 22000, status: 'Active' },
+    { id: '24', name: 'Naliaka Shukisha', email: 'naliaka.shukisha@icloud.com', phone: '25775123456', country: 'Burundi', business: 19000, status: 'Active' },
+    { id: '25', name: 'Churchill Ndambuki', email: 'mwalimuchurchill@gmail.com', phone: '254722222222', country: 'Kenya', business: 180000, status: 'Active' },
+    { id: '26', name: 'Diamond Platnumz', email: 'diamond.p@wcbwasafi.com', phone: '255718123456', country: 'Tanzania', business: 1500000, status: 'Active' },
+    { id: '27', name: 'Fena Gitu', email: 'fena.gitu@fenamenal.com', phone: '254711123456', country: 'Kenya', business: 92000, status: 'Active' },
+    { id: '28', name: 'Onyi Papa Jey', email: 'onyi.papajey@gmail.com', phone: '254700123456', country: 'Kenya', business: 2500000, status: 'Inactive' },
+    { id: '29', name: 'Consolata Mrembo', email: 'consolata.mrembo@outlook.com', phone: '254733123456', country: 'Kenya', business: 450000, status: 'Active' },
+    { id: '30', name: 'Brayo Yule Msee', email: 'brayo.yulemsee@protonmail.com', phone: '256752123456', country: 'Uganda', business: 130000, status: 'Suspended' },
+    { id: '31', name: 'Zari Hassan', email: 'zari.hassan@gmail.com', phone: '256776123456', country: 'Uganda', business: 600000, status: 'Active' },
 ];
 
 export type TransactionStatus = 'Completed' | 'Pending' | 'Refunded' | 'Failed';
@@ -113,6 +114,7 @@ export type Vendor = {
   name: string;
   email: string;
   phone: string;
+  country: string;
   portal: string;
   products: number;
   rating: number;
@@ -120,14 +122,14 @@ export type Vendor = {
 };
 
 export const mockVendors: Vendor[] = [
-    { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '254711111111', portal: 'NestMall', products: 50, rating: 4.5, status: 'Active' },
-    { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '255788888888', portal: 'MamaAfrica', products: 25, rating: 4.8, status: 'Active' },
-    { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '254722000000', portal: 'NestJobs', products: 15, rating: 4.2, status: 'Active' },
-    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '254733333333', portal: 'NestHomes', products: 200, rating: 4.0, status: 'Inactive' },
-    { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '254709000000', portal: 'NestTravel', products: 100, rating: 3.8, status: 'Active' },
-    { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '254744444444', portal: 'NestEvents', products: 10, rating: 4.9, status: 'Pending' },
-    { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '254755555555', portal: 'NestParcel', products: 1, rating: 4.3, status: 'Active' },
-    { id: 'v8', name: 'Tuskys Supermarket', email: 'customercare@tuskys.com', phone: '254766666666', portal: 'NestMall', products: 10000, rating: 3.5, status: 'Inactive' },
-    { id: 'v9', name: 'Pulse Live', email: 'editor@pulselive.co.ke', phone: '254777777777', portal: 'NestMedia', products: 500, rating: 4.6, status: 'Active' },
-    { id: 'v10', name: 'Kazi Mtaani Initiative', email: 'jobs@kazimtaani.go.ke', phone: '254788888888', portal: 'NestJobs', products: 30, rating: 4.1, status: 'Pending' },
+    { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '254711111111', country: 'Kenya', portal: 'NestMall', products: 50, rating: 4.5, status: 'Active' },
+    { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '255788888888', country: 'Tanzania', portal: 'MamaAfrica', products: 25, rating: 4.8, status: 'Active' },
+    { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '254722000000', country: 'Kenya', portal: 'NestJobs', products: 15, rating: 4.2, status: 'Active' },
+    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '254733333333', country: 'Kenya', portal: 'NestHomes', products: 200, rating: 4.0, status: 'Inactive' },
+    { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '254709000000', country: 'Kenya', portal: 'NestTravel', products: 100, rating: 3.8, status: 'Active' },
+    { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '254744444444', country: 'Kenya', portal: 'NestEvents', products: 10, rating: 4.9, status: 'Pending' },
+    { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '254755555555', country: 'Kenya', portal: 'NestParcel', products: 1, rating: 4.3, status: 'Active' },
+    { id: 'v8', name: 'Tuskys Supermarket', email: 'customercare@tuskys.com', phone: '254766666666', country: 'Kenya', portal: 'NestMall', products: 10000, rating: 3.5, status: 'Inactive' },
+    { id: 'v9', name: 'Pulse Live', email: 'editor@pulselive.co.ke', phone: '254777777777', country: 'Kenya', portal: 'NestMedia', products: 500, rating: 4.6, status: 'Active' },
+    { id: 'v10', name: 'Kazi Mtaani Initiative', email: 'jobs@kazimtaani.go.ke', phone: '254788888888', country: 'Kenya', portal: 'NestJobs', products: 30, rating: 4.1, status: 'Pending' },
 ];

@@ -82,7 +82,8 @@ export default function AllVendorsPage() {
 
     const filteredVendors = useMemo(() => {
         return vendors.filter(vendor => {
-            const searchMatch = vendor.name.toLowerCase().includes(searchTerm.toLowerCase());
+            const searchMatch = vendor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                vendor.country.toLowerCase().includes(searchTerm.toLowerCase());
             const statusMatch = statusFilter === 'all' || vendor.status === statusFilter;
             const portalMatch = portalFilter === 'all' || vendor.portal === portalFilter;
             return searchMatch && statusMatch && portalMatch;
@@ -118,7 +119,7 @@ export default function AllVendorsPage() {
           <div className="relative flex-1 min-w-[200px]">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input 
-                placeholder="Search by vendor name..." 
+                placeholder="Search by vendor or country..." 
                 className="pl-10" 
                 value={searchTerm}
                 onChange={(e) => {
@@ -157,8 +158,8 @@ export default function AllVendorsPage() {
               <TableRow>
                 <TableHead>Vendor Name</TableHead>
                 <TableHead>Portal</TableHead>
-                <TableHead className="hidden md:table-cell">Total Business ({currency})</TableHead>
-                <TableHead className="hidden sm:table-cell text-center">Products</TableHead>
+                <TableHead className="hidden md:table-cell">Country</TableHead>
+                <TableHead className="hidden sm:table-cell">Total Business ({currency})</TableHead>
                 <TableHead className="text-center">Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -168,8 +169,8 @@ export default function AllVendorsPage() {
                 <TableRow key={vendor.id}>
                   <TableCell className="font-medium">{vendor.name}</TableCell>
                   <TableCell>{vendor.portal}</TableCell>
-                  <TableCell className="hidden md:table-cell font-mono">{convertCurrency(vendorBusiness.get(vendor.id) || 0)}</TableCell>
-                  <TableCell className="hidden sm:table-cell text-center">{vendor.products}</TableCell>
+                  <TableCell className="hidden md:table-cell">{vendor.country}</TableCell>
+                  <TableCell className="hidden sm:table-cell font-mono">{convertCurrency(vendorBusiness.get(vendor.id) || 0)}</TableCell>
                   <TableCell className="text-center">
                     <Badge variant={getStatusBadgeVariant(vendor.status)}>
                         {vendor.status}
