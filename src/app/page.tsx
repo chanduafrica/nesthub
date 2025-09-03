@@ -50,7 +50,7 @@ const Header = () => (
         <span className="ml-2 font-bold text-lg">DIGITALNEST</span>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
-         <Link href="/admin">
+         <Link href="/admin/login">
           <Button variant="ghost">
             <UserCog className="mr-2 h-4 w-4" />
             Admin
