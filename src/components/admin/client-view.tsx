@@ -104,21 +104,12 @@ export function ClientView({ client }: { client: Client }) {
   
   const [offersCurrentPage, setOffersCurrentPage] = useState(1);
   const offersItemsPerPage = 5;
-  const totalOffersPages = Math.ceil(sentOffers.length / offersItemsPerPage);
-  const paginatedOffers = sentOffers.slice(
-      (offersCurrentPage - 1) * offersItemsPerPage,
-      offersCurrentPage * offersItemsPerPage
-  );
-
+  
+  
   const [transactionsCurrentPage, setTransactionsCurrentPage] = useState(1);
   const transactionsItemsPerPage = 5;
   const clientTransactions = mockTransactions.filter(tx => tx.clientId === client.id);
-  const totalTransactionsPages = Math.ceil(clientTransactions.length / transactionsItemsPerPage);
-  const paginatedTransactions = clientTransactions.slice(
-    (transactionsCurrentPage - 1) * transactionsItemsPerPage,
-    transactionsCurrentPage * transactionsItemsPerPage
-  );
-
+  
   const { currency } = useCurrency();
   const { toast } = useToast();
 
@@ -141,6 +132,18 @@ export function ClientView({ client }: { client: Client }) {
             });
     }
   }, [client.id, toast]);
+
+    const totalOffersPages = Math.ceil(sentOffers.length / offersItemsPerPage);
+    const paginatedOffers = sentOffers.slice(
+      (offersCurrentPage - 1) * offersItemsPerPage,
+      offersCurrentPage * offersItemsPerPage
+    );
+
+    const totalTransactionsPages = Math.ceil(clientTransactions.length / transactionsItemsPerPage);
+    const paginatedTransactions = clientTransactions.slice(
+        (transactionsCurrentPage - 1) * transactionsItemsPerPage,
+        transactionsCurrentPage * transactionsItemsPerPage
+    );
 
 
   const convertCurrency = (amount: number) => {
@@ -241,8 +244,8 @@ export function ClientView({ client }: { client: Client }) {
                 Deactivate
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DialogTrigger asChild>
-                    <DropdownMenuItem className="text-primary">
+                 <DialogTrigger asChild>
+                    <DropdownMenuItem className="text-primary" onSelect={() => setDiscountModalOpen(true)}>
                         <Gift className="mr-2 h-4 w-4" />
                         Offer Discount
                     </DropdownMenuItem>
@@ -589,7 +592,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    
 
     
