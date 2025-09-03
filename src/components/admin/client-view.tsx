@@ -110,6 +110,15 @@ export function ClientView({ client }: { client: Client }) {
       offersCurrentPage * offersItemsPerPage
   );
 
+  const [transactionsCurrentPage, setTransactionsCurrentPage] = useState(1);
+  const transactionsItemsPerPage = 5;
+  const clientTransactions = mockTransactions.filter(tx => tx.clientId === client.id);
+  const totalTransactionsPages = Math.ceil(clientTransactions.length / transactionsItemsPerPage);
+  const paginatedTransactions = clientTransactions.slice(
+    (transactionsCurrentPage - 1) * transactionsItemsPerPage,
+    transactionsCurrentPage * transactionsItemsPerPage
+  );
+
   const { currency } = useCurrency();
   const { toast } = useToast();
 
@@ -445,17 +454,48 @@ export function ClientView({ client }: { client: Client }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                       {mockTransactions.map((tx) => (
+                       {paginatedTransactions.length > 0 ? paginatedTransactions.map((tx) => (
                          <TableRow key={tx.id}>
                             <TableCell>{tx.date}</TableCell>
                             <TableCell>{tx.module}</TableCell>
                             <TableCell>{tx.description}</TableCell>
                             <TableCell className="text-right">{convertCurrency(tx.amount)}</TableCell>
                          </TableRow>
-                       ))}
+                       )) : (
+                         <TableRow>
+                           <TableCell colSpan={4} className="h-24 text-center">
+                             No transactions found for this client.
+                           </TableCell>
+                         </TableRow>
+                       )}
                     </TableBody>
                 </Table>
             </CardContent>
+            {clientTransactions.length > 0 && (
+              <CardFooter className="flex justify-between items-center">
+                  <div className="text-xs text-muted-foreground">
+                      Page {transactionsCurrentPage} of {totalTransactionsPages}
+                  </div>
+                  <div className="flex items-center gap-2">
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setTransactionsCurrentPage(prev => Math.max(prev - 1, 1))}
+                          disabled={transactionsCurrentPage === 1}
+                      >
+                          Previous
+                      </Button>
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setTransactionsCurrentPage(prev => Math.min(prev + 1, totalTransactionsPages))}
+                          disabled={transactionsCurrentPage === totalTransactionsPages}
+                      >
+                          Next
+                      </Button>
+                  </div>
+              </CardFooter>
+            )}
           </Card>
         </div>
       </div>
