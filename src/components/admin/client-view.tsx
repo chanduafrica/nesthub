@@ -23,6 +23,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -99,6 +100,15 @@ export function ClientView({ client: initialClient }: { client: Client }) {
   const [sentOffers, setSentOffers] = useState<Offer[]>(mockOffers.filter(o => o.clientId === client.id));
   
   const [date, setDate] = useState<DateRange | undefined>(undefined);
+  
+  const [offersCurrentPage, setOffersCurrentPage] = useState(1);
+  const offersItemsPerPage = 5;
+  const totalOffersPages = Math.ceil(sentOffers.length / offersItemsPerPage);
+  const paginatedOffers = sentOffers.slice(
+      (offersCurrentPage - 1) * offersItemsPerPage,
+      offersCurrentPage * offersItemsPerPage
+  );
+
 
   const { currency } = useCurrency();
   const { toast } = useToast();
@@ -261,7 +271,7 @@ export function ClientView({ client: initialClient }: { client: Client }) {
                     <CardTitle>Recent Offers</CardTitle>
                     <CardDescription>Discounts and prizes sent to the client.</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-0">
                     {sentOffers.length > 0 ? (
                         <Table>
                             <TableHeader>
@@ -272,7 +282,7 @@ export function ClientView({ client: initialClient }: { client: Client }) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {sentOffers.slice(0, 5).map(offer => (
+                                {paginatedOffers.map(offer => (
                                     <TableRow key={offer.id}>
                                         <TableCell className="font-mono">{offer.code}</TableCell>
                                         <TableCell>{offer.type === 'percentage' ? `${offer.value}%` : convertCurrency(offer.value)}</TableCell>
@@ -285,6 +295,31 @@ export function ClientView({ client: initialClient }: { client: Client }) {
                         <p className="text-sm text-muted-foreground text-center py-4">No offers sent yet.</p>
                     )}
                 </CardContent>
+                 {sentOffers.length > 0 && (
+                    <CardFooter className="flex justify-between items-center">
+                        <div className="text-xs text-muted-foreground">
+                            Page {offersCurrentPage} of {totalOffersPages}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setOffersCurrentPage(prev => Math.max(prev - 1, 1))}
+                                disabled={offersCurrentPage === 1}
+                            >
+                                Previous
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setOffersCurrentPage(prev => Math.min(prev + 1, totalOffersPages))}
+                                disabled={offersCurrentPage === totalOffersPages}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </CardFooter>
+                 )}
             </Card>
         </div>
 
@@ -484,3 +519,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
