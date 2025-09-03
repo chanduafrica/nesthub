@@ -1,5 +1,5 @@
 
-'use-client';
+'use client';
 
 import { useState, useMemo } from 'react';
 import {
@@ -317,3 +317,5 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
     </div>
   );
 }
+
+    
