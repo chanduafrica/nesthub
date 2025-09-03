@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState, useMemo } from 'react';
 import {
   ArrowLeft,
   Briefcase,
@@ -18,9 +19,11 @@ import {
   UserCheck,
   UserX,
   UtensilsCrossed,
+  Percent,
+  RefreshCw,
 } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { mockClients, mockModuleEngagement, mockTransactions } from '@/lib/mock-data';
+import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -58,18 +61,87 @@ import {
     Legend,
     Bar
 } from 'recharts';
+import { useCurrency } from '@/hooks/use-currency';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useToast } from '@/hooks/use-toast';
+
+const conversionRates: { [key: string]: number } = {
+    KES: 1,
+    UGX: 29.45,
+    TZS: 20.45,
+    RWF: 10.33,
+    BIF: 22.58,
+    SSP: 1.22,
+    SOS: 4.55,
+};
 
 
 export default function Client360Page({ params }: { params: { id: string } }) {
-  const client = mockClients.find((c) => c.id === params.id);
+  const [allClients, setAllClients] = useState(mockClients);
+  const client = allClients.find((c) => c.id === params.id);
+  const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
+
+  const { currency } = useCurrency();
+  const { toast } = useToast();
+
+  const convertCurrency = (amount: number) => {
+    const rate = conversionRates[currency] || 1;
+    return (amount * rate).toLocaleString('en-US', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
 
   if (!client) {
     notFound();
   }
 
-  const formatCurrency = (amount: number) => {
-    return `KES ${amount.toLocaleString('en-US')}`;
+  const handleStatusChange = (newStatus: ClientStatus) => {
+    setAllClients(allClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
   };
+  
+  const handleSendDiscount = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData.entries());
+      console.log('Discount Offer:', data);
+      
+      toast({
+        title: 'Discount Sent!',
+        description: `Offer code ${data.code} has been sent to ${client.name}.`,
+      });
+      setDiscountModalOpen(false);
+  };
+
+
+  const convertedModuleEngagement = useMemo(() => {
+    const rate = conversionRates[currency] || 1;
+    return mockModuleEngagement.map(item => ({
+        ...item,
+        value: item.value * rate,
+    }));
+  }, [currency]);
+
 
   return (
     <div className="flex flex-col gap-8">
@@ -83,31 +155,41 @@ export default function Client360Page({ params }: { params: { id: string } }) {
           </Button>
           <h1 className="text-2xl font-bold">Client 360 View</h1>
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon">
-              <MoreVertical className="h-4 w-4" />
-              <span className="sr-only">Client Actions</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Client Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem disabled={client.status === 'Active'}>
-              <UserCheck className="mr-2 h-4 w-4" />
-              Activate
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-destructive" disabled={client.status !== 'Active'}>
-              <UserX className="mr-2 h-4 w-4" />
-              Deactivate
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-primary">
-              <Gift className="mr-2 h-4 w-4" />
-              Offer Prize
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Dialog open={isDiscountModalOpen} onOpenChange={setDiscountModalOpen}>
+            <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon">
+                <MoreVertical className="h-4 w-4" />
+                <span className="sr-only">Client Actions</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Client Actions</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                    onClick={() => handleStatusChange('Active')} 
+                    disabled={client.status === 'Active'}>
+                <UserCheck className="mr-2 h-4 w-4" />
+                Activate
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                    className="text-destructive" 
+                    onClick={() => handleStatusChange('Inactive')} 
+                    disabled={client.status !== 'Active'}>
+                <UserX className="mr-2 h-4 w-4" />
+                Deactivate
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DialogTrigger asChild>
+                    <DropdownMenuItem className="text-primary">
+                        <Gift className="mr-2 h-4 w-4" />
+                        Offer Discount
+                    </DropdownMenuItem>
+                </DialogTrigger>
+            </DropdownMenuContent>
+            </DropdownMenu>
+            <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
+        </Dialog>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -152,11 +234,11 @@ export default function Client360Page({ params }: { params: { id: string } }) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-primary" />
-                  <span>Total Lifetime Business</span>
+                  <span>Total Lifetime Business ({currency})</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-4xl font-bold">{formatCurrency(client.business)}</p>
+                <p className="text-4xl font-bold">{convertCurrency(client.business)}</p>
                 <p className="text-xs text-muted-foreground">Across all DigitalNest portals</p>
               </CardContent>
             </Card>
@@ -166,16 +248,16 @@ export default function Client360Page({ params }: { params: { id: string } }) {
         <div className="lg:col-span-2 flex flex-col gap-8">
           <Card>
              <CardHeader>
-                <CardTitle>Module Engagement</CardTitle>
+                <CardTitle>Module Engagement ({currency})</CardTitle>
                 <CardDescription>Business value generated per module.</CardDescription>
              </CardHeader>
              <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={mockModuleEngagement} layout="vertical">
+                    <BarChart data={convertedModuleEngagement} layout="vertical">
                          <CartesianGrid strokeDasharray="3 3" />
-                         <XAxis type="number" tickFormatter={(value) => formatCurrency(value as number)} />
+                         <XAxis type="number" tickFormatter={(value) => convertCurrency(value as number / (conversionRates[currency] || 1))} />
                          <YAxis type="category" dataKey="name" width={80} />
-                         <Tooltip formatter={(value: number) => formatCurrency(value)} />
+                         <Tooltip formatter={(value: number, name, props) => convertCurrency(props.payload.value / (conversionRates[currency] || 1))} />
                          <Bar dataKey="value" fill="hsl(var(--primary))" name="Business" />
                     </BarChart>
                 </ResponsiveContainer>
@@ -193,7 +275,7 @@ export default function Client360Page({ params }: { params: { id: string } }) {
                             <TableHead>Date</TableHead>
                             <TableHead>Module</TableHead>
                             <TableHead>Description</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
+                            <TableHead className="text-right">Amount ({currency})</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -202,7 +284,7 @@ export default function Client360Page({ params }: { params: { id: string } }) {
                             <TableCell>{tx.date}</TableCell>
                             <TableCell>{tx.module}</TableCell>
                             <TableCell>{tx.description}</TableCell>
-                            <TableCell className="text-right">{formatCurrency(tx.amount)}</TableCell>
+                            <TableCell className="text-right">{convertCurrency(tx.amount)}</TableCell>
                          </TableRow>
                        ))}
                     </TableBody>
@@ -215,3 +297,89 @@ export default function Client360Page({ params }: { params: { id: string } }) {
   );
 }
 
+function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e: React.FormEvent<HTMLFormElement>) => void }) {
+    const [discountType, setDiscountType] = useState<'percentage' | 'amount'>('percentage');
+    const [offerCode, setOfferCode] = useState(generateOfferCode());
+
+    function generateOfferCode() {
+        return `DNEST-${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+    }
+
+    return (
+        <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+                <DialogTitle>Create Discount for {client.name}</DialogTitle>
+                <DialogDescription>
+                    Select the portal, discount type, and value. The code will be sent to the client.
+                </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={onSubmit} className="space-y-4">
+                <div className="grid gap-2">
+                    <Label htmlFor="portal">Portal / Module</Label>
+                    <Select name="portal" defaultValue="all">
+                        <SelectTrigger id="portal">
+                            <SelectValue placeholder="Select a portal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Portals</SelectItem>
+                             {mockModuleEngagement.map(mod => (
+                                <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
+                             ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="grid gap-2">
+                    <Label>Discount Type</Label>
+                    <RadioGroup
+                        defaultValue="percentage"
+                        className="grid grid-cols-2 gap-4"
+                        value={discountType}
+                        onValueChange={(value: 'percentage' | 'amount') => setDiscountType(value)}
+                        name="discountType"
+                    >
+                        <div>
+                            <RadioGroupItem value="percentage" id="r1" className="peer sr-only" />
+                            <Label
+                                htmlFor="r1"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                                <Percent className="mb-3 h-6 w-6" />
+                                Percentage
+                            </Label>
+                        </div>
+                        <div>
+                            <RadioGroupItem value="amount" id="r2" className="peer sr-only" />
+                            <Label
+                                htmlFor="r2"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                                <DollarSign className="mb-3 h-6 w-6" />
+                                Fixed Amount
+                            </Label>
+                        </div>
+                    </RadioGroup>
+                </div>
+
+                <div className="grid gap-2">
+                    <Label htmlFor="value">
+                        {discountType === 'percentage' ? 'Percentage (%)' : 'Amount (KES)'}
+                    </Label>
+                    <Input id="value" name="value" type="number" placeholder={discountType === 'percentage' ? 'e.g., 15' : 'e.g., 500'} required />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="code">Offer Code</Label>
+                    <div className="flex items-center gap-2">
+                        <Input id="code" name="code" value={offerCode} readOnly />
+                        <Button type="button" variant="outline" size="icon" onClick={() => setOfferCode(generateOfferCode())}>
+                            <RefreshCw className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Send Discount</Button>
+                </DialogFooter>
+            </form>
+        </DialogContent>
+    )
+}
