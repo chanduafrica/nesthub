@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UtensilsCrossed } from "lucide-react";
+import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UtensilsCrossed } from "lucide-react";
 import type { SVGProps } from "react";
 
 const NestIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -25,7 +25,7 @@ const NestIcon = (props: SVGProps<SVGSVGElement>) => (
 );
 
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
@@ -141,15 +141,16 @@ const ValuePropositionSection = () => (
 );
 
 const modules = [
-  { icon: ShoppingCart, title: "NestMall (Marketplace-as-a-Service)", description: "Multi-vendor store management, wholesale pricing, logistics integration, vendor POS." },
-  { icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage calculators." },
-  { icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons." },
-  { icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations." },
-  { icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis)." },
-  { icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points." },
-  { icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations." },
-  { icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships." },
-  { icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads." },
+  { icon: ShoppingCart, title: "NestMall (Marketplace-as-a-Service)", description: "Multi-vendor store management, wholesale pricing, logistics integration, vendor POS. Enables partners to launch digital malls in weeks." },
+  { icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage/insurance calculators. Monetize property transactions and financial services." },
+  { icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons. Create revenue streams from travel and tourism ecosystems." },
+  { icon: MessageSquare, title: "Campfire (Community-as-a-Service)", description: "Topic forums (money, careers, mental health, society), live AMAs, polls and challenges. Gamified loyalty (“Sparks” points), anonymous wellness support, youth stories/podcasts." },
+  { icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships. Unlock ticketing plus media monetization." },
+  { icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs." },
+  { icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings." },
+  { icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
+  { icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations. Power digital commerce with seamless logistics." },
+  { icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
 ];
 
 
