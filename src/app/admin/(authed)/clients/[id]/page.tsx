@@ -88,7 +88,7 @@ const conversionRates: { [key: string]: number } = {
 
 
 export default function Client360Page({ params }: { params: { id: string } }) {
-  const initialClient = mockClients.find((c) => c.id === params.id);
+  const initialClient = useMemo(() => mockClients.find((c) => c.id === params.id), [params.id]);
 
   const [allClients, setAllClients] = useState(mockClients);
   const [client, setClient] = useState(initialClient);
@@ -241,7 +241,7 @@ export default function Client360Page({ params }: { params: { id: string } }) {
         </div>
 
         {/* Right Column: Engagement & Transactions */}
-        <div className="lg:col-span-2 flex flex-col gap-8">
+        <div className="lg    :col-span-2 flex flex-col gap-8">
           <Card>
              <CardHeader>
                 <CardTitle>Module Engagement ({currency})</CardTitle>
