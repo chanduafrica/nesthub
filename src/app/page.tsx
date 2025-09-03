@@ -1,3 +1,216 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UtensilsCrossed } from "lucide-react";
+import type { SVGProps } from "react";
+
+const NestIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+    <path d="M12 12a5 5 0 0 0-5 5" />
+    <path d="M12 7a5 5 0 0 1 5 5" />
+    <path d="M7 12a5 5 0 0 0 5 5" />
+    <path d="M17 12a5 5 0 0 1-5 5" />
+  </svg>
+);
+
+
 export default function Home() {
-  return <></>;
+  return (
+    <div className="flex flex-col min-h-screen bg-background">
+      <Header />
+      <main className="flex-1">
+        <HeroSection />
+        <IntroductionSection />
+        <ValuePropositionSection />
+        <CoreModulesSection />
+        <CtaSection />
+      </main>
+      <Footer />
+    </div>
+  );
 }
+
+const Header = () => (
+  <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="container flex h-14 items-center">
+      <div className="mr-4 flex items-center">
+        <NestIcon className="h-6 w-6 text-primary" />
+        <span className="ml-2 font-bold text-lg">DIGITALNEST</span>
+      </div>
+      <div className="flex flex-1 items-center justify-end space-x-4">
+        <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">Request a Demo</Button>
+      </div>
+    </div>
+  </header>
+);
+
+const HeroSection = () => (
+  <section className="relative py-20 md:py-32 bg-secondary/50">
+     <div
+      aria-hidden="true"
+      className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
+    >
+      <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-accent"></div>
+      <div className="blur-[106px] h-32 bg-gradient-to-r from-accent to-primary"></div>
+    </div>
+    <div className="container relative text-center">
+      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl font-headline">
+        Africa’s Engine for Marketplaces, SuperApps & Digital Platforms
+      </h1>
+      <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+        We empower organizations to launch their own marketplaces, super apps, and digital platforms within weeks.
+      </p>
+      <div className="mt-10">
+        <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          Request a Demo
+        </Button>
+      </div>
+    </div>
+  </section>
+);
+
+
+const IntroductionSection = () => (
+  <section id="introduction" className="py-16 md:py-24">
+    <div className="container max-w-5xl mx-auto">
+      <div className="text-center">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-primary">Introduction</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline">
+          Bridging Africa's Digital Divide
+        </p>
+      </div>
+      <div className="mt-12 text-lg text-muted-foreground space-y-6 leading-relaxed text-center max-w-4xl mx-auto">
+        <p>
+          Africa’s digital economy is projected to exceed $180 billion by 2025, powered by mobile-first consumers, internet growth, and mobile money adoption. Yet telcos, banks, media houses, and brands struggle to launch profitable digital platforms quickly and affordably.
+        </p>
+        <p className="text-foreground font-medium">
+          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces, super apps, and digital platforms within weeks — complete with monetization, local integrations, and scalable architecture.
+        </p>
+      </div>
+    </div>
+  </section>
+);
+
+const valueProps = [
+  { icon: Globe, title: "White-label & Branded", description: "Partners launch under their own identity." },
+  { icon: LayoutGrid, title: "Multi-Vertical", description: "One platform, multiple modules." },
+  { icon: Cpu, title: "PaaS Flexibility", description: "Extend into fintech, logistics, events, media, and more." },
+  { icon: ShieldCheck, title: "Africa-First", description: "Mobile money, escrow, USSD, fraud protection, KYC compliance." },
+  { icon: Rocket, title: "Rapid Deployment", description: "Go live in 4–6 weeks." },
+  { icon: DollarSign, title: "Revenue Engine", description: "Subscriptions, commissions, ads, BNPL, loyalty, APIs." },
+  { icon: Database, title: "Scalable & Secure", description: "Cloud-native architecture." },
+];
+
+const ValuePropositionSection = () => (
+  <section id="value-proposition" className="py-16 md:py-24 bg-secondary/50">
+    <div className="container">
+      <div className="text-center max-w-3xl mx-auto">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-primary">Value Proposition</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline">
+          Your All-in-One Digital Partner
+        </p>
+      </div>
+      <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {valueProps.map((prop) => (
+          <Card key={prop.title} className="text-center">
+            <CardHeader className="items-center">
+              <div className="p-4 bg-primary/10 rounded-full">
+                <prop.icon className="h-8 w-8 text-primary" />
+              </div>
+              <CardTitle className="mt-4">{prop.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground">{prop.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const modules = [
+  { icon: ShoppingCart, title: "NestMall (Marketplace-as-a-Service)", description: "Multi-vendor store management, wholesale pricing, logistics integration, vendor POS." },
+  { icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage calculators." },
+  { icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons." },
+  { icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations." },
+  { icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis)." },
+  { icon: UtensilsCrossed, title: "NestEats (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points." },
+  { icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce & food order integrations." },
+  { icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships." },
+  { icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads." },
+];
+
+
+const CoreModulesSection = () => (
+  <section id="modules" className="py-16 md:py-24">
+    <div className="container">
+      <div className="text-center max-w-3xl mx-auto">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-primary">Core SaaS Modules</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline">
+          A Fully-Integrated Ecosystem
+        </p>
+      </div>
+      <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {modules.map((mod) => (
+          <Card key={mod.title} className="flex flex-col">
+            <CardHeader>
+              <div className="flex items-center gap-4">
+                <mod.icon className="h-8 w-8 text-accent" />
+                <CardTitle>{mod.title}</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <p className="text-muted-foreground">{mod.description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const CtaSection = () => (
+  <section id="cta" className="py-16 md:py-24 bg-secondary/50">
+    <div className="container text-center max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">
+        DigitalNest is Africa’s full-stack digital engine.
+      </h2>
+      <p className="mt-4 text-lg text-muted-foreground">
+        Powering marketplaces, super apps, and platforms across every sector. Ready to build the future?
+      </p>
+      <div className="mt-8">
+        <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          Request a Demo
+        </Button>
+      </div>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className="border-t">
+    <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+      <div className="flex items-center gap-2">
+        <NestIcon className="h-5 w-5 text-primary" />
+        <p className="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()} DigitalNest. All rights reserved.
+        </p>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        Built for Africa's Digital Future.
+      </p>
+    </div>
+  </footer>
+);
