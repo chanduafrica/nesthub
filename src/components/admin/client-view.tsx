@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   ArrowLeft,
   DollarSign,
@@ -16,7 +16,7 @@ import {
   RefreshCw,
   Calendar as CalendarIcon,
 } from 'lucide-react';
-import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus, mockOffers, Offer, Client } from '@/lib/mock-data';
+import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus, Offer, Client } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -80,6 +80,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
+import { getOffersForClient, saveOffer } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -95,7 +96,8 @@ export function ClientView({ client }: { client: Client }) {
   const [allClients, setAllClients] = useState(mockClients);
   const [clientStatus, setClientStatus] = useState(client.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
-  const [sentOffers, setSentOffers] = useState<Offer[]>(() => mockOffers.filter(o => o.clientId === client.id));
+  const [sentOffers, setSentOffers] = useState<Offer[]>([]);
+  const [loadingOffers, setLoadingOffers] = useState(true);
   
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   
@@ -109,6 +111,27 @@ export function ClientView({ client }: { client: Client }) {
 
   const { currency } = useCurrency();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (client.id) {
+        setLoadingOffers(true);
+        getOffersForClient(client.id)
+            .then(offers => {
+                setSentOffers(offers);
+                setLoadingOffers(false);
+            })
+            .catch(error => {
+                console.error("Error fetching offers: ", error);
+                toast({
+                    title: "Error",
+                    description: "Could not fetch client offers.",
+                    variant: "destructive"
+                });
+                setLoadingOffers(false);
+            });
+    }
+  }, [client.id, toast]);
+
 
   const convertCurrency = (amount: number) => {
     const rate = conversionRates[currency] || 1;
@@ -125,29 +148,37 @@ export function ClientView({ client }: { client: Client }) {
     setAllClients(prevClients => prevClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
   };
   
-  const handleSendDiscount = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSendDiscount = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const formData = new FormData(e.currentTarget);
       const data = Object.fromEntries(formData.entries());
       
-      const newOffer: Offer = {
-        id: `offer-${Date.now()}`,
+      const newOfferData = {
         clientId: client.id,
         code: data.code as string,
         type: data.discountType as 'percentage' | 'amount',
         value: Number(data.value),
         portal: data.portal as string,
         dateSent: new Date().toISOString().split('T')[0],
-        status: 'Sent'
+        status: 'Sent' as 'Sent' | 'Redeemed'
       };
-      
-      setSentOffers(prev => [newOffer, ...prev]);
 
-      toast({
-        title: 'Discount Sent!',
-        description: `Offer code ${data.code} has been sent to ${client.name}.`,
-      });
-      setDiscountModalOpen(false);
+      try {
+        const savedOffer = await saveOffer(newOfferData);
+        setSentOffers(prev => [savedOffer, ...prev]);
+        toast({
+            title: 'Discount Sent!',
+            description: `Offer code ${savedOffer.code} has been sent to ${client.name}.`,
+        });
+        setDiscountModalOpen(false);
+      } catch (error) {
+        console.error("Error saving offer: ", error);
+        toast({
+            title: 'Error',
+            description: 'Failed to send discount. Please try again.',
+            variant: 'destructive',
+        });
+      }
   };
 
 
@@ -268,7 +299,9 @@ export function ClientView({ client }: { client: Client }) {
                     <CardDescription>Discounts and prizes sent to the client.</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                    {sentOffers.length > 0 ? (
+                    {loadingOffers ? (
+                        <p className="text-sm text-muted-foreground text-center py-4">Loading offers...</p>
+                    ) : sentOffers.length > 0 ? (
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -515,5 +548,3 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    

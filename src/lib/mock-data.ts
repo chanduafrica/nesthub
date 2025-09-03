@@ -73,10 +73,4 @@ export type Offer = {
   status: 'Sent' | 'Redeemed';
 };
 
-export const mockOffers: Offer[] = [
-    { id: 'offer-1', clientId: '1', code: 'WANJIKU10', type: 'percentage', value: 10, portal: 'NestMall', dateSent: '2024-07-20', status: 'Sent' },
-    { id: 'offer-2', clientId: '1', code: 'SAVE500', type: 'amount', value: 500, portal: 'NestTravel', dateSent: '2024-07-15', status: 'Redeemed' },
-    { id: 'offer-3', clientId: '2', code: 'MUSA20', type: 'percentage', value: 20, portal: 'all', dateSent: '2024-07-22', status: 'Sent' },
-];
-
 export type ClientStatus = 'Active' | 'Inactive' | 'Suspended';
