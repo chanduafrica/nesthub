@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { NestIcon } from "@/components/icons";
 
 
@@ -45,19 +46,20 @@ const Header = () => (
 );
 
 const HeroSection = () => (
-  <section className="relative py-20 md:py-32 bg-secondary/50">
-     <div
-      aria-hidden="true"
-      className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
-    >
-      <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-accent"></div>
-      <div className="blur-[106px] h-32 bg-gradient-to-r from-accent to-primary"></div>
-    </div>
-    <div className="container relative text-center">
+    <section className="relative h-[60vh] flex items-center justify-center text-white">
+    <Image
+      src="https://picsum.photos/1600/900"
+      alt="Kenyan landscape"
+      fill
+      className="object-cover"
+      data-ai-hint="Kenyan landscape"
+    />
+    <div className="absolute inset-0 bg-black/50" />
+    <div className="relative z-10 container text-center">
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl font-headline">
         Africa’s Engine for Marketplaces, SuperApps & Digital Platforms
       </h1>
-      <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+      <p className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto">
         We empower organizations to launch their own marketplaces, super apps, and digital platforms within weeks.
       </p>
       <div className="mt-10">
