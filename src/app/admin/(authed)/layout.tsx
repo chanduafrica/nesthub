@@ -1,3 +1,4 @@
+
 'use client';
 import { useState }from 'react';
 import {
@@ -93,7 +94,7 @@ export default function AdminLayout({
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                    <Link href="#">
+                    <Link href="/admin/vendors">
                     <Store />
                     <span>All Vendors</span>
                     </Link>

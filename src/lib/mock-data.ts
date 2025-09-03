@@ -99,3 +99,30 @@ export type Offer = {
 };
 
 export type ClientStatus = 'Active' | 'Inactive' | 'Suspended';
+
+export type VendorStatus = 'Active' | 'Inactive' | 'Pending';
+
+export type Vendor = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  portal: string;
+  business: number;
+  products: number;
+  rating: number;
+  status: VendorStatus;
+};
+
+export const mockVendors: Vendor[] = [
+    { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '254711111111', portal: 'NestMall', business: 350000, products: 50, rating: 4.5, status: 'Active' },
+    { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '255788888888', portal: 'MamaAfrica', business: 120000, products: 25, rating: 4.8, status: 'Active' },
+    { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '254722000000', portal: 'NestJobs', business: 50000, products: 15, rating: 4.2, status: 'Active' },
+    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '254733333333', portal: 'NestHomes', business: 1200000, products: 200, rating: 4.0, status: 'Inactive' },
+    { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '254709000000', portal: 'NestTravel', business: 2500000, products: 100, rating: 3.8, status: 'Active' },
+    { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '254744444444', portal: 'NestEvents', business: 800000, products: 10, rating: 4.9, status: 'Pending' },
+    { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '254755555555', portal: 'NestParcel', business: 450000, products: 1, rating: 4.3, status: 'Active' },
+    { id: 'v8', name: 'Tuskys Supermarket', email: 'customercare@tuskys.com', phone: '254766666666', portal: 'NestMall', business: 5500000, products: 10000, rating: 3.5, status: 'Inactive' },
+    { id: 'v9', name: 'Pulse Live', email: 'editor@pulselive.co.ke', phone: '254777777777', portal: 'NestMedia', business: 600000, products: 500, rating: 4.6, status: 'Active' },
+    { id: 'v10', name: 'Kazi Mtaani Initiative', email: 'jobs@kazimtaani.go.ke', phone: '254788888888', portal: 'NestJobs', business: 150000, products: 30, rating: 4.1, status: 'Pending' },
+];
