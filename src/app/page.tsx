@@ -49,10 +49,10 @@ const HeroSection = () => (
     <section className="relative h-[60vh] flex items-center justify-center text-white">
     <Image
       src="https://picsum.photos/1600/900"
-      alt="Kenyan landscape"
+      alt="African savanna landscape"
       fill
       className="object-cover"
-      data-ai-hint="Kenyan landscape"
+      data-ai-hint="African savanna"
     />
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center">
