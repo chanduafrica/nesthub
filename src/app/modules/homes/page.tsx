@@ -73,7 +73,7 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section bg-background py-4 md:py-6">
+      <section className="relative hero-slider-section bg-background py-2 md:py-3">
         <div className="container mx-auto flex flex-col justify-center items-center text-center px-4">
           <div className="w-full max-w-4xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Find An Amazing Property</h1>
@@ -215,5 +215,3 @@ const Footer = () => (
         </div>
     </footer>
 );
-
-    
