@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -67,11 +68,11 @@ const HeroSection = () => {
     return (
       <section className="relative hero-slider-section bg-background flex items-center justify-center">
         <Image 
-            src="https://picsum.photos/1600/900" 
-            alt="Modern living room" 
+            src="https://picsum.photos/1600/800" 
+            alt="Modern house with a pool" 
             fill 
             className="object-cover"
-            data-ai-hint="living room"
+            data-ai-hint="modern house"
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4 py-16">
