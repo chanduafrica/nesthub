@@ -45,10 +45,10 @@ const Header = () => {
 
                 <div className="hidden md:flex items-center gap-4">
                      <div className="text-right">
-                        <h2 className="text-xl font-bold text-primary">Need Help?</h2>
+                        <h2 className="text-xl font-bold text-primary" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Need Help?</h2>
                         <p className="text-muted-foreground text-sm">Let Us Call You!</p>
                     </div>
-                     <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Contact</Button>
+                     <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Contact</Button>
                 </div>
             </div>
            </div>
@@ -63,7 +63,7 @@ const HeroSection = () => {
             <div className="container mx-auto">
                  <div className="grid md:grid-cols-2 items-center py-12 md:py-24">
                     <div className="text-right pr-12">
-                        <h1 className="text-5xl font-bold text-primary" style={{color:'hsl(var(--nesthomes-primary))'}}>Find An Amazing Property</h1>
+                        <h1 className="text-5xl font-bold" style={{color:'hsl(var(--nesthomes-primary))'}}>Find An Amazing Property</h1>
                     </div>
                      <div className="bg-primary/10 p-4 rounded-xl">
                         <div className="text-center md:text-left pb-4 flex justify-between items-center">
@@ -71,7 +71,7 @@ const HeroSection = () => {
                                 <h2 className="text-2xl font-bold text-foreground">Need Help To Choose Your Property</h2>
                             </div>
                            
-                            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">Let Us Call You!</Button>
+                            <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Let Us Call You!</Button>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ const FeaturedPropertiesSection = () => {
         <section className="py-16 md:py-24 bg-background pt-32">
             <div className="container mx-auto">
                 <div className="text-left max-w-2xl">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Discover Latest Properties</h2>
+                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
                     <p className="mt-2 text-lg text-muted-foreground">Newest Properties Around You</p>
                 </div>
                 <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -129,7 +129,7 @@ const Footer = () => (
                     <p className="text-muted-foreground mb-4">Subscribe to our newsletter to get the latest updates.</p>
                     <form className="flex gap-2">
                         <Input type="email" placeholder="Your Email" className="bg-background"/>
-                        <Button>Subscribe</Button>
+                        <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }}>Subscribe</Button>
                     </form>
                 </div>
             </div>

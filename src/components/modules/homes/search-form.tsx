@@ -81,7 +81,7 @@ function SearchFields({ advanced, setAdvanced }: { advanced: boolean, setAdvance
                     </Select>
                 </div>
                  <div className="flex gap-2">
-                    <Button className="bg-primary hover:bg-primary/90 w-full">
+                    <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 w-full">
                         <Search className="mr-2 h-4 w-4" /> Search
                     </Button>
                     <Button variant="outline" size="icon" onClick={() => setAdvanced(!advanced)}>
