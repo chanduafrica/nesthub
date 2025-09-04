@@ -1,24 +1,24 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   ArrowLeft,
   DollarSign,
   Mail,
-  MoreVertical,
   Phone,
-  UserCheck,
-  UserX,
   Star,
   Package,
   Building,
   FileCheck,
   FileX,
-  Globe
+  Globe,
+  Gift,
+  RefreshCw,
+  Percent,
 } from 'lucide-react';
 import Image from 'next/image';
-import { mockVendors, Vendor, VendorStatus, mockTransactions, TransactionStatus } from '@/lib/mock-data';
+import { mockVendors, Vendor, VendorStatus, mockTransactions, TransactionStatus, VendorOffer, mockModuleEngagement } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -40,14 +40,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
     ResponsiveContainer,
     BarChart,
     CartesianGrid,
@@ -58,6 +50,27 @@ import {
     Bar
 } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useToast } from '@/hooks/use-toast';
+import { saveVendorOffer, getOffersForVendor } from '@/lib/firebase-services';
 
 
 const conversionRates: { [key: string]: number } = {
@@ -73,6 +86,33 @@ const conversionRates: { [key: string]: number } = {
 export function VendorView({ vendor }: { vendor: Vendor }) {
   const [vendorStatus, setVendorStatus] = useState(vendor.status);
   const { currency } = useCurrency();
+  const [isOfferModalOpen, setOfferModalOpen] = useState(false);
+  const [sentOffers, setSentOffers] = useState<VendorOffer[]>([]);
+  const [loadingOffers, setLoadingOffers] = useState(true);
+  const [offersCurrentPage, setOffersCurrentPage] = useState(1);
+  const offersItemsPerPage = 5;
+  const { toast } = useToast();
+
+
+  useEffect(() => {
+    if (vendor.id) {
+        setLoadingOffers(true);
+        getOffersForVendor(vendor.id)
+            .then(offers => {
+                setSentOffers(offers);
+                setLoadingOffers(false);
+            })
+            .catch(error => {
+                console.error("Error fetching vendor offers: ", error);
+                toast({
+                    title: "Error",
+                    description: "Could not fetch vendor offers.",
+                    variant: "destructive"
+                });
+                setLoadingOffers(false);
+            });
+    }
+  }, [vendor.id, toast]);
 
   const { totalBusiness, vendorTransactions } = useMemo(() => {
     const vendorTransactions = mockTransactions.filter(tx => tx.vendorId === vendor.id);
@@ -95,14 +135,46 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
     // In a real app, you would also update the backend here.
   };
 
+  const handleSendOffer = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const data = Object.fromEntries(formData.entries());
+      
+      const newOfferData = {
+        vendorId: vendor.id,
+        code: data.code as string,
+        type: data.discountType as 'percentage' | 'amount',
+        value: Number(data.value),
+        portal: data.portal as string,
+        dateSent: new Date().toISOString().split('T')[0],
+        status: 'Sent' as 'Sent' | 'Redeemed'
+      };
+
+      try {
+        const savedOffer = await saveVendorOffer(newOfferData);
+        setSentOffers(prev => [savedOffer, ...prev]);
+        toast({
+            title: 'Offer Sent!',
+            description: `Offer code ${savedOffer.code} has been sent to ${vendor.name}.`,
+        });
+        setOfferModalOpen(false);
+      } catch (error) {
+        console.error("Error saving offer: ", error);
+        toast({
+            title: 'Error',
+            description: 'Failed to send offer. Please try again.',
+            variant: 'destructive',
+        });
+      }
+  };
+
   const productPerformanceData = useMemo(() => {
     const productSales = new Map<string, { sales: number; units: number }>();
 
     vendorTransactions.forEach(tx => {
       if (tx.status === 'Completed' && tx.amount > 0) {
-        // Extract product name from description. E.g., "Purchase of 'Product Name'"
         const match = tx.description.match(/'([^']*)'/);
-        const productName = match ? match[1] : tx.module; // Fallback to module name
+        const productName = match ? match[1] : tx.module;
 
         const current = productSales.get(productName) || { sales: 0, units: 0 };
         current.sales += tx.amount;
@@ -118,7 +190,7 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
         units: data.units,
       }))
       .sort((a, b) => b.sales - a.sales)
-      .slice(0, 5); // Get top 5 products
+      .slice(0, 5);
   }, [vendorTransactions, currency]);
 
 
@@ -140,6 +212,12 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
           default: return 'secondary';
       }
   };
+  
+    const totalOffersPages = Math.ceil(sentOffers.length / offersItemsPerPage);
+    const paginatedOffers = sentOffers.slice(
+      (offersCurrentPage - 1) * offersItemsPerPage,
+      offersCurrentPage * offersItemsPerPage
+    );
 
 
   if (!vendor) {
@@ -158,18 +236,29 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
           </Button>
           <h1 className="text-2xl font-bold">Vendor 360 View</h1>
         </div>
-        {vendorStatus === 'Pending' && (
-             <div className="flex items-center gap-2">
-                <Button onClick={() => handleStatusChange('Active')}>
-                    <FileCheck className="mr-2 h-4 w-4" />
-                    Approve
-                </Button>
-                 <Button variant="destructive" onClick={() => handleStatusChange('Inactive')}>
-                    <FileX className="mr-2 h-4 w-4" />
-                    Reject
-                </Button>
-             </div>
-        )}
+        <div className="flex items-center gap-2">
+            <Dialog open={isOfferModalOpen} onOpenChange={setOfferModalOpen}>
+                <DialogTrigger asChild>
+                    <Button>
+                        <Gift className="mr-2 h-4 w-4" />
+                        Assign Offer
+                    </Button>
+                </DialogTrigger>
+                <OfferDialogContent vendor={vendor} onSubmit={handleSendOffer} />
+            </Dialog>
+            {vendorStatus === 'Pending' && (
+                <>
+                    <Button onClick={() => handleStatusChange('Active')}>
+                        <FileCheck className="mr-2 h-4 w-4" />
+                        Approve
+                    </Button>
+                    <Button variant="destructive" onClick={() => handleStatusChange('Inactive')}>
+                        <FileX className="mr-2 h-4 w-4" />
+                        Reject
+                    </Button>
+                </>
+            )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -242,6 +331,63 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
 
         {/* Right Column: Engagement & Transactions */}
         <div className="lg:col-span-2 flex flex-col gap-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Assigned Offers</CardTitle>
+                    <CardDescription>Offers and discounts assigned to this vendor.</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-0">
+                    {loadingOffers ? (
+                        <p className="text-sm text-muted-foreground text-center py-4">Loading offers...</p>
+                    ) : sentOffers.length > 0 ? (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Code</TableHead>
+                                    <TableHead>Value</TableHead>
+                                    <TableHead>Portal</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {paginatedOffers.map(offer => (
+                                    <TableRow key={offer.id}>
+                                        <TableCell className="font-mono">{offer.code}</TableCell>
+                                        <TableCell>{offer.type === 'percentage' ? `${offer.value}%` : convertCurrency(offer.value)}</TableCell>
+                                        <TableCell>{offer.portal}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    ) : (
+                        <p className="text-sm text-muted-foreground text-center py-4">No offers assigned yet.</p>
+                    )}
+                </CardContent>
+                 {sentOffers.length > 0 && (
+                    <CardFooter className="flex justify-between items-center">
+                        <div className="text-xs text-muted-foreground">
+                            Page {offersCurrentPage} of {totalOffersPages}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setOffersCurrentPage(prev => Math.max(prev - 1, 1))}
+                                disabled={offersCurrentPage === 1}
+                            >
+                                Previous
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setOffersCurrentPage(prev => Math.min(prev + 1, totalOffersPages))}
+                                disabled={offersCurrentPage === totalOffersPages}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </CardFooter>
+                 )}
+            </Card>
           <Card>
              <CardHeader>
                 <CardTitle>Top Product Performance ({currency})</CardTitle>
@@ -318,4 +464,89 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
   );
 }
 
-    
+function OfferDialogContent({ vendor, onSubmit }: { vendor: any, onSubmit: (e: React.FormEvent<HTMLFormElement>) => void }) {
+    const [discountType, setDiscountType] = useState<'percentage' | 'amount'>('percentage');
+    const [offerCode, setOfferCode] = useState(generateOfferCode());
+
+    function generateOfferCode() {
+        return `VNDR-${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+    }
+
+    return (
+        <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+                <DialogTitle>Create Offer for {vendor.name}</DialogTitle>
+                <DialogDescription>
+                    Select the portal, offer type, and value. The code will be assigned to the vendor.
+                </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={onSubmit} className="space-y-4">
+                <div className="grid gap-2">
+                    <Label htmlFor="portal">Portal / Module</Label>
+                    <Select name="portal" defaultValue="all">
+                        <SelectTrigger id="portal">
+                            <SelectValue placeholder="Select a portal" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="all">All Portals</SelectItem>
+                             {mockModuleEngagement.map(mod => (
+                                <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
+                             ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                <div className="grid gap-2">
+                    <Label>Offer Type</Label>
+                    <RadioGroup
+                        defaultValue="percentage"
+                        className="grid grid-cols-2 gap-4"
+                        value={discountType}
+                        onValueChange={(value: 'percentage' | 'amount') => setDiscountType(value)}
+                        name="discountType"
+                    >
+                        <div>
+                            <RadioGroupItem value="percentage" id="r1" className="peer sr-only" />
+                            <Label
+                                htmlFor="r1"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                                <Percent className="mb-3 h-6 w-6" />
+                                Percentage
+                            </Label>
+                        </div>
+                        <div>
+                            <RadioGroupItem value="amount" id="r2" className="peer sr-only" />
+                            <Label
+                                htmlFor="r2"
+                                className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                            >
+                                <DollarSign className="mb-3 h-6 w-6" />
+                                Fixed Amount
+                            </Label>
+                        </div>
+                    </RadioGroup>
+                </div>
+
+                <div className="grid gap-2">
+                    <Label htmlFor="value">
+                        {discountType === 'percentage' ? 'Percentage (%)' : 'Amount (KES)'}
+                    </Label>
+                    <Input id="value" name="value" type="number" placeholder={discountType === 'percentage' ? 'e.g., 10' : 'e.g., 250'} required />
+                </div>
+                 <div className="grid gap-2">
+                    <Label htmlFor="code">Offer Code</Label>
+                    <div className="flex items-center gap-2">
+                        <Input id="code" name="code" value={offerCode} readOnly />
+                        <Button type="button" variant="outline" size="icon" onClick={() => setOfferCode(generateOfferCode())}>
+                            <RefreshCw className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Assign Offer</Button>
+                </DialogFooter>
+            </form>
+        </DialogContent>
+    )
+}

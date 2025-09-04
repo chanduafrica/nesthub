@@ -1,5 +1,6 @@
 
 
+
 export type Client = {
   id: string;
   name: string;
@@ -13,7 +14,7 @@ export type Client = {
 export const mockClients: Client[] = [
     { id: '1', name: 'Wanjiku Kamau', email: 'wanjiku.kamau@gmail.com', phone: '+254712345678', country: 'Kenya', business: 125500, status: 'Active' },
     { id: '2', name: 'Musa Okello', email: 'musa.okello@yahoo.com', phone: '+254787654321', country: 'Kenya', business: 89850, status: 'Active' },
-    { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '+254711223344', country: 'Kenya', business: 45500, status: 'Inactive' },
+    { id: '3', name: 'Abebe Bikila', email: 'abebe.b@outlook.com', phone: '+251911223344', country: 'Ethiopia', business: 45500, status: 'Inactive' },
     { id: '4', name: 'Fatuma Al-Hassan', email: 'fatuma.hassan@protonmail.com', phone: '+254722334455', country: 'Kenya', business: 251200, status: 'Active' },
     { id: '5', name: 'Mzee Jembe', email: 'mzee.jembe@tanzaniamail.com', phone: '+255767123456', country: 'Tanzania', business: 15200, status: 'Suspended' },
     { id: '6', name: 'Amina Yusuf', email: 'amina.yusuf@zoho.com', phone: '+254701234567', country: 'Kenya', business: 76500, status: 'Active' },
@@ -59,26 +60,26 @@ export type Transaction = {
 }
 
 export const mockTransactions: Transaction[] = [
-  { id: 'txn_1', clientId: '1', vendorId: 'v1', date: '2024-07-22', module: 'NestMall', description: 'Purchase of \'Super-fly Sneakers\'', amount: 5500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_1', clientId: '1', vendorId: 'v1', date: '2024-07-22', module: 'NestMall', description: "Purchase of 'Super-fly Sneakers'", amount: 5500, currency: 'KES', status: 'Completed' },
   { id: 'txn_2', clientId: '2', vendorId: 'v5', date: '2024-07-21', module: 'NestTravel', description: 'Flight booking NBO-MBA', amount: 8200, currency: 'KES', status: 'Completed' },
-  { id: 'txn_3', clientId: '1', vendorId: 'v2', date: '2024-07-20', module: 'MamaAfrica', description: 'Order of \'Pilau & Beef Stew\'', amount: 1500, currency: 'KES', status: 'Completed' },
-  { id: 'txn_4', clientId: '4', vendorId: 'v6', date: '2024-07-19', module: 'NestEvents', description: 'Ticket for \'Sauti Sol Concert\'', amount: 3000, currency: 'KES', status: 'Completed' },
+  { id: 'txn_3', clientId: '1', vendorId: 'v2', date: '2024-07-20', module: 'MamaAfrica', description: "Order of 'Pilau & Beef Stew'", amount: 1500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_4', clientId: '4', vendorId: 'v6', date: '2024-07-19', module: 'NestEvents', description: "Ticket for 'Sauti Sol Concert'", amount: 3000, currency: 'KES', status: 'Completed' },
   { id: 'txn_5', clientId: '1', vendorId: 'v7', date: '2024-07-18', module: 'NestParcel', description: 'Delivery to Westlands', amount: 500, currency: 'KES', status: 'Pending' },
-  { id: 'txn_6', clientId: '10', vendorId: 'v1', date: '2024-07-15', module: 'NestMall', description: 'Refund for \'Faulty Earbuds\'', amount: -2500, currency: 'KES', status: 'Refunded' },
+  { id: 'txn_6', clientId: '10', vendorId: 'v1', date: '2024-07-15', module: 'NestMall', description: "Refund for 'Faulty Earbuds'", amount: -2500, currency: 'KES', status: 'Refunded' },
   { id: 'txn_7', clientId: '10', date: '2024-07-12', module: 'NestBiz', description: 'Subscription Fee', amount: 1000, currency: 'KES', status: 'Completed' },
   { id: 'txn_8', clientId: '14', vendorId: 'v4', date: '2024-07-11', module: 'NestHomes', description: 'Agency Fee for Karen Property', amount: 150000, currency: 'KES', status: 'Completed' },
   { id: 'txn_9', clientId: '26', vendorId: 'v9', date: '2024-07-10', module: 'NestMedia', description: 'Royalty Payout Q2', amount: 75000, currency: 'KES', status: 'Completed' },
   { id: 'txn_10', clientId: '5', vendorId: 'v5', date: '2024-07-09', module: 'NestTravel', description: 'Zanzibar Hotel Booking', amount: 45000, currency: 'KES', status: 'Failed' },
-  { id: 'txn_11', clientId: '9', vendorId: 'v2', date: '2024-07-09', module: 'MamaAfrica', description: 'Weekly \'Grocery Box\'', amount: 4500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_11', clientId: '9', vendorId: 'v2', date: '2024-07-09', module: 'MamaAfrica', description: "Weekly 'Grocery Box'", amount: 4500, currency: 'KES', status: 'Completed' },
   { id: 'txn_12', clientId: '13', vendorId: 'v6', date: '2024-07-08', module: 'NestEvents', description: 'Blankets & Wine VIP', amount: 10000, currency: 'KES', status: 'Completed' },
-  { id: 'txn_13', clientId: '19', vendorId: 'v1', date: '2024-07-07', module: 'NestMall', description: 'Chargeback on \'Designer Watch\'', amount: -12000, currency: 'KES', status: 'Refunded' },
+  { id: 'txn_13', clientId: '19', vendorId: 'v1', date: '2024-07-07', module: 'NestMall', description: "Chargeback on 'Designer Watch'", amount: -12000, currency: 'KES', status: 'Refunded' },
   { id: 'txn_14', clientId: '3', vendorId: 'v10', date: '2024-07-06', module: 'NestJobs', description: 'Featured Job Application', amount: 500, currency: 'KES', status: 'Completed' },
   { id: 'txn_15', clientId: '22', vendorId: 'v7', date: '2024-07-05', module: 'NestParcel', description: 'Juba to Nairobi shipment', amount: 2500, currency: 'KES', status: 'Pending' },
-  { id: 'txn_16', clientId: '2', vendorId: 'v2', date: '2024-07-04', module: 'MamaAfrica', description: 'Order of \'Chapati & Ndengu\'', amount: 850, currency: 'KES', status: 'Completed' },
-  { id: 'txn_17', clientId: '1', vendorId: 'v1', date: '2024-07-03', module: 'NestMall', description: 'Purchase of \'Ankara Print Dress\'', amount: 3500, currency: 'KES', status: 'Completed' },
-  { id: 'txn_18', clientId: '4', vendorId: 'v1', date: '2024-07-02', module: 'NestMall', description: 'Purchase of \'Beaded Necklace\'', amount: 1200, currency: 'KES', status: 'Completed' },
-  { id: 'txn_19', clientId: '9', vendorId: 'v2', date: '2024-07-01', module: 'MamaAfrica', description: 'Order of \'Mukimo & Beef\'', amount: 1250, currency: 'KES', status: 'Completed' },
-  { id: 'txn_20', clientId: '10', vendorId: 'v1', date: '2024-06-30', module: 'NestMall', description: 'Purchase of \'Leather Sandals\'', amount: 3000, currency: 'KES', status: 'Completed' },
+  { id: 'txn_16', clientId: '2', vendorId: 'v2', date: '2024-07-04', module: 'MamaAfrica', description: "Order of 'Chapati & Ndengu'", amount: 850, currency: 'KES', status: 'Completed' },
+  { id: 'txn_17', clientId: '1', vendorId: 'v1', date: '2024-07-03', module: 'NestMall', description: "Purchase of 'Ankara Print Dress'", amount: 3500, currency: 'KES', status: 'Completed' },
+  { id: 'txn_18', clientId: '4', vendorId: 'v1', date: '2024-07-02', module: 'NestMall', description: "Purchase of 'Beaded Necklace'", amount: 1200, currency: 'KES', status: 'Completed' },
+  { id: 'txn_19', clientId: '9', vendorId: 'v2', date: '2024-07-01', module: 'MamaAfrica', description: "Order of 'Mukimo & Beef'", amount: 1250, currency: 'KES', status: 'Completed' },
+  { id: 'txn_20', clientId: '10', vendorId: 'v1', date: '2024-06-30', module: 'NestMall', description: "Purchase of 'Leather Sandals'", amount: 3000, currency: 'KES', status: 'Completed' },
 ];
 
 
@@ -97,6 +98,17 @@ export const mockModuleEngagement = [
 export type Offer = {
   id: string;
   clientId: string;
+  code: string;
+  type: 'percentage' | 'amount';
+  value: number;
+  portal: string;
+  dateSent: string;
+  status: 'Sent' | 'Redeemed';
+};
+
+export type VendorOffer = {
+  id: string;
+  vendorId: string;
   code: string;
   type: 'percentage' | 'amount';
   value: number;
