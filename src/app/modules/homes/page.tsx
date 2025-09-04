@@ -66,9 +66,17 @@ const Header = () => {
 const HeroSection = () => {
     return (
       <section className="relative hero-slider-section bg-background pt-2 pb-1 md:pt-3 md:pb-2">
-        <div className="container mx-auto flex flex-col justify-center items-center text-center px-4">
+        <Image 
+            src="https://picsum.photos/1600/900" 
+            alt="Modern living room" 
+            fill 
+            className="object-cover"
+            data-ai-hint="living room"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4">
           <div className="w-full max-w-4xl">
-             <h1 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Find An Amazing Property</h1>
+             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white">Find An Amazing Property</h1>
           </div>
           <div className="w-[99%] max-w-7xl">
              <SearchForm />
