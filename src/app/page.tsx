@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
@@ -48,11 +49,11 @@ const Header = () => (
 const HeroSection = () => (
     <section className="relative h-[60vh] flex items-center justify-center text-white">
     <Image
-      src="https://picsum.photos/1600/900"
-      alt="African savanna landscape"
+      src="/images/homepagebg.jpg"
+      alt="DigitalNest platform background"
       fill
       className="object-cover"
-      data-ai-hint="African savanna"
+      data-ai-hint="abstract background"
     />
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center">
