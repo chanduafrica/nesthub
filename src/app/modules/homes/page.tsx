@@ -95,31 +95,10 @@ const FeaturedPropertiesSection = () => {
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
                     <p className="mt-2 text-lg text-muted-foreground">Newest Properties Around You</p>
                 </div>
-                <div className="mt-12">
-                   <Carousel
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                        plugins={[
-                           Autoplay({
-                             delay: 3000,
-                           }),
-                        ]}
-                        className="w-full"
-                    >
-                        <CarouselContent>
-                            {mockProperties.map((property) => (
-                            <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3">
-                                <div className="p-1">
-                                    <PropertyCard property={property} />
-                                </div>
-                            </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </Carousel>
+                <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {mockProperties.slice(0, 8).map((property) => (
+                        <PropertyCard key={property.id} property={property} />
+                    ))}
                 </div>
                  <div className="mt-12 text-center">
                     <Button asChild style={{ backgroundColor: 'hsl(var(--nesthomes-primary))' }} className="hover:bg-accent/90 text-accent-foreground">

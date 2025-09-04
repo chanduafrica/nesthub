@@ -2,6 +2,7 @@
 
 
 
+
 export type Client = {
   id: string;
   name: string;
@@ -170,17 +171,14 @@ export const mockProperties: Property[] = [
     id: 'prop1',
     title: 'Modern Apartment in Kilimani',
     location: 'Kilimani, Nairobi',
-    price: 15000000,
-    type: 'For Sale',
+    price: 150000,
+    type: 'For Rent',
     category: 'Apartment',
     beds: 3,
     baths: 2,
     area: 1500,
     imageUrl: 'https://picsum.photos/800/600?random=1',
-    agent: {
-      name: 'Jane Doe',
-      avatarUrl: 'https://picsum.photos/100/100?random=a1',
-    },
+    agent: { name: 'Amina Properties', avatarUrl: 'https://picsum.photos/100/100?random=a1' },
   },
   {
     id: 'prop2',
@@ -193,10 +191,7 @@ export const mockProperties: Property[] = [
     baths: 5,
     area: 4500,
     imageUrl: 'https://picsum.photos/800/600?random=2',
-    agent: {
-      name: 'John Smith',
-      avatarUrl: 'https://picsum.photos/100/100?random=a2',
-    },
+    agent: { name: 'Ochieng Real Estate', avatarUrl: 'https://picsum.photos/100/100?random=a2' },
   },
   {
     id: 'prop3',
@@ -209,10 +204,7 @@ export const mockProperties: Property[] = [
     baths: 1,
     area: 1200,
     imageUrl: 'https://picsum.photos/800/600?random=3',
-    agent: {
-      name: 'Peter Jones',
-      avatarUrl: 'https://picsum.photos/100/100?random=a3',
-    },
+    agent: { name: 'Mutua & Sons', avatarUrl: 'https://picsum.photos/100/100?random=a3' },
   },
   {
     id: 'prop4',
@@ -225,26 +217,20 @@ export const mockProperties: Property[] = [
     baths: 4,
     area: 3000,
     imageUrl: 'https://picsum.photos/800/600?random=4',
-    agent: {
-      name: 'Susan Mwangi',
-      avatarUrl: 'https://picsum.photos/100/100?random=a4',
-    },
+    agent: { name: 'Wanjiku Homes', avatarUrl: 'https://picsum.photos/100/100?random=a4' },
   },
    {
     id: 'prop5',
-    title: 'Affordable Office Space',
-    location: 'CBD, Nairobi',
-    price: 50000,
+    title: 'Executive Office Space',
+    location: 'Upper Hill, Nairobi',
+    price: 250000,
     type: 'For Rent',
     category: 'Office',
     beds: 0,
-    baths: 1,
-    area: 800,
+    baths: 2,
+    area: 2500,
     imageUrl: 'https://picsum.photos/800/600?random=5',
-    agent: {
-      name: 'David Kimani',
-      avatarUrl: 'https://picsum.photos/100/100?random=a5',
-    },
+    agent: { name: 'Kamau Enterprises', avatarUrl: 'https://picsum.photos/100/100?random=a5' },
   },
   {
     id: 'prop6',
@@ -254,13 +240,36 @@ export const mockProperties: Property[] = [
     type: 'For Sale',
     category: 'Villa',
     beds: 4,
-    baths: 3,
-    area: 3500,
+    baths: 5,
+    area: 5000,
     imageUrl: 'https://picsum.photos/800/600?random=6',
-    agent: {
-      name: 'Fatima Ahmed',
-      avatarUrl: 'https://picsum.photos/100/100?random=a6',
-    },
+    agent: { name: 'Coastal Properties', avatarUrl: 'https://picsum.photos/100/100?random=a6' },
+  },
+  {
+    id: 'prop7',
+    title: 'Bungalow in Runda',
+    location: 'Runda, Nairobi',
+    price: 85000000,
+    type: 'For Sale',
+    category: 'Villa',
+    beds: 6,
+    baths: 6,
+    area: 7000,
+    imageUrl: 'https://picsum.photos/800/600?random=7',
+    agent: { name: 'Kariuki & Co.', avatarUrl: 'https://picsum.photos/100/100?random=a7' },
+  },
+  {
+    id: 'prop8',
+    title: 'Furnished Studio in Kileleshwa',
+    location: 'Kileleshwa, Nairobi',
+    price: 65000,
+    type: 'For Rent',
+    category: 'Apartment',
+    beds: 1,
+    baths: 1,
+    area: 800,
+    imageUrl: 'https://picsum.photos/800/600?random=8',
+    agent: { name: 'Nyumba Poa', avatarUrl: 'https://picsum.photos/100/100?random=a8' },
   },
 ];
     
