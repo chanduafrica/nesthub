@@ -77,22 +77,20 @@ const HeroSection = () => {
             >
                 <CarouselContent className="h-full">
                     {mockProperties.map((property) => (
-                        <CarouselItem key={property.id} className="h-full">
-                            <div className="relative w-full h-full">
-                                <Image
-                                    src={property.imageUrl}
-                                    alt={property.title}
-                                    fill
-                                    className="object-cover"
-                                    data-ai-hint="house exterior"
-                                />
-                                <div className="absolute inset-0 bg-black/50" />
-                            </div>
+                        <CarouselItem key={property.id} className="relative h-full">
+                            <Image
+                                src={property.imageUrl}
+                                alt={property.title}
+                                fill
+                                className="object-cover"
+                                data-ai-hint="house exterior"
+                            />
+                            <div className="absolute inset-0 bg-black/50" />
                         </CarouselItem>
                     ))}
                 </CarouselContent>
                 <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
-                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
+                <CarouselNext className="absolute right-4 top-1/2-translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
             </Carousel>
 
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
@@ -166,9 +164,4 @@ const Footer = () => (
     </footer>
 );
 
-
-
-
-
-
-
+    
