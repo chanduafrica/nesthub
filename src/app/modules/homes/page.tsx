@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
@@ -10,9 +10,6 @@ import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import './theme.css';
 import { Input } from '@/components/ui/input';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-
 
 export default function NestHomesPage() {
   return (
@@ -63,36 +60,16 @@ const Header = () => {
 
 
 const HeroSection = () => {
-    const plugin = useRef(
-        Autoplay({ delay: 4000, stopOnInteraction: true })
-    );
-
     return (
         <section className="relative hero-slider-section">
-             <Carousel
-                plugins={[plugin.current]}
-                className="w-full h-full"
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
-            >
-                <CarouselContent className="h-full">
-                    {mockProperties.map((property) => (
-                        <CarouselItem key={property.id} className="relative h-full">
-                            <Image
-                                src={property.imageUrl}
-                                alt={property.title}
-                                fill
-                                className="object-cover"
-                                data-ai-hint="house exterior"
-                            />
-                            <div className="absolute inset-0 bg-black/50" />
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
-                <CarouselNext className="absolute right-4 top-1/2-translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
-            </Carousel>
-
+            <Image
+                src={mockProperties[0].imageUrl}
+                alt="Modern property"
+                fill
+                className="object-cover"
+                data-ai-hint="house exterior"
+            />
+            <div className="absolute inset-0 bg-black/50" />
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
                 <div className="w-full max-w-4xl">
                      <h1 className="text-5xl font-bold text-white mb-8" >Find An Amazing Property</h1>
