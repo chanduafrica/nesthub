@@ -46,3 +46,11 @@
     --input: 240 5% 14.9%;
     --ring: var(--nesthomes-primary);
   }
+
+  .hero-slider-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 700px;
+    height: 70vh;
+  }
+

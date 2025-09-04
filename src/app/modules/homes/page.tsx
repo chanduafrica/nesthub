@@ -1,7 +1,8 @@
 
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
@@ -10,6 +11,8 @@ import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import './theme.css';
 import { Input } from '@/components/ui/input';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 
 export default function NestHomesPage() {
@@ -61,25 +64,57 @@ const Header = () => {
 
 
 const HeroSection = () => {
+    const plugin = useRef(
+        Autoplay({ delay: 4000, stopOnInteraction: true })
+    );
+
     return (
-        <section className="relative bg-secondary/30">
-            <div className="container mx-auto">
-                 <div className="grid md:grid-cols-2 items-center py-4 md:py-8">
-                    <div className="text-right pr-12">
-                        <h1 className="text-5xl font-bold" style={{color:'hsl(var(--nesthomes-primary))'}}>Find An Amazing Property</h1>
-                    </div>
-                     <div className="bg-primary/10 p-4 rounded-xl">
-                        <div className="text-center md:text-left pb-4 flex justify-between items-center">
-                            <div>
-                                <h2 className="text-2xl font-bold text-foreground">Need Help To Choose Your Property</h2>
+        <section className="relative hero-slider-section">
+             <Carousel
+                plugins={[plugin.current]}
+                className="w-full"
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
+            >
+                <CarouselContent>
+                    {mockProperties.map((property) => (
+                        <CarouselItem key={property.id}>
+                            <div className="relative w-full h-full">
+                                <Image
+                                    src={property.imageUrl}
+                                    alt={property.title}
+                                    fill
+                                    className="object-cover"
+                                    data-ai-hint="house exterior"
+                                />
+                                <div className="absolute inset-0 bg-black/50" />
                             </div>
-                           
-                            <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Let Us Call You!</Button>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
+                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
+            </Carousel>
+
+            <div className="absolute inset-0 flex flex-col justify-center items-center">
+                <div className="container mx-auto">
+                     <div className="grid md:grid-cols-2 items-center">
+                        <div className="text-right pr-12">
+                            <h1 className="text-5xl font-bold text-white" >Find An Amazing Property</h1>
+                        </div>
+                        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
+                            <div className="text-center md:text-left pb-4 flex justify-between items-center">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-white">Need Help To Choose Your Property</h2>
+                                </div>
+                                <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Let Us Call You!</Button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="container mx-auto relative z-10 -mb-24">
+            
+            <div className="container mx-auto relative z-10 -mb-24 mt-auto">
                 <SearchForm />
             </div>
         </section>
@@ -146,4 +181,5 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
