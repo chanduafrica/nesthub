@@ -71,33 +71,10 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section">
-        <Carousel
-          className="w-full h-full"
-          plugins={[
-            Autoplay({
-              delay: 5000,
-            }),
-          ]}
-        >
-          <CarouselContent className="h-full">
-            {mockProperties.map((property, index) => (
-              <CarouselItem key={index} className="h-full relative">
-                 <Image
-                    src={property.imageUrl}
-                    alt={property.title}
-                    fill
-                    className="object-cover"
-                    data-ai-hint="house exterior"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 flex flex-col justify-start items-center text-center px-4 pt-24">
+      <section className="relative hero-slider-section bg-background py-24">
+        <div className="container mx-auto flex flex-col justify-center items-center text-center px-4">
           <div className="w-full max-w-4xl">
-            <h1 className="text-5xl font-bold text-white mb-8">Find An Amazing Property</h1>
+            <h1 className="text-5xl font-bold text-foreground mb-8">Find An Amazing Property</h1>
             <SearchForm />
           </div>
         </div>
