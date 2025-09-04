@@ -51,10 +51,6 @@ const Header = () => {
                 </div>
 
                  <div className="hidden md:flex items-center gap-4">
-                     <div className="text-right">
-                        <h2 className="text-xl font-bold" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Need Help?</h2>
-                        <p className="text-muted-foreground text-sm">Let Us Call You!</p>
-                    </div>
                      <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Contact</Button>
                 </div>
             </div>
@@ -68,8 +64,8 @@ const HeroSection = () => {
     return (
       <section className="relative hero-slider-section bg-background flex items-center justify-center">
         <Image 
-            src="https://picsum.photos/1600/800" 
-            alt="Modern house with a pool" 
+            src="/images/hero-background.jpg" 
+            alt="Beautiful modern home interior" 
             fill 
             className="object-cover"
             data-ai-hint="modern house"
