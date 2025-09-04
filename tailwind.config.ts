@@ -12,7 +12,6 @@ export default {
       fontFamily: {
         body: ['Roboto', 'sans-serif'],
         headline: ['Poppins', 'sans-serif'],
-        code: ['monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
