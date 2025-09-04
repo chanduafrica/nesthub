@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useRef } from 'react';
@@ -76,7 +75,7 @@ const HeroSection = () => {
                 onMouseEnter={plugin.current.stop}
                 onMouseLeave={plugin.current.reset}
             >
-                <CarouselContent>
+                <CarouselContent className="h-full">
                     {mockProperties.map((property) => (
                         <CarouselItem key={property.id} className="h-full">
                             <div className="relative w-full h-full">
@@ -166,6 +165,7 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
 
 
