@@ -13,6 +13,8 @@ import {
   FileCheck,
   FileX,
   Globe,
+  UserCheck,
+  UserX,
 } from 'lucide-react';
 import Image from 'next/image';
 import { Vendor, VendorStatus, mockTransactions, TransactionStatus } from '@/lib/mock-data';
@@ -153,6 +155,18 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
                     <Button variant="destructive" onClick={() => handleStatusChange('Inactive')}>
                         <FileX className="mr-2 h-4 w-4" />
                         Reject
+                    </Button>
+                </>
+            )}
+             {vendorStatus !== 'Pending' && (
+                <>
+                    <Button variant="outline" onClick={() => handleStatusChange('Active')} disabled={vendorStatus === 'Active'}>
+                        <UserCheck className="mr-2 h-4 w-4" />
+                        Activate
+                    </Button>
+                    <Button variant="destructive" onClick={() => handleStatusChange('Inactive')} disabled={vendorStatus === 'Inactive'}>
+                        <UserX className="mr-2 h-4 w-4" />
+                        Deactivate
                     </Button>
                 </>
             )}
