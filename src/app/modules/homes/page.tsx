@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
-import { NestIcon } from '@/components/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
@@ -45,7 +43,7 @@ const Header = () => {
 
                 <div className="hidden md:flex items-center gap-4">
                      <div className="text-right">
-                        <h2 className="text-xl font-bold text-primary" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Need Help?</h2>
+                        <h2 className="text-xl font-bold" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Need Help?</h2>
                         <p className="text-muted-foreground text-sm">Let Us Call You!</p>
                     </div>
                      <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Contact</Button>
