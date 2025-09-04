@@ -41,6 +41,7 @@ const Header = () => {
                     <span className="font-bold text-lg">NestHomes</span>
                 </Link>
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
+                    <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80 font-bold">DigitalNest Home</Link>
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">For Sale</Link>
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">For Rent</Link>
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Agents</Link>
