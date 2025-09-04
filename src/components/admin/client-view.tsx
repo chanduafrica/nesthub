@@ -39,14 +39,6 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
     ResponsiveContainer,
     BarChart,
     CartesianGrid,
@@ -159,6 +151,10 @@ export function ClientView({ client }: { client: Client }) {
   const handleStatusChange = (newStatus: ClientStatus) => {
     setClientStatus(newStatus);
     setAllClients(prevClients => prevClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
+     toast({
+        title: `Client ${newStatus === 'Active' ? 'Activated' : 'Deactivated'}`,
+        description: `${client.name}'s status has been updated.`,
+    });
   };
   
   const handleSendDiscount = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -230,31 +226,18 @@ export function ClientView({ client }: { client: Client }) {
                 <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
             </Dialog>
 
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                    <span className="sr-only">Client Actions</span>
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Client Actions</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem 
-                        onClick={() => handleStatusChange('Active')} 
-                        disabled={clientStatus === 'Active'}>
+            {clientStatus !== 'Suspended' && (
+              <>
+                <Button variant="outline" onClick={() => handleStatusChange('Active')} disabled={clientStatus === 'Active'}>
                     <UserCheck className="mr-2 h-4 w-4" />
                     Activate
-                    </DropdownMenuItem>
-                    <DropdownMenuItem 
-                        className="text-destructive" 
-                        onClick={() => handleStatusChange('Inactive')} 
-                        disabled={clientStatus !== 'Active'}>
+                </Button>
+                <Button variant="destructive" onClick={() => handleStatusChange('Inactive')} disabled={clientStatus === 'Inactive'}>
                     <UserX className="mr-2 h-4 w-4" />
                     Deactivate
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
+                </Button>
+              </>
+            )}
         </div>
       </div>
 
@@ -594,3 +577,5 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
+
+    
