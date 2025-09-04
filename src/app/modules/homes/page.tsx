@@ -10,14 +10,6 @@ import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
 
 import './theme.css';
 
@@ -73,10 +65,10 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section bg-background py-2 md:py-3">
+      <section className="relative hero-slider-section bg-background pt-2 pb-1 md:pt-3 md:pb-2">
         <div className="container mx-auto flex flex-col justify-center items-center text-center px-4">
           <div className="w-full max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Find An Amazing Property</h1>
+             <h1 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Find An Amazing Property</h1>
           </div>
           <div className="w-[99%] max-w-7xl">
              <SearchForm />
@@ -146,31 +138,10 @@ const NewsSection = () => {
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Latest News & Update</h2>
                     <p className="mt-2 text-lg text-muted-foreground">Latest News About Eastleigh Properties</p>
                 </div>
-                 <div className="mt-12">
-                   <Carousel
-                        opts={{
-                            align: "start",
-                             loop: true,
-                        }}
-                         plugins={[
-                           Autoplay({
-                             delay: 4000,
-                           }),
-                        ]}
-                        className="w-full"
-                    >
-                        <CarouselContent>
-                            {news.map((article, index) => (
-                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                <div className="p-1 h-full">
-                                    <NewsCard article={article} />
-                                </div>
-                            </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </Carousel>
+                 <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {news.map((article, index) => (
+                       <NewsCard key={index} article={article} />
+                    ))}
                 </div>
             </div>
         </section>
