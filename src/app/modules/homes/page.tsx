@@ -14,11 +14,12 @@ import Image from 'next/image';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import './theme.css';
 
 
 export default function NestHomesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
       <Header />
       <main>
         <HeroSection />
