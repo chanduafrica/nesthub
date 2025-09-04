@@ -33,12 +33,14 @@ const Header = () => {
                 </Link>
                 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
-                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary">DigitalNest Home</Link>
+                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary">DigitalNest</Link>
                      <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold">Home</Link>
-                    <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Properties</Link>
-                    <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Travel & Stays</Link>
-                    <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Car Hire & Tours</Link>
-                    <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Market Place</Link>
+                    <Link href="/modules/homes/properties" className="text-foreground/80 transition-colors hover:text-primary">Properties</Link>
+                    <Link href="/modules/homes/build" className="text-foreground/80 transition-colors hover:text-primary">Build My Own</Link>
+                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary">Travel</Link>
+                     <Link href="/modules/stays" className="text-foreground/80 transition-colors hover:text-primary">Stays</Link>
+                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary">MarketPlace</Link>
+                     <Link href="/modules/events" className="text-foreground/80 transition-colors hover:text-primary">Events</Link>
                 </div>
 
                 <div className="hidden md:flex items-center gap-4">
