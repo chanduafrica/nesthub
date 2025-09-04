@@ -96,26 +96,11 @@ const HeroSection = () => {
                 <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white bg-black/20 hover:bg-black/50 border-none" />
             </Carousel>
 
-            <div className="absolute inset-0 flex flex-col justify-center items-center">
-                <div className="container mx-auto">
-                     <div className="grid md:grid-cols-2 items-center">
-                        <div className="text-right pr-12">
-                            <h1 className="text-5xl font-bold text-white" >Find An Amazing Property</h1>
-                        </div>
-                        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl">
-                            <div className="text-center md:text-left pb-4 flex justify-between items-center">
-                                <div>
-                                    <h2 className="text-2xl font-bold text-white">Need Help To Choose Your Property</h2>
-                                </div>
-                                <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Let Us Call You!</Button>
-                            </div>
-                        </div>
-                    </div>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
+                <div className="w-full max-w-4xl">
+                     <h1 className="text-5xl font-bold text-white mb-8" >Find An Amazing Property</h1>
+                     <SearchForm />
                 </div>
-            </div>
-            
-            <div className="container mx-auto relative z-10 -mb-24 mt-auto">
-                <SearchForm />
             </div>
         </section>
     );
@@ -123,7 +108,7 @@ const HeroSection = () => {
 
 const FeaturedPropertiesSection = () => {
     return (
-        <section className="py-16 md:py-24 bg-background pt-32">
+        <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto">
                 <div className="text-left max-w-2xl">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
@@ -181,5 +166,6 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
 
