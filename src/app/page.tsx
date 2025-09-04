@@ -83,10 +83,10 @@ const IntroductionSection = () => (
       </div>
       <div className="mt-12 text-lg text-muted-foreground space-y-6 leading-relaxed text-center max-w-4xl mx-auto">
         <p>
-          Africa’s digital economy is projected to exceed $180 billion by 2025, powered by mobile-first consumers, internet growth, and mobile money adoption. Yet telcos, banks, media houses, and brands struggle to launch profitable digital platforms quickly and affordably.
+          Africa’s digital economy is projected to exceed $180 billion by 2025, powered by mobile-first consumers, internet growth and mobile money adoption. Yet telcos, banks, media houses and brands struggle to launch profitable digital platforms quickly and affordably.
         </p>
         <p className="text-foreground font-medium">
-          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces and digital platforms within weeks — complete with monetization, local integrations, and scalable architecture.
+          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces and digital platforms within weeks complete with monetization, local integrations and scalable architecture.
         </p>
       </div>
     </div>
