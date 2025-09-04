@@ -118,7 +118,7 @@ const Footer = () => (
                            <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
                         </Link>
                     </div>
-                    <p className="text-muted-foreground">Find Your Ideal Property at Souk Properties – Explore the best real estate opportunities in our Trusted Real Estate Portal. Whether you’re looking to buy, sell, or rent apartments, commercial spaces, or land, we connect you with verified listings and reliable agents. Your dream property is just a click away!</p>
+                    <p className="text-muted-foreground">Find Your Ideal Property at NestProperties – Explore the best real estate opportunities in our Trusted Real Estate Portal. Whether you’re looking to buy, sell, or rent apartments, commercial spaces, or land, we connect you with verified listings and reliable agents. Your dream property is just a click away!</p>
                 </div>
                  <div>
                     <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
