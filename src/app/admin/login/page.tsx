@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { NestIcon } from '@/components/icons';
+import Link from 'next/link';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -60,9 +61,12 @@ export default function AdminLoginPage() {
                 <Input id="password" type="password" required />
                 </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex-col gap-4">
                 <Button type="submit" className="w-full">
                 Sign in
+                </Button>
+                <Button variant="link" size="sm" asChild>
+                    <Link href="/">Back to Home</Link>
                 </Button>
             </CardFooter>
             </form>
