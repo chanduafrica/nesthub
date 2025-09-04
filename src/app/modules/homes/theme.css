@@ -1,23 +1,26 @@
+:root {
+    --nesthomes-primary: 209 75% 40%;
+}
 .nesthomes-theme {
-    --background: 220 13% 97%; /* Light Grey */
+    --background: 240 10% 98%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 16 100% 66%; /* Coral Orange */
+    --primary: 36 94% 57%;
     --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 240 10% 3.9%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 240 5% 45.1%;
-    --accent: 16 100% 66%; /* Coral Orange */
+    --accent: 36 94% 57%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 16 100% 66%; /* Coral Orange */
+    --ring: 36 94% 57%;
     --radius: 0.5rem;
   }
 
@@ -28,17 +31,17 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 16 100% 66%; /* Coral Orange */
+    --primary: 36 94% 57%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 5% 14.9%;
     --muted-foreground: 240 5% 63.9%;
-    --accent: 16 100% 66%; /* Coral Orange */
+    --accent: 36 94% 57%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5% 14.9%;
     --input: 240 5% 14.9%;
-    --ring: 16 100% 66%; /* Coral Orange */
+    --ring: 36 94% 57%;
   }

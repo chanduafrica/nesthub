@@ -1,13 +1,12 @@
-
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Bed, Bath, Landmark, MapPin } from 'lucide-react';
+import { Bed, Bath, Landmark, MapPin, Heart, PlusCircle } from 'lucide-react';
 import type { Property } from '@/lib/mock-data';
+import { Button } from '@/components/ui/button';
 
 interface PropertyCardProps {
   property: Property;
@@ -16,65 +15,58 @@ interface PropertyCardProps {
 export function PropertyCard({ property }: PropertyCardProps) {
   const formatPrice = (price: number) => {
     if (property.type === 'For Rent') {
-        return `KES ${price.toLocaleString()}/mo`;
+        return `Ksh ${price.toLocaleString()}/mo`;
     }
-    return `KES ${price.toLocaleString()}`;
+    return `Ksh ${price.toLocaleString()}`;
   };
 
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-lg">
-      <Link href="#" className="block">
-        <div className="relative h-56 w-full">
-          <Image
-            src={property.imageUrl}
-            alt={property.title}
-            fill
-            className="object-cover"
-            data-ai-hint="house exterior"
-          />
-          <Badge 
-            className="absolute top-4 left-4"
-            variant={property.type === 'For Sale' ? 'default' : 'secondary'}
-          >
-            {property.type}
-          </Badge>
+    <Card className="overflow-hidden transition-shadow hover:shadow-lg group">
+        <div className="relative">
+             <Link href="#" className="block">
+                <Image
+                    src={property.imageUrl}
+                    alt={property.title}
+                    width={400}
+                    height={250}
+                    className="object-cover w-full h-56"
+                    data-ai-hint="house exterior"
+                />
+             </Link>
+            <div className="absolute top-4 left-4 flex gap-2">
+                 <span className="bg-primary/80 text-white text-xs font-semibold px-3 py-1 rounded-full">{property.type}</span>
+            </div>
+            <div className="absolute bottom-4 left-4">
+                 <p className="text-xl font-bold text-white bg-black/50 px-3 py-1 rounded-md">{formatPrice(property.price)}</p>
+            </div>
+             <div className="absolute top-4 right-4 flex gap-2">
+                <Button size="icon" variant="ghost" className="bg-white/80 hover:bg-white rounded-full h-8 w-8"><Heart className="h-4 w-4 text-primary"/></Button>
+                <Button size="icon" variant="ghost" className="bg-white/80 hover:bg-white rounded-full h-8 w-8"><PlusCircle className="h-4 w-4 text-primary"/></Button>
+            </div>
         </div>
-      </Link>
       <CardContent className="p-4">
-        <p className="text-lg font-bold text-primary">{formatPrice(property.price)}</p>
-        <h3 className="mt-2 text-lg font-semibold leading-tight truncate">
-          <Link href="#" className="hover:underline">{property.title}</Link>
+        <h3 className="mt-1 text-lg font-semibold leading-tight truncate">
+          <Link href="#" className="hover:text-primary">{property.title}</Link>
         </h3>
-        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4" />
           <span>{property.location}</span>
         </div>
         <div className="mt-4 flex justify-start items-center gap-4 text-sm text-muted-foreground border-t pt-4">
             <div className="flex items-center gap-1.5">
-                <Bed className="h-4 w-4"/>
-                <span>{property.beds} Beds</span>
+                <Bed className="h-4 w-4 text-primary"/>
+                <span>{property.beds}</span>
             </div>
             <div className="flex items-center gap-1.5">
-                <Bath className="h-4 w-4"/>
-                <span>{property.baths} Baths</span>
+                <Bath className="h-4 w-4 text-primary"/>
+                <span>{property.baths}</span>
             </div>
             <div className="flex items-center gap-1.5">
-                <Landmark className="h-4 w-4"/>
+                <Landmark className="h-4 w-4 text-primary"/>
                 <span>{property.area.toLocaleString()} sqft</span>
             </div>
         </div>
       </CardContent>
-      <CardFooter className="p-4 bg-secondary/50">
-         <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8">
-                    <AvatarImage src={property.agent.avatarUrl} alt={property.agent.name} />
-                    <AvatarFallback>{property.agent.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <span className="text-sm font-medium">{property.agent.name}</span>
-            </div>
-         </div>
-      </CardFooter>
     </Card>
   );
 }
