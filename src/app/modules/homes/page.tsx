@@ -7,8 +7,19 @@ import { mockProperties } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
-import './theme.css';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+
+import './theme.css';
+
 
 export default function NestHomesPage() {
   return (
@@ -17,6 +28,7 @@ export default function NestHomesPage() {
       <main>
         <HeroSection />
         <FeaturedPropertiesSection />
+        <NewsSection />
       </main>
       <Footer />
     </div>
@@ -32,19 +44,17 @@ const Header = () => {
                     <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
                     <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
                 </Link>
-                
+
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
                     <Link href="/" className="text-foreground/80 transition-colors hover:text-primary">DigitalNest</Link>
                      <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold">Home</Link>
                     <Link href="/modules/homes/properties" className="text-foreground/80 transition-colors hover:text-primary">Properties</Link>
-                    <Link href="/modules/homes/build" className="text-foreground/80 transition-colors hover:text-primary">Build My Own</Link>
-                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary">Travel</Link>
-                     <Link href="/modules/stays" className="text-foreground/80 transition-colors hover:text-primary">Stays</Link>
-                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary">MarketPlace</Link>
-                     <Link href="/modules/events" className="text-foreground/80 transition-colors hover:text-primary">Events</Link>
+                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary">Travel & Stays</Link>
+                    <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Car Hire & Tours</Link>
+                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary">Market Place</Link>
                 </div>
 
-                <div className="hidden md:flex items-center gap-4">
+                 <div className="hidden md:flex items-center gap-4">
                      <div className="text-right">
                         <h2 className="text-xl font-bold" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Need Help?</h2>
                         <p className="text-muted-foreground text-sm">Let Us Call You!</p>
@@ -60,26 +70,42 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-        <section className="relative hero-slider-section">
-            <Image
-                src={mockProperties[0].imageUrl}
-                alt="Modern property"
-                fill
-                className="object-cover"
-                data-ai-hint="house exterior"
-            />
-            <div className="absolute inset-0 bg-black/50" />
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4">
-                <div className="w-full max-w-4xl">
-                     <h1 className="text-5xl font-bold text-white mb-4" >Find An Amazing Property</h1>
-                     <p className="text-white text-lg mb-2">Need Help To Choose Your Property</p>
-                     <p className="text-white text-lg mb-8">Let Us Call You!</p>
-                     <SearchForm />
-                </div>
-            </div>
-        </section>
+      <section className="relative hero-slider-section">
+        <Carousel
+          className="w-full h-full"
+          plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}
+        >
+          <CarouselContent className="h-full">
+            {mockProperties.map((property, index) => (
+              <CarouselItem key={index} className="h-full relative">
+                 <Image
+                    src={property.imageUrl}
+                    alt={property.title}
+                    fill
+                    className="object-cover"
+                    data-ai-hint="house exterior"
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 flex flex-col justify-start items-center text-center px-4 pt-24">
+          <div className="w-full max-w-4xl">
+            <h1 className="text-5xl font-bold text-white mb-4">Find An Amazing Property</h1>
+            <p className="text-white text-lg mb-2">Need Help To Choose Your Property</p>
+            <p className="text-white text-lg mb-8">Let Us Call You!</p>
+            <SearchForm />
+          </div>
+        </div>
+      </section>
     );
-}
+};
+
 
 const FeaturedPropertiesSection = () => {
     return (
@@ -89,19 +115,103 @@ const FeaturedPropertiesSection = () => {
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
                     <p className="mt-2 text-lg text-muted-foreground">Newest Properties Around You</p>
                 </div>
-                <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {mockProperties.map(property => (
-                        <PropertyCard key={property.id} property={property} />
-                    ))}
-                </div>
-                <div className="mt-12 text-center">
-                    <Button size="lg" style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="text-primary-foreground">View All Properties</Button>
+                <div className="mt-12">
+                   <Carousel
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        plugins={[
+                           Autoplay({
+                             delay: 3000,
+                           }),
+                        ]}
+                        className="w-full"
+                    >
+                        <CarouselContent>
+                            {mockProperties.map((property) => (
+                            <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3">
+                                <div className="p-1">
+                                    <PropertyCard property={property} />
+                                </div>
+                            </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
                 </div>
             </div>
         </section>
     );
 };
 
+const NewsCard = ({ article }: { article: any }) => (
+    <Card className="h-full overflow-hidden">
+        <Image
+            src={article.image}
+            alt={article.title}
+            width={400}
+            height={250}
+            className="w-full h-56 object-cover"
+            data-ai-hint={article.hint}
+        />
+        <CardContent className="p-6">
+            <p className="text-sm text-muted-foreground mb-2">{article.date}</p>
+            <h3 className="text-lg font-semibold mb-4 hover:text-primary transition-colors">
+                <Link href="#">{article.title}</Link>
+            </h3>
+            <p className="text-sm text-primary font-semibold hover:underline">
+                 <Link href="#">{article.category}</Link>
+            </p>
+        </CardContent>
+    </Card>
+)
+
+const NewsSection = () => {
+    const news = [
+        { title: "Real Estate Market Heats Up, Here’s How First-time Buyers Can Keep Their Cool", date: "27 February 2025", category: "Luxury", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
+        { title: "As The Real Estate Market Heats Up, Here’s How First-time Buyers Can Keep Their Cool", date: "27 February 2025", category: "Luxury", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
+        { title: "Here’s How First-time Buyers Can Keep Their Cool As The Real Estate Market Heats Up", date: "27 February 2025", category: "Market Trends", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
+        { title: "Keeping Your Cool in a Hot Real Estate Market: A Guide for First-Timers", date: "27 February 2025", category: "Market Trends", image: "https://picsum.photos/400/250?random=13", hint: "happy couple" },
+    ]
+    return (
+        <section className="py-16 md:py-24 bg-secondary/50">
+            <div className="container mx-auto">
+                <div className="text-center max-w-2xl mx-auto">
+                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Latest News & Update</h2>
+                    <p className="mt-2 text-lg text-muted-foreground">Latest News About Eastleigh Properties</p>
+                </div>
+                 <div className="mt-12">
+                   <Carousel
+                        opts={{
+                            align: "start",
+                             loop: true,
+                        }}
+                         plugins={[
+                           Autoplay({
+                             delay: 4000,
+                           }),
+                        ]}
+                        className="w-full"
+                    >
+                        <CarouselContent>
+                            {news.map((article, index) => (
+                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                                <div className="p-1 h-full">
+                                    <NewsCard article={article} />
+                                </div>
+                            </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            </div>
+        </section>
+    );
+}
 
 const Footer = () => (
     <footer className="border-t bg-primary-light mt-12">
@@ -141,5 +251,3 @@ const Footer = () => (
         </div>
     </footer>
 );
-
-    
