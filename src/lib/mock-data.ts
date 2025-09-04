@@ -1,6 +1,7 @@
 
 
 
+
 export type Client = {
   id: string;
   name: string;
@@ -137,7 +138,7 @@ export const mockVendors: Vendor[] = [
     { id: 'v1', name: 'Kariuki\'s Electronics', email: 'sales@kariuki.com', phone: '+254711111111', country: 'Kenya', portal: 'NestMall', products: 50, rating: 4.5, status: 'Active' },
     { id: 'v2', name: 'Mama Ntilie Foods', email: 'orders@mamantilie.co.tz', phone: '+255788888888', country: 'Tanzania', portal: 'MamaAfrica', products: 25, rating: 4.8, status: 'Active' },
     { id: 'v3', name: 'Safaricom PLC', email: 'corporate@safaricom.co.ke', phone: '+254722000000', country: 'Kenya', portal: 'NestJobs', products: 15, rating: 4.2, status: 'Active' },
-    { id: 'v4', name: 'Jiji Real Estate', email: 'info@jiji.co.ke', phone: '+254733333333', country: 'Kenya', portal: 'NestHomes', products: 200, rating: 4.0, status: 'Inactive' },
+    { id: 'v4', name: 'Pam Golding Properties', email: 'info@pamgolding.co.ke', phone: '+254733333333', country: 'Kenya', portal: 'NestHomes', products: 200, rating: 4.7, status: 'Active' },
     { id: 'v5', name: 'Kenya Airways', email: 'contact@kenya-airways.com', phone: '+254709000000', country: 'Kenya', portal: 'NestTravel', products: 100, rating: 3.8, status: 'Active' },
     { id: 'v6', name: 'Blankets & Wine Org', email: 'events@blanketsandwine.com', phone: '+254744444444', country: 'Kenya', portal: 'NestEvents', products: 10, rating: 4.9, status: 'Pending' },
     { id: 'v7', name: 'Sendy Logistics', email: 'support@sendy.it', phone: '+254755555555', country: 'Kenya', portal: 'NestParcel', products: 1, rating: 4.3, status: 'Active' },
@@ -147,4 +148,119 @@ export const mockVendors: Vendor[] = [
 ];
 
 
+export type Property = {
+  id: string;
+  title: string;
+  location: string;
+  price: number;
+  type: 'For Sale' | 'For Rent';
+  category: 'Apartment' | 'Villa' | 'Townhouse' | 'Office';
+  beds: number;
+  baths: number;
+  area: number; // in sqft
+  imageUrl: string;
+  agent: {
+    name: string;
+    avatarUrl: string;
+  };
+};
+
+export const mockProperties: Property[] = [
+  {
+    id: 'prop1',
+    title: 'Modern Apartment in Kilimani',
+    location: 'Kilimani, Nairobi',
+    price: 15000000,
+    type: 'For Sale',
+    category: 'Apartment',
+    beds: 3,
+    baths: 2,
+    area: 1500,
+    imageUrl: 'https://picsum.photos/800/600?random=1',
+    agent: {
+      name: 'Jane Doe',
+      avatarUrl: 'https://picsum.photos/100/100?random=a1',
+    },
+  },
+  {
+    id: 'prop2',
+    title: 'Spacious Villa in Karen',
+    location: 'Karen, Nairobi',
+    price: 65000000,
+    type: 'For Sale',
+    category: 'Villa',
+    beds: 5,
+    baths: 5,
+    area: 4500,
+    imageUrl: 'https://picsum.photos/800/600?random=2',
+    agent: {
+      name: 'John Smith',
+      avatarUrl: 'https://picsum.photos/100/100?random=a2',
+    },
+  },
+  {
+    id: 'prop3',
+    title: 'Cozy Apartment for Rent',
+    location: 'Westlands, Nairobi',
+    price: 80000,
+    type: 'For Rent',
+    category: 'Apartment',
+    beds: 2,
+    baths: 1,
+    area: 1200,
+    imageUrl: 'https://picsum.photos/800/600?random=3',
+    agent: {
+      name: 'Peter Jones',
+      avatarUrl: 'https://picsum.photos/100/100?random=a3',
+    },
+  },
+  {
+    id: 'prop4',
+    title: 'Luxury Townhouse in Lavington',
+    location: 'Lavington, Nairobi',
+    price: 35000000,
+    type: 'For Sale',
+    category: 'Townhouse',
+    beds: 4,
+    baths: 4,
+    area: 3000,
+    imageUrl: 'https://picsum.photos/800/600?random=4',
+    agent: {
+      name: 'Susan Mwangi',
+      avatarUrl: 'https://picsum.photos/100/100?random=a4',
+    },
+  },
+   {
+    id: 'prop5',
+    title: 'Affordable Office Space',
+    location: 'CBD, Nairobi',
+    price: 50000,
+    type: 'For Rent',
+    category: 'Office',
+    beds: 0,
+    baths: 1,
+    area: 800,
+    imageUrl: 'https://picsum.photos/800/600?random=5',
+    agent: {
+      name: 'David Kimani',
+      avatarUrl: 'https://picsum.photos/100/100?random=a5',
+    },
+  },
+  {
+    id: 'prop6',
+    title: 'Beachfront Villa in Diani',
+    location: 'Diani, Coast',
+    price: 45000000,
+    type: 'For Sale',
+    category: 'Villa',
+    beds: 4,
+    baths: 3,
+    area: 3500,
+    imageUrl: 'https://picsum.photos/800/600?random=6',
+    agent: {
+      name: 'Fatima Ahmed',
+      avatarUrl: 'https://picsum.photos/100/100?random=a6',
+    },
+  },
+];
     
