@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -63,7 +64,7 @@ const HeroSection = () => {
     return (
         <section className="relative bg-secondary/30">
             <div className="container mx-auto">
-                 <div className="grid md:grid-cols-2 items-center py-12 md:py-24">
+                 <div className="grid md:grid-cols-2 items-center py-4 md:py-8">
                     <div className="text-right pr-12">
                         <h1 className="text-5xl font-bold" style={{color:'hsl(var(--nesthomes-primary))'}}>Find An Amazing Property</h1>
                     </div>
@@ -145,3 +146,4 @@ const Footer = () => (
         </div>
     </footer>
 );
+
