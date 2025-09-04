@@ -57,10 +57,10 @@ const HeroSection = () => (
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center">
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl font-headline">
-        Africa’s Engine for Marketplaces, SuperApps & Digital Platforms
+        Africa’s Engine for Marketplaces & Digital Platforms
       </h1>
       <p className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto">
-        We empower organizations to launch their own marketplaces, super apps, and digital platforms within weeks.
+        We empower organizations to launch their own marketplaces and digital platforms within weeks.
       </p>
       <div className="mt-10">
         <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
@@ -86,7 +86,7 @@ const IntroductionSection = () => (
           Africa’s digital economy is projected to exceed $180 billion by 2025, powered by mobile-first consumers, internet growth, and mobile money adoption. Yet telcos, banks, media houses, and brands struggle to launch profitable digital platforms quickly and affordably.
         </p>
         <p className="text-foreground font-medium">
-          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces, super apps, and digital platforms within weeks — complete with monetization, local integrations, and scalable architecture.
+          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces and digital platforms within weeks — complete with monetization, local integrations, and scalable architecture.
         </p>
       </div>
     </div>
