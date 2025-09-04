@@ -65,7 +65,7 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section bg-background pt-2 pb-1 md:pt-3 md:pb-2">
+      <section className="relative hero-slider-section bg-background flex items-center justify-center">
         <Image 
             src="https://picsum.photos/1600/900" 
             alt="Modern living room" 
@@ -74,7 +74,7 @@ const HeroSection = () => {
             data-ai-hint="living room"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4">
+        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4 py-16">
           <div className="w-full max-w-4xl">
              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white">Find An Amazing Property</h1>
           </div>
