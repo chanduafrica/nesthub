@@ -1,6 +1,6 @@
 :root {
-    --nesthomes-primary: 209 75% 40%; /* DigitalNest Blue */
-    --nesthomes-accent: 141 53% 43%; /* Green */
+    --nesthomes-primary: 209 75% 40%; /* DigitalNest Blue - #1767b0 */
+    --nesthomes-accent: 358 83% 54%; /* DigitalNest Red - #ea262c */
 }
 .nesthomes-theme {
     --background: 240 10% 98%;
