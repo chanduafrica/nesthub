@@ -1,6 +1,4 @@
-
-@layer base {
-  .nesthomes-theme {
+.nesthomes-theme {
     --background: 220 13% 97%; /* Light Grey */
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -44,4 +42,3 @@
     --input: 240 5% 14.9%;
     --ring: 16 100% 66%; /* Coral Orange */
   }
-}
