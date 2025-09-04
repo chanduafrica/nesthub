@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import './theme.css';
+import { Input } from '@/components/ui/input';
+
 
 export default function NestHomesPage() {
   return (
@@ -28,8 +29,9 @@ const Header = () => {
         <header className="sticky top-0 z-50 w-full border-b bg-primary-light">
            <div className="container mx-auto">
              <div className="flex h-24 items-center justify-between">
-                <Link href="/modules/homes" className="mr-6 flex items-center gap-2">
-                    <Image src="/dnproperties.png" alt="NestHomes" width={200} height={40} />
+                <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold">
+                    <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
+                    <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
                 </Link>
                 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
@@ -111,7 +113,10 @@ const Footer = () => (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <div>
                     <div className="flex items-center gap-2 mb-4">
-                         <Image src="/dnproperties.png" alt="NestHomes" width={180} height={36} />
+                        <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold">
+                           <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
+                           <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
+                        </Link>
                     </div>
                     <p className="text-muted-foreground">Find Your Ideal Property at Souk Properties – Explore the best real estate opportunities in our Trusted Real Estate Portal. Whether you’re looking to buy, sell, or rent apartments, commercial spaces, or land, we connect you with verified listings and reliable agents. Your dream property is just a click away!</p>
                 </div>
