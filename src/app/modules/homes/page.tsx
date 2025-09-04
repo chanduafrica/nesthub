@@ -30,7 +30,7 @@ export default function NestHomesPage() {
 
 const Header = () => {
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-primary-light">
+        <header className="sticky top-0 z-50 w-full border-b bg-background">
            <div className="container mx-auto">
              <div className="flex h-24 items-center justify-between">
                 <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold">
@@ -166,6 +166,7 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
 
 
