@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { mockProperties } from '@/lib/mock-data';
 import { NestIcon } from '@/components/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
+import './theme.css';
 
 export default function NestHomesPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
       <Header />
       <main>
         <HeroSection />
@@ -33,6 +35,7 @@ const Header = () => {
                 </Link>
                 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
+                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary">DigitalNest Home</Link>
                      <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold">Home</Link>
                     <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Properties</Link>
                     <Link href="#" className="text-foreground/80 transition-colors hover:text-primary">Travel & Stays</Link>
