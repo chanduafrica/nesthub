@@ -120,7 +120,7 @@ const FeaturedPropertiesSection = () => {
                     ))}
                 </div>
                 <div className="mt-12 text-center">
-                    <Button size="lg" variant="outline">View All Properties</Button>
+                    <Button size="lg" style={{ backgroundColor: 'hsl(var(--nesthomes-primary))' }} className="text-primary-foreground">View All Properties</Button>
                 </div>
             </div>
         </section>
@@ -166,6 +166,7 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
 
 
