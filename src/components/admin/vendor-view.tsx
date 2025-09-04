@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   ArrowLeft,
   DollarSign,
@@ -94,25 +94,27 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
   const { toast } = useToast();
 
 
-  useEffect(() => {
-    if (vendor.id) {
-        setLoadingOffers(true);
-        getOffersForVendor(vendor.id)
-            .then(offers => {
-                setSentOffers(offers);
-                setLoadingOffers(false);
-            })
-            .catch(error => {
-                console.error("Error fetching vendor offers: ", error);
-                toast({
-                    title: "Error",
-                    description: "Could not fetch vendor offers.",
-                    variant: "destructive"
-                });
-                setLoadingOffers(false);
-            });
+  const fetchOffers = useCallback(async () => {
+    if (!vendor.id) return;
+    setLoadingOffers(true);
+    try {
+        const offers = await getOffersForVendor(vendor.id);
+        setSentOffers(offers);
+    } catch (error) {
+        console.error("Error fetching vendor offers: ", error);
+        toast({
+            title: "Error",
+            description: "Could not fetch vendor offers.",
+            variant: "destructive"
+        });
+    } finally {
+        setLoadingOffers(false);
     }
   }, [vendor.id, toast]);
+
+  useEffect(() => {
+    fetchOffers();
+  }, [fetchOffers]);
 
   const { totalBusiness, vendorTransactions } = useMemo(() => {
     const vendorTransactions = mockTransactions.filter(tx => tx.vendorId === vendor.id);
@@ -151,13 +153,13 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
       };
 
       try {
-        const savedOffer = await saveVendorOffer(newOfferData);
-        setSentOffers(prev => [savedOffer, ...prev]);
+        await saveVendorOffer(newOfferData);
         toast({
             title: 'Offer Sent!',
-            description: `Offer code ${savedOffer.code} has been sent to ${vendor.name}.`,
+            description: `Offer code ${newOfferData.code} has been sent to ${vendor.name}.`,
         });
         setOfferModalOpen(false);
+        fetchOffers(); // Re-fetch offers to update the list
       } catch (error) {
         console.error("Error saving offer: ", error);
         toast({
@@ -550,3 +552,5 @@ function OfferDialogContent({ vendor, onSubmit }: { vendor: any, onSubmit: (e: R
         </DialogContent>
     )
 }
+
+    
