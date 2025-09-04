@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -71,11 +70,13 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section bg-background py-24">
+      <section className="relative hero-slider-section bg-background py-12 md:py-16">
         <div className="container mx-auto flex flex-col justify-center items-center text-center px-4">
           <div className="w-full max-w-4xl">
-            <h1 className="text-5xl font-bold text-foreground mb-8">Find An Amazing Property</h1>
-            <SearchForm />
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">Find An Amazing Property</h1>
+          </div>
+          <div className="w-[98%] max-w-6xl">
+             <SearchForm />
           </div>
         </div>
       </section>

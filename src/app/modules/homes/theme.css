@@ -48,6 +48,6 @@
   }
 
   .hero-slider-section {
-    height: 70vh;
-    min-height: 700px;
+    height: auto;
+    min-height: auto;
   }
