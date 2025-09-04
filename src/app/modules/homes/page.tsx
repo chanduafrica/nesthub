@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -96,9 +97,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 flex flex-col justify-start items-center text-center px-4 pt-24">
           <div className="w-full max-w-4xl">
-            <h1 className="text-5xl font-bold text-white mb-4">Find An Amazing Property</h1>
-            <p className="text-white text-lg mb-2">Need Help To Choose Your Property</p>
-            <p className="text-white text-lg mb-8">Let Us Call You!</p>
+            <h1 className="text-5xl font-bold text-white mb-8">Find An Amazing Property</h1>
             <SearchForm />
           </div>
         </div>
