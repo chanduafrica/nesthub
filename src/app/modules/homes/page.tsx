@@ -72,13 +72,13 @@ const HeroSection = () => {
         <section className="relative hero-slider-section">
              <Carousel
                 plugins={[plugin.current]}
-                className="w-full"
+                className="w-full h-full"
                 onMouseEnter={plugin.current.stop}
                 onMouseLeave={plugin.current.reset}
             >
                 <CarouselContent>
                     {mockProperties.map((property) => (
-                        <CarouselItem key={property.id}>
+                        <CarouselItem key={property.id} className="h-full">
                             <div className="relative w-full h-full">
                                 <Image
                                     src={property.imageUrl}
@@ -166,6 +166,7 @@ const Footer = () => (
         </div>
     </footer>
 );
+
 
 
 
