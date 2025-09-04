@@ -81,7 +81,7 @@ const HeroSection = () => {
 
 const FeaturedPropertiesSection = () => {
     return (
-        <section className="py-16 md:py-24 bg-background">
+        <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-background">
             <div className="container mx-auto">
                 <div className="text-left max-w-2xl">
                     <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
