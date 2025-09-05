@@ -14,6 +14,10 @@ interface PropertyCardProps {
   layout?: 'grid' | 'list';
 }
 
+function createSlug(title: string) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
 export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   const formatPrice = (price: number) => {
     if (property.type === 'For Rent') {
@@ -21,13 +25,15 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
     }
     return `Ksh ${price.toLocaleString()}`;
   };
+  
+  const propertySlug = createSlug(property.title);
 
   if (layout === 'list') {
     return (
         <Card className="overflow-hidden transition-shadow hover:shadow-lg group w-full">
             <div className="flex flex-col md:flex-row">
                 <div className="relative md:w-1/3">
-                    <Link href={`/modules/homes/properties/${property.id}`} className="block">
+                    <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                         <Image
                             src={property.imageUrl}
                             alt={property.title}
@@ -46,7 +52,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
                         <div>
                             <p className="text-xl font-bold text-primary mb-2">{formatPrice(property.price)}</p>
                             <h3 className="text-lg font-semibold leading-tight truncate">
-                                <Link href={`/modules/homes/properties/${property.id}`} className="hover:text-primary">{property.title}</Link>
+                                <Link href={`/modules/homes/properties/${propertySlug}`} className="hover:text-primary">{property.title}</Link>
                             </h3>
                             <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
                                 <MapPin className="h-4 w-4" />
@@ -87,7 +93,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-lg group">
         <div className="relative">
-             <Link href={`/modules/homes/properties/${property.id}`} className="block">
+             <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                 <Image
                     src={property.imageUrl}
                     alt={property.title}
@@ -110,7 +116,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
         </div>
       <CardContent className="p-4">
         <h3 className="mt-1 text-lg font-semibold leading-tight truncate">
-          <Link href={`/modules/homes/properties/${property.id}`} className="hover:text-primary">{property.title}</Link>
+          <Link href={`/modules/homes/properties/${propertySlug}`} className="hover:text-primary">{property.title}</Link>
         </h3>
         <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
           <MapPin className="h-4 w-4" />
