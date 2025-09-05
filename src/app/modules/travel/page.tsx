@@ -145,7 +145,7 @@ const HeroSection = () => {
     return (
         <section className="relative h-[70vh] flex items-center justify-center text-white">
              <Image
-                src="/images/travel/mara-plane.jpg"
+                src="/images/maasaimara.jpg"
                 alt="Maasai Mara sunrise with an airplane taking off"
                 layout="fill"
                 objectFit="cover"
