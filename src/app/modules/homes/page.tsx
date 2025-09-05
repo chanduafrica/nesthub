@@ -8,33 +8,10 @@ import { Property } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 import './theme.css';
-
-
-export default function NestHomesPage() {
-  const [properties, setProperties] = useState<Property[]>([]);
-
-  useEffect(() => {
-    fetch('/api/data/properties')
-      .then(res => res.json())
-      .then(data => setProperties(data));
-  }, []);
-
-  return (
-    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
-      <Header />
-      <main>
-        <HeroSection />
-        <FeaturedPropertiesSection properties={properties} />
-        <NewsSection />
-      </main>
-      <Footer />
-    </div>
-  );
-}
 
 const Header = () => {
     return (
@@ -70,10 +47,10 @@ const Header = () => {
 const HeroSection = () => {
     return (
       <section className="relative hero-slider-section bg-background flex items-center justify-center">
-        <Image 
-            src="/images/hero-background.jpg" 
-            alt="Beautiful modern home interior" 
-            fill 
+        <Image
+            src="/images/hero-background.jpg"
+            alt="Beautiful modern home interior"
+            fill
             className="object-cover"
             data-ai-hint="modern house"
         />
@@ -198,3 +175,25 @@ const Footer = () => (
         </div>
     </footer>
 );
+
+export default function NestHomesPage() {
+  const [properties, setProperties] = useState<Property[]>([]);
+
+  useEffect(() => {
+    fetch('/api/data/properties')
+      .then(res => res.json())
+      .then(data => setProperties(data));
+  }, []);
+
+  return (
+    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
+      <Header />
+      <main>
+        <HeroSection />
+        <FeaturedPropertiesSection properties={properties} />
+        <NewsSection />
+      </main>
+      <Footer />
+    </div>
+  );
+}
