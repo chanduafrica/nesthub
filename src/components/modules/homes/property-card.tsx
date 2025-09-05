@@ -41,7 +41,9 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   
   const propertySlug = createSlug(property.title);
 
-  const randomImage = useMemo(() => localImages[Math.floor(Math.random() * localImages.length)], [property.id]);
+  // Use a deterministic approach to avoid client/server mismatch
+  const imageIndex = useMemo(() => parseInt(property.id.replace('prop', ''), 10) % localImages.length, [property.id]);
+  const displayImage = localImages[imageIndex] || localImages[0];
 
 
   if (layout === 'list') {
@@ -51,7 +53,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
                 <div className="relative md:w-1/3">
                     <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                         <Image
-                            src={randomImage}
+                            src={displayImage}
                             alt={property.title}
                             width={400}
                             height={250}
@@ -111,7 +113,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
         <div className="relative">
              <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                 <Image
-                    src={randomImage}
+                    src={displayImage}
                     alt={property.title}
                     width={400}
                     height={250}

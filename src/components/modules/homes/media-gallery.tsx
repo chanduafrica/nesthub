@@ -29,18 +29,10 @@ const localImages = [
     { src: '/property/8.jpg', hint: "balcony view" },
 ];
 
-function shuffleArray<T>(array: T[]): T[] {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-}
-
 
 export function MediaGallery({ title }: MediaGalleryProps) {
-  const images = React.useMemo(() => shuffleArray(localImages).slice(0, 5), [title]);
+  // Use a fixed set of the first 8 images for the gallery
+  const images = localImages.slice(0, 8);
 
   return (
     <Card>
