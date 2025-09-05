@@ -11,7 +11,6 @@ import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Briefcase, Building, HomeIcon, LayoutGrid, Plane, Ticket } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import './theme.css';
 
 const Header = () => {
@@ -70,6 +69,8 @@ const HeroSection = () => {
 
 const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
     const [filter, setFilter] = useState<'all' | 'sale' | 'rent'>('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const propertiesPerPage = 18; // 6 columns * 3 rows
 
     const filteredProperties = useMemo(() => {
         if (filter === 'all') return properties;
@@ -77,8 +78,16 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
         return properties.filter(p => p.type === type);
     }, [properties, filter]);
 
+    const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+    const paginatedProperties = useMemo(() => {
+        const startIndex = (currentPage - 1) * propertiesPerPage;
+        return filteredProperties.slice(startIndex, startIndex + propertiesPerPage);
+    }, [currentPage, filteredProperties]);
+
+
     const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent') => {
         setFilter(newFilter);
+        setCurrentPage(1);
     }
 
     return (
@@ -95,27 +104,35 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                     <Button variant={filter === 'sale' ? 'default' : 'outline'} onClick={() => handleFilterChange('sale')}>For Sale</Button>
                     <Button variant={filter === 'rent' ? 'default' : 'outline'} onClick={() => handleFilterChange('rent')}>For Rent</Button>
                 </div>
-                <div className="mt-12">
-                    <Carousel
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                        className="w-full"
-                    >
-                        <CarouselContent>
-                            {filteredProperties.map((property) => (
-                                <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3">
-                                    <div className="p-1">
-                                        <PropertyCard property={property} />
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="hidden sm:flex" />
-                        <CarouselNext className="hidden sm:flex" />
-                    </Carousel>
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+                   {paginatedProperties.map((property) => (
+                        <PropertyCard key={property.id} property={property} />
+                    ))}
                 </div>
+
+                 {totalPages > 1 && (
+                    <div className="flex justify-center mt-12">
+                        <div className="flex items-center gap-2">
+                            <Button
+                                variant="outline"
+                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </Button>
+                            <span className="text-sm text-muted-foreground">
+                                Page {currentPage} of {totalPages}
+                            </span>
+                            <Button
+                                variant="outline"
+                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </div>
+                )}
             </div>
         </section>
     );
@@ -145,9 +162,9 @@ const NewsCard = ({ article }: { article: any }) => (
 
 const NewsSection = () => {
     const news = [
-        { title: "Market Trends: What to Expect in 2025", date: "July 20, 2025", category: "Market Analysis", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
-        { title: "First-Time Homebuyer's Guide to Nairobi", date: "July 18, 2025", category: "Buyer Tips", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
-        { title: "The Rise of Green Homes in Kenya", date: "July 15, 2025", category: "Sustainability", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
+        { title: "Market Trends: What to Expect in 2025", date: "July 20, 2025", category: "Market Analysis", image: "https://picsum.photos/400/250?random=30", hint: "modern kitchen" },
+        { title: "First-Time Homebuyer's Guide to Nairobi", date: "July 18, 2025", category: "Buyer Tips", image: "https://picsum.photos/400/250?random=31", hint: "living room" },
+        { title: "The Rise of Green Homes in Kenya", date: "July 15, 2025", category: "Sustainability", image: "https://picsum.photos/400/250?random=32", hint: "house exterior" },
     ]
     return (
         <section className="py-16 md:py-24 bg-secondary/10">
@@ -229,3 +246,5 @@ export default function NestHomesPage() {
     </div>
   );
 }
+
+    

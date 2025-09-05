@@ -1,3 +1,4 @@
+
 [
   {
     "id": "prop1",
@@ -102,5 +103,163 @@
     "area": 800,
     "imageUrl": "https://picsum.photos/800/600?random=8",
     "agent": { "name": "Nyumba Poa", "avatarUrl": "https://picsum.photos/100/100?random=a8" }
+  },
+  {
+    "id": "prop9",
+    "title": "Mansion in Muthaiga",
+    "location": "Muthaiga, Nairobi",
+    "price": 120000000,
+    "type": "For Sale",
+    "category": "Villa",
+    "beds": 7,
+    "baths": 8,
+    "area": 10000,
+    "imageUrl": "https://picsum.photos/800/600?random=9",
+    "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
+  },
+  {
+    "id": "prop10",
+    "title": "Penthouse with City View",
+    "location": "Kilimani, Nairobi",
+    "price": 450000,
+    "type": "For Rent",
+    "category": "Apartment",
+    "beds": 4,
+    "baths": 4,
+    "area": 3500,
+    "imageUrl": "https://picsum.photos/800/600?random=10",
+    "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
+  },
+  {
+    "id": "prop11",
+    "title": "Standalone House in Kitisuru",
+    "location": "Kitisuru, Nairobi",
+    "price": 72000000,
+    "type": "For Sale",
+    "category": "Townhouse",
+    "beds": 5,
+    "baths": 5,
+    "area": 6000,
+    "imageUrl": "https://picsum.photos/800/600?random=11",
+    "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
+  },
+  {
+    "id": "prop12",
+    "title": "Affordable Bedsitter in Roysambu",
+    "location": "Roysambu, Nairobi",
+    "price": 15000,
+    "type": "For Rent",
+    "category": "Apartment",
+    "beds": 1,
+    "baths": 1,
+    "area": 400,
+    "imageUrl": "https://picsum.photos/800/600?random=12",
+    "agent": { "name": "Nyumba Poa", "avatarUrl": "https://picsum.photos/100/100?random=a8" }
+  },
+  {
+    "id": "prop13",
+    "title": "Commercial Building in CBD",
+    "location": "CBD, Nairobi",
+    "price": 250000000,
+    "type": "For Sale",
+    "category": "Office",
+    "beds": 0,
+    "baths": 10,
+    "area": 20000,
+    "imageUrl": "https://picsum.photos/800/600?random=13",
+    "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
+  },
+  {
+    "id": "prop14",
+    "title": "1-Bedroom in South B",
+    "location": "South B, Nairobi",
+    "price": 25000,
+    "type": "For Rent",
+    "category": "Apartment",
+    "beds": 1,
+    "baths": 1,
+    "area": 600,
+    "imageUrl": "https://picsum.photos/800/600?random=14",
+    "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
+  },
+  {
+    "id": "prop15",
+    "title": "Gated Community Home",
+    "location": "Thika Road, Nairobi",
+    "price": 18000000,
+    "type": "For Sale",
+    "category": "Townhouse",
+    "beds": 4,
+    "baths": 3,
+    "area": 2200,
+    "imageUrl": "https://picsum.photos/800/600?random=15",
+    "agent": { "name": "Kariuki & Co.", "avatarUrl": "https://picsum.photos/100/100?random=a7" }
+  },
+  {
+    "id": "prop16",
+    "title": "Garden Apartment in Lavington",
+    "location": "Lavington, Nairobi",
+    "price": 180000,
+    "type": "For Rent",
+    "category": "Apartment",
+    "beds": 3,
+    "baths": 3,
+    "area": 2000,
+    "imageUrl": "https://picsum.photos/800/600?random=16",
+    "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
+  },
+  {
+    "id": "prop17",
+    "title": "House with Pool in Nyali",
+    "location": "Nyali, Coast",
+    "price": 55000000,
+    "type": "For Sale",
+    "category": "Villa",
+    "beds": 5,
+    "baths": 6,
+    "area": 5500,
+    "imageUrl": "https://picsum.photos/800/600?random=17",
+    "agent": { "name": "Coastal Properties", "avatarUrl": "https://picsum.photos/100/100?random=a6" }
+  },
+  {
+    "id": "prop18",
+    "title": "Modern Duplex in Westlands",
+    "location": "Westlands, Nairobi",
+    "price": 280000,
+    "type": "For Rent",
+    "category": "Apartment",
+    "beds": 4,
+    "baths": 4,
+    "area": 3200,
+    "imageUrl": "https://picsum.photos/800/600?random=18",
+    "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
+  },
+  {
+    "id": "prop19",
+    "title": "Fixer-Upper in Eastleigh",
+    "location": "Eastleigh, Nairobi",
+    "price": 8000000,
+    "type": "For Sale",
+    "category": "Apartment",
+    "beds": 3,
+    "baths": 1,
+    "area": 1300,
+    "imageUrl": "https://picsum.photos/800/600?random=19",
+    "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
+  },
+  {
+    "id": "prop20",
+    "title": "Karen Cottage for Rent",
+    "location": "Karen, Nairobi",
+    "price": 120000,
+    "type": "For Rent",
+    "category": "Townhouse",
+    "beds": 2,
+    "baths": 2,
+    "area": 1800,
+    "imageUrl": "https://picsum.photos/800/600?random=20",
+    "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   }
 ]
+
+    
