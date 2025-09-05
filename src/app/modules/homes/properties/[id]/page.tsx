@@ -436,7 +436,7 @@ function MortgageLeadDialog({ property }: { property: Property }) {
                             <Select name="income" defaultValue="100k-200k">
                                 <SelectTrigger id="income"><SelectValue /></SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="<50k">&lt; 50,000</SelectItem>
+                                    <SelectItem value="&lt;50k">&lt; 50,000</SelectItem>
                                     <SelectItem value="50k-100k">50,000 - 100,000</SelectItem>
                                     <SelectItem value="100k-200k">100,001 - 200,000</SelectItem>
                                     <SelectItem value=">200k">&gt; 200,000</SelectItem>
@@ -568,5 +568,3 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
         </DialogContent>
     );
 }
-
-    
