@@ -9,7 +9,6 @@ import Image from "next/image";
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <Header />
       <main className="flex-1">
         <HeroSection />
         <IntroductionSection />
@@ -21,30 +20,6 @@ export default function HomePage() {
     </div>
   );
 }
-
-const Header = () => (
-  <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div className="container flex h-14 items-center">
-      <div className="mr-4 flex items-center">
-        <Link href="/" className="flex items-center gap-2">
-           <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={32} height={32} className="h-8 w-auto" />
-        </Link>
-      </div>
-      <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
-         <Link href="/admin/login">
-          <Button variant="ghost">
-            <UserCog className="mr-2 h-4 w-4" />
-            Admin
-          </Button>
-        </Link>
-        <Button>Request a Demo</Button>
-      </nav>
-      <div className="flex flex-1 items-center justify-end space-x-4 md:hidden">
-        <Button>Request a Demo</Button>
-      </div>
-    </div>
-  </header>
-);
 
 const HeroSection = () => (
     <section className="relative h-[60vh] flex items-center justify-center text-white">
@@ -144,6 +119,7 @@ const modules = [
   { slug: "eats", icon: UtensilsCrossed, title: "MamaAfrica (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
   { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce and food order integrations. Power digital commerce with seamless logistics." },
   { slug: "media", icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
+  { slug: "admin/login", icon: UserCog, title: "Admin Portal", description: "Access the command center to manage all platforms, users, vendors, and transactions in the entire ecosystem." },
 ];
 
 
@@ -158,7 +134,7 @@ const CoreModulesSection = () => (
       </div>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((mod) => (
-          <Link href={`/modules/${mod.slug}`} key={mod.slug} className="no-underline">
+          <Link href={`/${mod.slug}`} key={mod.slug} className="no-underline">
             <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-center gap-4">
@@ -210,3 +186,4 @@ const Footer = () => (
     </div>
   </footer>
 );
+
