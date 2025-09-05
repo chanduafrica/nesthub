@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Briefcase, Building, HomeIcon, LayoutGrid, Plane, Ticket } from 'lucide-react';
+import { Briefcase, Building, Facebook, HomeIcon, Instagram, LayoutGrid, Plane, Ticket, Twitter } from 'lucide-react';
 import './theme.css';
 import {
   Carousel,
@@ -221,9 +221,9 @@ const Footer = () => (
                  <div>
                     <h3 className="font-semibold mb-2">Follow Us</h3>
                      <div className="flex space-x-4">
-                        <Link href="#" className="text-muted-foreground hover:text-primary">FB</Link>
-                        <Link href="#" className="text-muted-foreground hover:text-primary">TW</Link>
-                        <Link href="#" className="text-muted-foreground hover:text-primary">IG</Link>
+                        <Link href="#" className="text-muted-foreground hover:text-primary"><Facebook className="h-5 w-5" /></Link>
+                        <Link href="#" className="text-muted-foreground hover:text-primary"><Twitter className="h-5 w-5" /></Link>
+                        <Link href="#" className="text-muted-foreground hover:text-primary"><Instagram className="h-5 w-5" /></Link>
                     </div>
                 </div>
             </div>
