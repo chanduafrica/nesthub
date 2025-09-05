@@ -85,7 +85,14 @@ const conversionRates: { [key: string]: number } = {
     SOS: 4.55,
 };
 
-export function ClientView({ client }: { client: Client }) {
+interface ClientViewProps {
+    client: Client;
+    transactions: Transaction[];
+    moduleEngagement: ModuleEngagement[];
+}
+
+
+export function ClientView({ client, transactions: clientTransactions, moduleEngagement }: ClientViewProps) {
   const [clientStatus, setClientStatus] = useState(client.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
   const [sentOffers, setSentOffers] = useState<Offer[]>([]);
@@ -98,9 +105,6 @@ export function ClientView({ client }: { client: Client }) {
   
   const [transactionsCurrentPage, setTransactionsCurrentPage] = useState(1);
   const transactionsItemsPerPage = 5;
-  
-  const [clientTransactions, setClientTransactions] = useState<Transaction[]>([]);
-  const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
   
   const { currency } = useCurrency();
   const { toast } = useToast();
@@ -122,14 +126,6 @@ export function ClientView({ client }: { client: Client }) {
                 });
                 setLoadingOffers(false);
             });
-        
-        fetch('/api/data/transactions')
-            .then(res => res.json())
-            .then(allTransactions => setClientTransactions(allTransactions.filter((tx: Transaction) => tx.clientId === client.id)));
-        
-        fetch('/api/data/module-engagement')
-            .then(res => res.json())
-            .then(data => setModuleEngagement(data));
     }
   }, [client.id, toast]);
 
@@ -200,12 +196,20 @@ export function ClientView({ client }: { client: Client }) {
 
 
   const convertedModuleEngagement = useMemo(() => {
+    // Note: The logic here might need adjustment.
+    // This chart shows engagement for *all* clients, not just this one.
+    // To show for just this client, we'd need to recalculate based on their transactions.
+    const clientModuleTotals = new Map<string, number>();
+    clientTransactions.forEach(tx => {
+        clientModuleTotals.set(tx.module, (clientModuleTotals.get(tx.module) || 0) + tx.amount);
+    });
+
     const rate = conversionRates[currency] || 1;
     return moduleEngagement.map(item => ({
-        ...item,
-        value: item.value * rate,
+        name: item.name,
+        value: (clientModuleTotals.get(item.name) || 0) * rate,
     }));
-  }, [currency, moduleEngagement]);
+  }, [currency, moduleEngagement, clientTransactions]);
 
   if (!client) {
     return <div>Client not found.</div>;
@@ -585,5 +589,3 @@ function DiscountDialogContent({ client, onSubmit, moduleEngagement }: { client:
         </DialogContent>
     )
 }
-
-    
