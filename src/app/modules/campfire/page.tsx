@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,12 @@ import {
     TrendingUp,
     MessageSquareText,
     BadgeHelp,
-    Award
+    Award,
+    HomeIcon,
+    Plane,
+    Briefcase,
+    Ticket,
+    Store
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -86,6 +90,13 @@ const Header = () => (
                     <Flame className="h-6 w-6 text-primary" />
                     <span className="font-bold text-lg">Campfire</span>
                 </Link>
+                <nav className="flex items-center space-x-4 text-sm font-medium">
+                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Store className="h-4 w-4" />Marketplace</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                </nav>
             </div>
             <div className="flex flex-1 items-center justify-end">
                 <Button>Login</Button>

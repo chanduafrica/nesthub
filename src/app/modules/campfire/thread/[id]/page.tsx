@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,11 @@ import {
     MessageCircle,
     Flame,
     Home,
-    ArrowLeft
+    ArrowLeft,
+    HomeIcon,
+    Plane,
+    Briefcase,
+    Store
 } from "lucide-react";
 import Link from "next/link";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
@@ -32,18 +35,37 @@ const comments = [
     { author: { name: 'Juma Omondi', avatar: 'https://picsum.photos/40/40?random=9' }, content: "I track every single shilling on an Excel sheet. Sounds tedious but it makes you very aware of where your money is going." },
 ]
 
-export default function ThreadDetailPage({ params }: { params: { id: string } }) {
-  return (
-    <div className="flex flex-col min-h-screen bg-muted/40">
-        <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+const Header = () => (
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+             <div className="mr-4 hidden md:flex">
+                <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2">
+                    <Flame className="h-6 w-6 text-primary" />
+                    <span className="font-bold text-lg">Campfire</span>
+                </Link>
+                <nav className="flex items-center space-x-4 text-sm font-medium">
+                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Store className="h-4 w-4" />Marketplace</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                </nav>
+            </div>
+            <div className="flex flex-1 items-center justify-end">
                  <Button variant="outline" size="sm" asChild>
                     <Link href="/modules/campfire">
                         <ArrowLeft className="mr-2 h-4 w-4" /> Back to Feed
                     </Link>
                 </Button>
             </div>
-        </header>
+        </div>
+    </header>
+);
+
+export default function ThreadDetailPage({ params }: { params: { id: string } }) {
+  return (
+    <div className="flex flex-col min-h-screen bg-muted/40">
+        <Header />
 
         <main className="container py-8 max-w-4xl mx-auto">
             <div className="space-y-6">
