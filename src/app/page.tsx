@@ -26,8 +26,8 @@ const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
-        <Link href="/">
-          {/* Logo removed from header */}
+        <Link href="/" className="flex items-center gap-2">
+           <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={32} height={32} className="h-8 w-auto" />
         </Link>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
