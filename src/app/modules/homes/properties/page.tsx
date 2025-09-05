@@ -19,18 +19,23 @@ const Header = () => {
             <div className="container flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
-                        <Image src="/images/dnlogo.png" alt="NestHomes Logo" width={24} height={24} />
                         <span className="hidden font-bold sm:inline-block">
                            NestHomes
                         </span>
                     </Link>
-                    <nav className="flex items-center space-x-6 text-sm font-medium">
+                    <nav className="flex items-center space-x-4 text-sm font-medium">
                         <Link href="/modules/homes/properties" className="text-foreground transition-colors hover:text-foreground/80">Properties</Link>
                         <Link href="/modules/homes/build" className="text-foreground/60 transition-colors hover:text-foreground/80">Build My Own</Link>
+                        <Link href="/modules/travel" className="text-foreground/60 transition-colors hover:text-foreground/80">Travel</Link>
+                        <Link href="/modules/stays" className="text-foreground/60 transition-colors hover:text-foreground/80">Stays</Link>
+                        <Link href="/modules/mall" className="text-foreground/60 transition-colors hover:text-foreground/80">Marketplace</Link>
+                        <Link href="/modules/events" className="text-foreground/60 transition-colors hover:text-foreground/80">Events</Link>
+                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                     <Button>Contact Agent</Button>
+                     <Button variant="secondary">Login as Agent</Button>
+                     <Button>Login as Buyer</Button>
                 </div>
             </div>
         </header>
@@ -48,8 +53,8 @@ const Footer = () => (
                  <div>
                     <h3 className="font-semibold mb-2">Quick Links</h3>
                     <nav className="flex flex-col gap-1 text-sm text-muted-foreground">
-                        <Link href="/modules/homes/properties" className="hover:text-primary">Properties</Link>
-                        <Link href="/modules/homes/build" className="hover:text-primary">Build My Own</Link>
+                        <Link href="#" className="hover:text-primary">Properties</Link>
+                        <Link href="#" className="hover:text-primary">About Us</Link>
                         <Link href="#" className="hover:text-primary">Contact</Link>
                     </nav>
                 </div>
@@ -58,7 +63,7 @@ const Footer = () => (
                     <p className="text-sm text-muted-foreground mb-2">Subscribe to get the latest updates.</p>
                     <form className="flex gap-2">
                         <Input type="email" placeholder="Your Email" />
-                        <Button>Subscribe</Button>
+                        <Button variant="secondary">Subscribe</Button>
                     </form>
                 </div>
                  <div>
