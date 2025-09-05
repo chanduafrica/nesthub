@@ -57,11 +57,11 @@ const Header = () => {
                         </span>
                     </Link>
                     <nav className="flex items-center space-x-4 text-sm font-medium">
-                        <Link href="#" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
-                        <Link href="#" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Home className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Home className="h-4 w-4" />Stays</Link>
                         <Link href="#" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Flights</Link>
                         <Link href="#" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Hotel className="h-4 w-4" />Hotels</Link>
-                        <Link href="#" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Package className="h-4 w-4" />Holidays</Link>
+                        <Link href="/modules/travel/packages" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Package className="h-4 w-4" />Holidays</Link>
                         <Link href="/modules/homes" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
@@ -172,8 +172,8 @@ const FeaturedCategories = () => {
     const categories = [
         { icon: <Plane className="h-8 w-8 text-primary" />, title: "Flights", description: "Book flights across Africa.", href: "#" },
         { icon: <Hotel className="h-8 w-8 text-primary" />, title: "Hotels", description: "Find & book trusted stays.", href: "#" },
-        { icon: <Home className="h-8 w-8 text-primary" />, title: "NestStays", description: "Airbnb-style rentals by locals.", href: "#" },
-        { icon: <Sailboat className="h-8 w-8 text-primary" />, title: "Holiday Packages", description: "Safaris, coast retreats, adventure tours.", href: "#" },
+        { icon: <Home className="h-8 w-8 text-primary" />, title: "NestStays", description: "Airbnb-style rentals by locals.", href: "/modules/stays" },
+        { icon: <Sailboat className="h-8 w-8 text-primary" />, title: "Holiday Packages", description: "Safaris, coast retreats, adventure tours.", href: "/modules/travel/packages" },
     ];
     return (
          <section className="py-16 bg-muted/50">
@@ -333,10 +333,10 @@ const Footer = () => (
                     <h3 className="font-semibold mb-4">Quick Links</h3>
                     <nav className="flex flex-col gap-2 text-sm">
                         <Link href="#" className="text-muted-foreground hover:text-primary">Travel</Link>
-                        <Link href="#" className="text-muted-foreground hover:text-primary">Stays</Link>
+                        <Link href="/modules/stays" className="text-muted-foreground hover:text-primary">Stays</Link>
                         <Link href="#" className="text-muted-foreground hover:text-primary">Flights</Link>
                         <Link href="#" className="text-muted-foreground hover:text-primary">Hotels</Link>
-                        <Link href="#" className="text-muted-foreground hover:text-primary">Packages</Link>
+                        <Link href="/modules/travel/packages" className="text-muted-foreground hover:text-primary">Packages</Link>
                         <Link href="#" className="text-muted-foreground hover:text-primary">Car Hire</Link>
                     </nav>
                 </div>
@@ -388,11 +388,3 @@ export default function NestTravelPage() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-    
