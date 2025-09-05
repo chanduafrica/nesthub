@@ -1,6 +1,9 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -133,45 +136,74 @@ const modules = [
   { slug: "homes", icon: HomeIcon, title: "NestHomes (Property-as-a-Service)", description: "Verified real estate listings, virtual tours, rent collection, mortgage/insurance calculators. Monetize property transactions and financial services." },
   { slug: "travel", icon: Plane, title: "NestTravel (Travel-as-a-Service)", description: "Flights, hotels, holiday packages, NestStays rentals, car hire, insurance add-ons. Create revenue streams from travel and tourism ecosystems." },
   { slug: "campfire", icon: MessageSquare, title: "Campfire (Community-as-a-Service)", description: "Topic forums (money, careers, mental health, society), live AMAs, polls and challenges. Gamified loyalty (“Sparks” points), anonymous wellness support, youth stories/podcasts." },
-  { slug: "events", icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships. Unlock ticketing plus media monetization." },
-  { slug: "jobs", icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs." },
-  { slug: "biz", icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings." },
-  { slug: "eats", icon: UtensilsCrossed, title: "MamaAfrica (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty." },
-  { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce and food order integrations. Power digital commerce with seamless logistics." },
-  { slug: "media", icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms." },
+  { slug: "events", icon: Ticket, title: "NestEvents (Events-as-a-Service)", description: "Ticket sales, QR code validation, hybrid events, sponsorships. Unlock ticketing plus media monetization.", comingSoon: true },
+  { slug: "jobs", icon: Briefcase, title: "NestJobs (Jobs-as-a-Service)", description: "Employer dashboards, job seeker portals, CV matching, training integrations. Position telcos/media as career hubs.", comingSoon: true },
+  { slug: "biz", icon: Store, title: "NestBiz (Business Listings)", description: "SME directories, booking systems, niche listings (salons, spas, kinyozis). Empower SMEs with visibility and bookings.", comingSoon: true },
+  { slug: "eats", icon: UtensilsCrossed, title: "MamaAfrica (Food & Grocery-as-a-Service)", description: "Multi-restaurant marketplace, subscription grocery boxes, driver app, loyalty points. Build food and grocery marketplaces tied to payments/loyalty.", comingSoon: true },
+  { slug: "parcel", icon: Package, title: "NestParcel (Logistics-as-a-Service)", description: "Last-mile delivery, real-time tracking, e-commerce and food order integrations. Power digital commerce with seamless logistics.", comingSoon: true },
+  { slug: "media", icon: PlayCircle, title: "NestMedia (Media-as-a-Service)", description: "Streaming (music, video, podcasts), paywalls, influencer marketplaces, targeted ads. Reinvent media houses into streaming platforms.", comingSoon: true },
   { slug: "admin/login", icon: UserCog, title: "Admin Portal", description: "Access the command center to manage all platforms, users, vendors, and transactions in the entire ecosystem." },
 ];
 
 
-const CoreModulesSection = () => (
-  <section id="modules" className="py-16 md:py-24">
-    <div className="container">
-      <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Core SaaS Modules</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-          A Fully-Integrated Ecosystem
-        </p>
-      </div>
-      <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {modules.map((mod) => (
-          <Link href={`/${mod.slug.startsWith('admin') ? '' : 'modules/'}${mod.slug}`} key={mod.slug} className="no-underline">
-            <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
-              <CardHeader>
-                <div className="flex items-center gap-4">
-                  <mod.icon className="h-8 w-8 text-primary" />
-                  <CardTitle className="text-xl group-hover:text-accent transition-colors">{mod.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="text-muted-foreground">{mod.description}</p>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+const CoreModulesSection = () => {
+    const { toast } = useToast();
+
+    const handleModuleClick = (e: React.MouseEvent, comingSoon?: boolean) => {
+        if (comingSoon) {
+            e.preventDefault();
+            toast({
+                title: "Coming Soon!",
+                description: "This module is under construction and will be launched soon.",
+            });
+        }
+    };
+
+    return (
+        <section id="modules" className="py-16 md:py-24">
+        <div className="container">
+            <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Core SaaS Modules</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+                A Fully-Integrated Ecosystem
+            </p>
+            </div>
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {modules.map((mod) => {
+                const linkHref = `/${mod.slug.startsWith('admin') ? '' : 'modules/'}${mod.slug}`;
+                const cardContent = (
+                    <Card className={`flex flex-col h-full transition-shadow group ${mod.comingSoon ? 'cursor-pointer hover:shadow-lg' : 'hover:shadow-lg'}`}>
+                    <CardHeader>
+                        <div className="flex items-center gap-4">
+                        <mod.icon className="h-8 w-8 text-primary" />
+                        <CardTitle className={`text-xl transition-colors ${mod.comingSoon ? '' : 'group-hover:text-accent'}`}>{mod.title}</CardTitle>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                        <p className="text-muted-foreground">{mod.description}</p>
+                    </CardContent>
+                    </Card>
+                );
+
+                if (mod.comingSoon) {
+                    return (
+                        <div key={mod.slug} onClick={(e) => handleModuleClick(e, mod.comingSoon)}>
+                            {cardContent}
+                        </div>
+                    );
+                }
+
+                return (
+                    <Link href={linkHref} key={mod.slug} className="no-underline">
+                        {cardContent}
+                    </Link>
+                );
+            })}
+            </div>
+        </div>
+        </section>
+    );
+};
 
 const CtaSection = () => (
   <section id="cta" className="py-16 md:py-24 bg-primary text-primary-foreground">
