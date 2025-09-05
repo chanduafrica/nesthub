@@ -1,4 +1,6 @@
 
+'use client';
+
 import { notFound } from 'next/navigation';
 import fs from 'fs';
 import path from 'path';
@@ -13,16 +15,25 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MediaGallery } from '@/components/modules/homes/media-gallery';
 import { MortgageCalculator } from '@/components/modules/homes/mortgage-calculator';
 import { InsuranceEstimator } from '@/components/modules/homes/insurance-estimator';
-import { Bed, Bath, Landmark, MapPin, Phone, MessageSquare, ShieldCheck, Verified, ArrowLeft, Heart, Share2, Printer, Calendar, Banknote, Shield, Quote, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket } from 'lucide-react';
+import { Bed, Bath, Landmark, MapPin, Phone, MessageSquare, ShieldCheck, Verified, ArrowLeft, Heart, Share2, Printer, Calendar as CalendarIcon, Banknote, Shield, Quote, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket, CheckCircle } from 'lucide-react';
 import './theme.css';
-
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/hooks/use-toast';
+import { useState, useMemo, useEffect } from 'react';
+import { format } from 'date-fns';
 
 async function getPropertyData(id: string): Promise<Property | undefined> {
-    const filePath = path.join(process.cwd(), 'src', 'lib', 'data', 'properties.json');
-    const jsonData = fs.readFileSync(filePath, 'utf-8');
-    const properties: Property[] = JSON.parse(jsonData);
-    return properties.find(p => p.id === id);
+    // This function runs on the server, so we can't use hooks here.
+    // In a real app, this would be an API call.
+    // We are fetching it on the client now to make the page dynamic
+    return undefined;
 }
+
 
 const Header = () => {
     return (
@@ -58,15 +69,44 @@ const Header = () => {
 };
 
 
-export default async function PropertyDetailsPage({ params }: { params: { id: string } }) {
-    const property = await getPropertyData(params.id);
+export default function PropertyDetailsPage({ params }: { params: { id: string } }) {
+    const [property, setProperty] = useState<Property | null>(null);
+    const { toast } = useToast();
+
+    useEffect(() => {
+        fetch('/api/data/properties')
+            .then(res => res.json())
+            .then(data => {
+                const foundProperty = data.find((p: Property) => p.id === params.id);
+                if (foundProperty) {
+                    setProperty(foundProperty);
+                } else {
+                    // Handle not found case, maybe redirect or show a message
+                }
+            });
+    }, [params.id]);
+
 
     if (!property) {
-        notFound();
+        return (
+             <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
+                <Header />
+                <div className="flex-1 flex items-center justify-center">
+                    <p>Loading property details...</p>
+                </div>
+            </div>
+        )
     }
     
     const formatPrice = (price: number) => {
         return `Ksh ${price.toLocaleString()}`;
+    };
+    
+    const handleSave = () => {
+        toast({
+            title: "Property Saved!",
+            description: `${property.title} has been added to your favorites.`,
+        });
     };
 
     return (
@@ -95,7 +135,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
                             <CardContent>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                                     <div className="flex items-center gap-2"><span className="font-semibold">Type:</span><span>{property.category}</span></div>
-                                    <div className="flex items-center gap-2"><span className="font-semibold">Status:</span><span>{property.type}</span></div>
+                                    <div className="flex items-center gap-2"><span className-="font-semibold">Status:</span><span>{property.type}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Bedrooms:</span><span>{property.beds}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Bathrooms:</span><span>{property.baths}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Area:</span><span>{property.area.toLocaleString()} sqft</span></div>
@@ -119,7 +159,7 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
                                         </div>
                                     </div>
                                      <div className="flex gap-2">
-                                        <Button variant="outline" size="icon"><Heart className="h-4 w-4" /></Button>
+                                        <Button variant="outline" size="icon" onClick={handleSave}><Heart className="h-4 w-4" /></Button>
                                         <Button variant="outline" size="icon"><Share2 className="h-4 w-4" /></Button>
                                         <Button variant="outline" size="icon"><Printer className="h-4 w-4" /></Button>
                                     </div>
@@ -139,9 +179,24 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
                                 <Separator className="my-4" />
 
                                 <div className="space-y-2">
-                                    <Button size="lg" className="w-full"><Calendar className="mr-2 h-4 w-4"/> Book Viewing</Button>
-                                    <Button size="lg" variant="secondary" className="w-full"><Banknote className="mr-2 h-4 w-4"/> Start Mortgage Application</Button>
-                                    <Button size="lg" variant="outline" className="w-full"><Shield className="mr-2 h-4 w-4"/> Get Insurance Quote</Button>
+                                    <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button size="lg" className="w-full"><CalendarIcon className="mr-2 h-4 w-4"/> Book Viewing</Button>
+                                        </DialogTrigger>
+                                        <BookViewingDialog property={property} />
+                                    </Dialog>
+                                     <Dialog>
+                                        <DialogTrigger asChild>
+                                           <Button size="lg" variant="secondary" className="w-full"><Banknote className="mr-2 h-4 w-4"/> Start Mortgage Application</Button>
+                                        </DialogTrigger>
+                                        <MortgageLeadDialog property={property} />
+                                    </Dialog>
+                                     <Dialog>
+                                        <DialogTrigger asChild>
+                                            <Button size="lg" variant="outline" className="w-full"><Shield className="mr-2 h-4 w-4"/> Get Insurance Quote</Button>
+                                        </DialogTrigger>
+                                        <InsuranceLeadDialog property={property} />
+                                    </Dialog>
                                 </div>
                                 
                                 <Separator className="my-4" />
@@ -178,3 +233,265 @@ export default async function PropertyDetailsPage({ params }: { params: { id: st
         </div>
     );
 }
+
+
+function BookViewingDialog({ property }: { property: Property }) {
+    const [date, setDate] = useState<Date | undefined>(new Date(2025, 6, 28)); // July 28, 2025
+    const [time, setTime] = useState<string>('10:00');
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitted(true);
+    };
+
+    if (submitted) {
+        return (
+            <DialogContent>
+                <div className="flex flex-col items-center justify-center text-center p-8">
+                    <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+                    <h3 className="text-xl font-bold mb-2">Booking Request Sent!</h3>
+                    <p className="text-muted-foreground">
+                        Your request to view "{property.title}" has been sent to the agent.
+                        You will receive an SMS/email confirmation shortly.
+                    </p>
+                </div>
+            </DialogContent>
+        );
+    }
+    
+    return (
+        <DialogContent className="max-w-md">
+            <DialogHeader>
+                <DialogTitle>Book a Viewing</DialogTitle>
+                <DialogDescription>
+                    Schedule a visit for "{property.title}" with {property.agent.name}.
+                </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <div className="space-y-2">
+                        <Label htmlFor="date">Date</Label>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                            <Button
+                                variant={"outline"}
+                                className="w-full justify-start text-left font-normal"
+                            >
+                                <CalendarIcon className="mr-2 h-4 w-4" />
+                                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                            </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="time">Time</Label>
+                        <Select value={time} onValueChange={setTime}>
+                            <SelectTrigger id="time">
+                                <SelectValue placeholder="Select a time slot" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="10:00">10:00 AM</SelectItem>
+                                <SelectItem value="11:00">11:00 AM</SelectItem>
+                                <SelectItem value="14:00">2:00 PM</SelectItem>
+                                <SelectItem value="15:00">3:00 PM</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                 </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="name">Full Name</Label>
+                    <Input id="name" placeholder="e.g., Juma Omondi" required />
+                </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="phone">Phone Number</Label>
+                    <Input id="phone" type="tel" placeholder="+254 712 345 678" required />
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Request Booking</Button>
+                </DialogFooter>
+            </form>
+        </DialogContent>
+    );
+}
+
+function MortgageLeadDialog({ property }: { property: Property }) {
+    const [step, setStep] = useState(1);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitted(true);
+    };
+
+    if (submitted) {
+         return (
+            <DialogContent>
+                <div className="flex flex-col items-center justify-center text-center p-8">
+                    <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+                    <h3 className="text-xl font-bold mb-2">Application Submitted!</h3>
+                    <p className="text-muted-foreground">
+                       Your mortgage application for "{property.title}" has been submitted. A representative from your selected bank will contact you shortly.
+                    </p>
+                </div>
+            </DialogContent>
+        );
+    }
+    
+    return (
+        <DialogContent className="max-w-lg">
+             <DialogHeader>
+                <DialogTitle>Start Mortgage Application</DialogTitle>
+                 <DialogDescription>
+                    {step === 1 ? "Estimate your payments, then proceed to send your details to our partner banks." : "Please provide your details for the mortgage pre-application."}
+                </DialogDescription>
+            </DialogHeader>
+            {step === 1 ? (
+                <div>
+                    <MortgageCalculator propertyPrice={property.type === 'For Sale' ? property.price : 0} />
+                     <DialogFooter className="pt-4">
+                        <Button onClick={() => setStep(2)} className="w-full">Next</Button>
+                    </DialogFooter>
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="lead-name">Full Name</Label>
+                            <Input id="lead-name" placeholder="Juma Omondi" required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="lead-phone">Phone Number</Label>
+                            <Input id="lead-phone" type="tel" placeholder="+254 712 345 678" required />
+                        </div>
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="lead-email">Email Address</Label>
+                        <Input id="lead-email" type="email" placeholder="j.omondi@example.com" required />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="employment">Employment Status</Label>
+                            <Select name="employment" defaultValue="employed">
+                                <SelectTrigger id="employment"><SelectValue /></SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="employed">Employed</SelectItem>
+                                    <SelectItem value="self-employed">Self-Employed</SelectItem>
+                                    <SelectItem value="other">Other</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="income">Monthly Income (KES)</Label>
+                            <Select name="income" defaultValue="100k-200k">
+                                <SelectTrigger id="income"><SelectValue /></SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="<50k">&lt; 50,000</SelectItem>
+                                    <SelectItem value="50k-100k">50,000 - 100,000</SelectItem>
+                                    <SelectItem value="100k-200k">100,001 - 200,000</SelectItem>
+                                    <SelectItem value=">200k">&gt; 200,000</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="bank">Preferred Bank</Label>
+                        <Select name="bank" defaultValue="kcb">
+                             <SelectTrigger id="bank"><SelectValue /></SelectTrigger>
+                             <SelectContent>
+                                <SelectItem value="kcb">KCB Bank</SelectItem>
+                                <SelectItem value="equity">Equity Bank</SelectItem>
+                                <SelectItem value="coop">Co-operative Bank</SelectItem>
+                                <SelectItem value="stanbic">Stanbic Bank</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <DialogFooter className="flex-col-reverse sm:flex-row gap-2 pt-4">
+                        <Button type="button" variant="outline" onClick={() => setStep(1)}>Back</Button>
+                        <Button type="submit">Submit Application</Button>
+                    </DialogFooter>
+                </form>
+            )}
+        </DialogContent>
+    );
+}
+
+function InsuranceLeadDialog({ property }: { property: Property }) {
+    const [step, setStep] = useState(1);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitted(true);
+    };
+
+    if (submitted) {
+         return (
+            <DialogContent>
+                <div className="flex flex-col items-center justify-center text-center p-8">
+                    <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
+                    <h3 className="text-xl font-bold mb-2">Quote Request Sent!</h3>
+                    <p className="text-muted-foreground">
+                       Your insurance quote request for "{property.title}" has been sent. A representative from your selected insurer will contact you shortly.
+                    </p>
+                </div>
+            </DialogContent>
+        );
+    }
+    
+    return (
+        <DialogContent className="max-w-lg">
+             <DialogHeader>
+                <DialogTitle>Get Insurance Quote</DialogTitle>
+                 <DialogDescription>
+                    {step === 1 ? "Estimate your premium, then proceed to request a formal quote." : "Please provide your details to receive a quote."}
+                </DialogDescription>
+            </DialogHeader>
+            {step === 1 ? (
+                <div>
+                    <InsuranceEstimator propertyValue={property.type === 'For Sale' ? property.price : 0} />
+                     <DialogFooter className="pt-4">
+                        <Button onClick={() => setStep(2)} className="w-full">Next</Button>
+                    </DialogFooter>
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label htmlFor="ins-name">Full Name</Label>
+                            <Input id="ins-name" placeholder="Wanjiku Kamau" required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="ins-email">Email Address</Label>
+                            <Input id="ins-email" type="email" placeholder="w.kamau@example.com" required />
+                        </div>
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="ins-phone">Phone Number</Label>
+                        <Input id="ins-phone" type="tel" placeholder="+254 712 345 678" required />
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="insurer">Preferred Insurer</Label>
+                        <Select name="insurer" defaultValue="jubilee">
+                             <SelectTrigger id="insurer"><SelectValue /></SelectTrigger>
+                             <SelectContent>
+                                <SelectItem value="jubilee">Jubilee Insurance</SelectItem>
+                                <SelectItem value="britam">Britam</SelectItem>
+                                <SelectItem value="uap">UAP Old Mutual</SelectItem>
+                                <SelectItem value="best-match">Best Match for Me</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <DialogFooter className="flex-col-reverse sm:flex-row gap-2 pt-4">
+                        <Button type="button" variant="outline" onClick={() => setStep(1)}>Back</Button>
+                        <Button type="submit">Request Quote</Button>
+                    </DialogFooter>
+                </form>
+            )}
+        </DialogContent>
+    );
+}
+
