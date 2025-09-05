@@ -6,12 +6,18 @@ import { Button } from '@/components/ui/button';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { Property } from '@/lib/mock-data';
 import Link from 'next/link';
-import Image from 'next/image';
-import { SearchForm } from '@/components/modules/homes/search-form';
-import { Card, CardContent } from '@/components/ui/card';
+import { SearchForm, SearchFilters } from '@/components/modules/homes/search-form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { List, Grid, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket, Facebook, Twitter, Instagram } from 'lucide-react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
 
 const Header = () => {
     return (
@@ -84,21 +90,76 @@ const Footer = () => (
 
 export default function AllPropertiesPage() {
     const [properties, setProperties] = useState<Property[]>([]);
-    const [filteredProperties, setFilteredProperties] = useState<Property[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState('relevance');
     const [layout, setLayout] = useState<'grid' | 'list'>('grid');
-    const propertiesPerPage = 24; // 4 columns * 6 rows
+    const [filters, setFilters] = useState<SearchFilters>({
+        type: 'all',
+        keyword: '',
+        location: 'all',
+        beds: 'all',
+        baths: 'all',
+        minArea: '',
+        propId: '',
+    });
+    const propertiesPerPage = 24;
 
     useEffect(() => {
         fetch('/api/data/properties')
             .then(res => res.json())
             .then(data => {
                 setProperties(data);
-                setFilteredProperties(data);
             });
     }, []);
+
+    const handleFilterChange = (newFilters: Partial<SearchFilters>) => {
+        setFilters(prev => ({...prev, ...newFilters}));
+        setCurrentPage(1);
+    }
     
+    const filteredProperties = useMemo(() => {
+        let filtered = properties;
+
+        if (filters.type !== 'all') {
+            filtered = filtered.filter(p => p.type.toLowerCase().replace(' ', '') === filters.type);
+        }
+
+        if(filters.keyword) {
+            filtered = filtered.filter(p => p.title.toLowerCase().includes(filters.keyword.toLowerCase()));
+        }
+
+        if(filters.location !== 'all') {
+            filtered = filtered.filter(p => p.location.toLowerCase().includes(filters.location.toLowerCase()));
+        }
+        
+        if (filters.beds !== 'all') {
+            if (filters.beds === '4+') {
+                 filtered = filtered.filter(p => p.beds >= 4);
+            } else {
+                 filtered = filtered.filter(p => p.beds === parseInt(filters.beds));
+            }
+        }
+        
+        if (filters.baths !== 'all') {
+            if (filters.baths === '3+') {
+                 filtered = filtered.filter(p => p.baths >= 3);
+            } else {
+                 filtered = filtered.filter(p => p.baths === parseInt(filters.baths));
+            }
+        }
+
+        if(filters.minArea) {
+            filtered = filtered.filter(p => p.area >= parseInt(filters.minArea));
+        }
+        
+        if(filters.propId) {
+            filtered = filtered.filter(p => p.id.toLowerCase().includes(filters.propId.toLowerCase()));
+        }
+
+        return filtered;
+
+    }, [properties, filters]);
+
     const sortedProperties = useMemo(() => {
         return [...filteredProperties].sort((a, b) => {
             switch(sortOrder) {
@@ -119,9 +180,9 @@ export default function AllPropertiesPage() {
     const paginatedProperties = useMemo(() => {
         const startIndex = (currentPage - 1) * propertiesPerPage;
         return sortedProperties.slice(startIndex, startIndex + propertiesPerPage);
-    }, [currentPage, sortedProperties]);
+    }, [currentPage, sortedProperties, propertiesPerPage]);
     
-    const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+    const totalPages = Math.ceil(sortedProperties.length / propertiesPerPage);
 
     return (
         <div className="flex flex-col min-h-screen bg-background">
@@ -137,12 +198,12 @@ export default function AllPropertiesPage() {
                 <section className="py-12">
                     <div className="container">
                          <div className="mb-8">
-                            <SearchForm />
+                            <SearchForm filters={filters} onFilterChange={handleFilterChange} />
                         </div>
                         
                         <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
                             <div className="text-sm text-muted-foreground">
-                                Showing {paginatedProperties.length} of {filteredProperties.length} results
+                                Showing {paginatedProperties.length} of {sortedProperties.length} results
                             </div>
                             <div className="flex items-center gap-4">
                                 <Select value={sortOrder} onValueChange={setSortOrder}>
@@ -173,27 +234,29 @@ export default function AllPropertiesPage() {
                             ))}
                         </div>
 
-                        <div className="flex justify-center mt-12">
-                            <div className="flex items-center gap-2">
-                                <Button 
-                                    variant="outline"
-                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                    disabled={currentPage === 1}
-                                >
-                                    Previous
-                                </Button>
-                                <span className="text-sm text-muted-foreground">
-                                    Page {currentPage} of {totalPages}
-                                </span>
-                                <Button 
-                                    variant="outline"
-                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                    disabled={currentPage === totalPages}
-                                >
-                                    Next
-                                </Button>
+                        {totalPages > 1 && (
+                            <div className="flex justify-center mt-12">
+                                <div className="flex items-center gap-2">
+                                    <Button 
+                                        variant="outline"
+                                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                        disabled={currentPage === 1}
+                                    >
+                                        Previous
+                                    </Button>
+                                    <span className="text-sm text-muted-foreground">
+                                        Page {currentPage} of {totalPages}
+                                    </span>
+                                    <Button 
+                                        variant="outline"
+                                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Next
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
                 </section>
             </main>
