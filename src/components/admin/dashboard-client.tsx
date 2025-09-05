@@ -65,17 +65,15 @@ export function DashboardClient({ clients, transactions, moduleEngagement }: Das
       { name: 'Jun', users: 1200 },
   ];
   
-    const topCategoriesData = useMemo(() => {
-        const categoryMap = new Map<string, number>();
+    const topModulesData = useMemo(() => {
+        const moduleMap = new Map<string, number>();
         transactions.forEach(tx => {
             if (tx.status === 'Completed' && tx.amount > 0) {
-                // Simple logic to extract a "category" from description
-                const category = tx.description.split(' ')[1] || tx.module;
-                categoryMap.set(category, (categoryMap.get(category) || 0) + tx.amount);
+                moduleMap.set(tx.module, (moduleMap.get(tx.module) || 0) + tx.amount);
             }
         });
 
-        return Array.from(categoryMap.entries())
+        return Array.from(moduleMap.entries())
             .sort((a, b) => b[1] - a[1])
             .slice(0, 5)
             .map(([name, value]) => ({ name, value }));
@@ -194,13 +192,13 @@ export function DashboardClient({ clients, transactions, moduleEngagement }: Das
                 </Card>
                 <Card className="lg:col-span-2">
                     <CardHeader>
-                        <CardTitle>Top 5 Performing Categories</CardTitle>
+                        <CardTitle>Top 5 Performing Modules</CardTitle>
                     </CardHeader>
                     <CardContent className="flex justify-center">
                         <ResponsiveContainer width="100%" height={300}>
                             <RechartsPieChart>
-                                <Pie data={topCategoriesData} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name" label={(entry) => entry.name}>
-                                    {topCategoriesData.map((entry, index) => (
+                                <Pie data={topModulesData} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name" label={(entry) => entry.name}>
+                                    {topModulesData.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                     ))}
                                 </Pie>
