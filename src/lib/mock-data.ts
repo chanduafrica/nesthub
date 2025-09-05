@@ -78,6 +78,7 @@ export type Property = {
   baths: number;
   area: number; // in sqft
   imageUrl: string;
+  shariaCompliant: boolean;
   agent: {
     name: string;
     avatarUrl: string;
