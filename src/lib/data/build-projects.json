@@ -1,2 +1,14 @@
-
-[]
+[
+  {
+    "id": "build_project_1757059268151_8pvsgf3wt",
+    "submittedAt": "2025-09-05T08:01:08.151Z",
+    "designName": "African Simba Cottage",
+    "designId": "simba-cottage",
+    "totalCost": 500000,
+    "depositPaid": 350000,
+    "paymentMethod": "bank",
+    "contractNo": "DN-BH-79135-2025",
+    "projectManager": "Wanjiku Patel",
+    "status": "ContractSigned"
+  }
+]
