@@ -239,10 +239,40 @@ function BookViewingDialog({ property }: { property: Property }) {
     const [date, setDate] = useState<Date | undefined>(new Date(2025, 6, 28)); // July 28, 2025
     const [time, setTime] = useState<string>('10:00');
     const [submitted, setSubmitted] = useState(false);
+    const { toast } = useToast();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSubmitted(true);
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            propertyId: property.id,
+            propertyTitle: property.title,
+            agentName: property.agent.name,
+            date: date ? format(date, "yyyy-MM-dd") : '',
+            time: time,
+            name: formData.get('name'),
+            phone: formData.get('phone')
+        };
+        
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ leadType: 'viewing', data }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            setSubmitted(true);
+        } catch (error) {
+            console.error('Failed to submit viewing request:', error);
+            toast({
+                title: "Submission Failed",
+                description: "Could not save your viewing request. Please try again.",
+                variant: "destructive"
+            });
+        }
     };
 
     if (submitted) {
@@ -304,11 +334,11 @@ function BookViewingDialog({ property }: { property: Property }) {
                  </div>
                  <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="e.g., Juma Omondi" required />
+                    <Input id="name" name="name" placeholder="e.g., Juma Omondi" required />
                 </div>
                  <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" placeholder="+254 712 345 678" required />
+                    <Input id="phone" name="phone" type="tel" placeholder="+254 712 345 678" required />
                 </div>
                 <DialogFooter>
                     <Button type="submit" className="w-full">Request Booking</Button>
@@ -321,10 +351,39 @@ function BookViewingDialog({ property }: { property: Property }) {
 function MortgageLeadDialog({ property }: { property: Property }) {
     const [step, setStep] = useState(1);
     const [submitted, setSubmitted] = useState(false);
+    const { toast } = useToast();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSubmitted(true);
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            propertyId: property.id,
+            propertyTitle: property.title,
+            propertyPrice: property.price,
+            fullName: formData.get('lead-name'),
+            phone: formData.get('lead-phone'),
+            email: formData.get('lead-email'),
+            employmentStatus: formData.get('employment'),
+            monthlyIncome: formData.get('income'),
+            preferredBank: formData.get('bank'),
+        };
+
+        try {
+             const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ leadType: 'mortgage', data }),
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+            setSubmitted(true);
+        } catch (error) {
+            console.error('Failed to submit mortgage lead:', error);
+            toast({
+                title: "Submission Failed",
+                description: "Could not save your mortgage application. Please try again.",
+                variant: "destructive"
+            });
+        }
     };
 
     if (submitted) {
@@ -361,16 +420,16 @@ function MortgageLeadDialog({ property }: { property: Property }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="lead-name">Full Name</Label>
-                            <Input id="lead-name" placeholder="Juma Omondi" required />
+                            <Input id="lead-name" name="lead-name" placeholder="Juma Omondi" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="lead-phone">Phone Number</Label>
-                            <Input id="lead-phone" type="tel" placeholder="+254 712 345 678" required />
+                            <Input id="lead-phone" name="lead-phone" type="tel" placeholder="+254 712 345 678" required />
                         </div>
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="lead-email">Email Address</Label>
-                        <Input id="lead-email" type="email" placeholder="j.omondi@example.com" required />
+                        <Input id="lead-email" name="lead-email" type="email" placeholder="j.omondi@example.com" required />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -422,10 +481,37 @@ function MortgageLeadDialog({ property }: { property: Property }) {
 function InsuranceLeadDialog({ property }: { property: Property }) {
     const [step, setStep] = useState(1);
     const [submitted, setSubmitted] = useState(false);
+    const { toast } = useToast();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSubmitted(true);
+        const formData = new FormData(e.currentTarget);
+        const data = {
+            propertyId: property.id,
+            propertyTitle: property.title,
+            propertyValue: property.price,
+            fullName: formData.get('ins-name'),
+            email: formData.get('ins-email'),
+            phone: formData.get('ins-phone'),
+            preferredInsurer: formData.get('insurer'),
+        };
+
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ leadType: 'insurance', data }),
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+            setSubmitted(true);
+        } catch (error) {
+            console.error('Failed to submit insurance quote request:', error);
+            toast({
+                title: "Submission Failed",
+                description: "Could not save your insurance quote request. Please try again.",
+                variant: "destructive"
+            });
+        }
     };
 
     if (submitted) {
@@ -462,16 +548,16 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                             <Label htmlFor="ins-name">Full Name</Label>
-                            <Input id="ins-name" placeholder="Wanjiku Kamau" required />
+                            <Input id="ins-name" name="ins-name" placeholder="Wanjiku Kamau" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="ins-email">Email Address</Label>
-                            <Input id="ins-email" type="email" placeholder="w.kamau@example.com" required />
+                            <Input id="ins-email" name="ins-email" type="email" placeholder="w.kamau@example.com" required />
                         </div>
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="ins-phone">Phone Number</Label>
-                        <Input id="ins-phone" type="tel" placeholder="+254 712 345 678" required />
+                        <Input id="ins-phone" name="ins-phone" type="tel" placeholder="+254 712 345 678" required />
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="insurer">Preferred Insurer</Label>
@@ -494,4 +580,3 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
         </DialogContent>
     );
 }
-
