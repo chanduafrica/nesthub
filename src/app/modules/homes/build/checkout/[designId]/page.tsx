@@ -2,16 +2,17 @@
 'use client';
 
 import { useState } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Banknote, CheckCircle, CreditCard, FileUp, Loader2, Smartphone, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Banknote, CheckCircle, CreditCard, FileUp, Loader2, Smartphone, ShieldCheck, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 const designs = [
   {
@@ -36,8 +37,39 @@ const designs = [
 
 type Step = 'summary' | 'kyc' | 'payment' | 'confirmation';
 
+const Header = () => {
+    return (
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 items-center">
+                <div className="mr-4 hidden md:flex">
+                    <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
+                        <span className="hidden font-bold sm:inline-block">
+                           NestHomes
+                        </span>
+                    </Link>
+                    <nav className="flex items-center space-x-4 text-sm font-medium">
+                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                        <Link href="/modules/homes/build" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><Building className="h-4 w-4" />Build My Own</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
+                        <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                    </nav>
+                </div>
+                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                     <Button variant="secondary">Login as Agent</Button>
+                     <Button>Login as Buyer</Button>
+                </div>
+            </div>
+        </header>
+    );
+};
+
+
 export default function CheckoutPage() {
   const params = useParams();
+  const router = useRouter();
   const { toast } = useToast();
   const designId = params.designId as string;
 
@@ -63,6 +95,35 @@ export default function CheckoutPage() {
     }
   };
 
+  const confirmProject = async () => {
+    // Simulate creating project tasks in Firestore/JSON
+    const projectData = {
+        designName: design.name,
+        designId: design.id,
+        totalCost: totalCost,
+        depositPaid: depositAmount,
+        paymentMethod: paymentMethod,
+        contractNo: `DN-BH-${Math.floor(Math.random() * 90000) + 10000}-2025`,
+        projectManager: "Wanjiku Patel",
+        status: "ContractSigned"
+    };
+
+    try {
+        await fetch('/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ leadType: 'build_project', data: projectData }),
+        });
+    } catch (error) {
+        console.error("Failed to save project data", error);
+        // We can still proceed even if this fails for the demo
+    }
+
+    setIsProcessing(false);
+    setStep('confirmation');
+    toast({ title: "Payment Successful!", description: "Your booking is confirmed.", className: "bg-green-500 text-white" });
+  }
+
   const handleMpesaPay = async () => {
     if (!mpesaPhone.match(/^(254)?[7]\d{8}$/)) {
         toast({ title: 'Invalid Phone Number', description: 'Please use format 2547XXXXXXXX.', variant: 'destructive' });
@@ -72,25 +133,19 @@ export default function CheckoutPage() {
     toast({ title: 'STK Push Sent', description: 'Please check your phone to complete the payment.' });
     
     // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setStep('confirmation');
-      toast({ title: "Payment Successful!", description: "Your booking is confirmed.", className: "bg-green-500 text-white" });
-    }, 5000);
+    setTimeout(confirmProject, 5000);
   };
   
   const handleBankPay = () => {
       setIsProcessing(true);
       toast({ title: 'Upload Received', description: 'Your proof of payment is being verified.' });
-      setTimeout(() => {
-        setIsProcessing(false);
-        setStep('confirmation');
-        toast({ title: "Booking Confirmed!", description: "Your project manager will be in touch.", className: "bg-green-500 text-white" });
-      }, 3000);
+      setTimeout(confirmProject, 3000);
   }
 
   return (
-    <div className="container mx-auto py-10 max-w-4xl">
+    <div className="bg-background min-h-screen">
+      <Header />
+      <div className="container mx-auto py-10 max-w-4xl">
        <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold text-primary">Secure Checkout</h1>
          <Button variant="outline" asChild>
@@ -102,10 +157,15 @@ export default function CheckoutPage() {
         <div className="md:col-span-2">
             {/* Step Indicator */}
             <div className="flex justify-between mb-8">
-                {['Summary', 'KYC', 'Payment'].map((s, i) => {
+                {['Summary', 'KYC', 'Payment', 'Confirmation'].map((s, i) => {
                     const stepId = s.toLowerCase() as Step;
-                    const isCompleted = (step === 'kyc' && i < 1) || (step === 'payment' && i < 2) || step === 'confirmation';
+                    const allSteps: Step[] = ['summary', 'kyc', 'payment', 'confirmation'];
+                    const currentIndex = allSteps.indexOf(step);
+                    const stepIndex = allSteps.indexOf(stepId);
+
+                    const isCompleted = stepIndex < currentIndex;
                     const isCurrent = step === stepId;
+                    
                     return (
                         <div key={s} className="flex-1 text-center">
                             <div className={`text-sm font-semibold ${isCurrent || isCompleted ? 'text-primary' : 'text-muted-foreground'}`}>{s}</div>
@@ -161,29 +221,33 @@ export default function CheckoutPage() {
                         <CardDescription>Select your preferred method to pay the 70% deposit.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="mb-6 space-y-2">
+                        <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <Label htmlFor="mpesa" className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer has-[:checked]:border-primary">
                                 <RadioGroupItem value="mpesa" id="mpesa" />
-                                <Smartphone className="h-6 w-6" />
-                                <div>
-                                    <h3 className="font-semibold">M-Pesa Express (STK Push)</h3>
-                                    <p className="text-xs text-muted-foreground">Preferred and fastest method.</p>
-                                </div>
+                                <Image src="/images/mpesa.png" alt="M-Pesa" width={80} height={20} />
+                            </Label>
+                            <Label htmlFor="airtel" className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer has-[:checked]:border-primary">
+                                <RadioGroupItem value="airtel" id="airtel" />
+                                 <Image src="/images/airtel.png" alt="Airtel Money" width={80} height={20} />
                             </Label>
                              <Label htmlFor="bank" className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer has-[:checked]:border-primary">
                                 <RadioGroupItem value="bank" id="bank" />
-                                <Banknote className="h-6 w-6" />
-                                <div>
-                                    <h3 className="font-semibold">Bank Transfer / RTGS</h3>
-                                    <p className="text-xs text-muted-foreground">Upload proof of payment for verification.</p>
-                                </div>
+                                 <div className="flex items-center gap-2">
+                                    <Banknote className="h-6 w-6" />
+                                    <div>
+                                        <h3 className="font-semibold">Bank Transfer</h3>
+                                        <p className="text-xs text-muted-foreground">RTGS/EFT</p>
+                                    </div>
+                                 </div>
                             </Label>
-                             <Label htmlFor="card" className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer has-[:checked]:border-primary">
+                             <Label htmlFor="card" className="flex items-center gap-4 rounded-lg border p-4 cursor-pointer has-[:checked]:border-primary opacity-50">
                                 <RadioGroupItem value="card" id="card" disabled />
+                                <div className="flex items-center gap-2">
                                 <CreditCard className="h-6 w-6" />
                                 <div>
                                     <h3 className="font-semibold">Credit/Debit Card</h3>
                                     <p className="text-xs text-muted-foreground">Coming soon.</p>
+                                </div>
                                 </div>
                             </Label>
                         </RadioGroup>
@@ -195,6 +259,15 @@ export default function CheckoutPage() {
                                 <Button onClick={handleMpesaPay} disabled={isProcessing || !mpesaPhone} className="w-full" size="lg">
                                     {isProcessing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                                     Pay {formatCurrency(depositAmount)} with M-Pesa
+                                </Button>
+                            </div>
+                        )}
+                         {paymentMethod === 'airtel' && (
+                            <div className="space-y-4 pt-4 border-t">
+                                <Label htmlFor="airtel-phone">Airtel Money Phone Number</Label>
+                                <Input id="airtel-phone" placeholder="0733123456" />
+                                <Button disabled className="w-full" size="lg">
+                                    Airtel Money Coming Soon
                                 </Button>
                             </div>
                         )}
@@ -232,8 +305,8 @@ export default function CheckoutPage() {
                            <p><strong>Contract & Receipt No:</strong> DN-BH-84392-2025</p>
                            <p><strong>Project Manager:</strong> Wanjiku Patel</p>
                         </div>
-                         <Button asChild className="w-full">
-                            <Link href="/admin/dashboard">Go to My Dashboard</Link>
+                         <Button asChild className="w-full" onClick={() => router.push('/admin/dashboard')}>
+                            Go to My Dashboard
                          </Button>
                     </CardContent>
                 </Card>
@@ -263,7 +336,7 @@ export default function CheckoutPage() {
           </Card>
         </div>
       </div>
+     </div>
     </div>
   );
 }
-

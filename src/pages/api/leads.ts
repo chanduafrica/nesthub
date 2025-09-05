@@ -26,6 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'insurance':
         filePath = path.join(dataDirectory, 'insurance-quotes.json');
         break;
+      case 'build_project':
+        filePath = path.join(dataDirectory, 'build-projects.json');
+        break;
       default:
         return res.status(400).json({ message: 'Invalid lead type' });
     }
@@ -33,8 +36,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Read the existing data
     let fileData: any[] = [];
     try {
-        const fileContents = fs.readFileSync(filePath, 'utf8');
-        fileData = JSON.parse(fileContents);
+        if (fs.existsSync(filePath)) {
+            const fileContents = fs.readFileSync(filePath, 'utf8');
+            fileData = JSON.parse(fileContents);
+        }
     } catch (error) {
         // File might not exist yet, which is okay
         console.log(`File not found for ${leadType}, creating a new one.`);
@@ -42,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Add new data with an ID and timestamp
     const newRecord = {
-      id: `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      id: `${leadType}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       submittedAt: new Date().toISOString(),
       ...data,
     };
