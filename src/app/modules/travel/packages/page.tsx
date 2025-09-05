@@ -59,7 +59,7 @@ const Header = () => {
 const packages = [
     { 
         title: "Maasai Mara Great Migration Safari", 
-        image: "/travel/packages/mara.jpg", 
+        image: "/travel/mara.jpg", 
         hint: "maasai mara safari", 
         rating: 4.9, 
         location: "Maasai Mara", 
@@ -70,7 +70,7 @@ const packages = [
     },
     { 
         title: "Diani Beach Relaxation", 
-        image: "/travel/packages/diani.jpg", 
+        image: "/travel/diani.jpg", 
         hint: "diani beach resort", 
         rating: 4.8, 
         location: "Diani", 
@@ -81,7 +81,7 @@ const packages = [
     },
     { 
         title: "Amboseli Elephant Kingdom", 
-        image: "/travel/packages/amboseli.jpg", 
+        image: "/travel/amboseli.jpg", 
         hint: "amboseli elephant kilimanjaro", 
         rating: 4.85, 
         location: "Amboseli", 
@@ -92,7 +92,7 @@ const packages = [
     },
     { 
         title: "Mount Kenya Climbing Challenge", 
-        image: "/travel/packages/mtkenya.jpg", 
+        image: "/travel/mtkenya.jpg", 
         hint: "mount kenya peak", 
         rating: 4.7, 
         location: "Mount Kenya", 
@@ -103,7 +103,7 @@ const packages = [
     },
     { 
         title: "Lake Naivasha & Hell's Gate", 
-        image: "/travel/packages/naivasha.jpg", 
+        image: "/travel/naivasha.jpg", 
         hint: "lake naivasha boat", 
         rating: 4.6, 
         location: "Naivasha", 
@@ -114,7 +114,7 @@ const packages = [
     },
      { 
         title: "Lamu Cultural Experience", 
-        image: "/travel/packages/lamu.jpg", 
+        image: "/travel/lamu.jpg", 
         hint: "lamu street dhow", 
         rating: 4.9, 
         location: "Lamu", 
@@ -273,3 +273,4 @@ export default function HolidayPackagesPage() {
   );
 }
 
+    
