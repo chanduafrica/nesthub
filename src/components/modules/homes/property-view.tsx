@@ -546,5 +546,3 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
 
 // Add the new theme file import
 import './property-view.css';
-
-
