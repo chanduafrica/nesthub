@@ -65,7 +65,7 @@ const Header = () => {
                         <Link href="/modules/homes" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
@@ -202,35 +202,35 @@ const SpecialOffersSection = () => {
             title: "Mombasa Coast Getaway",
             duration: "3 Days",
             price: 20000,
-            image: "/images/travel/mombasa.jpg",
+            image: "/travel/mombasa.jpg",
             hint: "mombasa beach"
         },
         {
             title: "Naivasha Weekend Retreat",
             duration: "2 Days",
             price: 12000,
-            image: "/images/travel/naivasha.jpg",
+            image: "/travel/naivasha.jpg",
             hint: "lake naivasha"
         },
         {
             title: "Amboseli Safari Adventure",
             duration: "3 Days, 2 Nights",
             price: 35000,
-            image: "/images/travel/amboseli.jpg",
+            image: "/travel/amboseli.jpg",
             hint: "amboseli elephant"
         },
         {
             title: "SGR + Hotel Combo",
             duration: "From Nairobi",
             price: 25000,
-            image: "/images/travel/sgr.jpg",
+            image: "/travel/sgr.jpg",
             hint: "kenya railway train"
         },
          {
             title: "Diani Beach Bliss",
             duration: "4 Days",
             price: 40000,
-            image: "/images/travel/diani.jpg",
+            image: "/travel/diani.jpg",
             hint: "diani beach kenya"
         }
     ];
@@ -393,3 +393,6 @@ export default function NestTravelPage() {
 
     
 
+
+
+    
