@@ -11,6 +11,7 @@ import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Briefcase, Building, HomeIcon, LayoutGrid, Plane, Ticket } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import './theme.css';
 
 const Header = () => {
@@ -69,8 +70,6 @@ const HeroSection = () => {
 
 const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
     const [filter, setFilter] = useState<'all' | 'sale' | 'rent'>('all');
-    const [currentPage, setCurrentPage] = useState(1);
-    const propertiesPerPage = 6;
 
     const filteredProperties = useMemo(() => {
         if (filter === 'all') return properties;
@@ -78,16 +77,8 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
         return properties.filter(p => p.type === type);
     }, [properties, filter]);
 
-    const paginatedProperties = useMemo(() => {
-        const startIndex = (currentPage - 1) * propertiesPerPage;
-        return filteredProperties.slice(startIndex, startIndex + propertiesPerPage);
-    }, [filteredProperties, currentPage, propertiesPerPage]);
-
-    const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
-
     const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent') => {
         setFilter(newFilter);
-        setCurrentPage(1); // Reset to first page when filter changes
     }
 
     return (
@@ -104,29 +95,26 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                     <Button variant={filter === 'sale' ? 'default' : 'outline'} onClick={() => handleFilterChange('sale')}>For Sale</Button>
                     <Button variant={filter === 'rent' ? 'default' : 'outline'} onClick={() => handleFilterChange('rent')}>For Rent</Button>
                 </div>
-                <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    {paginatedProperties.map((property) => (
-                        <PropertyCard key={property.id} property={property} />
-                    ))}
-                </div>
-                 <div className="mt-12 flex justify-center items-center gap-4">
-                    <Button 
-                        variant="outline"
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        disabled={currentPage === 1}
+                <div className="mt-12">
+                    <Carousel
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        className="w-full"
                     >
-                        Previous
-                    </Button>
-                    <span className="text-sm text-muted-foreground">
-                        Page {currentPage} of {totalPages > 0 ? totalPages : 1}
-                    </span>
-                    <Button 
-                        variant="outline"
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        disabled={currentPage === totalPages || totalPages === 0}
-                    >
-                        Next
-                    </Button>
+                        <CarouselContent>
+                            {filteredProperties.map((property) => (
+                                <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3">
+                                    <div className="p-1">
+                                        <PropertyCard property={property} />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="hidden sm:flex" />
+                        <CarouselNext className="hidden sm:flex" />
+                    </Carousel>
                 </div>
             </div>
         </section>
