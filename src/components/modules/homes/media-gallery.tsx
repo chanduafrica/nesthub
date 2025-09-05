@@ -19,7 +19,13 @@ interface MediaGalleryProps {
 }
 
 export function MediaGallery({ title }: MediaGalleryProps) {
-  const images = Array.from({ length: 5 }).map((_, i) => `https://picsum.photos/1200/800?random=${i + 10}`);
+  const images = [
+      { src: "https://picsum.photos/1200/800?random=51", hint: "modern kenyan living room" },
+      { src: "https://picsum.photos/1200/800?random=52", hint: "house exterior nairobi" },
+      { src: "https://picsum.photos/1200/800?random=53", hint: "luxury african kitchen" },
+      { src: "https://picsum.photos/1200/800?random=54", hint: "spacious bedroom kenya" },
+      { src: "https://picsum.photos/1200/800?random=55", hint: "garden view apartment" },
+  ];
 
   return (
     <Card>
@@ -28,18 +34,18 @@ export function MediaGallery({ title }: MediaGalleryProps) {
           <TabsContent value="photos">
             <Carousel className="w-full">
               <CarouselContent>
-                {images.map((src, index) => (
+                {images.map((image, index) => (
                   <CarouselItem key={index}>
                     <div className="p-1">
                        <Card className="overflow-hidden">
                          <CardContent className="flex aspect-[3/2] items-center justify-center p-0">
                            <Image
-                             src={src}
+                             src={image.src}
                              alt={`${title} - view ${index + 1}`}
                              width={1200}
                              height={800}
                              className="w-full h-full object-cover"
-                             data-ai-hint="house interior"
+                             data-ai-hint={image.hint}
                            />
                          </CardContent>
                        </Card>
