@@ -13,5 +13,5 @@ export default async function AllClientsPage() {
   const clients: Client[] = JSON.parse(jsonData);
 
   // 2. Pass the data as props to the client component
-  return <ClientsList clients={clients} />;
+  return <ClientsList initialClients={clients} />;
 }
