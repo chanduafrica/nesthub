@@ -74,10 +74,11 @@ export default function PropertyDetailsPage({ params }: { params: { id: string }
     const { toast } = useToast();
 
     useEffect(() => {
+        const propertyId = params.id;
         fetch('/api/data/properties')
             .then(res => res.json())
             .then(data => {
-                const foundProperty = data.find((p: Property) => p.id === params.id);
+                const foundProperty = data.find((p: Property) => p.id === propertyId);
                 if (foundProperty) {
                     setProperty(foundProperty);
                 } else {
@@ -580,3 +581,5 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
         </DialogContent>
     );
 }
+
+    
