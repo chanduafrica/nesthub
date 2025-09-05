@@ -29,6 +29,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 const Header = () => {
     return (
@@ -247,3 +248,4 @@ export default function NestStaysPage() {
   );
 }
 
+    
