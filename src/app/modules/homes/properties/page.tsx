@@ -11,7 +11,7 @@ import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { List, Grid } from 'lucide-react';
+import { List, Grid, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket } from 'lucide-react';
 
 const Header = () => {
     return (
@@ -24,13 +24,13 @@ const Header = () => {
                         </span>
                     </Link>
                     <nav className="flex items-center space-x-4 text-sm font-medium">
-                        <Link href="/modules/homes/properties" className="text-foreground transition-colors hover:text-foreground/80">Properties</Link>
-                        <Link href="/modules/homes/build" className="text-foreground/60 transition-colors hover:text-foreground/80">Build My Own</Link>
-                        <Link href="/modules/travel" className="text-foreground/60 transition-colors hover:text-foreground/80">Travel</Link>
-                        <Link href="/modules/stays" className="text-foreground/60 transition-colors hover:text-foreground/80">Stays</Link>
-                        <Link href="/modules/mall" className="text-foreground/60 transition-colors hover:text-foreground/80">Marketplace</Link>
-                        <Link href="/modules/events" className="text-foreground/60 transition-colors hover:text-foreground/80">Events</Link>
-                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                        <Link href="/modules/homes/build" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Building className="h-4 w-4" />Build My Own</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
+                        <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">

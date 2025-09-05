@@ -13,9 +13,9 @@ const Header = () => (
           <span className="font-bold text-lg">DigitalNest</span>
         </Link>
         <nav className="flex items-center space-x-6 text-sm font-medium">
-          <Link href="#modules" className="text-foreground/60 transition-colors hover:text-foreground/80">Modules</Link>
-          <Link href="#value-proposition" className="text-foreground/60 transition-colors hover:text-foreground/80">Value Proposition</Link>
-          <Link href="/admin/login" className="text-foreground/60 transition-colors hover:text-foreground/80">Admin</Link>
+          <Link href="#modules" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Modules</Link>
+          <Link href="#value-proposition" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Rocket className="h-4 w-4" />Value Proposition</Link>
+          <Link href="/admin/login" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><UserCog className="h-4 w-4" />Admin</Link>
         </nav>
       </div>
       <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
