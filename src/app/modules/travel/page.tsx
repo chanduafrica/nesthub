@@ -65,7 +65,7 @@ const Header = () => {
                         <Link href="/modules/homes" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><NestIcon className="h-4 w-4" />DigitalNest</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
@@ -388,5 +388,7 @@ export default function NestTravelPage() {
     </div>
   );
 }
+
+    
 
     
