@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Vendor, VendorStatus, ModuleEngagement, Transaction } from '@/lib/mock-data';
+import { Vendor, VendorStatus, ModuleEngagement } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -45,9 +45,10 @@ const conversionRates: { [key: string]: number } = {
     KES: 1, UGX: 29.45, TZS: 20.45, RWF: 10.33, BIF: 22.58, SSP: 1.22, SOS: 4.55,
 };
 
-export function VendorsList({ initialVendors }: { initialVendors: Vendor[] }) {
-    const [vendors, setVendors] = useState<Vendor[]>(initialVendors);
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
+export type VendorWithBusiness = Vendor & { totalBusiness: number };
+
+export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusiness[] }) {
+    const [vendors, setVendors] = useState<VendorWithBusiness[]>(initialVendors);
     const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<VendorStatus | 'all'>('all');
@@ -57,20 +58,9 @@ export function VendorsList({ initialVendors }: { initialVendors: Vendor[] }) {
     const { currency } = useCurrency();
 
     useEffect(() => {
-        // We still need to fetch transactions and module engagement data on the client
-        fetch('/api/data/transactions').then(res => res.json()).then(setTransactions);
+        // We only need to fetch module engagement data now
         fetch('/api/data/module-engagement').then(res => res.json()).then(setModuleEngagement);
     }, []);
-
-    const vendorBusiness = useMemo(() => {
-        const businessMap = new Map<string, number>();
-        transactions.forEach(tx => {
-            if (tx.vendorId && tx.status === 'Completed') {
-                businessMap.set(tx.vendorId, (businessMap.get(tx.vendorId) || 0) + tx.amount);
-            }
-        });
-        return businessMap;
-    }, [transactions]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -178,7 +168,7 @@ export function VendorsList({ initialVendors }: { initialVendors: Vendor[] }) {
                   <TableCell className="font-medium">{vendor.name}</TableCell>
                   <TableCell>{vendor.portal}</TableCell>
                   <TableCell className="hidden md:table-cell">{vendor.country}</TableCell>
-                  <TableCell className="hidden sm:table-cell font-mono">{convertCurrency(vendorBusiness.get(vendor.id) || 0)}</TableCell>
+                  <TableCell className="hidden sm:table-cell font-mono">{convertCurrency(vendor.totalBusiness)}</TableCell>
                   <TableCell className="text-center">
                     <Badge variant={getStatusBadgeVariant(vendor.status)}>
                         {vendor.status}
