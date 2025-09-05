@@ -1,51 +1,49 @@
 
-:root {
-    --nesthomes-primary: 209 75% 40%; /* DigitalNest Blue - #1767b0 */
-    --nesthomes-accent: 358 83% 54%; /* DigitalNest Red - #ea262c */
-}
 .nesthomes-theme {
-    --background: 240 10% 98%;
+    --primary: 209 75% 40%; /* DigitalNest Blue - #1767b0 */
+    --secondary: 21 100% 63%; /* DigitalNest Orange - #ff8040 */
+    --accent: 21 100% 63%; /* DigitalNest Orange - #ff8040 */
+
+    --background: 30 100% 97%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: var(--nesthomes-primary);
     --primary-foreground: 0 0% 100%;
-    --secondary: 141 53% 96.1%;
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 240 5% 45.1%;
-    --accent: var(--nesthomes-accent);
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: var(--nesthomes-primary);
+    --ring: 209 75% 40%;
     --radius: 0.5rem;
   }
 
   .dark .nesthomes-theme {
+    --primary: 209 75% 40%;
+    --secondary: 21 100% 63%;
+    --accent: 21 100% 63%;
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 8% 10%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: var(--nesthomes-primary);
     --primary-foreground: 0 0% 100%;
-    --secondary: 141 53% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 5% 14.9%;
     --muted-foreground: 240 5% 63.9%;
-    --accent: var(--nesthomes-accent);
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5% 14.9%;
     --input: 240 5% 14.9%;
-    --ring: var(--nesthomes-primary);
+    --ring: 209 75% 40%;
   }
 
   .hero-slider-section {

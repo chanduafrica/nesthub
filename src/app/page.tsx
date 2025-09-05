@@ -5,10 +5,30 @@ import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, Mess
 import Link from "next/link";
 import Image from "next/image";
 
+const Header = () => (
+  <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="container flex h-14 items-center">
+      <div className="mr-4 hidden md:flex">
+        <Link href="/" className="mr-6 flex items-center space-x-2">
+          <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={32} height={32} />
+        </Link>
+        <nav className="flex items-center space-x-6 text-sm font-medium">
+          <Link href="#modules" className="text-foreground/60 transition-colors hover:text-foreground/80">Modules</Link>
+          <Link href="#value-proposition" className="text-foreground/60 transition-colors hover:text-foreground/80">Value Proposition</Link>
+          <Link href="/admin/login" className="text-foreground/60 transition-colors hover:text-foreground/80">Admin</Link>
+        </nav>
+      </div>
+      <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+        <Button>Request a Demo</Button>
+      </div>
+    </div>
+  </header>
+);
 
 export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <Header />
       <main className="flex-1">
         <HeroSection />
         <IntroductionSection />
@@ -33,7 +53,7 @@ const HeroSection = () => (
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center flex flex-col items-center">
        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={300} height={300} className="h-auto mb-8" />
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-white">
         Africa’s Engine for Marketplaces & Digital Platforms
       </h1>
       <p className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto">
@@ -53,8 +73,8 @@ const IntroductionSection = () => (
   <section id="introduction" className="py-16 md:py-24">
     <div className="container max-w-5xl mx-auto">
       <div className="text-center">
-        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Introduction</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Introduction</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
           Bridging Africa's Digital Divide
         </p>
       </div>
@@ -81,11 +101,11 @@ const valueProps = [
 ];
 
 const ValuePropositionSection = () => (
-  <section id="value-proposition" className="py-16 md:py-24 bg-secondary/10">
+  <section id="value-proposition" className="py-16 md:py-24 bg-muted/50">
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Value Proposition</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Value Proposition</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
           Your All-in-One Digital Partner
         </p>
       </div>
@@ -93,10 +113,10 @@ const ValuePropositionSection = () => (
         {valueProps.map((prop) => (
           <Card key={prop.title} className="text-center">
             <CardHeader className="items-center">
-              <div className="p-4 bg-accent/10 rounded-full">
-                <prop.icon className="h-8 w-8 text-accent" />
+              <div className="p-4 bg-primary/10 rounded-full">
+                <prop.icon className="h-8 w-8 text-primary" />
               </div>
-              <CardTitle className="mt-4">{prop.title}</CardTitle>
+              <CardTitle className="mt-4 !font-semibold !text-xl !text-foreground">{prop.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">{prop.description}</p>
@@ -127,19 +147,19 @@ const CoreModulesSection = () => (
   <section id="modules" className="py-16 md:py-24">
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Core SaaS Modules</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+        <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Core SaaS Modules</h2>
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
           A Fully-Integrated Ecosystem
         </p>
       </div>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((mod) => (
           <Link href={`/${mod.slug.startsWith('admin') ? '' : 'modules/'}${mod.slug}`} key={mod.slug} className="no-underline">
-            <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
+            <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <mod.icon className="h-8 w-8 text-primary" />
-                  <CardTitle className="text-xl">{mod.title}</CardTitle>
+                  <mod.icon className="h-8 w-8 text-secondary" />
+                  <CardTitle className="text-xl !text-secondary group-hover:text-primary transition-colors">{mod.title}</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="flex-grow">
@@ -154,12 +174,12 @@ const CoreModulesSection = () => (
 );
 
 const CtaSection = () => (
-  <section id="cta" className="py-16 md:py-24 bg-secondary/10">
+  <section id="cta" className="py-16 md:py-24 bg-secondary text-primary-foreground">
     <div className="container text-center max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
         DigitalNest is Africa’s full-stack digital engine.
       </h2>
-      <p className="mt-4 text-lg text-muted-foreground">
+      <p className="mt-4 text-lg text-primary-foreground/80">
         Powering marketplaces, super apps, and platforms across every sector. Ready to build the future?
       </p>
       <div className="mt-8">

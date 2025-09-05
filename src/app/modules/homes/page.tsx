@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import './theme.css';
 
 const Header = () => {
     return (
@@ -182,7 +183,7 @@ export default function NestHomesPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
       <Header />
       <main>
         <HeroSection />
