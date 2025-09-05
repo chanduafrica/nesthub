@@ -27,7 +27,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
         <Link href="/">
-            <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={32} height={32} className="h-8 w-8" />
+          {/* Logo removed from header */}
         </Link>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
@@ -56,7 +56,8 @@ const HeroSection = () => (
       data-ai-hint="abstract background"
     />
     <div className="absolute inset-0 bg-black/50" />
-    <div className="relative z-10 container text-center">
+    <div className="relative z-10 container text-center flex flex-col items-center">
+       <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={300} height={300} className="h-auto mb-8" />
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl font-headline">
         Africa’s Engine for Marketplaces & Digital Platforms
       </h1>
