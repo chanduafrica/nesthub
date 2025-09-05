@@ -40,7 +40,7 @@ function shuffleArray<T>(array: T[]): T[] {
 
 
 export function MediaGallery({ title }: MediaGalleryProps) {
-  const images = React.useMemo(() => shuffleArray(localImages).slice(0, 5), []);
+  const images = React.useMemo(() => shuffleArray(localImages).slice(0, 5), [title]);
 
   return (
     <Card>

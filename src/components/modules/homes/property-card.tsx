@@ -41,7 +41,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   
   const propertySlug = createSlug(property.title);
 
-  const randomImage = useMemo(() => localImages[Math.floor(Math.random() * localImages.length)], []);
+  const randomImage = useMemo(() => localImages[Math.floor(Math.random() * localImages.length)], [property.id]);
 
 
   if (layout === 'list') {
@@ -156,5 +156,3 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
     </Card>
   );
 }
-
-    
