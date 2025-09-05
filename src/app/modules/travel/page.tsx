@@ -159,7 +159,7 @@ const HeroSection = () => {
                 <p className="mt-4 text-lg md:text-xl max-w-3xl">
                     Flights, Stays, Holidays & More – Book with Confidence.
                 </p>
-                <div className="mt-8 w-full max-w-4xl">
+                <div className="mt-8 w-full max-w-6xl">
                     <SearchWidget />
                 </div>
             </div>
@@ -392,3 +392,4 @@ export default function NestTravelPage() {
     
 
     
+
