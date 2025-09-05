@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Bed, Bath, Landmark, MapPin, Heart, PlusCircle } from 'lucide-react';
 import type { Property } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
+import { useMemo } from 'react';
 
 interface PropertyCardProps {
   property: Property;
@@ -17,6 +18,18 @@ interface PropertyCardProps {
 function createSlug(title: string) {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
+
+const localImages = [
+    '/images/properties/1.jpg',
+    '/images/properties/2.jpg',
+    '/images/properties/3.jpg',
+    '/images/properties/4.jpg',
+    '/images/properties/5.jpg',
+    '/images/properties/6.jpg',
+    '/images/properties/7.jpg',
+    '/images/properties/8.jpg',
+];
+
 
 export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   const formatPrice = (price: number) => {
@@ -28,6 +41,9 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
   
   const propertySlug = createSlug(property.title);
 
+  const randomImage = useMemo(() => localImages[Math.floor(Math.random() * localImages.length)], []);
+
+
   if (layout === 'list') {
     return (
         <Card className="overflow-hidden transition-shadow hover:shadow-lg group w-full">
@@ -35,7 +51,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
                 <div className="relative md:w-1/3">
                     <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                         <Image
-                            src={property.imageUrl}
+                            src={randomImage}
                             alt={property.title}
                             width={400}
                             height={250}
@@ -95,7 +111,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
         <div className="relative">
              <Link href={`/modules/homes/properties/${propertySlug}`} className="block">
                 <Image
-                    src={property.imageUrl}
+                    src={randomImage}
                     alt={property.title}
                     width={400}
                     height={250}

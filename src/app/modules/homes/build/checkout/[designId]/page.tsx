@@ -19,19 +19,19 @@ const designs = [
     id: 'simba-cottage',
     name: 'African Simba Cottage',
     price: 500000,
-    imageUrl: 'https://picsum.photos/seed/simba/600/400',
+    imageUrl: '/images/build/simba-cottage.jpg',
   },
   {
     id: 'flat-roof-minimal',
     name: 'One-Bedroom Flat Roof – Minimal',
     price: 800000,
-    imageUrl: 'https://picsum.photos/seed/flat-roof/600/400',
+    imageUrl: '/images/build/flat-roof.jpg',
   },
   {
     id: 'simple-brick',
     name: 'Simple Brick Walls – Live Green',
     price: 1000000,
-    imageUrl: 'https://picsum.photos/seed/brick-walls/600/400',
+    imageUrl: '/images/build/brick-walls.jpg',
   },
 ];
 

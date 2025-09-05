@@ -18,14 +18,29 @@ interface MediaGalleryProps {
     title: string;
 }
 
+const localImages = [
+    { src: '/images/properties/1.jpg', hint: "modern kenyan living room" },
+    { src: '/images/properties/2.jpg', hint: "house exterior nairobi" },
+    { src: '/images/properties/3.jpg', hint: "luxury african kitchen" },
+    { src: '/images/properties/4.jpg', hint: "spacious bedroom kenya" },
+    { src: '/images/properties/5.jpg', hint: "garden view apartment" },
+    { src: '/images/properties/6.jpg', hint: "modern bathroom" },
+    { src: '/images/properties/7.jpg', hint: "dining area" },
+    { src: '/images/properties/8.jpg', hint: "balcony view" },
+];
+
+function shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+
 export function MediaGallery({ title }: MediaGalleryProps) {
-  const images = [
-      { src: "https://picsum.photos/1200/800?random=51", hint: "modern kenyan living room" },
-      { src: "https://picsum.photos/1200/800?random=52", hint: "house exterior nairobi" },
-      { src: "https://picsum.photos/1200/800?random=53", hint: "luxury african kitchen" },
-      { src: "https://picsum.photos/1200/800?random=54", hint: "spacious bedroom kenya" },
-      { src: "https://picsum.photos/1200/800?random=55", hint: "garden view apartment" },
-  ];
+  const images = React.useMemo(() => shuffleArray(localImages).slice(0, 5), []);
 
   return (
     <Card>
