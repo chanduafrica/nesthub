@@ -100,30 +100,6 @@ export default function AdminLayout({
                     </Link>
                 </SidebarMenuButton>
                 </SidebarMenuItem>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="#">
-                    <Handshake />
-                    <span>All Partners</span>
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/admin/transactions">
-                    <ArrowRightLeft />
-                    <span>Transactions</span>
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="#">
-                    <ShieldAlert />
-                    <span>Complaints</span>
-                    </Link>
-                </SidebarMenuButton>
-                </SidebarMenuItem>
             </SidebarMenu>
 
            <SidebarSeparator />
