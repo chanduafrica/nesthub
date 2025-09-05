@@ -115,9 +115,9 @@ const NewsCard = ({ article }: { article: any }) => (
 
 const NewsSection = () => {
     const news = [
-        { title: "Market Trends: What to Expect in 2025", date: "July 20, 2024", category: "Market Analysis", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
-        { title: "First-Time Homebuyer's Guide to Nairobi", date: "July 18, 2024", category: "Buyer Tips", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
-        { title: "The Rise of Green Homes in Kenya", date: "July 15, 2024", category: "Sustainability", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
+        { title: "Market Trends: What to Expect in 2025", date: "July 20, 2025", category: "Market Analysis", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
+        { title: "First-Time Homebuyer's Guide to Nairobi", date: "July 18, 2025", category: "Buyer Tips", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
+        { title: "The Rise of Green Homes in Kenya", date: "July 15, 2025", category: "Sustainability", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
     ]
     return (
         <section className="py-16 md:py-24 bg-secondary/10">
@@ -172,7 +172,7 @@ const Footer = () => (
                 </div>
             </div>
             <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-                <p>&copy; {new Date().getFullYear()} NestHomes by DigitalNest. All rights reserved.</p>
+                <p>&copy; 2025 NestHomes by DigitalNest. All rights reserved.</p>
             </div>
         </div>
     </footer>

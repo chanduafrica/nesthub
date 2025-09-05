@@ -172,7 +172,7 @@ export function ClientView({ client, transactions: clientTransactions, moduleEng
         type: data.discountType as 'percentage' | 'amount',
         value: Number(data.value),
         portal: data.portal as string,
-        dateSent: new Date().toISOString().split('T')[0],
+        dateSent: new Date(2025, 6, 25).toISOString().split('T')[0], // July 25, 2025
         status: 'Sent' as 'Sent' | 'Redeemed'
       };
 
