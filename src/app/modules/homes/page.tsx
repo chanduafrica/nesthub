@@ -78,7 +78,7 @@ const HeroSection = () => {
             data-ai-hint="modern house"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4 py-16">
+        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4 py-32">
           <div className="w-full max-w-4xl">
              <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white">Find An Amazing Property</h1>
           </div>
