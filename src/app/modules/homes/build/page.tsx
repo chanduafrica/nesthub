@@ -13,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import { CheckCircle, ChevronRight, Home, MapPin, Milestone, Sun, Wind } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
 
 const designs = [
   {
