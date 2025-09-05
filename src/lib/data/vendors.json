@@ -10,3 +10,5 @@
     { "id": "v9", "name": "Pulse Live", "email": "editor@pulselive.co.ke", "phone": "+254777777777", "country": "Kenya", "portal": "NestMedia", "products": 500, "rating": 4.6, "status": "Active" },
     { "id": "v10", "name": "Kazi Mtaani Initiative", "email": "jobs@kazimtaani.go.ke", "phone": "+254788888888", "country": "Kenya", "portal": "NestJobs", "products": 30, "rating": 4.1, "status": "Pending" }
 ]
+
+    
