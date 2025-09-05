@@ -18,7 +18,6 @@ const Header = () => {
             <div className="container flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
-                        <Image src="/images/dnlogo.png" alt="NestHomes Logo" width={24} height={24} />
                         <span className="hidden font-bold sm:inline-block">
                            NestHomes
                         </span>

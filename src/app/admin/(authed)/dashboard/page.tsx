@@ -214,7 +214,7 @@ export default function AdminDashboardPage() {
             <Card>
                  <CardContent className="pt-6">
                     <div className="space-y-4">
-                        <div className="flex items-center gap-4 p-3 bg-secondary rounded-lg">
+                        <div className="flex items-center gap-4 p-3 bg-secondary/10 rounded-lg">
                             <Bell className="h-5 w-5 text-primary" />
                             <div>
                                 <p className="font-medium">New vendor applications pending verification</p>

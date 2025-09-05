@@ -10,7 +10,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 hidden md:flex">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={32} height={32} />
+          <span className="font-bold text-lg">DigitalNest</span>
         </Link>
         <nav className="flex items-center space-x-6 text-sm font-medium">
           <Link href="#modules" className="text-foreground/60 transition-colors hover:text-foreground/80">Modules</Link>
