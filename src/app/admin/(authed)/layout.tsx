@@ -46,7 +46,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
-import { NestIcon } from '@/components/icons';
+import Image from 'next/image';
 import { CurrencyProvider, useCurrency } from '@/hooks/use-currency';
 
 
@@ -62,7 +62,7 @@ export default function AdminLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
-            <NestIcon className="w-6 h-6 text-primary" />
+            <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={24} height={24} className="w-6 h-6" />
             <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
               DigitalNest
             </span>

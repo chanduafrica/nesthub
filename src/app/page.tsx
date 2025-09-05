@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Briefcase, Cpu, Database, DollarSign, Globe, HomeIcon, LayoutGrid, MessageSquare, Package, Plane, PlayCircle, Rocket, ShieldCheck, ShoppingCart, Store, Ticket, UserCog, UtensilsCrossed } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { NestIcon } from "@/components/icons";
 
 
 export default function HomePage() {
@@ -27,7 +26,7 @@ const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
-        <NestIcon className="h-6 w-6 text-accent" />
+        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={24} height={24} className="h-6 w-6" />
         <span className="ml-2 font-bold text-lg text-accent">DIGITALNEST</span>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
@@ -198,7 +197,7 @@ const Footer = () => (
   <footer className="border-t">
     <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
       <div className="flex items-center gap-2">
-        <NestIcon className="h-5 w-5 text-accent" />
+        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={20} height={20} className="h-5 w-5" />
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} DigitalNest. All rights reserved.
         </p>

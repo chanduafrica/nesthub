@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
-import { NestIcon } from '@/components/icons';
+import Image from 'next/image';
 
 export default function OtpPage() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function OtpPage() {
     <div className="flex min-h-screen items-center justify-center bg-sidebar">
        <div className="w-full max-w-md p-8 space-y-8">
         <div className="flex justify-center">
-             <NestIcon className="h-10 w-10 text-primary" />
+             <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={40} height={40} className="h-10 w-10" />
         </div>
         <Card className="bg-background shadow-2xl">
             <CardHeader className="text-center">
