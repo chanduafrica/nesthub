@@ -17,209 +17,171 @@ import {
     Podcast,
     Home,
     LayoutGrid,
-    Link as LinkIcon
+    Link as LinkIcon,
+    PlusCircle,
+    BookOpen,
+    TrendingUp,
+    MessageSquareText,
+    BadgeHelp,
+    Award
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
+
+const threads: Thread[] = [
+    {
+        id: '1',
+        title: '#Save500ADay Challenge: How are you managing your savings?',
+        author: { name: 'Wanjiku Kamau', avatar: 'https://picsum.photos/40/40?random=1' },
+        circle: { name: 'Money', color: 'bg-green-500' },
+        tags: ['#Savings', '#FinanceChallenge'],
+        content: "I started the #Save500ADay challenge last week and it's tougher than I thought! I've managed to save KES 3,000 so far by cutting down on my daily coffee and packing lunch. What are your best tips for staying consistent?",
+        stats: { likes: 128, comments: 45, sparks: 50 },
+        isPoll: false,
+    },
+    {
+        id: '2',
+        title: 'Best side hustles for a 9-to-5er in Nairobi?',
+        author: { name: 'Musa Okello', avatar: 'https://picsum.photos/40/40?random=2' },
+        circle: { name: 'Hustle', color: 'bg-blue-500' },
+        tags: ['#SideHustle', '#Career'],
+        content: "Looking for ideas on side hustles that I can do after work and on weekends. I have skills in graphic design but open to anything. What's working for you guys?",
+        stats: { likes: 256, comments: 89, sparks: 80 },
+        isPoll: false,
+    },
+    {
+        id: '3',
+        title: 'Poll: Is Artificial Intelligence a threat or an opportunity for Kenyan jobs?',
+        author: { name: 'Admin', avatar: '/images/dnlogo.png' },
+        circle: { name: 'Society', color: 'bg-purple-500' },
+        tags: ['#AI', '#FutureOfWork'],
+        content: "Let's settle the debate. With the rise of AI tools, do you see them as a major threat to the job market in Kenya, or a powerful opportunity for new kinds of work?",
+        stats: { likes: 512, comments: 210, sparks: 150 },
+        isPoll: true,
+        pollOptions: [
+            { text: 'Major Threat', votes: 45 },
+            { text: 'Big Opportunity', votes: 35 },
+            { text: 'A bit of both', votes: 20 },
+        ]
+    },
+    {
+        id: '4',
+        title: 'How do you practice self-care on a budget?',
+        author: { name: 'Amina Yusuf', avatar: 'https://picsum.photos/40/40?random=4' },
+        circle: { name: 'Mind', color: 'bg-yellow-500' },
+        tags: ['#MentalHealth', '#Wellness'],
+        content: "Wellness is important, but a lot of self-care advice seems expensive (spas, retreats, etc.). What are some affordable or free ways you take care of your mental health?",
+        stats: { likes: 320, comments: 112, sparks: 95 },
+        isPoll: false,
+    }
+];
+
 
 const Header = () => (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center">
             <div className="mr-4 hidden md:flex">
                 <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2">
                     <Flame className="h-6 w-6 text-primary" />
                     <span className="font-bold text-lg">Campfire</span>
                 </Link>
-                <nav className="flex items-center space-x-6 text-sm font-medium">
-                    <Link href="#circles" className="text-foreground/60 transition-colors hover:text-foreground/80">Circles</Link>
-                    <Link href="#talks" className="text-foreground/60 transition-colors hover:text-foreground/80">Talks</Link>
-                    <Link href="#challenges" className="text-foreground/60 transition-colors hover:text-foreground/80">Challenges</Link>
-                    <Link href="#rewards" className="text-foreground/60 transition-colors hover:text-foreground/80">Rewards</Link>
-                    <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
-                </nav>
             </div>
             <div className="flex flex-1 items-center justify-end">
-                <Button variant="secondary">Login to Join</Button>
+                <Button>Login</Button>
             </div>
         </div>
     </header>
 );
 
-const HeroSection = () => (
-    <section className="relative h-[60vh] flex items-center justify-center text-white">
-        <Image
-            src="https://picsum.photos/1600/900?random=45"
-            alt="A diverse group of people engaged in conversation"
-            fill
-            className="object-cover brightness-50"
-            data-ai-hint="african community conversation"
-        />
-        <div className="relative z-10 container text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                Where Conversations Ignite & Communities Thrive.
-            </h1>
-            <p className="mt-6 text-lg max-w-3xl mx-auto">
-                The engagement layer for Africa's leading SuperApps, Banks, and Telcos. Campfire powers belonging.
-            </p>
-            <div className="mt-8 flex gap-4">
-                <Button size="lg">Explore Circles</Button>
-                <Button size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary">
-                    Integrate Campfire
-                </Button>
-            </div>
+const Sidebar = () => (
+    <aside className="sticky top-[57px] h-[calc(100vh-57px)] w-64 flex-shrink-0">
+        <div className="p-4 space-y-4">
+             <Button className="w-full justify-start" size="lg" asChild>
+                <Link href="/modules/campfire/new">
+                    <PlusCircle className="mr-2 h-5 w-5"/> Start a Discussion
+                </Link>
+             </Button>
+            <nav className="space-y-1">
+                <h3 className="px-3 text-xs font-semibold text-muted-foreground uppercase">Navigation</h3>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-muted">
+                    <Home className="h-5 w-5 text-primary" />
+                    <span>Home Feed</span>
+                </Link>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <TrendingUp className="h-5 w-5" />
+                    <span>Trending</span>
+                </Link>
+                <h3 className="px-3 pt-4 text-xs font-semibold text-muted-foreground uppercase">Circles</h3>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <Users className="h-5 w-5 text-green-500" />
+                    <span>Money</span>
+                </Link>
+                <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <Sparkles className="h-5 w-5 text-blue-500" />
+                    <span>Hustle</span>
+                </Link>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <HeartHandshake className="h-5 w-5 text-yellow-500" />
+                    <span>Mind</span>
+                </Link>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <Users className="h-5 w-5 text-purple-500" />
+                    <span>Society</span>
+                </Link>
+                <h3 className="px-3 pt-4 text-xs font-semibold text-muted-foreground uppercase">Resources</h3>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <Mic className="h-5 w-5" />
+                    <span>Campfire Talks</span>
+                </Link>
+                <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <BarChart3 className="h-5 w-5" />
+                    <span>Polls & Challenges</span>
+                </Link>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <Award className="h-5 w-5" />
+                    <span>Rewards</span>
+                </Link>
+                 <Link href="#" className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
+                    <ShieldCheck className="h-5 w-5" />
+                    <span>Support & Wellness</span>
+                </Link>
+            </nav>
         </div>
-    </section>
-);
+    </aside>
+)
 
-const features = [
-    { 
-        icon: Users, 
-        title: "Interactive Circles",
-        id: "circles",
-        description: "Topic-based forums on money, careers, mental health, and society where users drive the conversation." 
-    },
-    { 
-        icon: Mic, 
-        title: "Campfire Talks",
-        id: "talks",
-        description: "Live, sponsored AMA sessions with CEOs, creators, and experts, creating valuable branded content." 
-    },
-    { 
-        icon: BarChart3, 
-        title: "Polls & Challenges",
-        id: "challenges",
-        description: "Gamified campaigns and daily debates that generate powerful engagement data and user insights." 
-    },
-    { 
-        icon: Sparkles, 
-        title: "Gamified Loyalty",
-        id: "rewards",
-        description: "Earn 'Sparks' points for engagement and redeem them for real-world rewards across the DigitalNest ecosystem." 
-    },
-    { 
-        icon: HeartHandshake, 
-        title: "Safe Mental Health Support",
-        id: "support",
-        description: "Anonymous peer-support chatrooms and hotline integrations in a moderated, safe space." 
-    },
-    { 
-        icon: PlaySquare, 
-        title: "Campfire Stories",
-        id: "stories",
-        description: "User-generated audio/video stories and podcast partnerships that give a voice to the youth." 
-    },
-];
 
-const FeaturesSection = () => (
-    <section className="py-16 md:py-24 bg-muted/50">
-        <div className="container">
-             <div className="text-center max-w-3xl mx-auto">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-                    Community-as-a-Service
-                </h2>
-                <p className="mt-4 text-lg text-muted-foreground">
-                    Campfire is more than a feature; it's an ecosystem designed to foster engagement, loyalty, and belonging within your existing platform.
-                </p>
-            </div>
-            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {features.map((feature) => (
-                    <Card key={feature.title} id={feature.id} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow">
-                        <CardHeader className="items-center">
-                            <div className="p-4 bg-primary/10 rounded-full">
-                                <feature.icon className="h-8 w-8 text-primary" />
-                            </div>
-                            <CardTitle className="mt-4 !text-xl !text-foreground">{feature.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-muted-foreground">{feature.description}</p>
-                        </CardContent>
-                    </Card>
+export default function CampfireForumPage() {
+  return (
+    <div className="flex flex-col min-h-screen bg-muted/40">
+      <Header />
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 py-6 px-8">
+            <div className="space-y-6">
+                {threads.map(thread => (
+                    <ThreadCard key={thread.id} thread={thread} />
                 ))}
             </div>
-        </div>
-    </section>
-);
-
-
-const UseCaseSection = () => {
-    const useCases = [
-        { 
-            title: "For Banking SuperApps", 
-            description: "Keep Millennials/Gen Z engaged with money talks, financial literacy AMAs, and gamified savings challenges.",
-            image: "https://picsum.photos/600/400?random=46",
-            hint: "mobile banking app"
-        },
-        { 
-            title: "For Telcos", 
-            description: "Become the hub for youth culture with discussions on gaming, music, and mental health, driving daily app usage.",
-            image: "https://picsum.photos/600/400?random=47",
-            hint: "person using phone"
-        },
-        { 
-            title: "For Media Houses", 
-            description: "Spark national conversations and debates on society, politics, and relationships, turning passive readers into an active community.",
-            image: "https://picsum.photos/600/400?random=48",
-            hint: "news media studio"
-        },
-    ];
-
-    return (
-        <section className="py-16 md:py-24">
-            <div className="container">
-                <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-                        The Engine of Engagement
-                    </h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                       Integrate Campfire to transform your platform into a vibrant, interactive community.
-                    </p>
-                </div>
-                <div className="mt-12 grid md:grid-cols-3 gap-8">
-                    {useCases.map(uc => (
-                        <Card key={uc.title} className="overflow-hidden">
-                            <Image src={uc.image} alt={uc.title} width={600} height={400} className="w-full h-48 object-cover" data-ai-hint={uc.hint} />
-                            <CardHeader>
-                                <CardTitle className="!text-xl !text-foreground">{uc.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">{uc.description}</p>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-        </section>
-    )
-}
-
-const CtaSection = () => (
-    <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-      <div className="container text-center max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
-          Ready to build a community, not just a customer base?
-        </h2>
-        <p className="mt-4 text-lg text-primary-foreground/80">
-            Let's integrate Campfire into your ecosystem and unlock the power of belonging.
-        </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <Button size="lg" variant="secondary">
-            Request a Demo
-          </Button>
-        </div>
+        </main>
+        <aside className="sticky top-[57px] h-[calc(100vh-57px)] w-80 flex-shrink-0 p-6 hidden xl:block">
+            <Card>
+                <CardHeader>
+                    <CardTitle>🔥 Trending on Campfire</CardTitle>
+                    <CardDescription>Hottest topics right now.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <ul className="space-y-3">
+                        <li className="text-sm font-medium hover:underline"><Link href="#">#SideHustleShowcase: What did you build this week?</Link></li>
+                        <li className="text-sm font-medium hover:underline"><Link href="#">SGR vs Flight to Mombasa: What's the real cost?</Link></li>
+                        <li className="text-sm font-medium hover:underline"><Link href="#">Guide to investing in Money Market Funds in Kenya.</Link></li>
+                        <li className="text-sm font-medium hover:underline"><Link href="#">Best places for a weekend getaway near Nairobi.</Link></li>
+                    </ul>
+                </CardContent>
+            </Card>
+        </aside>
       </div>
-    </section>
-  );
-
-export default function CampfirePage() {
-  return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Header />
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-        <UseCaseSection />
-        <CtaSection />
-      </main>
     </div>
   );
 }
