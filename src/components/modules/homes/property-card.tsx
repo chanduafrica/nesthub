@@ -20,14 +20,14 @@ function createSlug(title: string) {
 }
 
 const localImages = [
-    '/images/properties/1.jpg',
-    '/images/properties/2.jpg',
-    '/images/properties/3.jpg',
-    '/images/properties/4.jpg',
-    '/images/properties/5.jpg',
-    '/images/properties/6.jpg',
-    '/images/properties/7.jpg',
-    '/images/properties/8.jpg',
+    '/property/1.jpg',
+    '/property/2.jpg',
+    '/property/3.jpg',
+    '/property/4.jpg',
+    '/property/5.jpg',
+    '/property/6.jpg',
+    '/property/7.jpg',
+    '/property/8.jpg',
 ];
 
 

@@ -19,14 +19,14 @@ interface MediaGalleryProps {
 }
 
 const localImages = [
-    { src: '/images/properties/1.jpg', hint: "modern kenyan living room" },
-    { src: '/images/properties/2.jpg', hint: "house exterior nairobi" },
-    { src: '/images/properties/3.jpg', hint: "luxury african kitchen" },
-    { src: '/images/properties/4.jpg', hint: "spacious bedroom kenya" },
-    { src: '/images/properties/5.jpg', hint: "garden view apartment" },
-    { src: '/images/properties/6.jpg', hint: "modern bathroom" },
-    { src: '/images/properties/7.jpg', hint: "dining area" },
-    { src: '/images/properties/8.jpg', hint: "balcony view" },
+    { src: '/property/1.jpg', hint: "modern kenyan living room" },
+    { src: '/property/2.jpg', hint: "house exterior nairobi" },
+    { src: '/property/3.jpg', hint: "luxury african kitchen" },
+    { src: '/property/4.jpg', hint: "spacious bedroom kenya" },
+    { src: '/property/5.jpg', hint: "garden view apartment" },
+    { src: '/property/6.jpg', hint: "modern bathroom" },
+    { src: '/property/7.jpg', hint: "dining area" },
+    { src: '/property/8.jpg', hint: "balcony view" },
 ];
 
 function shuffleArray<T>(array: T[]): T[] {
