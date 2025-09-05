@@ -11,34 +11,26 @@ import { SearchForm } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
-import './theme.css';
-
 const Header = () => {
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background">
-           <div className="container mx-auto">
-             <div className="flex h-24 items-center justify-between">
-                <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold no-underline">
-                    <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
-                    <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
-                </Link>
-
-                <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
-                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary no-underline">DigitalNest</Link>
-                    <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold no-underline">Home</Link>
-                    <Link href="/modules/homes/properties" className="text-foreground/80 transition-colors hover:text-primary no-underline">Properties</Link>
-                    <Link href="/modules/homes/build" className="text-foreground/80 transition-colors hover:text-primary no-underline">Build My Own</Link>
-                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary no-underline">Travel</Link>
-                    <Link href="/modules/stays" className="text-foreground/80 transition-colors hover:text-primary no-underline">Stays</Link>
-                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary no-underline">MarketPlace</Link>
-                    <Link href="/modules/events" className="text-foreground/80 transition-colors hover:text-primary no-underline">Events</Link>
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-14 items-center">
+                <div className="mr-4 hidden md:flex">
+                    <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
+                        <Image src="/images/dnlogo.png" alt="NestHomes Logo" width={24} height={24} />
+                        <span className="hidden font-bold sm:inline-block">
+                           NestHomes
+                        </span>
+                    </Link>
+                    <nav className="flex items-center space-x-6 text-sm font-medium">
+                        <Link href="/modules/homes/properties" className="text-foreground/60 transition-colors hover:text-foreground/80">Properties</Link>
+                        <Link href="/modules/homes/build" className="text-foreground/60 transition-colors hover:text-foreground/80">Build My Own</Link>
+                    </nav>
                 </div>
-
-                 <div className="hidden md:flex items-center gap-4">
-                     <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }} className="hover:bg-primary/90 text-primary-foreground">Contact</Button>
+                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                     <Button>Contact Agent</Button>
                 </div>
             </div>
-           </div>
         </header>
     );
 };
@@ -46,7 +38,7 @@ const Header = () => {
 
 const HeroSection = () => {
     return (
-      <section className="relative hero-slider-section bg-background flex items-center justify-center">
+      <section className="relative h-[50vh] flex items-center justify-center">
         <Image
             src="/images/hero-background.jpg"
             alt="Beautiful modern home interior"
@@ -55,12 +47,12 @@ const HeroSection = () => {
             data-ai-hint="modern house"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4 py-32">
+        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-8">
+            Find Your Dream Home
+          </h1>
           <div className="w-full max-w-4xl">
-             <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white">Find An Amazing Property</h1>
-          </div>
-          <div className="w-[99%] max-w-7xl">
-             <SearchForm />
+            <SearchForm />
           </div>
         </div>
       </section>
@@ -70,11 +62,13 @@ const HeroSection = () => {
 
 const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
     return (
-        <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-background">
+        <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto">
-                <div className="text-left max-w-2xl">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Discover Latest Properties</h2>
-                    <p className="mt-2 text-lg text-muted-foreground">Newest Properties Around You</p>
+                <div className="text-center">
+                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Properties</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Explore our handpicked selection of premier properties.
+                    </p>
                 </div>
                 <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {properties.slice(0, 8).map((property) => (
@@ -82,8 +76,8 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                     ))}
                 </div>
                  <div className="mt-12 text-center">
-                    <Button asChild style={{ backgroundColor: 'hsl(var(--nesthomes-primary))' }} className="hover:bg-accent/90 text-accent-foreground">
-                        <Link href="/modules/homes/properties" className="no-underline">View All Properties</Link>
+                    <Button asChild variant="outline">
+                        <Link href="/modules/homes/properties">View All Properties</Link>
                     </Button>
                 </div>
             </div>
@@ -92,22 +86,22 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
 };
 
 const NewsCard = ({ article }: { article: any }) => (
-    <Card className="h-full overflow-hidden">
+    <Card className="overflow-hidden">
         <Image
             src={article.image}
             alt={article.title}
             width={400}
             height={250}
-            className="w-full h-56 object-cover"
+            className="w-full h-48 object-cover"
             data-ai-hint={article.hint}
         />
-        <CardContent className="p-6">
+        <CardContent className="p-4">
             <p className="text-sm text-muted-foreground mb-2">{article.date}</p>
-            <h3 className="text-lg font-semibold mb-4 hover:text-primary transition-colors">
-                <Link href="#" className="no-underline">{article.title}</Link>
+            <h3 className="font-semibold mb-2 hover:text-primary transition-colors">
+                <Link href="#">{article.title}</Link>
             </h3>
             <p className="text-sm text-primary font-semibold hover:underline">
-                 <Link href="#" className="no-underline">{article.category}</Link>
+                 <Link href="#">{article.category}</Link>
             </p>
         </CardContent>
     </Card>
@@ -115,19 +109,20 @@ const NewsCard = ({ article }: { article: any }) => (
 
 const NewsSection = () => {
     const news = [
-        { title: "Real Estate Market Heats Up, Here’s How First-time Buyers Can Keep Their Cool", date: "27 February 2025", category: "Luxury", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
-        { title: "As The Real Estate Market Heats Up, Here’s How First-time Buyers Can Keep Their Cool", date: "27 February 2025", category: "Luxury", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
-        { title: "Here’s How First-time Buyers Can Keep Their Cool As The Real Estate Market Heats Up", date: "27 February 2025", category: "Market Trends", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
-        { title: "Keeping Your Cool in a Hot Real Estate Market: A Guide for First-Timers", date: "27 February 2025", category: "Market Trends", image: "https://picsum.photos/400/250?random=13", hint: "happy couple" },
+        { title: "Market Trends: What to Expect in 2025", date: "July 20, 2024", category: "Market Analysis", image: "https://picsum.photos/400/250?random=10", hint: "modern kitchen" },
+        { title: "First-Time Homebuyer's Guide to Nairobi", date: "July 18, 2024", category: "Buyer Tips", image: "https://picsum.photos/400/250?random=11", hint: "living room" },
+        { title: "The Rise of Green Homes in Kenya", date: "July 15, 2024", category: "Sustainability", image: "https://picsum.photos/400/250?random=12", hint: "house exterior" },
     ]
     return (
-        <section className="py-16 md:py-24 bg-secondary/50">
+        <section className="py-16 md:py-24 bg-secondary/10">
             <div className="container mx-auto">
-                <div className="text-center max-w-2xl mx-auto">
-                    <h2 className="text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: 'hsl(var(--nesthomes-primary))' }}>Latest News & Update</h2>
-                    <p className="mt-2 text-lg text-muted-foreground">Latest News About Eastleigh Properties</p>
+                <div className="text-center">
+                    <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Latest News</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Stay updated with the latest in real estate.
+                    </p>
                 </div>
-                 <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
                     {news.map((article, index) => (
                        <NewsCard key={index} article={article} />
                     ))}
@@ -138,39 +133,40 @@ const NewsSection = () => {
 }
 
 const Footer = () => (
-    <footer className="border-t bg-primary-light mt-12">
-        <div className="container py-12">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <footer className="border-t">
+        <div className="container py-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                 <div>
-                    <div className="flex items-center gap-2 mb-4">
-                        <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold no-underline">
-                           <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
-                           <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
-                        </Link>
-                    </div>
-                    <p className="text-muted-foreground">Find Your Ideal Property at NestProperties – Explore the best real estate opportunities in our Trusted Real Estate Portal. Whether you’re looking to buy, sell, or rent apartments, commercial spaces, or land, we connect you with verified listings and reliable agents. Your dream property is just a click away!</p>
+                    <h3 className="font-semibold mb-2">NestHomes</h3>
+                    <p className="text-sm text-muted-foreground">Your partner in finding the perfect home.</p>
                 </div>
                  <div>
-                    <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
-                    <nav className="flex flex-col gap-2 text-muted-foreground">
-                        <Link href="#" className="hover:text-primary no-underline">Home</Link>
-                        <Link href="#" className="hover:text-primary no-underline">Properties Listing</Link>
-                        <Link href="#" className="hover:text-primary no-underline">Property Talk</Link>
-                        <Link href="#" className="hover:text-primary no-underline">Contact</Link>
+                    <h3 className="font-semibold mb-2">Quick Links</h3>
+                    <nav className="flex flex-col gap-1 text-sm text-muted-foreground">
+                        <Link href="#" className="hover:text-primary">Properties</Link>
+                        <Link href="#" className="hover:text-primary">About Us</Link>
+                        <Link href="#" className="hover:text-primary">Contact</Link>
                     </nav>
                 </div>
                 <div>
-                    <h3 className="font-semibold mb-4 text-lg">Newsletter</h3>
-                    <p className="text-muted-foreground mb-4">Subscribe to our newsletter to get the latest updates.</p>
+                    <h3 className="font-semibold mb-2">Newsletter</h3>
+                    <p className="text-sm text-muted-foreground mb-2">Subscribe to get the latest updates.</p>
                     <form className="flex gap-2">
-                        <Input type="email" placeholder="Your Email" className="bg-background"/>
-                        <Button style={{ backgroundColor: 'hsl(var(--nesthomes-accent))' }}>Subscribe</Button>
+                        <Input type="email" placeholder="Your Email" />
+                        <Button>Subscribe</Button>
                     </form>
                 </div>
+                 <div>
+                    <h3 className="font-semibold mb-2">Follow Us</h3>
+                     <div className="flex space-x-4">
+                        <Link href="#" className="text-muted-foreground hover:text-primary">FB</Link>
+                        <Link href="#" className="text-muted-foreground hover:text-primary">TW</Link>
+                        <Link href="#" className="text-muted-foreground hover:text-primary">IG</Link>
+                    </div>
+                </div>
             </div>
-            <div className="mt-8 border-t pt-8 flex justify-between items-center text-sm text-muted-foreground">
+            <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
                 <p>&copy; {new Date().getFullYear()} NestHomes by DigitalNest. All rights reserved.</p>
-                <p>Designed by DigitalNest</p>
             </div>
         </div>
     </footer>
@@ -186,7 +182,7 @@ export default function NestHomesPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
+    <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main>
         <HeroSection />

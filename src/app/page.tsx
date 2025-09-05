@@ -33,7 +33,7 @@ const HeroSection = () => (
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center flex flex-col items-center">
        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={300} height={300} className="h-auto mb-8" />
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl font-headline">
+      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
         Africa’s Engine for Marketplaces & Digital Platforms
       </h1>
       <p className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto">
@@ -54,7 +54,7 @@ const IntroductionSection = () => (
     <div className="container max-w-5xl mx-auto">
       <div className="text-center">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Introduction</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline text-accent">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           Bridging Africa's Digital Divide
         </p>
       </div>
@@ -81,11 +81,11 @@ const valueProps = [
 ];
 
 const ValuePropositionSection = () => (
-  <section id="value-proposition" className="py-16 md:py-24 bg-secondary/50">
+  <section id="value-proposition" className="py-16 md:py-24 bg-secondary/10">
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Value Proposition</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline text-accent">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           Your All-in-One Digital Partner
         </p>
       </div>
@@ -128,13 +128,13 @@ const CoreModulesSection = () => (
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent">Core SaaS Modules</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl font-headline text-accent">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           A Fully-Integrated Ecosystem
         </p>
       </div>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((mod) => (
-          <Link href={`/${mod.slug}`} key={mod.slug} className="no-underline">
+          <Link href={`/modules/${mod.slug}`} key={mod.slug} className="no-underline">
             <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-center gap-4">
@@ -154,9 +154,9 @@ const CoreModulesSection = () => (
 );
 
 const CtaSection = () => (
-  <section id="cta" className="py-16 md:py-24 bg-secondary/50">
+  <section id="cta" className="py-16 md:py-24 bg-secondary/10">
     <div className="container text-center max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline text-accent">
+      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
         DigitalNest is Africa’s full-stack digital engine.
       </h2>
       <p className="mt-4 text-lg text-muted-foreground">
@@ -175,7 +175,7 @@ const Footer = () => (
   <footer className="border-t">
     <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
       <div className="flex items-center gap-2">
-        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={20} height={20} className="h-5 w-5" />
+        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={24} height={24} className="h-6 w-6" />
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} DigitalNest. All rights reserved.
         </p>
@@ -186,4 +186,3 @@ const Footer = () => (
     </div>
   </footer>
 );
-
