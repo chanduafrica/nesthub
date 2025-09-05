@@ -88,7 +88,7 @@ export default function AllPropertiesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [sortOrder, setSortOrder] = useState('relevance');
     const [layout, setLayout] = useState<'grid' | 'list'>('grid');
-    const propertiesPerPage = 9;
+    const propertiesPerPage = 24; // 4 columns * 6 rows
 
     useEffect(() => {
         fetch('/api/data/properties')
@@ -167,9 +167,9 @@ export default function AllPropertiesPage() {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`}>
                             {paginatedProperties.map((property) => (
-                                <PropertyCard key={property.id} property={property} />
+                                <PropertyCard key={property.id} property={property} layout={layout} />
                             ))}
                         </div>
 
