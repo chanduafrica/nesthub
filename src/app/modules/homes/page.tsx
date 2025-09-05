@@ -7,7 +7,7 @@ import { PropertyCard } from '@/components/modules/homes/property-card';
 import { Property } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
-import { SearchForm } from '@/components/modules/homes/search-form';
+import { SearchForm, SearchFilters } from '@/components/modules/homes/search-form';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Briefcase, Building, Facebook, HomeIcon, Instagram, LayoutGrid, Plane, Ticket, Twitter } from 'lucide-react';
@@ -53,6 +53,19 @@ const Header = () => {
 
 
 const HeroSection = () => {
+    const [filters, setFilters] = useState<SearchFilters>({
+        type: 'all',
+        keyword: '',
+        location: 'all',
+        beds: 'all',
+        baths: 'all',
+        minArea: '',
+        propId: '',
+    });
+     const handleFilterChange = (newFilters: Partial<SearchFilters>) => {
+        setFilters(prev => ({...prev, ...newFilters}));
+    }
+
     return (
       <section className="relative h-[50vh] flex items-center justify-center">
         <Image
@@ -68,7 +81,7 @@ const HeroSection = () => {
             Find Your Dream Home
           </h1>
           <div className="w-full max-w-4xl">
-            <SearchForm />
+            <SearchForm filters={filters} onFilterChange={handleFilterChange} />
           </div>
         </div>
       </section>
