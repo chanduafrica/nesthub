@@ -12,6 +12,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Briefcase, Building, HomeIcon, LayoutGrid, Plane, Ticket } from 'lucide-react';
 import './theme.css';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from "embla-carousel-autoplay";
+
 
 const Header = () => {
     return (
@@ -70,7 +79,7 @@ const HeroSection = () => {
 const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
     const [filter, setFilter] = useState<'all' | 'sale' | 'rent'>('all');
     const [currentPage, setCurrentPage] = useState(1);
-    const propertiesPerPage = 18; // 6 columns * 3 rows
+    const propertiesPerPage = 16; // 4 columns * 4 rows
 
     const filteredProperties = useMemo(() => {
         if (filter === 'all') return properties;
@@ -104,7 +113,7 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                     <Button variant={filter === 'sale' ? 'default' : 'outline'} onClick={() => handleFilterChange('sale')}>For Sale</Button>
                     <Button variant={filter === 'rent' ? 'default' : 'outline'} onClick={() => handleFilterChange('rent')}>For Rent</Button>
                 </div>
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                    {paginatedProperties.map((property) => (
                         <PropertyCard key={property.id} property={property} />
                     ))}
@@ -246,5 +255,3 @@ export default function NestHomesPage() {
     </div>
   );
 }
-
-    
