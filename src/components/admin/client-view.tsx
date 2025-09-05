@@ -259,14 +259,14 @@ export function ClientView({ client }: { client: Client }) {
                 <AvatarFallback>{client.name.charAt(0)}</AvatarFallback>
               </Avatar>
               <CardTitle className="text-2xl">{client.name}</CardTitle>
-              <CardDescription>
-                 <Badge variant={
+              <div className="pt-2">
+                <Badge variant={
                     clientStatus === 'Active' ? 'default' : 
                     clientStatus === 'Inactive' ? 'secondary' : 'destructive'
                 }>
                     {clientStatus}
                 </Badge>
-              </CardDescription>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4 text-sm text-muted-foreground">
@@ -585,3 +585,5 @@ function DiscountDialogContent({ client, onSubmit, moduleEngagement }: { client:
         </DialogContent>
     )
 }
+
+    

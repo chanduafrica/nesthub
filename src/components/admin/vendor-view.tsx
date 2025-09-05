@@ -190,11 +190,11 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
                 <AvatarFallback>{vendor.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
               <CardTitle className="text-2xl">{vendor.name}</CardTitle>
-              <CardDescription>
+               <div className="pt-2">
                  <Badge variant={getStatusBadgeVariant(vendorStatus)}>
                     {vendorStatus}
                 </Badge>
-              </CardDescription>
+               </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-4 text-sm text-muted-foreground">
@@ -325,3 +325,5 @@ export function VendorView({ vendor }: { vendor: Vendor }) {
     </div>
   );
 }
+
+    
