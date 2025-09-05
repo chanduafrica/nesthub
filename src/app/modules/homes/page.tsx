@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { PropertyCard } from '@/components/modules/homes/property-card';
 import { Property } from '@/lib/mock-data';
@@ -68,6 +68,28 @@ const HeroSection = () => {
 
 
 const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
+    const [filter, setFilter] = useState<'all' | 'sale' | 'rent'>('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const propertiesPerPage = 6;
+
+    const filteredProperties = useMemo(() => {
+        if (filter === 'all') return properties;
+        const type = filter === 'sale' ? 'For Sale' : 'For Rent';
+        return properties.filter(p => p.type === type);
+    }, [properties, filter]);
+
+    const paginatedProperties = useMemo(() => {
+        const startIndex = (currentPage - 1) * propertiesPerPage;
+        return filteredProperties.slice(startIndex, startIndex + propertiesPerPage);
+    }, [filteredProperties, currentPage, propertiesPerPage]);
+
+    const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+
+    const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent') => {
+        setFilter(newFilter);
+        setCurrentPage(1); // Reset to first page when filter changes
+    }
+
     return (
         <section className="py-16 md:py-24 bg-background">
             <div className="container mx-auto">
@@ -77,14 +99,33 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                         Explore our handpicked selection of premier properties.
                     </p>
                 </div>
-                <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    {properties.slice(0, 8).map((property) => (
+                 <div className="flex justify-center gap-2 my-8">
+                    <Button variant={filter === 'all' ? 'default' : 'outline'} onClick={() => handleFilterChange('all')}>All</Button>
+                    <Button variant={filter === 'sale' ? 'default' : 'outline'} onClick={() => handleFilterChange('sale')}>For Sale</Button>
+                    <Button variant={filter === 'rent' ? 'default' : 'outline'} onClick={() => handleFilterChange('rent')}>For Rent</Button>
+                </div>
+                <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {paginatedProperties.map((property) => (
                         <PropertyCard key={property.id} property={property} />
                     ))}
                 </div>
-                 <div className="mt-12 text-center">
-                    <Button asChild variant="outline">
-                        <Link href="/modules/homes/properties">View All Properties</Link>
+                 <div className="mt-12 flex justify-center items-center gap-4">
+                    <Button 
+                        variant="outline"
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {currentPage} of {totalPages > 0 ? totalPages : 1}
+                    </span>
+                    <Button 
+                        variant="outline"
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages || totalPages === 0}
+                    >
+                        Next
                     </Button>
                 </div>
             </div>
