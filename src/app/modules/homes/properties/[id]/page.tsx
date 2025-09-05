@@ -1,12 +1,10 @@
 
-'use client';
-
 import { notFound } from 'next/navigation';
+import { Property } from '@/lib/mock-data';
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Property } from '@/lib/mock-data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,77 +26,34 @@ import { useState, useMemo, useEffect } from 'react';
 import { format } from 'date-fns';
 
 async function getPropertyData(id: string): Promise<Property | undefined> {
-    // This function runs on the server, so we can't use hooks here.
-    // In a real app, this would be an API call.
-    // We are fetching it on the client now to make the page dynamic
-    return undefined;
+    const filePath = path.join(process.cwd(), 'src', 'lib', 'data', 'properties.json');
+    try {
+        const fileContents = fs.readFileSync(filePath, 'utf8');
+        const properties: Property[] = JSON.parse(fileContents);
+        return properties.find(p => p.id === id);
+    } catch (error) {
+        console.error("Failed to read or parse properties data:", error);
+        return undefined;
+    }
 }
 
-
-const Header = () => {
-    return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
-                <div className="mr-4 hidden md:flex">
-                    <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
-                        <span className="hidden font-bold sm:inline-block">
-                           NestHomes
-                        </span>
-                    </Link>
-                    <nav className="flex items-center space-x-4 text-sm font-medium">
-                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
-                        <Link href="/modules/homes/build" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Building className="h-4 w-4" />Build My Own</Link>
-                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
-                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
-                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
-                        <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
-                    </nav>
-                </div>
-                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                     <Button variant="secondary">Contact Agent</Button>
-                     <Button variant="outline" asChild>
-                        <Link href="/modules/homes/properties">
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                        </Link>
-                    </Button>
-                </div>
-            </div>
-        </header>
-    );
-};
-
-
-export default function PropertyDetailsPage({ params }: { params: { id: string } }) {
-    const [property, setProperty] = useState<Property | null>(null);
-    const { toast } = useToast();
-
-    useEffect(() => {
-        const propertyId = params.id;
-        fetch('/api/data/properties')
-            .then(res => res.json())
-            .then(data => {
-                const foundProperty = data.find((p: Property) => p.id === propertyId);
-                if (foundProperty) {
-                    setProperty(foundProperty);
-                } else {
-                    // Handle not found case, maybe redirect or show a message
-                }
-            });
-    }, [params.id]);
-
+// This is the main Server Component for the page
+export default async function PropertyDetailsPage({ params }: { params: { id: string } }) {
+    const property = await getPropertyData(params.id);
 
     if (!property) {
-        return (
-             <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
-                <Header />
-                <div className="flex-1 flex items-center justify-center">
-                    <p>Loading property details...</p>
-                </div>
-            </div>
-        )
+        notFound();
     }
+
+    return <PropertyView property={property} />;
+}
+
+// This is a new Client Component to handle all interactive UI
+function PropertyView({ property }: { property: Property }) {
+    'use client';
     
+    const { toast } = useToast();
+
     const formatPrice = (price: number) => {
         return `Ksh ${price.toLocaleString()}`;
     };
@@ -108,6 +63,39 @@ export default function PropertyDetailsPage({ params }: { params: { id: string }
             title: "Property Saved!",
             description: `${property.title} has been added to your favorites.`,
         });
+    };
+
+    const Header = () => {
+        return (
+            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="container flex h-14 items-center">
+                    <div className="mr-4 hidden md:flex">
+                        <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
+                            <span className="hidden font-bold sm:inline-block">
+                               NestHomes
+                            </span>
+                        </Link>
+                        <nav className="flex items-center space-x-4 text-sm font-medium">
+                            <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                            <Link href="/modules/homes/build" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Building className="h-4 w-4" />Build My Own</Link>
+                            <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                            <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                            <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
+                            <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
+                            <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                        </nav>
+                    </div>
+                    <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                         <Button variant="secondary">Contact Agent</Button>
+                         <Button variant="outline" asChild>
+                            <Link href="/modules/homes/properties">
+                                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                            </Link>
+                        </Button>
+                    </div>
+                </div>
+            </header>
+        );
     };
 
     return (
@@ -136,7 +124,7 @@ export default function PropertyDetailsPage({ params }: { params: { id: string }
                             <CardContent>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                                     <div className="flex items-center gap-2"><span className="font-semibold">Type:</span><span>{property.category}</span></div>
-                                    <div className="flex items-center gap-2"><span className-="font-semibold">Status:</span><span>{property.type}</span></div>
+                                    <div className="flex items-center gap-2"><span className="font-semibold">Status:</span><span>{property.type}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Bedrooms:</span><span>{property.beds}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Bathrooms:</span><span>{property.baths}</span></div>
                                     <div className="flex items-center gap-2"><span className="font-semibold">Area:</span><span>{property.area.toLocaleString()} sqft</span></div>
@@ -234,7 +222,6 @@ export default function PropertyDetailsPage({ params }: { params: { id: string }
         </div>
     );
 }
-
 
 function BookViewingDialog({ property }: { property: Property }) {
     const [date, setDate] = useState<Date | undefined>(new Date(2025, 6, 28)); // July 28, 2025

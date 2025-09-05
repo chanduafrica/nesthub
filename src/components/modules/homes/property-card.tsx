@@ -134,3 +134,5 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
     </Card>
   );
 }
+
+    
