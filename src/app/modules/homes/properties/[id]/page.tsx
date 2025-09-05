@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MediaGallery } from '@/components/modules/homes/media-gallery';
 import { MortgageCalculator } from '@/components/modules/homes/mortgage-calculator';
 import { InsuranceEstimator } from '@/components/modules/homes/insurance-estimator';
-import { Bed, Bath, Landmark, MapPin, Phone, MessageSquare, ShieldCheck, Verified, ArrowLeft, Heart, Share2, Printer, Calendar, Banknote, Shield, Quote } from 'lucide-react';
+import { Bed, Bath, Landmark, MapPin, Phone, MessageSquare, ShieldCheck, Verified, ArrowLeft, Heart, Share2, Printer, Calendar, Banknote, Shield, Quote, HomeIcon, Building, Plane, Briefcase, LayoutGrid, Ticket } from 'lucide-react';
 import './theme.css';
 
 
@@ -27,16 +27,28 @@ async function getPropertyData(id: string): Promise<Property | undefined> {
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center justify-between">
-                <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
-                    <span className="font-bold sm:inline-block">
-                        NestHomes
-                    </span>
-                </Link>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" asChild>
+            <div className="container flex h-14 items-center">
+                <div className="mr-4 hidden md:flex">
+                    <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
+                        <span className="hidden font-bold sm:inline-block">
+                           NestHomes
+                        </span>
+                    </Link>
+                    <nav className="flex items-center space-x-4 text-sm font-medium">
+                        <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
+                        <Link href="/modules/homes/build" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Building className="h-4 w-4" />Build My Own</Link>
+                        <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
+                        <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
+                        <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
+                        <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                    </nav>
+                </div>
+                <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
+                     <Button variant="secondary">Contact Agent</Button>
+                     <Button variant="outline" asChild>
                         <Link href="/modules/homes/properties">
-                            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Listings
+                            <ArrowLeft className="mr-2 h-4 w-4" /> Back
                         </Link>
                     </Button>
                 </div>
