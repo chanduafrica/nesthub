@@ -27,7 +27,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex items-center">
         <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={24} height={24} className="h-6 w-6" />
-        <span className="ml-2 font-bold text-lg text-accent">DIGITALNEST</span>
+        <span className="ml-2 font-bold text-lg text-foreground">DIGITALNEST</span>
       </div>
       <nav className="flex-1 items-center justify-end space-x-4 hidden md:flex">
          <Link href="/admin/login">
@@ -156,7 +156,7 @@ const CoreModulesSection = () => (
       </div>
       <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {modules.map((mod) => (
-          <Link href={`/modules/${mod.slug}`} key={mod.slug}>
+          <Link href={`/modules/${mod.slug}`} key={mod.slug} className="no-underline">
             <Card className="flex flex-col h-full hover:shadow-lg transition-shadow">
               <CardHeader>
                 <div className="flex items-center gap-4">

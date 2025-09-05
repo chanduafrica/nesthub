@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -42,20 +41,20 @@ const Header = () => {
         <header className="sticky top-0 z-50 w-full border-b bg-background">
            <div className="container mx-auto">
              <div className="flex h-24 items-center justify-between">
-                <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold">
+                <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold no-underline">
                     <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
                     <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
                 </Link>
 
                 <div className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
-                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary">DigitalNest</Link>
-                    <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold">Home</Link>
-                    <Link href="/modules/homes/properties" className="text-foreground/80 transition-colors hover:text-primary">Properties</Link>
-                    <Link href="/modules/homes/build" className="text-foreground/80 transition-colors hover:text-primary">Build My Own</Link>
-                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary">Travel</Link>
-                    <Link href="/modules/stays" className="text-foreground/80 transition-colors hover:text-primary">Stays</Link>
-                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary">MarketPlace</Link>
-                    <Link href="/modules/events" className="text-foreground/80 transition-colors hover:text-primary">Events</Link>
+                    <Link href="/" className="text-foreground/80 transition-colors hover:text-primary no-underline">DigitalNest</Link>
+                    <Link href="/modules/homes" className="text-foreground/80 transition-colors hover:text-primary font-bold no-underline">Home</Link>
+                    <Link href="/modules/homes/properties" className="text-foreground/80 transition-colors hover:text-primary no-underline">Properties</Link>
+                    <Link href="/modules/homes/build" className="text-foreground/80 transition-colors hover:text-primary no-underline">Build My Own</Link>
+                    <Link href="/modules/travel" className="text-foreground/80 transition-colors hover:text-primary no-underline">Travel</Link>
+                    <Link href="/modules/stays" className="text-foreground/80 transition-colors hover:text-primary no-underline">Stays</Link>
+                    <Link href="/modules/mall" className="text-foreground/80 transition-colors hover:text-primary no-underline">MarketPlace</Link>
+                    <Link href="/modules/events" className="text-foreground/80 transition-colors hover:text-primary no-underline">Events</Link>
                 </div>
 
                  <div className="hidden md:flex items-center gap-4">
@@ -107,7 +106,7 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
                 </div>
                  <div className="mt-12 text-center">
                     <Button asChild style={{ backgroundColor: 'hsl(var(--nesthomes-primary))' }} className="hover:bg-accent/90 text-accent-foreground">
-                        <Link href="/modules/homes/properties">View All Properties</Link>
+                        <Link href="/modules/homes/properties" className="no-underline">View All Properties</Link>
                     </Button>
                 </div>
             </div>
@@ -128,10 +127,10 @@ const NewsCard = ({ article }: { article: any }) => (
         <CardContent className="p-6">
             <p className="text-sm text-muted-foreground mb-2">{article.date}</p>
             <h3 className="text-lg font-semibold mb-4 hover:text-primary transition-colors">
-                <Link href="#">{article.title}</Link>
+                <Link href="#" className="no-underline">{article.title}</Link>
             </h3>
             <p className="text-sm text-primary font-semibold hover:underline">
-                 <Link href="#">{article.category}</Link>
+                 <Link href="#" className="no-underline">{article.category}</Link>
             </p>
         </CardContent>
     </Card>
@@ -167,7 +166,7 @@ const Footer = () => (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 <div>
                     <div className="flex items-center gap-2 mb-4">
-                        <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold">
+                        <Link href="/modules/homes" className="mr-6 flex items-center gap-2 text-2xl font-bold no-underline">
                            <span style={{ color: 'hsl(var(--nesthomes-primary))' }}>Nest</span>
                            <span style={{ color: 'hsl(var(--nesthomes-accent))' }}>Homes</span>
                         </Link>
@@ -177,10 +176,10 @@ const Footer = () => (
                  <div>
                     <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
                     <nav className="flex flex-col gap-2 text-muted-foreground">
-                        <Link href="#" className="hover:text-primary">Home</Link>
-                        <Link href="#" className="hover:text-primary">Properties Listing</Link>
-                        <Link href="#" className="hover:text-primary">Property Talk</Link>
-                        <Link href="#" className="hover:text-primary">Contact</Link>
+                        <Link href="#" className="hover:text-primary no-underline">Home</Link>
+                        <Link href="#" className="hover:text-primary no-underline">Properties Listing</Link>
+                        <Link href="#" className="hover:text-primary no-underline">Property Talk</Link>
+                        <Link href="#" className="hover:text-primary no-underline">Contact</Link>
                     </nav>
                 </div>
                 <div>
