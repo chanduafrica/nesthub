@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   ArrowLeft,
   DollarSign,
@@ -17,7 +17,7 @@ import {
   UserX,
 } from 'lucide-react';
 import Image from 'next/image';
-import { Vendor, VendorStatus, mockTransactions, TransactionStatus } from '@/lib/mock-data';
+import { Vendor, VendorStatus, Transaction, TransactionStatus } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -62,12 +62,19 @@ const conversionRates: { [key: string]: number } = {
 export function VendorView({ vendor }: { vendor: Vendor }) {
   const [vendorStatus, setVendorStatus] = useState(vendor.status);
   const { currency } = useCurrency();
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    fetch('/api/data/transactions')
+      .then(res => res.json())
+      .then(setTransactions);
+  }, []);
   
   const { totalBusiness, vendorTransactions } = useMemo(() => {
-    const vendorTransactions = mockTransactions.filter(tx => tx.vendorId === vendor.id);
+    const vendorTransactions = transactions.filter(tx => tx.vendorId === vendor.id);
     const totalBusiness = vendorTransactions.reduce((sum, tx) => tx.status === 'Completed' ? sum + tx.amount : sum, 0);
     return { totalBusiness, vendorTransactions };
-  }, [vendor.id]);
+  }, [vendor.id, transactions]);
 
   const convertCurrency = (amount: number) => {
     const rate = conversionRates[currency] || 1;

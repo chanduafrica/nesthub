@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState } from 'react';
-import { mockClients, ClientStatus } from '@/lib/mock-data';
+import { useState, useEffect } from 'react';
+import { Client, ClientStatus } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -35,7 +35,7 @@ import { MoreHorizontal, Search, Gift, UserCheck, UserX } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AllClientsPage() {
-    const [clients, setClients] = useState(mockClients);
+    const [clients, setClients] = useState<Client[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilters, setStatusFilters] = useState<Record<ClientStatus, boolean>>({
         Active: true,
@@ -45,6 +45,12 @@ export default function AllClientsPage() {
     
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+
+    useEffect(() => {
+        fetch('/api/data/clients')
+            .then(res => res.json())
+            .then(data => setClients(data));
+    }, []);
 
     const handleStatusFilterChange = (status: ClientStatus, checked: boolean) => {
         setStatusFilters(prev => ({ ...prev, [status]: checked }));

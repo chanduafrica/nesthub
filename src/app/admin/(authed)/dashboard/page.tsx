@@ -4,8 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Users, DollarSign, ShoppingCart, Truck, TrendingUp, BarChart, Bell, AlertTriangle, CheckCircle, PieChart, LineChart } from "lucide-react";
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart as RechartsBarChart, Pie, Cell, PieChart as RechartsPieChart, Line, LineChart as RechartsLineChart } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
-import { mockClients, mockModuleEngagement, mockTransactions } from '@/lib/mock-data';
-import { useMemo } from "react";
+import { ModuleEngagement, Client, Transaction } from '@/lib/mock-data';
+import { useMemo, useState, useEffect } from "react";
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -19,6 +19,15 @@ const conversionRates: { [key: string]: number } = {
 
 export default function AdminDashboardPage() {
     const { currency } = useCurrency();
+    const [clients, setClients] = useState<Client[]>([]);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
+
+    useEffect(() => {
+        fetch('/api/data/clients').then(res => res.json()).then(setClients);
+        fetch('/api/data/transactions').then(res => res.json()).then(setTransactions);
+        fetch('/api/data/module-engagement').then(res => res.json()).then(setModuleEngagement);
+    }, []);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -30,17 +39,17 @@ export default function AdminDashboardPage() {
         });
     };
 
-    const totalUsers = mockClients.length;
-    const gmv = mockTransactions
+    const totalUsers = clients.length;
+    const gmv = transactions
         .filter(tx => tx.status === 'Completed' && tx.amount > 0)
         .reduce((sum, tx) => sum + tx.amount, 0);
 
     const salesByModuleData = useMemo(() => {
-        return mockModuleEngagement.map(mod => ({
+        return moduleEngagement.map(mod => ({
             name: mod.name,
             sales: mod.value * (conversionRates[currency] || 1)
         }));
-    }, [currency]);
+    }, [currency, moduleEngagement]);
 
   const userGrowthData = [
       { name: 'Jan', users: 400 },
@@ -53,7 +62,7 @@ export default function AdminDashboardPage() {
   
     const topCategoriesData = useMemo(() => {
         const categoryMap = new Map<string, number>();
-        mockTransactions.forEach(tx => {
+        transactions.forEach(tx => {
             if (tx.status === 'Completed' && tx.amount > 0) {
                 // Simple logic to extract a "category" from description
                 const category = tx.description.split(' ')[1] || tx.module;
@@ -66,7 +75,7 @@ export default function AdminDashboardPage() {
             .slice(0, 5)
             .map(([name, value]) => ({ name, value }));
 
-    }, []);
+    }, [transactions]);
 
 
   const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];

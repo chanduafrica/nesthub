@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
-import { mockVendors, VendorStatus, mockModuleEngagement, mockTransactions } from '@/lib/mock-data';
+import { useState, useMemo, useEffect } from 'react';
+import { Vendor, VendorStatus, ModuleEngagement, Transaction } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -46,7 +46,9 @@ const conversionRates: { [key: string]: number } = {
 };
 
 export default function AllVendorsPage() {
-    const [vendors, setVendors] = useState(mockVendors);
+    const [vendors, setVendors] = useState<Vendor[]>([]);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<VendorStatus | 'all'>('all');
     const [portalFilter, setPortalFilter] = useState<string | 'all'>('all');
@@ -54,15 +56,21 @@ export default function AllVendorsPage() {
     const itemsPerPage = 10;
     const { currency } = useCurrency();
 
+    useEffect(() => {
+        fetch('/api/data/vendors').then(res => res.json()).then(setVendors);
+        fetch('/api/data/transactions').then(res => res.json()).then(setTransactions);
+        fetch('/api/data/module-engagement').then(res => res.json()).then(setModuleEngagement);
+    }, []);
+
     const vendorBusiness = useMemo(() => {
         const businessMap = new Map<string, number>();
-        mockTransactions.forEach(tx => {
+        transactions.forEach(tx => {
             if (tx.vendorId && tx.status === 'Completed') {
                 businessMap.set(tx.vendorId, (businessMap.get(tx.vendorId) || 0) + tx.amount);
             }
         });
         return businessMap;
-    }, []);
+    }, [transactions]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -134,7 +142,7 @@ export default function AllVendorsPage() {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All Portals</SelectItem>
-                    {mockModuleEngagement.map(mod => (
+                    {moduleEngagement.map(mod => (
                         <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
                     ))}
                 </SelectContent>

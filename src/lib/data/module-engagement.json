@@ -1,0 +1,11 @@
+[
+    { "name": "NestMall", "value": 45000 },
+    { "name": "NestTravel", "value": 32000 },
+    { "name": "NestEvents", "value": 18500 },
+    { "name": "MamaAfrica", "value": 12000 },
+    { "name": "NestParcel", "value": 9500 },
+    { "name": "NestBiz", "value": 8500 },
+    { "name": "NestHomes", "value": 150000 },
+    { "name": "NestMedia", "value": 75000 },
+    { "name": "NestJobs", "value": 500 }
+]

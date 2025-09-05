@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
-import { mockTransactions, Transaction, mockClients, mockModuleEngagement, TransactionStatus } from '@/lib/mock-data';
+import { useState, useMemo, useEffect } from 'react';
+import { Transaction, Client, ModuleEngagement, TransactionStatus } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -22,15 +22,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
-} from '@/components/ui/dropdown-menu';
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -38,7 +29,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { useCurrency } from '@/hooks/use-currency';
 
@@ -47,7 +38,9 @@ const conversionRates: { [key: string]: number } = {
 };
 
 export default function AllTransactionsPage() {
-    const [transactions, setTransactions] = useState(mockTransactions);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [clients, setClients] = useState<Client[]>([]);
+    const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<TransactionStatus | 'all'>('all');
     const [portalFilter, setPortalFilter] = useState<string | 'all'>('all');
@@ -55,7 +48,13 @@ export default function AllTransactionsPage() {
     const itemsPerPage = 10;
     const { currency } = useCurrency();
 
-    const clientMap = useMemo(() => new Map(mockClients.map(c => [c.id, c.name])), []);
+    useEffect(() => {
+        fetch('/api/data/transactions').then(res => res.json()).then(setTransactions);
+        fetch('/api/data/clients').then(res => res.json()).then(setClients);
+        fetch('/api/data/module-engagement').then(res => res.json()).then(setModuleEngagement);
+    }, []);
+
+    const clientMap = useMemo(() => new Map(clients.map(c => [c.id, c.name])), [clients]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -120,7 +119,7 @@ export default function AllTransactionsPage() {
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All Portals</SelectItem>
-                    {mockModuleEngagement.map(mod => (
+                    {moduleEngagement.map(mod => (
                         <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
                     ))}
                 </SelectContent>

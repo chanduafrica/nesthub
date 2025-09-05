@@ -17,7 +17,7 @@ import {
   Calendar as CalendarIcon,
 } from 'lucide-react';
 import Image from 'next/image';
-import { mockClients, mockModuleEngagement, mockTransactions, ClientStatus, Offer, Client } from '@/lib/mock-data';
+import { ClientStatus, Offer, Client, ModuleEngagement, Transaction } from '@/lib/mock-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -86,7 +86,6 @@ const conversionRates: { [key: string]: number } = {
 };
 
 export function ClientView({ client }: { client: Client }) {
-  const [allClients, setAllClients] = useState(mockClients);
   const [clientStatus, setClientStatus] = useState(client.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
   const [sentOffers, setSentOffers] = useState<Offer[]>([]);
@@ -97,10 +96,11 @@ export function ClientView({ client }: { client: Client }) {
   const [offersCurrentPage, setOffersCurrentPage] = useState(1);
   const offersItemsPerPage = 5;
   
-  
   const [transactionsCurrentPage, setTransactionsCurrentPage] = useState(1);
   const transactionsItemsPerPage = 5;
-  const clientTransactions = mockTransactions.filter(tx => tx.clientId === client.id);
+  
+  const [clientTransactions, setClientTransactions] = useState<Transaction[]>([]);
+  const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
   
   const { currency } = useCurrency();
   const { toast } = useToast();
@@ -122,6 +122,14 @@ export function ClientView({ client }: { client: Client }) {
                 });
                 setLoadingOffers(false);
             });
+        
+        fetch('/api/data/transactions')
+            .then(res => res.json())
+            .then(allTransactions => setClientTransactions(allTransactions.filter((tx: Transaction) => tx.clientId === client.id)));
+        
+        fetch('/api/data/module-engagement')
+            .then(res => res.json())
+            .then(data => setModuleEngagement(data));
     }
   }, [client.id, toast]);
 
@@ -150,7 +158,7 @@ export function ClientView({ client }: { client: Client }) {
   
   const handleStatusChange = (newStatus: ClientStatus) => {
     setClientStatus(newStatus);
-    setAllClients(prevClients => prevClients.map(c => c.id === client.id ? { ...c, status: newStatus } : c));
+    // In a real app, you would also post this change to an API
      toast({
         title: `Client ${newStatus === 'Active' ? 'Activated' : 'Deactivated'}`,
         description: `${client.name}'s status has been updated.`,
@@ -193,11 +201,11 @@ export function ClientView({ client }: { client: Client }) {
 
   const convertedModuleEngagement = useMemo(() => {
     const rate = conversionRates[currency] || 1;
-    return mockModuleEngagement.map(item => ({
+    return moduleEngagement.map(item => ({
         ...item,
         value: item.value * rate,
     }));
-  }, [currency]);
+  }, [currency, moduleEngagement]);
 
   if (!client) {
     return <div>Client not found.</div>;
@@ -223,7 +231,7 @@ export function ClientView({ client }: { client: Client }) {
                         Offer Discount
                     </Button>
                 </DialogTrigger>
-                <DiscountDialogContent client={client} onSubmit={handleSendDiscount} />
+                <DiscountDialogContent client={client} onSubmit={handleSendDiscount} moduleEngagement={moduleEngagement} />
             </Dialog>
 
             {clientStatus !== 'Suspended' && (
@@ -382,7 +390,7 @@ export function ClientView({ client }: { client: Client }) {
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">All Portals</SelectItem>
-                            {mockModuleEngagement.map(mod => (
+                            {moduleEngagement.map(mod => (
                                 <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
                             ))}
                         </SelectContent>
@@ -491,7 +499,7 @@ export function ClientView({ client }: { client: Client }) {
   );
 }
 
-function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e: React.FormEvent<HTMLFormElement>) => void }) {
+function DiscountDialogContent({ client, onSubmit, moduleEngagement }: { client: any, onSubmit: (e: React.FormEvent<HTMLFormElement>) => void, moduleEngagement: ModuleEngagement[] }) {
     const [discountType, setDiscountType] = useState<'percentage' | 'amount'>('percentage');
     const [offerCode, setOfferCode] = useState(generateOfferCode());
 
@@ -516,7 +524,7 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">All Portals</SelectItem>
-                             {mockModuleEngagement.map(mod => (
+                             {moduleEngagement.map(mod => (
                                 <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
                              ))}
                         </SelectContent>
@@ -577,5 +585,3 @@ function DiscountDialogContent({ client, onSubmit }: { client: any, onSubmit: (e
         </DialogContent>
     )
 }
-
-    

@@ -1,0 +1,12 @@
+[
+    { "id": "v1", "name": "Kariuki's Electronics", "email": "sales@kariuki.com", "phone": "+254711111111", "country": "Kenya", "portal": "NestMall", "products": 50, "rating": 4.5, "status": "Active" },
+    { "id": "v2", "name": "Mama Ntilie Foods", "email": "orders@mamantilie.co.tz", "phone": "+255788888888", "country": "Tanzania", "portal": "MamaAfrica", "products": 25, "rating": 4.8, "status": "Active" },
+    { "id": "v3", "name": "Safaricom PLC", "email": "corporate@safaricom.co.ke", "phone": "+254722000000", "country": "Kenya", "portal": "NestJobs", "products": 15, "rating": 4.2, "status": "Active" },
+    { "id": "v4", "name": "Pam Golding Properties", "email": "info@pamgolding.co.ke", "phone": "+254733333333", "country": "Kenya", "portal": "NestHomes", "products": 200, "rating": 4.7, "status": "Active" },
+    { "id": "v5", "name": "Kenya Airways", "email": "contact@kenya-airways.com", "phone": "+254709000000", "country": "Kenya", "portal": "NestTravel", "products": 100, "rating": 3.8, "status": "Active" },
+    { "id": "v6", "name": "Blankets & Wine Org", "email": "events@blanketsandwine.com", "phone": "+254744444444", "country": "Kenya", "portal": "NestEvents", "products": 10, "rating": 4.9, "status": "Pending" },
+    { "id": "v7", "name": "Sendy Logistics", "email": "support@sendy.it", "phone": "+254755555555", "country": "Kenya", "portal": "NestParcel", "products": 1, "rating": 4.3, "status": "Active" },
+    { "id": "v8", "name": "Tuskys Supermarket", "email": "customercare@tuskys.com", "phone": "+254766666666", "country": "Kenya", "portal": "NestMall", "products": 10000, "rating": 3.5, "status": "Inactive" },
+    { "id": "v9", "name": "Pulse Live", "email": "editor@pulselive.co.ke", "phone": "+254777777777", "country": "Kenya", "portal": "NestMedia", "products": 500, "rating": 4.6, "status": "Active" },
+    { "id": "v10", "name": "Kazi Mtaani Initiative", "email": "jobs@kazimtaani.go.ke", "phone": "+254788888888", "country": "Kenya", "portal": "NestJobs", "products": 30, "rating": 4.1, "status": "Pending" }
+]

@@ -2,10 +2,10 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { PropertyCard } from '@/components/modules/homes/property-card';
-import { mockProperties } from '@/lib/mock-data';
+import { Property } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SearchForm } from '@/components/modules/homes/search-form';
@@ -16,12 +16,20 @@ import './theme.css';
 
 
 export default function NestHomesPage() {
+  const [properties, setProperties] = useState<Property[]>([]);
+
+  useEffect(() => {
+    fetch('/api/data/properties')
+      .then(res => res.json())
+      .then(data => setProperties(data));
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
       <Header />
       <main>
         <HeroSection />
-        <FeaturedPropertiesSection />
+        <FeaturedPropertiesSection properties={properties} />
         <NewsSection />
       </main>
       <Footer />
@@ -84,7 +92,7 @@ const HeroSection = () => {
 };
 
 
-const FeaturedPropertiesSection = () => {
+const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) => {
     return (
         <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-background">
             <div className="container mx-auto">
@@ -93,7 +101,7 @@ const FeaturedPropertiesSection = () => {
                     <p className="mt-2 text-lg text-muted-foreground">Newest Properties Around You</p>
                 </div>
                 <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    {mockProperties.slice(0, 8).map((property) => (
+                    {properties.slice(0, 8).map((property) => (
                         <PropertyCard key={property.id} property={property} />
                     ))}
                 </div>
