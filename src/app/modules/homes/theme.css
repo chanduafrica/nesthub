@@ -1,10 +1,10 @@
 
 .nesthomes-theme {
     --primary: 209 75% 40%; /* DigitalNest Blue - #1767b0 */
-    --secondary: 21 100% 63%; /* DigitalNest Orange - #ff8040 */
-    --accent: 21 100% 63%; /* DigitalNest Orange - #ff8040 */
+    --secondary: 358 83% 54%; /* DigitalNest Red - #ea262c */
+    --accent: 358 83% 54%; /* DigitalNest Red - #ea262c */
 
-    --background: 30 100% 97%;
+    --background: 0 0% 96.1%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -25,8 +25,8 @@
 
   .dark .nesthomes-theme {
     --primary: 209 75% 40%;
-    --secondary: 21 100% 63%;
-    --accent: 21 100% 63%;
+    --secondary: 358 83% 54%;
+    --accent: 358 83% 54%;
 
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;

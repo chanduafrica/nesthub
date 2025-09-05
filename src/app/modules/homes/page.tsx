@@ -29,7 +29,7 @@ const Header = () => {
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                     <Button>Contact Agent</Button>
+                     <Button variant="secondary">Contact Agent</Button>
                 </div>
             </div>
         </header>
@@ -101,7 +101,7 @@ const NewsCard = ({ article }: { article: any }) => (
             <h3 className="font-semibold mb-2 hover:text-primary transition-colors">
                 <Link href="#">{article.title}</Link>
             </h3>
-            <p className="text-sm text-primary font-semibold hover:underline">
+            <p className="text-sm text-accent font-semibold hover:underline">
                  <Link href="#">{article.category}</Link>
             </p>
         </CardContent>
@@ -154,7 +154,7 @@ const Footer = () => (
                     <p className="text-sm text-muted-foreground mb-2">Subscribe to get the latest updates.</p>
                     <form className="flex gap-2">
                         <Input type="email" placeholder="Your Email" />
-                        <Button>Subscribe</Button>
+                        <Button variant="secondary">Subscribe</Button>
                     </form>
                 </div>
                  <div>

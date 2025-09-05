@@ -74,7 +74,7 @@ const IntroductionSection = () => (
     <div className="container max-w-5xl mx-auto">
       <div className="text-center">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Introduction</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           Bridging Africa's Digital Divide
         </p>
       </div>
@@ -105,7 +105,7 @@ const ValuePropositionSection = () => (
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Value Proposition</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           Your All-in-One Digital Partner
         </p>
       </div>
@@ -148,7 +148,7 @@ const CoreModulesSection = () => (
     <div className="container">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Core SaaS Modules</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-secondary">
+        <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           A Fully-Integrated Ecosystem
         </p>
       </div>
@@ -158,8 +158,8 @@ const CoreModulesSection = () => (
             <Card className="flex flex-col h-full hover:shadow-lg transition-shadow group">
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <mod.icon className="h-8 w-8 text-secondary" />
-                  <CardTitle className="text-xl !text-secondary group-hover:text-primary transition-colors">{mod.title}</CardTitle>
+                  <mod.icon className="h-8 w-8 text-primary" />
+                  <CardTitle className="text-xl group-hover:text-accent transition-colors">{mod.title}</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="flex-grow">
@@ -174,7 +174,7 @@ const CoreModulesSection = () => (
 );
 
 const CtaSection = () => (
-  <section id="cta" className="py-16 md:py-24 bg-secondary text-primary-foreground">
+  <section id="cta" className="py-16 md:py-24 bg-primary text-primary-foreground">
     <div className="container text-center max-w-4xl mx-auto">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
         DigitalNest is Africa’s full-stack digital engine.
@@ -183,7 +183,7 @@ const CtaSection = () => (
         Powering marketplaces, super apps, and platforms across every sector. Ready to build the future?
       </p>
       <div className="mt-8">
-        <Button size="lg">
+        <Button size="lg" variant="secondary">
           Request a Demo
         </Button>
       </div>
