@@ -43,7 +43,7 @@ const HeroSection = () => (
             data-ai-hint="african shoppers market"
         />
         <div className="relative z-10 container text-center flex flex-col items-center">
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
                 Africa’s Digital Mall — Shop, Sell & Grow
             </h1>
             <p className="mt-6 text-lg max-w-3xl mx-auto">
