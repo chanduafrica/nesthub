@@ -67,7 +67,7 @@ const HeroSection = () => {
     }
 
     return (
-      <section className="relative h-[50vh] flex items-center justify-center">
+      <section className="relative h-[60vh] md:h-[50vh] flex items-center justify-center">
         <Image
             src="/images/hero-background.jpg"
             alt="Beautiful modern home interior"
@@ -107,7 +107,7 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
     }, [currentPage, filteredProperties]);
 
 
-    const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent') => {
+    const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent'>) => {
         setFilter(newFilter);
         setCurrentPage(1);
     }
@@ -162,14 +162,15 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
 
 const NewsCard = ({ article }: { article: any }) => (
     <Card className="overflow-hidden">
-        <Image
-            src={article.image}
-            alt={article.title}
-            width={400}
-            height={250}
-            className="w-full h-48 object-cover"
-            data-ai-hint={article.hint}
-        />
+        <div className="relative w-full h-48">
+            <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                className="object-cover"
+                data-ai-hint={article.hint}
+            />
+        </div>
         <CardContent className="p-4">
             <p className="text-sm text-muted-foreground mb-2">{article.date}</p>
             <h3 className="font-semibold mb-2 hover:text-primary transition-colors">
@@ -226,7 +227,7 @@ const Footer = () => (
                 <div>
                     <h3 className="font-semibold mb-2">Newsletter</h3>
                     <p className="text-sm text-muted-foreground mb-2">Subscribe to get the latest updates.</p>
-                    <form className="flex gap-2">
+                    <form className="flex flex-col sm:flex-row gap-2">
                         <Input type="email" placeholder="Your Email" />
                         <Button variant="secondary">Subscribe</Button>
                     </form>
@@ -268,3 +269,5 @@ export default function NestHomesPage() {
     </div>
   );
 }
+
+    

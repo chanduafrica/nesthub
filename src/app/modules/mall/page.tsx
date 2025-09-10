@@ -42,7 +42,7 @@ const HeroSection = () => (
             className="object-cover brightness-50"
             data-ai-hint="african shoppers market"
         />
-        <div className="relative z-10 container text-center flex flex-col items-center">
+        <div className="relative z-10 container text-center flex flex-col items-center px-4">
             <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
                 Africa’s Digital Mall — Shop, Sell & Grow
             </h1>
@@ -83,7 +83,7 @@ const coreFeatures = [
 const CoreFeaturesSection = () => (
     <section id="features" className="py-16 md:py-24 bg-muted/50">
         <div className="container">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {coreFeatures.map((prop) => (
                     <Card key={prop.title} className="text-center border-none shadow-none bg-transparent">
                         <CardHeader className="items-center">
@@ -180,7 +180,7 @@ const VendorJourneySection = () => (
 
 const TrustSection = () => (
     <section className="py-16 md:py-24">
-        <div className="container grid md:grid-cols-2 gap-12 items-center">
+        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
                     Shop with Confidence.
@@ -212,13 +212,12 @@ const TrustSection = () => (
                     </li>
                 </ul>
             </div>
-            <div>
+            <div className="relative w-full aspect-square md:aspect-auto md:h-full">
                  <Image
                     src="https://picsum.photos/600/500?random=41"
                     alt="Secure online shopping"
-                    width={600}
-                    height={500}
-                    className="rounded-lg shadow-xl"
+                    fill
+                    className="rounded-lg shadow-xl object-cover"
                     data-ai-hint="secure online payment"
                 />
             </div>
@@ -232,7 +231,7 @@ const CtaSection = () => (
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
           From Nairobi to Lagos, NestMall is building Africa’s largest digital marketplace. Be part of the movement.
         </h2>
-        <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
           <Button size="lg" variant="secondary">
             Shop Now
           </Button>
@@ -259,3 +258,5 @@ export default function NestMallPage() {
     </div>
   );
 }
+
+    

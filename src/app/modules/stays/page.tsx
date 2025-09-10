@@ -104,9 +104,8 @@ const StayCard = ({ stay }: { stay: any }) => (
             <Image
                 src={stay.image}
                 alt={stay.title}
-                layout="fill"
-                objectFit="cover"
-                className="transition-transform duration-300 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={stay.hint}
             />
              <Button size="icon" variant="ghost" className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full h-8 w-8"><Heart className="h-4 w-4 text-primary"/></Button>
@@ -214,8 +213,8 @@ export default function NestStaysPage() {
       <Header />
       <main className="container py-8">
         <section className="mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-2">Find your next stay</h1>
-            <p className="text-muted-foreground text-lg">Unforgettable homes, villas, and apartments hosted by locals.</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Find your next stay</h1>
+            <p className="text-muted-foreground md:text-lg">Unforgettable homes, villas, and apartments hosted by locals.</p>
         </section>
 
         <section className="mb-8">
@@ -223,7 +222,7 @@ export default function NestStaysPage() {
         </section>
 
         <div className="grid lg:grid-cols-4 gap-8">
-            <aside className="lg:col-span-1">
+            <aside className="hidden lg:block lg:col-span-1">
                 <div className="sticky top-24">
                    <FiltersSidebar />
                 </div>
@@ -247,3 +246,5 @@ export default function NestStaysPage() {
     </div>
   );
 }
+
+    

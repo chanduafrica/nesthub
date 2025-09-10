@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -27,11 +28,13 @@ import {
     Plane,
     Briefcase,
     Ticket,
-    Store
+    Store,
+    Menu
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const threads: Thread[] = [
     {
@@ -98,6 +101,28 @@ const Header = () => (
                         <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                 </nav>
             </div>
+            <div className="md:hidden">
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <Menu className="h-6 w-6" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left">
+                         <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2 mb-4">
+                            <Flame className="h-6 w-6 text-primary" />
+                            <span className="font-bold text-lg">Campfire</span>
+                        </Link>
+                        <nav className="flex flex-col space-y-4 text-md font-medium">
+                            <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><HomeIcon className="h-5 w-5" />Properties</Link>
+                            <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Plane className="h-5 w-5" />Travel</Link>
+                            <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Briefcase className="h-5 w-5" />Stays</Link>
+                            <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Store className="h-5 w-5" />Marketplace</Link>
+                            <Link href="/" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground">DigitalNest</Link>
+                        </nav>
+                    </SheetContent>
+                </Sheet>
+            </div>
             <div className="flex flex-1 items-center justify-end">
                 <Button>Login</Button>
             </div>
@@ -106,7 +131,7 @@ const Header = () => (
 );
 
 const Sidebar = () => (
-    <aside className="sticky top-[57px] h-[calc(100vh-57px)] w-64 flex-shrink-0">
+    <aside className="hidden md:block sticky top-[57px] h-[calc(100vh-57px)] w-64 flex-shrink-0">
         <div className="p-4 space-y-4">
              <Button className="w-full justify-start" size="lg" asChild>
                 <Link href="/modules/campfire/new">
@@ -167,9 +192,9 @@ export default function CampfireForumPage() {
   return (
     <div className="flex flex-col min-h-screen bg-muted/40">
       <Header />
-      <div className="flex flex-1">
+      <div className="container flex flex-1">
         <Sidebar />
-        <main className="flex-1 py-6 px-8">
+        <main className="flex-1 py-6 md:px-8">
             <div className="space-y-6">
                 {threads.map(thread => (
                     <ThreadCard key={thread.id} thread={thread} />
@@ -196,3 +221,5 @@ export default function CampfireForumPage() {
     </div>
   );
 }
+
+    

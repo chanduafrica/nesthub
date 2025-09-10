@@ -70,7 +70,7 @@ const packages = [
     },
     { 
         title: "Diani Beach Relaxation", 
-        image: "/property/2.jpg", 
+        image: "/property/1.jpg", 
         hint: "diani beach resort", 
         rating: 4.8, 
         location: "Diani", 
@@ -81,7 +81,7 @@ const packages = [
     },
     { 
         title: "Amboseli Elephant Kingdom", 
-        image: "/property/3.jpg", 
+        image: "/property/1.jpg", 
         hint: "amboseli elephant kilimanjaro", 
         rating: 4.85, 
         location: "Amboseli", 
@@ -92,7 +92,7 @@ const packages = [
     },
     { 
         title: "Mount Kenya Climbing Challenge", 
-        image: "/property/4.jpg", 
+        image: "/property/1.jpg", 
         hint: "mount kenya peak", 
         rating: 4.7, 
         location: "Mount Kenya", 
@@ -103,7 +103,7 @@ const packages = [
     },
     { 
         title: "Lake Naivasha & Hell's Gate", 
-        image: "/property/5.jpg", 
+        image: "/property/1.jpg", 
         hint: "lake naivasha boat", 
         rating: 4.6, 
         location: "Naivasha", 
@@ -114,7 +114,7 @@ const packages = [
     },
      { 
         title: "Lamu Cultural Experience", 
-        image: "/property/6.jpg", 
+        image: "/property/1.jpg", 
         hint: "lamu street dhow", 
         rating: 4.9, 
         location: "Lamu", 
@@ -131,9 +131,8 @@ const PackageCard = ({ deal }: { deal: any }) => (
             <Image
                 src={deal.image}
                 alt={deal.title}
-                layout="fill"
-                objectFit="cover"
-                className="transition-transform duration-300 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={deal.hint}
             />
              <div className="absolute top-2 left-2 flex gap-2">
@@ -234,21 +233,21 @@ export default function HolidayPackagesPage() {
       <Header />
       <main className="container py-8">
         <section className="mb-8 text-center">
-            <h1 className="text-4xl font-bold text-primary mb-2">Holiday Packages & Tours</h1>
-            <p className="text-muted-foreground text-lg max-w-3xl mx-auto">Hand-picked adventures across Kenya, from thrilling safaris to serene beach getaways.</p>
+            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Holiday Packages & Tours</h1>
+            <p className="text-muted-foreground md:text-lg max-w-3xl mx-auto">Hand-picked adventures across Kenya, from thrilling safaris to serene beach getaways.</p>
         </section>
 
         <div className="grid lg:grid-cols-4 gap-8">
-            <aside className="lg:col-span-1">
+            <aside className="hidden lg:block lg:col-span-1">
                 <div className="sticky top-24">
                     <PackagesFilter />
                 </div>
             </aside>
             <section className="lg:col-span-3">
-                 <div className="mb-4 flex justify-between items-center">
-                    <p className="text-sm text-muted-foreground">Showing {packages.length} amazing packages</p>
+                 <div className="mb-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <p className="text-sm text-muted-foreground w-full sm:w-auto">Showing {packages.length} amazing packages</p>
                      <Select defaultValue="relevance">
-                        <SelectTrigger className="w-[180px]"><SelectValue/></SelectTrigger>
+                        <SelectTrigger className="w-full sm:w-[180px]"><SelectValue/></SelectTrigger>
                         <SelectContent>
                             <SelectItem value="relevance">Sort by Relevance</SelectItem>
                             <SelectItem value="price-asc">Price: Low to High</SelectItem>
@@ -272,3 +271,5 @@ export default function HolidayPackagesPage() {
     </div>
   );
 }
+
+    

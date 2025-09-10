@@ -45,7 +45,7 @@ export default function HomePage() {
 }
 
 const HeroSection = () => (
-    <section className="relative h-[60vh] flex items-center justify-center text-white">
+    <section className="relative h-[80vh] md:h-[60vh] flex items-center justify-center text-white">
     <Image
       src="/images/homepagebg.jpg"
       alt="DigitalNest platform background"
@@ -54,12 +54,14 @@ const HeroSection = () => (
       data-ai-hint="abstract background"
     />
     <div className="absolute inset-0 bg-black/50" />
-    <div className="relative z-10 container text-center flex flex-col items-center">
-       <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={300} height={300} className="h-auto mb-8" />
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl text-white">
+    <div className="relative z-10 container text-center flex flex-col items-center px-4">
+       <div className="relative w-48 h-48 md:w-72 md:h-72 mb-8">
+         <Image src="/images/dnlogo.png" alt="DigitalNest Logo" fill className="object-contain" />
+       </div>
+      <h1 className="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl text-white">
         Africa’s Engine for Marketplaces & Digital Platforms
       </h1>
-      <p className="mt-6 text-lg text-gray-200 max-w-3xl mx-auto">
+      <p className="mt-6 text-md md:text-lg text-gray-200 max-w-3xl mx-auto">
         We empower organizations to launch their own marketplaces and digital platforms within weeks.
       </p>
       <div className="mt-10">
@@ -74,7 +76,7 @@ const HeroSection = () => (
 
 const IntroductionSection = () => (
   <section id="introduction" className="py-16 md:py-24">
-    <div className="container max-w-5xl mx-auto">
+    <div className="container max-w-5xl mx-auto px-4">
       <div className="text-center">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Introduction</h2>
         <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
@@ -105,7 +107,7 @@ const valueProps = [
 
 const ValuePropositionSection = () => (
   <section id="value-proposition" className="py-16 md:py-24 bg-muted/50">
-    <div className="container">
+    <div className="container px-4">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Value Proposition</h2>
         <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
@@ -161,7 +163,7 @@ const CoreModulesSection = () => {
 
     return (
         <section id="modules" className="py-16 md:py-24">
-        <div className="container">
+        <div className="container px-4">
             <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-sm font-semibold tracking-wide uppercase text-accent font-body">Core SaaS Modules</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-primary">
@@ -207,7 +209,7 @@ const CoreModulesSection = () => {
 
 const CtaSection = () => (
   <section id="cta" className="py-16 md:py-24 bg-primary text-primary-foreground">
-    <div className="container text-center max-w-4xl mx-auto">
+    <div className="container text-center max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
         DigitalNest is Africa’s full-stack digital engine.
       </h2>
@@ -238,3 +240,5 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    

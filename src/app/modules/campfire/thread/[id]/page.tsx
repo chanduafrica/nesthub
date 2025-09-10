@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -10,12 +11,14 @@ import {
     HomeIcon,
     Plane,
     Briefcase,
-    Store
+    Store,
+    Menu
 } from "lucide-react";
 import Link from "next/link";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 // Mock data, in a real app this would be fetched based on the [id] param
 const thread: Thread = {
@@ -50,6 +53,28 @@ const Header = () => (
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Store className="h-4 w-4" />Marketplace</Link>
                         <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
                 </nav>
+            </div>
+             <div className="md:hidden">
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <Menu className="h-6 w-6" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left">
+                         <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2 mb-4">
+                            <Flame className="h-6 w-6 text-primary" />
+                            <span className="font-bold text-lg">Campfire</span>
+                        </Link>
+                        <nav className="flex flex-col space-y-4 text-md font-medium">
+                            <Link href="/modules/homes/properties" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><HomeIcon className="h-5 w-5" />Properties</Link>
+                            <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Plane className="h-5 w-5" />Travel</Link>
+                            <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Briefcase className="h-5 w-5" />Stays</Link>
+                            <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Store className="h-5 w-5" />Marketplace</Link>
+                            <Link href="/" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground">DigitalNest</Link>
+                        </nav>
+                    </SheetContent>
+                </Sheet>
             </div>
             <div className="flex flex-1 items-center justify-end">
                  <Button variant="outline" size="sm" asChild>
@@ -107,3 +132,5 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
     </div>
   );
 }
+
+    

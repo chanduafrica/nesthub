@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -23,6 +24,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import {
   Table,
@@ -512,3 +515,5 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
+    

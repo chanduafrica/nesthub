@@ -148,7 +148,7 @@ const HeroSection = () => {
             style={{ backgroundImage: "url(/maasaimara.jpg)" }}
         >
             <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 container text-center flex flex-col items-center">
+            <div className="relative z-10 container text-center flex flex-col items-center px-4">
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                     Discover Africa, Your Way.
                 </h1>
@@ -253,9 +253,8 @@ const SpecialOffersSection = () => {
                                         <Image
                                             src={offer.image}
                                             alt={offer.title}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            className="transition-transform duration-300 group-hover:scale-105"
+                                            fill
+                                            className="object-cover transition-transform duration-300 group-hover:scale-105"
                                             data-ai-hint={offer.hint}
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -277,8 +276,8 @@ const SpecialOffersSection = () => {
                         </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious className="absolute left-[-1rem]" />
-                    <CarouselNext className="absolute right-[-1rem]" />
+                    <CarouselPrevious className="absolute left-[-1rem] hidden sm:flex" />
+                    <CarouselNext className="absolute right-[-1rem] hidden sm:flex" />
                 </Carousel>
             </div>
         </section>
@@ -384,3 +383,5 @@ export default function NestTravelPage() {
     </div>
   );
 }
+
+    
