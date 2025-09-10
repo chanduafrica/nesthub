@@ -19,19 +19,19 @@ const designs = [
     id: 'simba-cottage',
     name: 'African Simba Cottage',
     price: 500000,
-    imageUrl: '/images/build/simba-cottage.jpg',
+    imageUrl: '/property/1.jpg',
   },
   {
     id: 'flat-roof-minimal',
     name: 'One-Bedroom Flat Roof – Minimal',
     price: 800000,
-    imageUrl: '/images/build/flat-roof.jpg',
+    imageUrl: '/property/2.jpg',
   },
   {
     id: 'simple-brick',
     name: 'Simple Brick Walls – Live Green',
     price: 1000000,
-    imageUrl: '/images/build/brick-walls.jpg',
+    imageUrl: '/property/3.jpg',
   },
 ];
 
