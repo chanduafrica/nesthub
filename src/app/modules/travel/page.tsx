@@ -202,35 +202,35 @@ const SpecialOffersSection = () => {
             title: "Mombasa Coast Getaway",
             duration: "3 Days",
             price: 20000,
-            image: "/travel/mombasa.jpg",
+            image: "/travel/hero.jpg",
             hint: "mombasa beach"
         },
         {
             title: "Naivasha Weekend Retreat",
             duration: "2 Days",
             price: 12000,
-            image: "/travel/naivasha.jpg",
+            image: "/travel/hero.jpg",
             hint: "lake naivasha"
         },
         {
             title: "Amboseli Safari Adventure",
             duration: "3 Days, 2 Nights",
             price: 35000,
-            image: "/travel/amboseli.jpg",
+            image: "/travel/hero.jpg",
             hint: "amboseli elephant"
         },
         {
             title: "SGR + Hotel Combo",
             duration: "From Nairobi",
             price: 25000,
-            image: "/travel/sgr.jpg",
+            image: "/travel/hero.jpg",
             hint: "kenya railway train"
         },
          {
             title: "Diani Beach Bliss",
             duration: "4 Days",
             price: 40000,
-            image: "/travel/diani.jpg",
+            image: "/travel/hero.jpg",
             hint: "diani beach kenya"
         }
     ];
