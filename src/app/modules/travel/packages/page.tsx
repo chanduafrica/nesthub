@@ -70,7 +70,7 @@ const packages = [
     },
     { 
         title: "Diani Beach Relaxation", 
-        image: "/property/1.jpg", 
+        image: "/property/2.jpg", 
         hint: "diani beach resort", 
         rating: 4.8, 
         location: "Diani", 
@@ -81,7 +81,7 @@ const packages = [
     },
     { 
         title: "Amboseli Elephant Kingdom", 
-        image: "/property/1.jpg", 
+        image: "/property/3.jpg", 
         hint: "amboseli elephant kilimanjaro", 
         rating: 4.85, 
         location: "Amboseli", 
@@ -92,7 +92,7 @@ const packages = [
     },
     { 
         title: "Mount Kenya Climbing Challenge", 
-        image: "/property/1.jpg", 
+        image: "/property/4.jpg", 
         hint: "mount kenya peak", 
         rating: 4.7, 
         location: "Mount Kenya", 
@@ -103,7 +103,7 @@ const packages = [
     },
     { 
         title: "Lake Naivasha & Hell's Gate", 
-        image: "/property/1.jpg", 
+        image: "/property/5.jpg", 
         hint: "lake naivasha boat", 
         rating: 4.6, 
         location: "Naivasha", 
@@ -114,7 +114,7 @@ const packages = [
     },
      { 
         title: "Lamu Cultural Experience", 
-        image: "/property/1.jpg", 
+        image: "/property/6.jpg", 
         hint: "lamu street dhow", 
         rating: 4.9, 
         location: "Lamu", 
@@ -127,13 +127,13 @@ const packages = [
 
 const PackageCard = ({ deal }: { deal: any }) => (
     <Card className="overflow-hidden group flex flex-col">
-        <div className="relative">
+        <div className="relative w-full h-48">
             <Image
                 src={deal.image}
                 alt={deal.title}
-                width={400}
-                height={250}
-                className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={deal.hint}
             />
              <div className="absolute top-2 left-2 flex gap-2">

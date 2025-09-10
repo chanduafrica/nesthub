@@ -209,28 +209,28 @@ const SpecialOffersSection = () => {
             title: "Naivasha Weekend Retreat",
             duration: "2 Days",
             price: 12000,
-            image: "/property/1.jpg",
+            image: "/property/2.jpg",
             hint: "lake naivasha"
         },
         {
             title: "Amboseli Safari Adventure",
             duration: "3 Days, 2 Nights",
             price: 35000,
-            image: "/property/1.jpg",
+            image: "/property/3.jpg",
             hint: "amboseli elephant"
         },
         {
             title: "SGR + Hotel Combo",
             duration: "From Nairobi",
             price: 25000,
-            image: "/property/1.jpg",
+            image: "/property/4.jpg",
             hint: "kenya railway train"
         },
          {
             title: "Diani Beach Bliss",
             duration: "4 Days",
             price: 40000,
-            image: "/property/1.jpg",
+            image: "/property/5.jpg",
             hint: "diani beach kenya"
         }
     ];
@@ -253,13 +253,13 @@ const SpecialOffersSection = () => {
                             <div className="p-1">
                             <Card className="overflow-hidden group">
                                 <CardContent className="p-0">
-                                    <div className="relative">
+                                    <div className="relative h-56 w-full">
                                         <Image
                                             src={offer.image}
                                             alt={offer.title}
-                                            width={400}
-                                            height={250}
-                                            className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
+                                            layout="fill"
+                                            objectFit="cover"
+                                            className="transition-transform duration-300 group-hover:scale-105"
                                             data-ai-hint={offer.hint}
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

@@ -100,13 +100,13 @@ const StaysSearch = () => {
 
 const StayCard = ({ stay }: { stay: any }) => (
     <Card className="overflow-hidden group">
-        <div className="relative">
+        <div className="relative h-56 w-full">
             <Image
                 src={stay.image}
                 alt={stay.title}
-                width={400}
-                height={250}
-                className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={stay.hint}
             />
              <Button size="icon" variant="ghost" className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full h-8 w-8"><Heart className="h-4 w-4 text-primary"/></Button>
@@ -132,13 +132,13 @@ const StayCard = ({ stay }: { stay: any }) => (
 
 const stays = [
     { title: "Diani Beachfront Villa", image: "/property/1.jpg", hint: "diani beach villa", rating: 4.9, location: "Diani Beach", type: "Entire Villa", price: 25000 },
-    { title: "Lamu Island Swahili House", image: "/property/1.jpg", hint: "lamu swahili house", rating: 4.8, location: "Lamu Old Town", type: "Entire House", price: 15000 },
-    { title: "Naivasha Lakefront Cottage", image: "/property/1.jpg", hint: "naivasha cottage", rating: 4.85, location: "Lake Naivasha", type: "Entire Cottage", price: 18000 },
-    { title: "Nanyuki Farm Stay", image: "/property/1.jpg", hint: "kenya farm stay", rating: 4.95, location: "Nanyuki", type: "Farm Stay", price: 12000 },
-    { title: "Westlands Modern Apartment", image: "/property/1.jpg", hint: "nairobi apartment", rating: 4.7, location: "Westlands, Nairobi", type: "Entire Apartment", price: 8000 },
-    { title: "Watamu Treehouse Escape", image: "/property/1.jpg", hint: "watamu treehouse", rating: 4.9, location: "Watamu", type: "Treehouse", price: 22000 },
-    { title: "Aberdares Cabin Retreat", image: "/property/1.jpg", hint: "forest cabin", rating: 4.75, location: "Aberdare National Park", type: "Cabin", price: 16000 },
-    { title: "Karen Eco-Lodge", image: "/property/1.jpg", hint: "eco lodge kenya", rating: 4.8, location: "Karen, Nairobi", type: "Private Room", price: 9500 },
+    { title: "Lamu Island Swahili House", image: "/property/2.jpg", hint: "lamu swahili house", rating: 4.8, location: "Lamu Old Town", type: "Entire House", price: 15000 },
+    { title: "Naivasha Lakefront Cottage", image: "/property/3.jpg", hint: "naivasha cottage", rating: 4.85, location: "Lake Naivasha", type: "Entire Cottage", price: 18000 },
+    { title: "Nanyuki Farm Stay", image: "/property/4.jpg", hint: "kenya farm stay", rating: 4.95, location: "Nanyuki", type: "Farm Stay", price: 12000 },
+    { title: "Westlands Modern Apartment", image: "/property/5.jpg", hint: "nairobi apartment", rating: 4.7, location: "Westlands, Nairobi", type: "Entire Apartment", price: 8000 },
+    { title: "Watamu Treehouse Escape", image: "/property/6.jpg", hint: "watamu treehouse", rating: 4.9, location: "Watamu", type: "Treehouse", price: 22000 },
+    { title: "Aberdares Cabin Retreat", image: "/property/7.jpg", hint: "forest cabin", rating: 4.75, location: "Aberdare National Park", type: "Cabin", price: 16000 },
+    { title: "Karen Eco-Lodge", image: "/property/8.jpg", hint: "eco lodge kenya", rating: 4.8, location: "Karen, Nairobi", type: "Private Room", price: 9500 },
 ];
 
 const FiltersSidebar = () => {
