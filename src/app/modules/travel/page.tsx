@@ -209,28 +209,28 @@ const SpecialOffersSection = () => {
             title: "Naivasha Weekend Retreat",
             duration: "2 Days",
             price: 12000,
-            image: "/property/2.jpg",
+            image: "/property/1.jpg",
             hint: "lake naivasha"
         },
         {
             title: "Amboseli Safari Adventure",
             duration: "3 Days, 2 Nights",
             price: 35000,
-            image: "/property/3.jpg",
+            image: "/property/1.jpg",
             hint: "amboseli elephant"
         },
         {
             title: "SGR + Hotel Combo",
             duration: "From Nairobi",
             price: 25000,
-            image: "/property/4.jpg",
+            image: "/property/1.jpg",
             hint: "kenya railway train"
         },
          {
             title: "Diani Beach Bliss",
             duration: "4 Days",
             price: 40000,
-            image: "/property/5.jpg",
+            image: "/property/1.jpg",
             hint: "diani beach kenya"
         }
     ];
