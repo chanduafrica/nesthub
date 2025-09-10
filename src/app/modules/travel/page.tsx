@@ -143,15 +143,11 @@ const SearchWidget = () => {
 
 const HeroSection = () => {
     return (
-        <section className="relative h-[70vh] flex items-center justify-center text-white">
-             <Image
-                src="/maasaimara.jpg"
-                alt="Maasai Mara sunrise with an airplane taking off"
-                layout="fill"
-                objectFit="cover"
-                className="brightness-50"
-                data-ai-hint="maasai mara sunrise airplane"
-            />
+        <section
+            className="relative h-[70vh] flex items-center justify-center text-white bg-cover bg-center"
+            style={{ backgroundImage: "url(/maasaimara.jpg)" }}
+        >
+            <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 container text-center flex flex-col items-center">
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                     Discover Africa, Your Way.
