@@ -12,7 +12,6 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex flex-1 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-           <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={28} height={28} />
           <span className="font-bold text-lg">SG-Nest</span>
         </Link>
       </div>
