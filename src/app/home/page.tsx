@@ -43,23 +43,31 @@ export default function HomePage() {
 }
 
 const HeroSection = () => (
-    <section className="relative bg-gradient-to-r from-primary to-secondary text-white">
-    <div className="container px-4 py-20 text-center">
-      <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
-        Your Gateway to Africa’s Digital Economy.
-      </h1>
-      <p className="mt-6 text-md md:text-lg max-w-3xl mx-auto">
-        From shopping to housing, travel to events — powered by Standard Group Nest.
-      </p>
-      <div className="mt-10 flex flex-wrap justify-center gap-4">
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Explore Marketplace</Button>
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Book Travel</Button>
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Find Property</Button>
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Join Campfire</Button>
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Mama Africa</Button>
-        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Events</Button>
+    <section className="relative text-white">
+      <Image
+        src="/maasaimara.jpg"
+        alt="Maasai Mara"
+        fill
+        className="object-cover"
+        data-ai-hint="maasai mara sunset"
+      />
+      <div className="absolute inset-0 bg-black/50" />
+      <div className="relative container px-4 py-20 text-center">
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
+          Your Gateway to Africa’s Digital Economy.
+        </h1>
+        <p className="mt-6 text-md md:text-lg max-w-3xl mx-auto">
+          From shopping to housing, travel to events — powered by Standard Group Nest.
+        </p>
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Explore Marketplace</Button>
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Book Travel</Button>
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Find Property</Button>
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Join Campfire</Button>
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Mama Africa</Button>
+          <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Events</Button>
+        </div>
       </div>
-    </div>
   </section>
 );
 
