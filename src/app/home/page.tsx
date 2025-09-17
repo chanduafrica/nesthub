@@ -45,7 +45,7 @@ export default function HomePage() {
 const HeroSection = () => (
     <section className="relative text-white h-[60vh] flex items-center justify-center">
       <Image
-        src="/maasaimara.jpg"
+        src="/images/maasaimara.jpg"
         alt="Maasai Mara"
         fill
         className="object-cover"
