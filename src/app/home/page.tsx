@@ -34,7 +34,6 @@ export default function HomePage() {
       <main className="flex-1">
         <HeroSection />
         <EcosystemPortals />
-        <ValuePropositionSection />
         <MerchantRevenueSection />
         <CommunitySection />
       </main>
@@ -96,38 +95,6 @@ const EcosystemPortals = () => (
         </div>
     </section>
 );
-
-
-const valueProps = [
-  { icon: CheckCircle, text: "Trusted Brand – Decades of credibility." },
-  { icon: CheckCircle, text: "Secure Payments – Escrow-protected." },
-  { icon: CheckCircle, text: "Cross-Promotion Reach – Radio, TV, Print, Digital." },
-  { icon: CheckCircle, text: "One Wallet, Many Services." },
-  { icon: CheckCircle, text: "Local & Diaspora Ready." },
-];
-
-const ValuePropositionSection = () => (
-  <section id="value-proposition" className="py-16 md:py-24">
-    <div className="container px-4">
-      <div className="text-center max-w-3xl mx-auto">
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-          Why Choose SG Hub?
-        </h2>
-      </div>
-      <div className="mt-12 max-w-2xl mx-auto">
-        <ul className="space-y-4">
-          {valueProps.map((prop, index) => (
-            <li key={index} className="flex items-start gap-3">
-               <prop.icon className="h-6 w-6 text-green-500 mt-1 flex-shrink-0" />
-               <span className="text-lg text-muted-foreground">{prop.text}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-);
-
 
 const merchantFeatures = [
     { icon: LayoutGrid, title: "List products & services" },
