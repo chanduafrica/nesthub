@@ -43,8 +43,8 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-8">
-        <div className="flex justify-center">
-          <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={60} height={60} />
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">SG NEST CONCEPT</h1>
         </div>
         <Card className="shadow-2xl">
           <CardHeader className="text-center">
