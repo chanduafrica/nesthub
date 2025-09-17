@@ -12,7 +12,9 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 flex flex-1 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold text-lg">SG-Nest</span>
+          <span className="font-bold text-lg">
+            <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+          </span>
         </Link>
       </div>
       <div className="flex items-center justify-end space-x-2">
@@ -45,16 +47,18 @@ const HeroSection = () => (
     <section className="relative bg-gradient-to-r from-primary to-secondary text-white">
     <div className="container px-4 py-20 text-center">
       <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
-        Your Gateway to Kenya’s Digital Economy.
+        Your Gateway to Africa’s Digital Economy.
       </h1>
       <p className="mt-6 text-md md:text-lg max-w-3xl mx-auto">
-        From shopping to housing, travel to events — powered by Standard Group + NestHub.
+        From shopping to housing, travel to events — powered by Standard Group Nest.
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-4">
         <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Explore Marketplace</Button>
         <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Book Travel</Button>
         <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Find Property</Button>
         <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Join Campfire</Button>
+        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Mama Africa</Button>
+        <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Events</Button>
       </div>
     </div>
   </section>
@@ -73,9 +77,12 @@ const portals = [
 const EcosystemPortals = () => (
     <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">One Hub, Endless Possibilities</h2>
+            </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                  {portals.map((portal) => (
-                    <Card key={portal.title}>
+                    <Card key={portal.title} className="hover:shadow-xl transition-shadow">
                         <CardHeader className="flex flex-row items-center gap-4">
                             <portal.icon className="h-8 w-8 text-primary" />
                              <CardTitle className="!text-xl !text-foreground">{portal.title}</CardTitle>
@@ -140,7 +147,7 @@ const MerchantRevenueSection = () => (
             </div>
              <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {merchantFeatures.map((feature) => (
-                <div key={feature.title} className="flex items-center gap-4">
+                <div key={feature.title} className="flex items-center gap-4 p-4 rounded-lg hover:bg-background transition-colors">
                     <feature.icon className="h-8 w-8 text-primary flex-shrink-0" />
                     <p className="text-lg font-medium">{feature.title}</p>
                 </div>
@@ -161,15 +168,15 @@ const CommunitySection = () => (
         Campfire by Standard Group.
       </h2>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-2">
+          <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
             <h3 className="text-xl font-semibold">🔥 Money Mondays</h3>
             <p className="text-muted-foreground">Finance Literacy</p>
           </div>
-           <div className="space-y-2">
+           <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
             <h3 className="text-xl font-semibold">🌱 Wellness Wednesdays</h3>
             <p className="text-muted-foreground">Mental Health</p>
           </div>
-           <div className="space-y-2">
+           <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
             <h3 className="text-xl font-semibold">🚀 Hustle Fridays</h3>
             <p className="text-muted-foreground">Jobs & Entrepreneurship</p>
           </div>
