@@ -3,20 +3,59 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
+const navLinks = [
+  { href: "/modules/mall", icon: Store, text: "Duka Marketplace" },
+  { href: "/modules/travel", icon: Plane, text: "Travel" },
+  { href: "/modules/homes", icon: HomeIcon, text: "Properties" },
+  { href: "/modules/campfire", icon: MessageSquare, text: "Join Campfire" },
+  { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa" },
+  { href: "/modules/events", icon: Ticket, text: "Events" },
+];
+
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div className="container flex h-14 items-center">
-      <div className="mr-4 flex flex-1 items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
+    <div className="container flex h-14 items-center justify-between">
+      <div className="flex items-center">
+        <Sheet>
+            <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="lg:hidden mr-2">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle Menu</span>
+                </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                <nav className="flex flex-col gap-4 mt-8">
+                    {navLinks.map((link) => (
+                        <Link key={link.text} href={link.href} className="flex items-center gap-3 text-lg font-medium text-muted-foreground hover:text-foreground">
+                            <link.icon className="h-5 w-5" />
+                            {link.text}
+                        </Link>
+                    ))}
+                </nav>
+            </SheetContent>
+        </Sheet>
+        <Link href="/" className="flex items-center space-x-2">
           <span className="font-bold text-lg">
             <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
           </span>
         </Link>
       </div>
+
+       <nav className="hidden lg:flex items-center gap-4 text-sm font-medium">
+         {navLinks.map((link) => (
+            <Link key={link.text} href={link.href} className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground">
+              <link.icon className="h-4 w-4" />
+              {link.text}
+            </Link>
+          ))}
+      </nav>
+
       <div className="flex items-center justify-end space-x-2">
          <Button variant="ghost" asChild>
             <Link href="/admin/login">Admin</Link>
