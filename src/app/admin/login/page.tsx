@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-sidebar">
       <div className="w-full max-w-md p-8 space-y-8">
         <div className="flex justify-center">
-            <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={40} height={40} className="h-10 w-10" />
+            <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={40} height={40} className="h-10 w-10" />
         </div>
         <Card className="bg-background shadow-2xl">
             <CardHeader className="text-center">

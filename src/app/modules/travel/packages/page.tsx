@@ -44,7 +44,7 @@ const Header = () => {
                         <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
                         <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Home className="h-4 w-4" />Stays</Link>
                         <Link href="/modules/travel/packages" className="flex items-center gap-2 text-foreground transition-colors hover:text-foreground/80"><Package className="h-4 w-4" />Holidays</Link>
-                         <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                         <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
@@ -271,5 +271,3 @@ export default function HolidayPackagesPage() {
     </div>
   );
 }
-
-    

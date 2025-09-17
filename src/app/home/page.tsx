@@ -13,7 +13,7 @@ const Header = () => (
     <div className="container flex h-14 items-center">
       <div className="mr-4 hidden md:flex">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="font-bold text-lg">DigitalNest</span>
+          <span className="font-bold text-lg">SG-Nest</span>
         </Link>
         <nav className="flex items-center space-x-6 text-sm font-medium">
           <Link href="#modules" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Modules</Link>
@@ -48,7 +48,7 @@ const HeroSection = () => (
     <section className="relative h-[80vh] md:h-[60vh] flex items-center justify-center text-white">
     <Image
       src="/images/homepagebg.jpg"
-      alt="DigitalNest platform background"
+      alt="SG-Nest platform background"
       fill
       className="object-cover"
       data-ai-hint="abstract background"
@@ -56,7 +56,7 @@ const HeroSection = () => (
     <div className="absolute inset-0 bg-black/50" />
     <div className="relative z-10 container text-center flex flex-col items-center px-4">
        <div className="relative w-48 h-48 md:w-72 md:h-72 mb-8">
-         <Image src="/images/dnlogo.png" alt="DigitalNest Logo" fill className="object-contain" />
+         <Image src="/images/dnlogo.png" alt="SG-Nest Logo" fill className="object-contain" />
        </div>
       <h1 className="text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl text-white">
         Africa’s Engine for Marketplaces & Digital Platforms
@@ -88,7 +88,7 @@ const IntroductionSection = () => (
           Africa’s digital economy is projected to exceed $180 billion by 2025, powered by mobile-first consumers, internet growth and mobile money adoption. Yet telcos, banks, media houses and brands struggle to launch profitable digital platforms quickly and affordably.
         </p>
         <p className="text-foreground font-medium">
-          DigitalNest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces and digital platforms within weeks complete with monetization, local integrations and scalable architecture.
+          SG-Nest bridges this gap with a white-label SaaS & PaaS ecosystem. We empower organizations to launch their own marketplaces and digital platforms within weeks complete with monetization, local integrations and scalable architecture.
         </p>
       </div>
     </div>
@@ -211,7 +211,7 @@ const CtaSection = () => (
   <section id="cta" className="py-16 md:py-24 bg-primary text-primary-foreground">
     <div className="container text-center max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
-        DigitalNest is Africa’s full-stack digital engine.
+        SG-Nest is Africa’s full-stack digital engine.
       </h2>
       <p className="mt-4 text-lg text-primary-foreground/80">
         Powering marketplaces, super apps, and platforms across every sector. Ready to build the future?
@@ -229,9 +229,9 @@ const Footer = () => (
   <footer className="border-t">
     <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
       <div className="flex items-center gap-2">
-        <Image src="/images/dnlogo.png" alt="DigitalNest Logo" width={24} height={24} className="h-6 w-6" />
+        <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={24} height={24} className="h-6 w-6" />
         <p className="text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} DigitalNest. All rights reserved.
+          &copy; {new Date().getFullYear()} SG-Nest. All rights reserved.
         </p>
       </div>
       <p className="text-sm text-muted-foreground">
@@ -240,4 +240,5 @@ const Footer = () => (
     </div>
   </footer>
 );
+
 

@@ -50,7 +50,7 @@ const Header = () => (
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Wholesale Hub</Link>
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">Become a Vendor</Link>
                     <Link href="#" className="text-foreground/60 transition-colors hover:text-foreground/80">My Orders</Link>
-                    <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">DigitalNest</Link>
+                    <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
                 </nav>
             </div>
             <div className="flex flex-1 items-center justify-end space-x-4">
@@ -182,4 +182,3 @@ export default function ShopAllPage() {
         </div>
     );
 }
-

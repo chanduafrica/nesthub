@@ -1,9 +1,10 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'DigitalNest',
+  title: 'SG-Nest',
   description: "Africa’s Engine for Marketplaces, SuperApps & Digital Platforms",
 };
 

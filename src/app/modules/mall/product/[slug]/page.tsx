@@ -112,7 +112,7 @@ const Header = () => (
             href="/"
             className="text-foreground/60 transition-colors hover:text-foreground/80"
           >
-            DigitalNest
+            SG-Nest
           </Link>
         </nav>
       </div>
@@ -515,5 +515,3 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
-
-    
