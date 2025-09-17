@@ -43,7 +43,7 @@ export default function HomePage() {
 }
 
 const HeroSection = () => (
-    <section className="relative text-white">
+    <section className="relative text-white h-[60vh] flex items-center justify-center">
       <Image
         src="/maasaimara.jpg"
         alt="Maasai Mara"
@@ -52,7 +52,7 @@ const HeroSection = () => (
         data-ai-hint="maasai mara sunset"
       />
       <div className="absolute inset-0 bg-black/50" />
-      <div className="relative container px-4 py-20 text-center">
+      <div className="relative container px-4 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl text-white">
           Your Gateway to Africa’s Digital Economy.
         </h1>
