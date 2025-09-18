@@ -20,7 +20,7 @@ const navLinks = [
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div className="container flex h-14 items-center justify-between">
+    <div className="w-[94%] mx-auto flex h-14 items-center justify-between">
       <div className="flex items-center">
         <Sheet>
             <SheetTrigger asChild>
@@ -207,7 +207,7 @@ const CommunitySection = () => (
 
 const Footer = () => (
   <footer className="border-t bg-gray-900 text-gray-300">
-    <div className="container flex flex-col items-center justify-between gap-4 py-8 md:flex-row">
+    <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-4 py-8 md:flex-row">
       <div className="flex items-center gap-2">
         <p className="text-sm">
           © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
