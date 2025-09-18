@@ -72,9 +72,11 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <EcosystemPortals />
-        <MerchantRevenueSection />
-        <CommunitySection />
+        <div className="w-[94%] mx-auto">
+          <EcosystemPortals />
+          <MerchantRevenueSection />
+          <CommunitySection />
+        </div>
       </main>
       <Footer />
     </div>
