@@ -13,9 +13,9 @@ const navLinks = [
   { href: "/modules/mall", icon: Store, text: "Duka Marketplace" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
   { href: "/modules/homes", icon: HomeIcon, text: "Properties" },
-  { href: "/modules/campfire", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
-  { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
-  { href: "/modules/events", icon: Ticket, text: "Events", comingSoon: true },
+  { href: "#", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
+  { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
+  { href: "#", icon: Ticket, text: "Events", comingSoon: true },
 ];
 
 
@@ -141,7 +141,7 @@ const portals = [
     { icon: Plane, title: "NestTravel", description: "Flights, SGR, buses, hotels, tours." },
     { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya." },
     { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences." },
-    { icon: UtensilsCrossed, title: "NestFoods", description: "Organic African recipes & food delivery." },
+    { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery." },
     { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money." },
 ];
 
