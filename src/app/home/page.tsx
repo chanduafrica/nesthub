@@ -8,6 +8,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 
 const navLinks = [
   { href: "/modules/mall", icon: Store, text: "Duka Marketplace" },
@@ -17,6 +21,49 @@ const navLinks = [
   { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
 ];
+
+const LoginPopup = () => {
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button>Login</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Login</DialogTitle>
+                    <DialogDescription>
+                        Access your SG-NEST account.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="email" className="text-right">
+                            Email
+                        </Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            placeholder="m@example.com"
+                            className="col-span-3"
+                        />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="password" className="text-right">
+                            Password
+                        </Label>
+                        <Input id="password" type="password" className="col-span-3" />
+                    </div>
+                     <div className="flex justify-end">
+                        <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Sign In</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    )
+}
 
 
 const Header = () => {
@@ -82,7 +129,7 @@ const Header = () => {
            <Button variant="ghost" asChild>
               <Link href="/admin/login">Admin</Link>
           </Button>
-          <Button>Login</Button>
+          <LoginPopup />
         </div>
       </div>
     </header>
@@ -136,13 +183,13 @@ const HeroSection = () => (
 );
 
 const portals = [
-    { icon: Store, title: "NestMall", description: "Shop electronics, fashion, FMCG & wholesale." },
-    { icon: HomeIcon, title: "NestHomes", description: "Buy, rent, or build affordable green homes." },
-    { icon: Plane, title: "NestTravel", description: "Flights, SGR, buses, hotels, tours." },
-    { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya." },
-    { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences." },
-    { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery." },
-    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money." },
+    { icon: Store, title: "NestMall", description: "Shop electronics, fashion, FMCG & wholesale.", href: "/modules/mall" },
+    { icon: HomeIcon, title: "NestHomes", description: "Buy, rent, or build affordable green homes.", href: "/modules/homes" },
+    { icon: Plane, title: "NestTravel", description: "Flights, SGR, buses, hotels, tours.", href: "/modules/travel" },
+    { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya.", href: "/modules/stays" },
+    { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#" },
+    { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#" },
+    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#" },
 ];
 
 const EcosystemPortals = () => (
@@ -153,15 +200,17 @@ const EcosystemPortals = () => (
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                  {portals.map((portal) => (
-                    <Card key={portal.title} className="hover:shadow-xl transition-shadow">
-                        <CardHeader className="flex flex-row items-center gap-4">
-                            <portal.icon className="h-8 w-8 text-primary" />
-                             <CardTitle className="!text-xl !text-foreground">{portal.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                             <p className="text-muted-foreground">{portal.description}</p>
-                        </CardContent>
-                    </Card>
+                    <Link href={portal.href} key={portal.title} className="no-underline">
+                        <Card className="hover:shadow-xl transition-shadow h-full">
+                            <CardHeader className="flex flex-row items-center gap-4">
+                                <portal.icon className="h-8 w-8 text-primary" />
+                                <CardTitle className="!text-xl !text-foreground">{portal.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{portal.description}</p>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 ))}
             </div>
         </div>
