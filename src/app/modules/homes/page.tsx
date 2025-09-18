@@ -107,7 +107,7 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
     }, [currentPage, filteredProperties]);
 
 
-    const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent'>) => {
+    const handleFilterChange = (newFilter: 'all' | 'sale' | 'rent') => {
         setFilter(newFilter);
         setCurrentPage(1);
     }
@@ -269,4 +269,3 @@ export default function NestHomesPage() {
     </div>
   );
 }
-
