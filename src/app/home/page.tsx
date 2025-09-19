@@ -1,9 +1,10 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -17,6 +18,7 @@ const navLinks = [
   { href: "/modules/mall", icon: Store, text: "Duka Marketplace" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
   { href: "/modules/homes", icon: HomeIcon, text: "Properties" },
+  { href: "/modules/stays", icon: BedDouble, text: "Stays"},
   { href: "#", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
   { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
@@ -143,6 +145,7 @@ export default function HomePage() {
       <main className="flex-1">
         <HeroSection />
         <div className="w-[94%] mx-auto">
+          <WeeklyStaffPicks />
           <EcosystemPortals />
           <MerchantRevenueSection />
           <CommunitySection />
@@ -181,6 +184,87 @@ const HeroSection = () => (
       </div>
   </section>
 );
+
+const staffPicks = [
+    {
+        type: "Duka Marketplace",
+        title: "Hand-made Leather Sandals",
+        details: "KES 2,500",
+        imageUrl: "https://picsum.photos/400/300?random=21",
+        imageHint: "leather sandals",
+        buttonText: "Buy Now",
+        href: "/modules/mall/product/leather-sandals"
+    },
+    {
+        type: "Properties",
+        title: "Modern Apartment in Kilimani",
+        details: "For Rent",
+        imageUrl: "https://picsum.photos/400/300?random=22",
+        imageHint: "modern apartment exterior",
+        buttonText: "View Property",
+        href: "/modules/homes/properties/modern-apartment-in-kilimani"
+    },
+    {
+        type: "Stays",
+        title: "Diani Beachfront Villa",
+        details: "From KES 25,000/night",
+        imageUrl: "https://picsum.photos/400/300?random=23",
+        imageHint: "beach villa",
+        buttonText: "Book Stay",
+        href: "/modules/stays"
+    },
+    {
+        type: "Travel",
+        title: "Sarova Stanley Hotel",
+        details: "Nairobi CBD",
+        imageUrl: "https://picsum.photos/400/300?random=24",
+        imageHint: "luxury hotel lobby",
+        buttonText: "Book Hotel",
+        href: "/modules/travel"
+    },
+];
+
+const WeeklyStaffPicks = () => (
+    <section className="py-16 md:py-24">
+        <div className="container px-4">
+            <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">Weekly Staff Picks</h2>
+                <p className="mt-4 text-lg text-muted-foreground">A curated selection of the best from our ecosystem.</p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                {staffPicks.map((pick) => (
+                    <Card key={pick.title} className="overflow-hidden group">
+                        <Link href={pick.href} className="block">
+                            <div className="relative h-56 w-full">
+                                <Image
+                                    src={pick.imageUrl}
+                                    alt={pick.title}
+                                    fill
+                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                    data-ai-hint={pick.imageHint}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                                <div className="absolute bottom-0 left-0 p-4">
+                                     <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{pick.type}</span>
+                                </div>
+                            </div>
+                        </Link>
+                        <CardContent className="p-4">
+                            <h3 className="text-lg font-semibold leading-tight truncate">{pick.title}</h3>
+                            <p className="text-sm text-muted-foreground mt-1">{pick.details}</p>
+                        </CardContent>
+                        <CardFooter className="p-4 pt-0">
+                             <Button asChild className="w-full">
+                                <Link href={pick.href}>{pick.buttonText}</Link>
+                             </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    </section>
+);
+
 
 const portals = [
     { icon: Store, title: "NestMall", description: "Shop electronics, fashion, FMCG & wholesale.", href: "/modules/mall" },
