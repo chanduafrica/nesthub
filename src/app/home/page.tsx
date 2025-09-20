@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 const navLinks = [
@@ -147,7 +148,7 @@ export default function HomePage() {
       <main className="flex-1">
         <HeroSection />
         <div className="w-[94%] mx-auto">
-          <WeeklyStaffPicks />
+          <CuratedPicksSection />
           <EcosystemPortals />
           <MerchantRevenueSection />
           <CommunitySection />
@@ -226,43 +227,99 @@ const staffPicks = [
     },
 ];
 
-const WeeklyStaffPicks = () => (
+const topStays = [
+    { type: "Stays", title: "Lamu Swahili House", details: "From KES 18,000/night", imageUrl: "https://picsum.photos/400/300?random=31", imageHint: "swahili architecture", buttonText: "Book Now", href: "/modules/stays"},
+    { type: "Stays", title: "Naivasha Lakefront Cottage", details: "From KES 15,000/night", imageUrl: "https://picsum.photos/400/300?random=32", imageHint: "lake house", buttonText: "Book Now", href: "/modules/stays"},
+    { type: "Stays", title: "Nanyuki Mount Kenya View", details: "From KES 12,000/night", imageUrl: "https://picsum.photos/400/300?random=33", imageHint: "mountain view cabin", buttonText: "Book Now", href: "/modules/stays"},
+    { type: "Stays", title: "Watamu Beach Resort", details: "From KES 22,000/night", imageUrl: "https://picsum.photos/400/300?random=34", imageHint: "beach resort", buttonText: "Book Now", href: "/modules/stays"},
+];
+
+const topDestinations = [
+    { type: "Travel", title: "Maasai Mara National Reserve", details: "World-famous safari destination.", imageUrl: "https://picsum.photos/400/300?random=41", imageHint: "maasai mara", buttonText: "Explore Packages", href: "/modules/travel/packages"},
+    { type: "Travel", title: "Amboseli National Park", details: "Stunning views of Mt. Kilimanjaro.", imageUrl: "https://picsum.photos/400/300?random=42", imageHint: "amboseli kilimanjaro", buttonText: "Explore Packages", href: "/modules/travel/packages"},
+    { type: "Travel", title: "Lamu Old Town", details: "A UNESCO World Heritage site.", imageUrl: "https://picsum.photos/400/300?random=43", imageHint: "lamu town", buttonText: "Explore Packages", href: "/modules/travel/packages"},
+    { type: "Travel", title: "Samburu National Reserve", details: "Unique wildlife and landscapes.", imageUrl: "https://picsum.photos/400/300?random=44", imageHint: "samburu reserve", buttonText: "Explore Packages", href: "/modules/travel/packages"},
+];
+
+const frequentlyBought = [
+    { type: "NestMall", title: "Smartphone Power Bank", details: "KES 3,500", imageUrl: "https://picsum.photos/400/300?random=51", imageHint: "power bank", buttonText: "Buy Now", href: "#"},
+    { type: "Duka", title: "Fresh Milk - 1 Litre", details: "KES 120", imageUrl: "https://picsum.photos/400/300?random=52", imageHint: "milk bottle", buttonText: "Add to Cart", href: "#"},
+    { type: "NestMall", title: "Bluetooth Earphones", details: "KES 4,000", imageUrl: "https://picsum.photos/400/300?random=53", imageHint: "bluetooth earphones", buttonText: "Buy Now", href: "#"},
+    { type: "Back2School", title: "School Exercise Books (A4)", details: "KES 800 / dozen", imageUrl: "https://picsum.photos/400/300?random=54", imageHint: "exercise books", buttonText: "Buy Now", href: "#"},
+];
+
+const explosiveSale = [
+    { type: "SALE", title: "Men's Casual Shirt", details: "KES 1,200 (was 2,000)", imageUrl: "https://picsum.photos/400/300?random=61", imageHint: "men shirt", buttonText: "Shop Sale", href: "#"},
+    { type: "SALE", title: "Kitchen Blender", details: "KES 4,500 (was 6,000)", imageUrl: "https://picsum.photos/400/300?random=62", imageHint: "kitchen blender", buttonText: "Shop Sale", href: "#"},
+    { type: "SALE", title: "Travel Backpack", details: "KES 3,000 (was 4,500)", imageUrl: "https://picsum.photos/400/300?random=63", imageHint: "travel backpack", buttonText: "Shop Sale", href: "#"},
+    { type: "SALE", title: "Ladies Handbag", details: "KES 2,500 (was 4,000)", imageUrl: "https://picsum.photos/400/300?random=64", imageHint: "ladies handbag", buttonText: "Shop Sale", href: "#"},
+];
+
+const ProductGrid = ({ items }: { items: typeof staffPicks }) => (
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+        {items.map((pick) => (
+            <Card key={pick.title} className="overflow-hidden group">
+                <Link href={pick.href} className="block">
+                    <div className="relative h-56 w-full">
+                        <Image
+                            src={pick.imageUrl}
+                            alt={pick.title}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            data-ai-hint={pick.imageHint}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 p-4">
+                             <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{pick.type}</span>
+                        </div>
+                    </div>
+                </Link>
+                <CardContent className="p-4">
+                    <h3 className="text-lg font-semibold leading-tight truncate">{pick.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{pick.details}</p>
+                </CardContent>
+                <CardFooter className="p-4 pt-0">
+                     <Button asChild className="w-full">
+                        <Link href={pick.href}>{pick.buttonText}</Link>
+                     </Button>
+                </CardFooter>
+            </Card>
+        ))}
+    </div>
+);
+
+const CuratedPicksSection = () => (
     <section className="py-8 md:py-12">
         <div className="container px-4">
             <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">Weekly Staff Picks</h2>
-                <p className="mt-4 text-lg text-muted-foreground">A curated selection of the best from our ecosystem.</p>
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">Discover the Best of SG-Nest</h2>
+                <p className="mt-4 text-lg text-muted-foreground">A curated selection of top picks from across our ecosystem.</p>
             </div>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {staffPicks.map((pick) => (
-                    <Card key={pick.title} className="overflow-hidden group">
-                        <Link href={pick.href} className="block">
-                            <div className="relative h-56 w-full">
-                                <Image
-                                    src={pick.imageUrl}
-                                    alt={pick.title}
-                                    fill
-                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                    data-ai-hint={pick.imageHint}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                                <div className="absolute bottom-0 left-0 p-4">
-                                     <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{pick.type}</span>
-                                </div>
-                            </div>
-                        </Link>
-                        <CardContent className="p-4">
-                            <h3 className="text-lg font-semibold leading-tight truncate">{pick.title}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">{pick.details}</p>
-                        </CardContent>
-                        <CardFooter className="p-4 pt-0">
-                             <Button asChild className="w-full">
-                                <Link href={pick.href}>{pick.buttonText}</Link>
-                             </Button>
-                        </CardFooter>
-                    </Card>
-                ))}
-            </div>
+            
+            <Tabs defaultValue="staff-picks" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
+                    <TabsTrigger value="staff-picks">Weekly Staff Picks</TabsTrigger>
+                    <TabsTrigger value="top-stays">Top 5 Stays</TabsTrigger>
+                    <TabsTrigger value="top-destinations">Top 5 Destinations</TabsTrigger>
+                    <TabsTrigger value="frequently-bought">Frequently Bought</TabsTrigger>
+                    <TabsTrigger value="explosive-sale">Explosive Sale</TabsTrigger>
+                </TabsList>
+                <TabsContent value="staff-picks">
+                    <ProductGrid items={staffPicks} />
+                </TabsContent>
+                <TabsContent value="top-stays">
+                    <ProductGrid items={topStays} />
+                </TabsContent>
+                <TabsContent value="top-destinations">
+                    <ProductGrid items={topDestinations} />
+                </TabsContent>
+                <TabsContent value="frequently-bought">
+                    <ProductGrid items={frequentlyBought} />
+                </TabsContent>
+                <TabsContent value="explosive-sale">
+                    <ProductGrid items={explosiveSale} />
+                </TabsContent>
+            </Tabs>
         </div>
     </section>
 );
