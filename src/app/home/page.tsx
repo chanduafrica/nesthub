@@ -4,7 +4,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -15,9 +15,9 @@ import { Label } from "@/components/ui/label";
 
 
 const navLinks = [
-  { href: "/modules/mall", icon: Store, text: "Duka Marketplace" },
+  { href: "/modules/mall", icon: Store, text: "NestMall" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
-  { href: "/modules/homes", icon: HomeIcon, text: "Properties" },
+  { href: "/modules/homes/properties", icon: HomeIcon, text: "Properties" },
   { href: "/modules/stays", icon: BedDouble, text: "Stays"},
   { href: "#", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
   { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
@@ -187,7 +187,7 @@ const HeroSection = () => (
 
 const staffPicks = [
     {
-        type: "Duka Marketplace",
+        type: "NestMall",
         title: "Hand-made Leather Sandals",
         details: "KES 2,500",
         imageUrl: "https://picsum.photos/400/300?random=21",
@@ -274,6 +274,8 @@ const portals = [
     { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#" },
     { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#" },
     { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#" },
+    { icon: Car, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#" },
+    { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#" },
 ];
 
 const EcosystemPortals = () => (
