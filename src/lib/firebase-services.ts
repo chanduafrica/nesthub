@@ -12,6 +12,17 @@ export type ClientData = Omit<Client, 'id'>;
 export type VendorData = Omit<Vendor, 'id'>;
 export type TransactionData = Omit<Transaction, 'id'>;
 export type PropertyData = Omit<Property, 'id'>;
+export type BuildProjectData = {
+    designName: string;
+    designId: string;
+    totalCost: number;
+    depositPaid: number;
+    paymentMethod: string;
+    contractNo: string;
+    projectManager: string;
+    status: string;
+};
+
 
 function createSlug(title: string) {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -232,5 +243,19 @@ export const getPropertyBySlug = async (slug: string): Promise<Property | undefi
     } catch (e) {
         console.error("Error getting property by slug: ", e);
         throw new Error("Could not fetch property.");
+    }
+};
+
+// === Build Project Functions ===
+export const saveBuildProject = async (projectData: BuildProjectData) => {
+    try {
+        const docRef = await addDoc(collection(db, 'build-projects'), {
+            ...projectData,
+            submittedAt: new Date().toISOString(),
+        });
+        return { id: docRef.id, ...projectData };
+    } catch (e) {
+        console.error("Error adding build project: ", e);
+        throw new Error("Could not save build project.");
     }
 };

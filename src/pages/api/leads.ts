@@ -26,9 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'insurance':
         filePath = path.join(dataDirectory, 'insurance-quotes.json');
         break;
-      case 'build_project':
-        filePath = path.join(dataDirectory, 'build-projects.json');
-        break;
+      
       default:
         return res.status(400).json({ message: 'Invalid lead type' });
     }

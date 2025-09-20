@@ -13,6 +13,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { handleSaveBuildProject } from '@/app/modules/homes/build/actions';
 
 const designs = [
   {
@@ -96,7 +97,6 @@ export default function CheckoutPage() {
   };
 
   const confirmProject = async () => {
-    // Simulate creating project tasks in Firestore/JSON
     const projectData = {
         designName: design.name,
         designId: design.id,
@@ -109,14 +109,16 @@ export default function CheckoutPage() {
     };
 
     try {
-        await fetch('/api/leads', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ leadType: 'build_project', data: projectData }),
-        });
+        await handleSaveBuildProject(projectData);
     } catch (error) {
         console.error("Failed to save project data", error);
-        // We can still proceed even if this fails for the demo
+        toast({
+            title: "Error Saving Project",
+            description: "There was a problem saving your project data. Please try again.",
+            variant: "destructive"
+        });
+        setIsProcessing(false);
+        return; // Stop execution if saving fails
     }
 
     setIsProcessing(false);
