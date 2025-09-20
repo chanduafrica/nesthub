@@ -25,7 +25,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { handleSaveViewingRequest } from '@/app/modules/homes/actions';
+import { handleSaveViewingRequest, handleSaveMortgageLead } from '@/app/modules/homes/actions';
 
 // This is a new Client Component to handle all interactive UI
 export function PropertyView({ property }: { property: Property }) {
@@ -313,25 +313,20 @@ function MortgageLeadDialog({ property }: { property: Property }) {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const data = {
+        const leadData = {
             propertyId: property.id,
             propertyTitle: property.title,
             propertyPrice: property.price,
-            fullName: formData.get('lead-name'),
-            phone: formData.get('lead-phone'),
-            email: formData.get('lead-email'),
-            employmentStatus: formData.get('employment'),
-            monthlyIncome: formData.get('income'),
-            preferredBank: formData.get('bank'),
+            fullName: formData.get('lead-name') as string,
+            phone: formData.get('lead-phone') as string,
+            email: formData.get('lead-email') as string,
+            employmentStatus: formData.get('employment') as string,
+            monthlyIncome: formData.get('income') as string,
+            preferredBank: formData.get('bank') as string,
         };
 
         try {
-             const response = await fetch('/api/leads', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ leadType: 'mortgage', data }),
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
+            await handleSaveMortgageLead(leadData);
             setSubmitted(true);
         } catch (error) {
             console.error('Failed to submit mortgage lead:', error);

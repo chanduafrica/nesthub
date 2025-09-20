@@ -32,6 +32,17 @@ export type ViewingRequestData = {
     name: string;
     phone: string;
 };
+export type MortgageLeadData = {
+    propertyId: string;
+    propertyTitle: string;
+    propertyPrice: number;
+    fullName: string;
+    phone: string;
+    email: string;
+    employmentStatus: string;
+    monthlyIncome: string;
+    preferredBank: string;
+};
 
 
 function createSlug(title: string) {
@@ -281,5 +292,19 @@ export const saveViewingRequest = async (requestData: ViewingRequestData) => {
     } catch (e) {
         console.error("Error adding viewing request: ", e);
         throw new Error("Could not save viewing request.");
+    }
+};
+
+// === Mortgage Lead Functions ===
+export const saveMortgageLead = async (leadData: MortgageLeadData) => {
+    try {
+        const docRef = await addDoc(collection(db, 'mortgage-leads'), {
+            ...leadData,
+            submittedAt: new Date().toISOString(),
+        });
+        return { id: docRef.id, ...leadData };
+    } catch (e) {
+        console.error("Error adding mortgage lead: ", e);
+        throw new Error("Could not save mortgage lead.");
     }
 };
