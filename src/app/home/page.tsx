@@ -298,11 +298,11 @@ const CuratedPicksSection = () => (
             
             <Tabs defaultValue="staff-picks" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
-                    <TabsTrigger value="staff-picks">Weekly Staff Picks</TabsTrigger>
-                    <TabsTrigger value="top-stays">Top 5 Stays</TabsTrigger>
-                    <TabsTrigger value="top-destinations">Top 5 Destinations</TabsTrigger>
-                    <TabsTrigger value="frequently-bought">Frequently Bought</TabsTrigger>
-                    <TabsTrigger value="explosive-sale">Explosive Sale</TabsTrigger>
+                    <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
+                    <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
+                    <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
+                    <TabsTrigger value="frequently-bought" className="gap-2"><ShoppingCart className="h-4 w-4"/>Frequently Bought</TabsTrigger>
+                    <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
                 </TabsList>
                 <TabsContent value="staff-picks">
                     <ProductGrid items={staffPicks} />
