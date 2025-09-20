@@ -1,7 +1,7 @@
 
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import type { Offer, VendorOffer, Client, Vendor } from './mock-data';
+import type { Offer, VendorOffer, Client, Vendor, Transaction } from './mock-data';
 
 const db = getFirestore(app);
 
@@ -10,6 +10,7 @@ export type OfferData = Omit<Offer, 'id'>;
 export type VendorOfferData = Omit<VendorOffer, 'id'>;
 export type ClientData = Omit<Client, 'id'>;
 export type VendorData = Omit<Vendor, 'id'>;
+export type TransactionData = Omit<Transaction, 'id'>;
 
 
 // Function to save a new offer to Firestore
@@ -165,3 +166,26 @@ export const updateVendorStatus = async (id: string, status: Vendor['status']): 
         throw new Error("Could not update vendor status.");
     }
 }
+
+// === Transaction Functions ===
+
+export const getTransactions = async (): Promise<Transaction[]> => {
+  try {
+    const transactionsCol = collection(db, 'transactions');
+    const querySnapshot = await getDocs(transactionsCol);
+    if (querySnapshot.empty) {
+        console.log('No transactions found, seeding database...');
+        const transactionsSeed = await import('@/lib/data/transactions.json');
+        const seedPromises = transactionsSeed.default.map(tx => 
+            setDoc(doc(db, 'transactions', tx.id), tx)
+        );
+        await Promise.all(seedPromises);
+        const seededSnapshot = await getDocs(transactionsCol);
+        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Transaction));
+    }
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Transaction));
+  } catch (e) {
+    console.error("Error getting transactions: ", e);
+    throw new Error("Could not fetch transactions.");
+  }
+};

@@ -2,18 +2,13 @@
 import { notFound } from 'next/navigation';
 import { VendorView } from '@/components/admin/vendor-view';
 import { Vendor, Transaction } from '@/lib/mock-data';
-import { getVendor } from '@/lib/firebase-services';
-import fs from 'fs';
-import path from 'path';
+import { getVendor, getTransactions } from '@/lib/firebase-services';
 
 export default async function Vendor360Page({ params }: { params: { id: string } }) {
   
   // 1. Fetch all required data
   const vendor = await getVendor(params.id);
-  
-  const transactionsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'transactions.json');
-  const transactionsJsonData = fs.readFileSync(transactionsFilePath, 'utf-8');
-  const allTransactions: Transaction[] = JSON.parse(transactionsJsonData);
+  const allTransactions: Transaction[] = await getTransactions();
 
   // 2. Handle not found case on the server
   if (!vendor) {

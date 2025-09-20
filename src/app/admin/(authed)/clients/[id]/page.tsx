@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { ClientView } from '@/components/admin/client-view';
 import { Client, Transaction, ModuleEngagement } from '@/lib/mock-data';
-import { getClient } from '@/lib/firebase-services';
+import { getClient, getTransactions } from '@/lib/firebase-services';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,13 +10,10 @@ import path from 'path';
 export default async function Client360Page({ params }: { params: { id: string } }) {
   
   // 1. Fetch all required data on the server
-  const transactionsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'transactions.json');
   const engagementFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'module-engagement.json');
-  
-  const transactionsJsonData = fs.readFileSync(transactionsFilePath, 'utf-8');
   const engagementJsonData = fs.readFileSync(engagementFilePath, 'utf-8');
 
-  const allTransactions: Transaction[] = JSON.parse(transactionsJsonData);
+  const allTransactions: Transaction[] = await getTransactions();
   const moduleEngagement: ModuleEngagement[] = JSON.parse(engagementJsonData);
   
   const client = await getClient(params.id);
