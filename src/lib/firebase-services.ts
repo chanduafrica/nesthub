@@ -1,4 +1,5 @@
 
+
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property } from './mock-data';
@@ -21,6 +22,15 @@ export type BuildProjectData = {
     contractNo: string;
     projectManager: string;
     status: string;
+};
+export type ViewingRequestData = {
+    propertyId: string;
+    propertyTitle: string;
+    agentName: string;
+    date: string;
+    time: string;
+    name: string;
+    phone: string;
 };
 
 
@@ -257,5 +267,19 @@ export const saveBuildProject = async (projectData: BuildProjectData) => {
     } catch (e) {
         console.error("Error adding build project: ", e);
         throw new Error("Could not save build project.");
+    }
+};
+
+// === Viewing Request Functions ===
+export const saveViewingRequest = async (requestData: ViewingRequestData) => {
+    try {
+        const docRef = await addDoc(collection(db, 'viewing-requests'), {
+            ...requestData,
+            submittedAt: new Date().toISOString(),
+        });
+        return { id: docRef.id, ...requestData };
+    } catch (e) {
+        console.error("Error adding viewing request: ", e);
+        throw new Error("Could not save viewing request.");
     }
 };

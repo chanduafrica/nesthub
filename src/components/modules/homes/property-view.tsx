@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { notFound } from 'next/navigation';
@@ -24,6 +25,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import { format } from 'date-fns';
+import { handleSaveViewingRequest } from '@/app/modules/homes/actions';
 
 // This is a new Client Component to handle all interactive UI
 export function PropertyView({ property }: { property: Property }) {
@@ -213,20 +215,12 @@ function BookViewingDialog({ property }: { property: Property }) {
             agentName: property.agent.name,
             date: date ? format(date, "yyyy-MM-dd") : '',
             time: time,
-            name: formData.get('name'),
-            phone: formData.get('phone')
+            name: formData.get('name') as string,
+            phone: formData.get('phone') as string
         };
         
         try {
-            const response = await fetch('/api/leads', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ leadType: 'viewing', data }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+            await handleSaveViewingRequest(data);
             setSubmitted(true);
         } catch (error) {
             console.error('Failed to submit viewing request:', error);
