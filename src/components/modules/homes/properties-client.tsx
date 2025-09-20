@@ -157,7 +157,8 @@ export function AllPropertiesClient({ initialProperties }: AllPropertiesClientPr
                 case 'price-desc':
                     return b.price - a.price;
                 case 'date-desc':
-                    return new Date(b.id.replace('prop', '')).getTime() - new Date(a.id.replace('prop', '')).getTime();
+                    // A simple date sort based on ID, assuming higher ID is newer
+                    return parseInt(b.id.replace('prop', '')) - parseInt(a.id.replace('prop', ''));
                 default:
                     return 0; // 'relevance'
             }
