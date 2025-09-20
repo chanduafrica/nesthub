@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 
 
 const navLinks = [
@@ -255,7 +256,14 @@ const explosiveSale = [
     { type: "SALE", title: "Ladies Handbag", details: "KES 2,500 (was 4,000)", imageUrl: "https://picsum.photos/400/300?random=64", imageHint: "ladies handbag", buttonText: "Shop Sale", href: "#"},
 ];
 
-const ProductGrid = ({ items }: { items: typeof staffPicks }) => (
+const ceoGiveaway = [
+    { type: "GIVEAWAY", title: "Latest Smartphone", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=71", imageHint: "latest smartphone", buttonText: "Get for KES 1", href: "#" },
+    { type: "GIVEAWAY", title: "4K Smart TV", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=72", imageHint: "smart tv", buttonText: "Get for KES 1", href: "#" },
+    { type: "GIVEAWAY", title: "Luxury Weekend Getaway", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=73", imageHint: "luxury resort", buttonText: "Get for KES 1", href: "#" },
+    { type: "GIVEAWAY", title: "KES 10,000 Shopping Voucher", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=74", imageHint: "shopping voucher", buttonText: "Get for KES 1", href: "#" },
+];
+
+const ProductGrid = ({ items, buttonDisabled = false }: { items: typeof staffPicks, buttonDisabled?: boolean }) => (
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
         {items.map((pick) => (
             <Card key={pick.title} className="overflow-hidden group">
@@ -279,7 +287,7 @@ const ProductGrid = ({ items }: { items: typeof staffPicks }) => (
                     <p className="text-sm text-muted-foreground mt-1">{pick.details}</p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
-                     <Button asChild className="w-full">
+                     <Button asChild className="w-full" disabled={buttonDisabled}>
                         <Link href={pick.href}>{pick.buttonText}</Link>
                      </Button>
                 </CardFooter>
@@ -288,16 +296,33 @@ const ProductGrid = ({ items }: { items: typeof staffPicks }) => (
     </div>
 );
 
+const CeoGiveawaySection = () => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 7); // Set timer for 7 days from now
+
+    return (
+        <div>
+            <div className="text-center my-8">
+                <h3 className="text-2xl font-bold text-primary">C.E.O's Weekly Giveaway</h3>
+                <p className="text-muted-foreground">Be the first to grab these items for KES 1 when the timer hits zero!</p>
+                <CountdownTimer targetDate={targetDate.toISOString()} />
+            </div>
+            <ProductGrid items={ceoGiveaway} buttonDisabled={true} />
+        </div>
+    );
+}
+
 const CuratedPicksSection = () => (
     <section className="py-8 md:py-12">
         <div className="container px-4">
             <Tabs defaultValue="staff-picks" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto mb-8">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto mb-8">
                     <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
                     <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
                     <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
                     <TabsTrigger value="frequently-bought" className="gap-2"><ShoppingCart className="h-4 w-4"/>Frequently Bought</TabsTrigger>
                     <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
+                    <TabsTrigger value="ceo-giveaway" className="gap-2"><Gift className="h-4 w-4"/>C.E.O Giveaway</TabsTrigger>
                 </TabsList>
                 <TabsContent value="staff-picks">
                     <ProductGrid items={staffPicks} />
@@ -313,6 +338,9 @@ const CuratedPicksSection = () => (
                 </TabsContent>
                 <TabsContent value="explosive-sale">
                     <ProductGrid items={explosiveSale} />
+                </TabsContent>
+                <TabsContent value="ceo-giveaway">
+                    <CeoGiveawaySection />
                 </TabsContent>
             </Tabs>
         </div>
