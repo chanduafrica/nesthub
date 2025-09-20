@@ -291,35 +291,33 @@ const ProductGrid = ({ items }: { items: typeof staffPicks }) => (
 const CuratedPicksSection = () => (
     <section className="py-8 md:py-12">
         <div className="container px-4">
-            <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">Discover the Best of SG-Nest</h2>
-                <p className="mt-4 text-lg text-muted-foreground">A curated selection of top picks from across our ecosystem.</p>
+            <div className="flex items-center gap-4 mb-8">
+                <h2 className="text-2xl font-bold text-primary whitespace-nowrap">Best of Nest:</h2>
+                <Tabs defaultValue="staff-picks" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
+                        <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
+                        <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
+                        <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
+                        <TabsTrigger value="frequently-bought" className="gap-2"><ShoppingCart className="h-4 w-4"/>Frequently Bought</TabsTrigger>
+                        <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="staff-picks">
+                        <ProductGrid items={staffPicks} />
+                    </TabsContent>
+                    <TabsContent value="top-stays">
+                        <ProductGrid items={topStays} />
+                    </TabsContent>
+                    <TabsContent value="top-destinations">
+                        <ProductGrid items={topDestinations} />
+                    </TabsContent>
+                    <TabsContent value="frequently-bought">
+                        <ProductGrid items={frequentlyBought} />
+                    </TabsContent>
+                    <TabsContent value="explosive-sale">
+                        <ProductGrid items={explosiveSale} />
+                    </TabsContent>
+                </Tabs>
             </div>
-            
-            <Tabs defaultValue="staff-picks" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
-                    <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
-                    <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
-                    <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
-                    <TabsTrigger value="frequently-bought" className="gap-2"><ShoppingCart className="h-4 w-4"/>Frequently Bought</TabsTrigger>
-                    <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
-                </TabsList>
-                <TabsContent value="staff-picks">
-                    <ProductGrid items={staffPicks} />
-                </TabsContent>
-                <TabsContent value="top-stays">
-                    <ProductGrid items={topStays} />
-                </TabsContent>
-                <TabsContent value="top-destinations">
-                    <ProductGrid items={topDestinations} />
-                </TabsContent>
-                <TabsContent value="frequently-bought">
-                    <ProductGrid items={frequentlyBought} />
-                </TabsContent>
-                <TabsContent value="explosive-sale">
-                    <ProductGrid items={explosiveSale} />
-                </TabsContent>
-            </Tabs>
         </div>
     </section>
 );
@@ -438,5 +436,7 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
 
     
