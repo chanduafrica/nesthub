@@ -2,26 +2,24 @@
 import { notFound } from 'next/navigation';
 import { ClientView } from '@/components/admin/client-view';
 import { Client, Transaction, ModuleEngagement } from '@/lib/mock-data';
+import { getClient } from '@/lib/firebase-services';
 import fs from 'fs';
 import path from 'path';
 
 // This is now a SERVER component
-export default function Client360Page({ params }: { params: { id: string } }) {
+export default async function Client360Page({ params }: { params: { id: string } }) {
   
   // 1. Fetch all required data on the server
-  const clientsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'clients.json');
   const transactionsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'transactions.json');
   const engagementFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'module-engagement.json');
   
-  const clientsJsonData = fs.readFileSync(clientsFilePath, 'utf-8');
   const transactionsJsonData = fs.readFileSync(transactionsFilePath, 'utf-8');
   const engagementJsonData = fs.readFileSync(engagementFilePath, 'utf-8');
 
-  const allClients: Client[] = JSON.parse(clientsJsonData);
   const allTransactions: Transaction[] = JSON.parse(transactionsJsonData);
   const moduleEngagement: ModuleEngagement[] = JSON.parse(engagementJsonData);
   
-  const client = allClients.find((c) => c.id === params.id);
+  const client = await getClient(params.id);
 
   // 2. Handle not found case on the server
   if (!client) {

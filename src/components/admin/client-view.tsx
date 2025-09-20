@@ -73,7 +73,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
-import { getOffersForClient, saveOffer } from '@/lib/firebase-services';
+import { getOffersForClient, saveOffer, updateClientStatus } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -152,13 +152,21 @@ export function ClientView({ client, transactions: clientTransactions, moduleEng
     });
   };
   
-  const handleStatusChange = (newStatus: ClientStatus) => {
-    setClientStatus(newStatus);
-    // In a real app, you would also post this change to an API
-     toast({
-        title: `Client ${newStatus === 'Active' ? 'Activated' : 'Deactivated'}`,
-        description: `${client.name}'s status has been updated.`,
-    });
+  const handleStatusChange = async (newStatus: ClientStatus) => {
+    try {
+        await updateClientStatus(client.id, newStatus);
+        setClientStatus(newStatus);
+        toast({
+            title: `Client ${newStatus === 'Active' ? 'Activated' : 'Deactivated'}`,
+            description: `${client.name}'s status has been updated.`,
+        });
+    } catch(error) {
+        toast({
+            title: "Error",
+            description: "Could not update client status.",
+            variant: "destructive"
+        });
+    }
   };
   
   const handleSendDiscount = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -589,5 +597,3 @@ function DiscountDialogContent({ client, onSubmit, moduleEngagement }: { client:
         </DialogContent>
     )
 }
-
-    
