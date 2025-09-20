@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -297,13 +298,13 @@ const ProductGrid = ({ items, buttonDisabled = false }: { items: typeof staffPic
 );
 
 const CeoGiveawaySection = () => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 7); // Set timer for 7 days from now
+    const now = new Date();
+    const targetDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
 
     return (
         <div>
             <div className="text-center my-8">
-                <h3 className="text-2xl font-bold text-primary">C.E.O's Weekly Giveaway</h3>
+                <h3 className="text-2xl font-bold text-primary">C.E.O's Monthly Giveaway</h3>
                 <p className="text-muted-foreground">Be the first to grab these items for KES 1 when the timer hits zero!</p>
                 <CountdownTimer targetDate={targetDate.toISOString()} />
             </div>
@@ -467,3 +468,4 @@ const Footer = () => (
     
 
     
+
