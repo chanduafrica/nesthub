@@ -1,6 +1,7 @@
+
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import type { Offer, VendorOffer, Client } from './mock-data';
+import type { Offer, VendorOffer, Client, Vendor } from './mock-data';
 
 const db = getFirestore(app);
 
@@ -8,6 +9,7 @@ const db = getFirestore(app);
 export type OfferData = Omit<Offer, 'id'>;
 export type VendorOfferData = Omit<VendorOffer, 'id'>;
 export type ClientData = Omit<Client, 'id'>;
+export type VendorData = Omit<Vendor, 'id'>;
 
 
 // Function to save a new offer to Firestore
@@ -114,5 +116,52 @@ export const updateClientStatus = async (id: string, status: Client['status']): 
     } catch (e) {
         console.error("Error updating client status: ", e);
         throw new Error("Could not update client status.");
+    }
+}
+
+// === Vendor Functions ===
+
+export const getVendors = async (): Promise<Vendor[]> => {
+  try {
+    const vendorsCol = collection(db, 'vendors');
+    const querySnapshot = await getDocs(vendorsCol);
+    if (querySnapshot.empty) {
+        console.log('No vendors found, seeding database...');
+        const vendorsSeed = await import('@/lib/data/vendors.json');
+        const seedPromises = vendorsSeed.default.map(vendor => 
+            setDoc(doc(db, 'vendors', vendor.id), vendor)
+        );
+        await Promise.all(seedPromises);
+        const seededSnapshot = await getDocs(vendorsCol);
+        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Vendor));
+    }
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Vendor));
+  } catch (e) {
+    console.error("Error getting vendors: ", e);
+    throw new Error("Could not fetch vendors.");
+  }
+};
+
+export const getVendor = async (id: string): Promise<Vendor | undefined> => {
+    try {
+        const vendorDocRef = doc(db, 'vendors', id);
+        const docSnap = await getDoc(vendorDocRef);
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() } as Vendor;
+        }
+        return undefined;
+    } catch (e) {
+        console.error("Error getting vendor: ", e);
+        throw new Error("Could not fetch vendor.");
+    }
+};
+
+export const updateVendorStatus = async (id: string, status: Vendor['status']): Promise<void> => {
+    try {
+        const vendorDocRef = doc(db, 'vendors', id);
+        await updateDoc(vendorDocRef, { status });
+    } catch (e) {
+        console.error("Error updating vendor status: ", e);
+        throw new Error("Could not update vendor status.");
     }
 }

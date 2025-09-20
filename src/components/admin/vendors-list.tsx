@@ -40,6 +40,8 @@ import { Badge } from '@/components/ui/badge';
 import { MoreHorizontal, Search, FileCheck, FileX, CircleHelp } from 'lucide-react';
 import Link from 'next/link';
 import { useCurrency } from '@/hooks/use-currency';
+import { useToast } from '@/hooks/use-toast';
+import { updateVendorStatus } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1, UGX: 29.45, TZS: 20.45, RWF: 10.33, BIF: 22.58, SSP: 1.22, SOS: 4.55,
@@ -56,6 +58,7 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const { currency } = useCurrency();
+    const { toast } = useToast();
 
     useEffect(() => {
         // We only need to fetch module engagement data now
@@ -69,12 +72,21 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
         });
     };
 
-    const handleAction = (action: string, vendorId: string) => {
-        console.log(`Performing '${action}' for vendor ID: ${vendorId}`);
-        if (action === 'Approve') {
-            setVendors(vendors.map(v => v.id === vendorId ? {...v, status: 'Active'} : v));
-        } else if (action === 'Reject') {
-            setVendors(vendors.map(v => v.id === vendorId ? {...v, status: 'Inactive'} : v));
+    const handleAction = async (action: 'Approve' | 'Reject', vendor: VendorWithBusiness) => {
+        const newStatus = action === 'Approve' ? 'Active' : 'Inactive';
+        try {
+            await updateVendorStatus(vendor.id, newStatus);
+            setVendors(vendors.map(v => v.id === vendor.id ? {...v, status: newStatus} : v));
+            toast({
+                title: `Vendor ${action}d`,
+                description: `${vendor.name}'s status has been updated to ${newStatus}.`,
+            });
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "Could not update vendor status.",
+                variant: "destructive"
+            });
         }
     }
 
@@ -188,11 +200,11 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
                         <DropdownMenuSeparator />
                         {vendor.status === 'Pending' && (
                             <>
-                            <DropdownMenuItem onClick={() => handleAction('Approve', vendor.id)}>
+                            <DropdownMenuItem onClick={() => handleAction('Approve', vendor)}>
                                 <FileCheck className="mr-2 h-4 w-4" />
                                 Approve
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-destructive" onClick={() => handleAction('Reject', vendor.id)}>
+                            <DropdownMenuItem className="text-destructive" onClick={() => handleAction('Reject', vendor)}>
                                 <FileX className="mr-2 h-4 w-4" />
                                 Reject
                             </DropdownMenuItem>
@@ -201,7 +213,7 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
                         {vendor.status !== 'Pending' && (
                             <DropdownMenuItem disabled>
                                 <CircleHelp className="mr-2 h-4 w-4" />
-                                No actions available
+                                No pending actions
                             </DropdownMenuItem>
                         )}
                       </DropdownMenuContent>

@@ -48,6 +48,8 @@ import {
     Bar
 } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
+import { useToast } from '@/hooks/use-toast';
+import { updateVendorStatus } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -67,6 +69,7 @@ interface VendorViewProps {
 export function VendorView({ vendor, transactions: vendorTransactions }: VendorViewProps) {
   const [vendorStatus, setVendorStatus] = useState(vendor.status);
   const { currency } = useCurrency();
+  const { toast } = useToast();
   
   const totalBusiness = useMemo(() => {
     return vendorTransactions.reduce((sum, tx) => tx.status === 'Completed' ? sum + tx.amount : sum, 0);
@@ -82,9 +85,21 @@ export function VendorView({ vendor, transactions: vendorTransactions }: VendorV
     });
   };
   
-  const handleStatusChange = (newStatus: VendorStatus) => {
-    setVendorStatus(newStatus);
-    // In a real app, you would also update the backend here.
+  const handleStatusChange = async (newStatus: VendorStatus) => {
+    try {
+        await updateVendorStatus(vendor.id, newStatus);
+        setVendorStatus(newStatus);
+        toast({
+            title: `Vendor Status Updated`,
+            description: `${vendor.name}'s status has been updated to ${newStatus}.`,
+        });
+    } catch (error) {
+         toast({
+            title: "Error",
+            description: "Could not update vendor status.",
+            variant: "destructive"
+        });
+    }
   };
 
   const productPerformanceData = useMemo(() => {

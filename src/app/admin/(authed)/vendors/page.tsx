@@ -3,18 +3,16 @@ import { Vendor, Transaction } from '@/lib/mock-data';
 import fs from 'fs';
 import path from 'path';
 import { VendorsList, VendorWithBusiness } from '@/components/admin/vendors-list';
+import { getVendors } from '@/lib/firebase-services';
 
 // This is now a SERVER component
 export default async function AllVendorsPage() {
   
-  // 1. Fetch all required data on the server
-  const vendorsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'vendors.json');
-  const transactionsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'transactions.json');
+  // 1. Fetch all required data
+  const allVendors: Vendor[] = await getVendors();
   
-  const vendorsJsonData = fs.readFileSync(vendorsFilePath, 'utf-8');
+  const transactionsFilePath = path.join(process.cwd(), 'src', 'lib', 'data', 'transactions.json');
   const transactionsJsonData = fs.readFileSync(transactionsFilePath, 'utf-8');
-
-  const allVendors: Vendor[] = JSON.parse(vendorsJsonData);
   const allTransactions: Transaction[] = JSON.parse(transactionsJsonData);
 
   // 2. Calculate business totals on the server
