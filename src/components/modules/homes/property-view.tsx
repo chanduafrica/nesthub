@@ -25,7 +25,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import { format } from 'date-fns';
-import { handleSaveViewingRequest, handleSaveMortgageLead } from '@/app/modules/homes/actions';
+import { handleSaveViewingRequest, handleSaveMortgageLead, handleSaveInsuranceQuote } from '@/app/modules/homes/actions';
 
 // This is a new Client Component to handle all interactive UI
 export function PropertyView({ property }: { property: Property }) {
@@ -442,19 +442,14 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
             propertyId: property.id,
             propertyTitle: property.title,
             propertyValue: property.price,
-            fullName: formData.get('ins-name'),
-            email: formData.get('ins-email'),
-            phone: formData.get('ins-phone'),
-            preferredInsurer: formData.get('insurer'),
+            fullName: formData.get('ins-name') as string,
+            email: formData.get('ins-email') as string,
+            phone: formData.get('ins-phone') as string,
+            preferredInsurer: formData.get('insurer') as string,
         };
 
         try {
-            const response = await fetch('/api/leads', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ leadType: 'insurance', data }),
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
+            await handleSaveInsuranceQuote(data);
             setSubmitted(true);
         } catch (error) {
             console.error('Failed to submit insurance quote request:', error);

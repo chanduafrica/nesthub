@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
+import homeTabsData from '@/lib/data/home-tabs.json';
 
 
 const navLinks = [
@@ -190,81 +191,8 @@ const HeroSection = () => (
   </section>
 );
 
-const staffPicks = [
-    {
-        type: "NestMall",
-        title: "Hand-made Leather Sandals",
-        details: "KES 2,500",
-        imageUrl: "https://picsum.photos/400/300?random=21",
-        imageHint: "leather sandals",
-        buttonText: "Buy Now",
-        href: "/modules/mall/product/leather-sandals"
-    },
-    {
-        type: "Properties",
-        title: "Modern Apartment in Kilimani",
-        details: "For Rent",
-        imageUrl: "https://picsum.photos/400/300?random=22",
-        imageHint: "modern apartment exterior",
-        buttonText: "View Property",
-        href: "/modules/homes/properties/modern-apartment-in-kilimani"
-    },
-    {
-        type: "Stays",
-        title: "Diani Beachfront Villa",
-        details: "From KES 25,000/night",
-        imageUrl: "https://picsum.photos/400/300?random=23",
-        imageHint: "beach villa",
-        buttonText: "Book Stay",
-        href: "/modules/stays"
-    },
-    {
-        type: "Travel",
-        title: "Sarova Stanley Hotel",
-        details: "Nairobi CBD",
-        imageUrl: "https://picsum.photos/400/300?random=24",
-        imageHint: "luxury hotel lobby",
-        buttonText: "Book Hotel",
-        href: "/modules/travel"
-    },
-];
 
-const topStays = [
-    { type: "Stays", title: "Lamu Swahili House", details: "From KES 18,000/night", imageUrl: "https://picsum.photos/400/300?random=31", imageHint: "swahili architecture", buttonText: "Book Now", href: "/modules/stays"},
-    { type: "Stays", title: "Naivasha Lakefront Cottage", details: "From KES 15,000/night", imageUrl: "https://picsum.photos/400/300?random=32", imageHint: "lake house", buttonText: "Book Now", href: "/modules/stays"},
-    { type: "Stays", title: "Nanyuki Mount Kenya View", details: "From KES 12,000/night", imageUrl: "https://picsum.photos/400/300?random=33", imageHint: "mountain view cabin", buttonText: "Book Now", href: "/modules/stays"},
-    { type: "Stays", title: "Watamu Beach Resort", details: "From KES 22,000/night", imageUrl: "https://picsum.photos/400/300?random=34", imageHint: "beach resort", buttonText: "Book Now", href: "/modules/stays"},
-];
-
-const topDestinations = [
-    { type: "Travel", title: "Maasai Mara National Reserve", details: "World-famous safari destination.", imageUrl: "https://picsum.photos/400/300?random=41", imageHint: "maasai mara", buttonText: "Explore Packages", href: "/modules/travel/packages"},
-    { type: "Travel", title: "Amboseli National Park", details: "Stunning views of Mt. Kilimanjaro.", imageUrl: "https://picsum.photos/400/300?random=42", imageHint: "amboseli kilimanjaro", buttonText: "Explore Packages", href: "/modules/travel/packages"},
-    { type: "Travel", title: "Lamu Old Town", details: "A UNESCO World Heritage site.", imageUrl: "https://picsum.photos/400/300?random=43", imageHint: "lamu town", buttonText: "Explore Packages", href: "/modules/travel/packages"},
-    { type: "Travel", title: "Samburu National Reserve", details: "Unique wildlife and landscapes.", imageUrl: "https://picsum.photos/400/300?random=44", imageHint: "samburu reserve", buttonText: "Explore Packages", href: "/modules/travel/packages"},
-];
-
-const frequentlyBought = [
-    { type: "NestMall", title: "Smartphone Power Bank", details: "KES 3,500", imageUrl: "https://picsum.photos/400/300?random=51", imageHint: "power bank", buttonText: "Buy Now", href: "#"},
-    { type: "Duka", title: "Fresh Milk - 1 Litre", details: "KES 120", imageUrl: "https://picsum.photos/400/300?random=52", imageHint: "milk bottle", buttonText: "Add to Cart", href: "#"},
-    { type: "NestMall", title: "Bluetooth Earphones", details: "KES 4,000", imageUrl: "https://picsum.photos/400/300?random=53", imageHint: "bluetooth earphones", buttonText: "Buy Now", href: "#"},
-    { type: "Back2School", title: "School Exercise Books (A4)", details: "KES 800 / dozen", imageUrl: "https://picsum.photos/400/300?random=54", imageHint: "exercise books", buttonText: "Buy Now", href: "#"},
-];
-
-const explosiveSale = [
-    { type: "SALE", title: "Men's Casual Shirt", details: "KES 1,200 (was 2,000)", imageUrl: "https://picsum.photos/400/300?random=61", imageHint: "men shirt", buttonText: "Shop Sale", href: "#"},
-    { type: "SALE", title: "Kitchen Blender", details: "KES 4,500 (was 6,000)", imageUrl: "https://picsum.photos/400/300?random=62", imageHint: "kitchen blender", buttonText: "Shop Sale", href: "#"},
-    { type: "SALE", title: "Travel Backpack", details: "KES 3,000 (was 4,500)", imageUrl: "https://picsum.photos/400/300?random=63", imageHint: "travel backpack", buttonText: "Shop Sale", href: "#"},
-    { type: "SALE", title: "Ladies Handbag", details: "KES 2,500 (was 4,000)", imageUrl: "https://picsum.photos/400/300?random=64", imageHint: "ladies handbag", buttonText: "Shop Sale", href: "#"},
-];
-
-const ceoGiveaway = [
-    { type: "GIVEAWAY", title: "Latest Smartphone", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=71", imageHint: "latest smartphone", buttonText: "Get for KES 1", href: "#" },
-    { type: "GIVEAWAY", title: "4K Smart TV", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=72", imageHint: "smart tv", buttonText: "Get for KES 1", href: "#" },
-    { type: "GIVEAWAY", title: "Luxury Weekend Getaway", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=73", imageHint: "luxury resort", buttonText: "Get for KES 1", href: "#" },
-    { type: "GIVEAWAY", title: "KES 10,000 Shopping Voucher", details: "On sale for KES 1!", imageUrl: "https://picsum.photos/400/300?random=74", imageHint: "shopping voucher", buttonText: "Get for KES 1", href: "#" },
-];
-
-const ProductGrid = ({ items, buttonDisabled = false }: { items: typeof staffPicks, buttonDisabled?: boolean }) => (
+const ProductGrid = ({ items, buttonDisabled = false }: { items: any[], buttonDisabled?: boolean }) => (
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
         {items.map((pick) => (
             <Card key={pick.title} className="overflow-hidden group">
@@ -308,7 +236,7 @@ const CeoGiveawaySection = () => {
                 <p className="text-muted-foreground">Be the first to grab these items for KES 1 when the timer hits zero!</p>
                 <CountdownTimer targetDate={targetDate.toISOString()} />
             </div>
-            <ProductGrid items={ceoGiveaway} buttonDisabled={true} />
+            <ProductGrid items={homeTabsData['ceo-giveaway']} buttonDisabled={true} />
         </div>
     );
 }
@@ -329,19 +257,19 @@ const CuratedPicksSection = () => (
                     <CeoGiveawaySection />
                 </TabsContent>
                 <TabsContent value="staff-picks">
-                    <ProductGrid items={staffPicks} />
+                    <ProductGrid items={homeTabsData['staff-picks']} />
                 </TabsContent>
                 <TabsContent value="top-stays">
-                    <ProductGrid items={topStays} />
+                    <ProductGrid items={homeTabsData['top-stays']} />
                 </TabsContent>
                 <TabsContent value="top-destinations">
-                    <ProductGrid items={topDestinations} />
+                    <ProductGrid items={homeTabsData['top-destinations']} />
                 </TabsContent>
                 <TabsContent value="frequently-bought">
-                    <ProductGrid items={frequentlyBought} />
+                    <ProductGrid items={homeTabsData['frequently-bought']} />
                 </TabsContent>
                 <TabsContent value="explosive-sale">
-                    <ProductGrid items={explosiveSale} />
+                    <ProductGrid items={homeTabsData['explosive-sale']} />
                 </TabsContent>
             </Tabs>
         </div>
@@ -462,11 +390,3 @@ const Footer = () => (
     </div>
   </footer>
 );
-
-    
-
-    
-
-    
-
-

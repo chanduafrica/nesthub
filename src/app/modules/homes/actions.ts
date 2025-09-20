@@ -1,7 +1,7 @@
 
 'use server';
 
-import { saveViewingRequest, type ViewingRequestData, saveMortgageLead, type MortgageLeadData } from '@/lib/firebase-services';
+import { saveViewingRequest, type ViewingRequestData, saveMortgageLead, type MortgageLeadData, saveInsuranceQuote, type InsuranceQuoteData } from '@/lib/firebase-services';
 
 export async function handleSaveViewingRequest(requestData: ViewingRequestData) {
     try {
@@ -26,5 +26,18 @@ export async function handleSaveMortgageLead(leadData: MortgageLeadData) {
             throw new Error(error.message);
         }
         throw new Error("An unknown error occurred while saving the lead.");
+    }
+}
+
+export async function handleSaveInsuranceQuote(quoteData: InsuranceQuoteData) {
+    try {
+        const result = await saveInsuranceQuote(quoteData);
+        return result;
+    } catch (error) {
+        console.error("Server Action Error: Failed to save insurance quote", error);
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+        throw new Error("An unknown error occurred while saving the quote.");
     }
 }

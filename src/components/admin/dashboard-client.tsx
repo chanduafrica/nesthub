@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Users, DollarSign, ShoppingCart, Truck, TrendingUp, BarChart, Bell, AlertTriangle, CheckCircle, PieChart, LineChart } from "lucide-react";
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart as RechartsBarChart, Pie, Cell, PieChart as RechartsPieChart, Line, LineChart as RechartsLineChart } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
-import { ModuleEngagement, Client, Transaction } from '@/lib/mock-data';
+import { Client, Transaction } from '@/lib/mock-data';
 import { useMemo } from "react";
 
 const conversionRates: { [key: string]: number } = {
@@ -20,10 +20,9 @@ const conversionRates: { [key: string]: number } = {
 interface DashboardClientProps {
     clients: Client[];
     transactions: Transaction[];
-    moduleEngagement: ModuleEngagement[];
 }
 
-export function DashboardClient({ clients, transactions, moduleEngagement }: DashboardClientProps) {
+export function DashboardClient({ clients, transactions }: DashboardClientProps) {
     const { currency } = useCurrency();
 
     const convertCurrency = (amount: number) => {
@@ -40,20 +39,24 @@ export function DashboardClient({ clients, transactions, moduleEngagement }: Das
     const gmv = transactions
         .filter(tx => tx.status === 'Completed' && tx.amount > 0)
         .reduce((sum, tx) => sum + tx.amount, 0);
+
+    const moduleEngagement = useMemo(() => {
+        const engagementMap = new Map<string, number>();
+        transactions.forEach(tx => {
+          if (tx.status === 'Completed' && tx.amount > 0) {
+            engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
+          }
+        });
+        return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
+      }, [transactions]);
     
     const salesByModuleData = useMemo(() => {
-        const moduleTotals = new Map<string, number>();
-        transactions.forEach(tx => {
-            if (tx.status === 'Completed' && tx.amount > 0) {
-                 moduleTotals.set(tx.module, (moduleTotals.get(tx.module) || 0) + tx.amount);
-            }
-        });
         return moduleEngagement.map(mod => ({
             name: mod.name,
-            sales: (moduleTotals.get(mod.name) || 0) * (conversionRates[currency] || 1)
+            sales: mod.value * (conversionRates[currency] || 1)
         }));
 
-    }, [currency, moduleEngagement, transactions]);
+    }, [currency, moduleEngagement]);
 
 
   const userGrowthData = [
@@ -66,19 +69,11 @@ export function DashboardClient({ clients, transactions, moduleEngagement }: Das
   ];
   
     const topModulesData = useMemo(() => {
-        const moduleMap = new Map<string, number>();
-        transactions.forEach(tx => {
-            if (tx.status === 'Completed' && tx.amount > 0) {
-                moduleMap.set(tx.module, (moduleMap.get(tx.module) || 0) + tx.amount);
-            }
-        });
-
-        return Array.from(moduleMap.entries())
-            .sort((a, b) => b[1] - a[1])
+        return [...moduleEngagement]
+            .sort((a, b) => b.value - a.value)
             .slice(0, 5)
-            .map(([name, value]) => ({ name, value }));
 
-    }, [transactions]);
+    }, [moduleEngagement]);
 
 
   const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];

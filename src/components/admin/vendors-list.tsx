@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Vendor, VendorStatus, ModuleEngagement } from '@/lib/mock-data';
+import { Vendor, VendorStatus } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -41,7 +41,7 @@ import { MoreHorizontal, Search, FileCheck, FileX, CircleHelp } from 'lucide-rea
 import Link from 'next/link';
 import { useCurrency } from '@/hooks/use-currency';
 import { useToast } from '@/hooks/use-toast';
-import { updateVendorStatus } from '@/lib/firebase-services';
+import { getTransactions, updateVendorStatus } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1, UGX: 29.45, TZS: 20.45, RWF: 10.33, BIF: 22.58, SSP: 1.22, SOS: 4.55,
@@ -51,7 +51,7 @@ export type VendorWithBusiness = Vendor & { totalBusiness: number };
 
 export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusiness[] }) {
     const [vendors, setVendors] = useState<VendorWithBusiness[]>(initialVendors);
-    const [moduleEngagement, setModuleEngagement] = useState<ModuleEngagement[]>([]);
+    const [transactions, setTransactions] = useState<any[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<VendorStatus | 'all'>('all');
     const [portalFilter, setPortalFilter] = useState<string | 'all'>('all');
@@ -61,9 +61,16 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
     const { toast } = useToast();
 
     useEffect(() => {
-        // We only need to fetch module engagement data now
-        fetch('/api/data/module-engagement').then(res => res.json()).then(setModuleEngagement);
+        getTransactions().then(setTransactions);
     }, []);
+
+    const moduleEngagement = useMemo(() => {
+        const engagementMap = new Map<string, number>();
+        transactions.forEach(tx => {
+            engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
+        });
+        return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
+    }, [transactions]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;

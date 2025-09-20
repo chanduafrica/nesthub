@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { Transaction, Client, ModuleEngagement, TransactionStatus } from '@/lib/mock-data';
+import { Transaction, Client, TransactionStatus } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -40,10 +40,9 @@ const conversionRates: { [key: string]: number } = {
 interface TransactionsListProps {
     initialTransactions: Transaction[];
     initialClients: Client[];
-    moduleEngagement: ModuleEngagement[];
 }
 
-export function TransactionsList({ initialTransactions, initialClients, moduleEngagement }: TransactionsListProps) {
+export function TransactionsList({ initialTransactions, initialClients }: TransactionsListProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<TransactionStatus | 'all'>('all');
     const [portalFilter, setPortalFilter] = useState<string | 'all'>('all');
@@ -52,6 +51,13 @@ export function TransactionsList({ initialTransactions, initialClients, moduleEn
     const { currency } = useCurrency();
 
     const clientMap = useMemo(() => new Map(initialClients.map(c => [c.id, c.name])), [initialClients]);
+    const moduleEngagement = useMemo(() => {
+        const engagementMap = new Map<string, number>();
+        initialTransactions.forEach(tx => {
+            engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
+        });
+        return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
+    }, [initialTransactions]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;

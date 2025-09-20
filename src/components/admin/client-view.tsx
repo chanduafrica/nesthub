@@ -88,11 +88,10 @@ const conversionRates: { [key: string]: number } = {
 interface ClientViewProps {
     client: Client;
     transactions: Transaction[];
-    moduleEngagement: ModuleEngagement[];
 }
 
 
-export function ClientView({ client, transactions: clientTransactions, moduleEngagement }: ClientViewProps) {
+export function ClientView({ client, transactions: clientTransactions }: ClientViewProps) {
   const [clientStatus, setClientStatus] = useState(client.status);
   const [isDiscountModalOpen, setDiscountModalOpen] = useState(false);
   const [sentOffers, setSentOffers] = useState<Offer[]>([]);
@@ -202,22 +201,22 @@ export function ClientView({ client, transactions: clientTransactions, moduleEng
       }
   };
 
+  const moduleEngagement = useMemo(() => {
+    const engagementMap = new Map<string, number>();
+    clientTransactions.forEach(tx => {
+      engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
+    });
+    return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
+  }, [clientTransactions]);
+
 
   const convertedModuleEngagement = useMemo(() => {
-    // Note: The logic here might need adjustment.
-    // This chart shows engagement for *all* clients, not just this one.
-    // To show for just this client, we'd need to recalculate based on their transactions.
-    const clientModuleTotals = new Map<string, number>();
-    clientTransactions.forEach(tx => {
-        clientModuleTotals.set(tx.module, (clientModuleTotals.get(tx.module) || 0) + tx.amount);
-    });
-
     const rate = conversionRates[currency] || 1;
     return moduleEngagement.map(item => ({
         name: item.name,
-        value: (clientModuleTotals.get(item.name) || 0) * rate,
+        value: item.value * rate,
     }));
-  }, [currency, moduleEngagement, clientTransactions]);
+  }, [currency, moduleEngagement]);
 
   if (!client) {
     return <div>Client not found.</div>;

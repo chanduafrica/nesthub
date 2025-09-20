@@ -43,6 +43,15 @@ export type MortgageLeadData = {
     monthlyIncome: string;
     preferredBank: string;
 };
+export type InsuranceQuoteData = {
+    propertyId: string;
+    propertyTitle: string;
+    propertyValue: number;
+    fullName: string;
+    email: string;
+    phone: string;
+    preferredInsurer: string;
+};
 
 
 function createSlug(title: string) {
@@ -306,5 +315,20 @@ export const saveMortgageLead = async (leadData: MortgageLeadData) => {
     } catch (e) {
         console.error("Error adding mortgage lead: ", e);
         throw new Error("Could not save mortgage lead.");
+    }
+};
+
+
+// === Insurance Quote Functions ===
+export const saveInsuranceQuote = async (quoteData: InsuranceQuoteData) => {
+    try {
+        const docRef = await addDoc(collection(db, 'insurance-quotes'), {
+            ...quoteData,
+            submittedAt: new Date().toISOString(),
+        });
+        return { id: docRef.id, ...quoteData };
+    } catch (e) {
+        console.error("Error adding insurance quote: ", e);
+        throw new Error("Could not save insurance quote.");
     }
 };
