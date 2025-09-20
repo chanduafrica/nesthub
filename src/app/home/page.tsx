@@ -16,6 +16,9 @@ import { Label } from "@/components/ui/label";
 
 const navLinks = [
   { href: "/modules/mall", icon: Store, text: "NestMall" },
+  { href: "#", icon: ShoppingCart, text: "Duka", comingSoon: true },
+  { href: "#", icon: Car, text: "AutoParts", comingSoon: true },
+  { href: "#", icon: BookOpen, text: "Back2School", comingSoon: true },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
   { href: "/modules/homes/properties", icon: HomeIcon, text: "Properties" },
   { href: "/modules/stays", icon: BedDouble, text: "Stays"},
