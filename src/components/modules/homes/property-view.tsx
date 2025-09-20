@@ -153,13 +153,13 @@ export function PropertyView({ property }: { property: Property }) {
                                     </Dialog>
                                      <Dialog>
                                         <DialogTrigger asChild>
-                                           <Button size="lg" variant="secondary" className="w-full"><Banknote className="mr-2 h-4 w-4"/> Start Mortgage Application</Button>
+                                           <Button size="lg" variant="secondary" className="w-full" disabled={property.type === 'For Rent'}><Banknote className="mr-2 h-4 w-4"/> Start Mortgage Application</Button>
                                         </DialogTrigger>
                                         <MortgageLeadDialog property={property} />
                                     </Dialog>
                                      <Dialog>
                                         <DialogTrigger asChild>
-                                            <Button size="lg" variant="outline" className="w-full"><Shield className="mr-2 h-4 w-4"/> Get Insurance Quote</Button>
+                                            <Button size="lg" variant="outline" className="w-full" disabled={property.type === 'For Rent'}><Shield className="mr-2 h-4 w-4"/> Get Insurance Quote</Button>
                                         </DialogTrigger>
                                         <InsuranceLeadDialog property={property} />
                                     </Dialog>
@@ -528,5 +528,4 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
     );
 }
 
-// Add the new theme file import
-import './property-view.css';
+    
