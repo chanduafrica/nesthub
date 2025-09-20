@@ -70,6 +70,7 @@ export type Vendor = {
 export type Property = {
   id: string;
   title: string;
+  slug: string;
   location: string;
   price: number;
   type: 'For Sale' | 'For Rent';

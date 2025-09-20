@@ -15,10 +15,6 @@ interface PropertyCardProps {
   layout?: 'grid' | 'list';
 }
 
-function createSlug(title: string) {
-    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
-
 const localImages = [
     '/property/1.jpg',
     '/property/2.jpg',
@@ -39,7 +35,7 @@ export function PropertyCard({ property, layout = 'grid' }: PropertyCardProps) {
     return `Ksh ${price.toLocaleString()}`;
   };
   
-  const propertySlug = createSlug(property.title);
+  const propertySlug = property.slug;
 
   // Use a deterministic approach to avoid client/server mismatch
   const imageIndex = useMemo(() => parseInt(property.id.replace('prop', ''), 10) % localImages.length, [property.id]);

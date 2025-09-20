@@ -20,6 +20,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import Autoplay from "embla-carousel-autoplay";
+import { getProperties } from '@/lib/firebase-services';
 
 
 const Header = () => {
@@ -252,9 +253,8 @@ export default function NestHomesPage() {
   const [properties, setProperties] = useState<Property[]>([]);
 
   useEffect(() => {
-    fetch('/api/data/properties')
-      .then(res => res.json())
-      .then(data => setProperties(data));
+    // This fetch is now client-side, but ideally we'd pass initial data from a server component
+    getProperties().then(setProperties);
   }, []);
 
   return (

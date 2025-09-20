@@ -1,7 +1,7 @@
 
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import type { Offer, VendorOffer, Client, Vendor, Transaction } from './mock-data';
+import type { Offer, VendorOffer, Client, Vendor, Transaction, Property } from './mock-data';
 
 const db = getFirestore(app);
 
@@ -11,6 +11,11 @@ export type VendorOfferData = Omit<VendorOffer, 'id'>;
 export type ClientData = Omit<Client, 'id'>;
 export type VendorData = Omit<Vendor, 'id'>;
 export type TransactionData = Omit<Transaction, 'id'>;
+export type PropertyData = Omit<Property, 'id'>;
+
+function createSlug(title: string) {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
 
 
 // Function to save a new offer to Firestore
@@ -188,4 +193,44 @@ export const getTransactions = async (): Promise<Transaction[]> => {
     console.error("Error getting transactions: ", e);
     throw new Error("Could not fetch transactions.");
   }
+};
+
+// === Property Functions ===
+
+export const getProperties = async (): Promise<Property[]> => {
+  try {
+    const propertiesCol = collection(db, 'properties');
+    const querySnapshot = await getDocs(propertiesCol);
+    if (querySnapshot.empty) {
+        console.log('No properties found, seeding database...');
+        const propertiesSeed = (await import('@/lib/data/properties.json')).default;
+        const seedPromises = propertiesSeed.map(property => {
+            const propertyWithSlug = { ...property, slug: createSlug(property.title) };
+            return setDoc(doc(db, 'properties', property.id), propertyWithSlug);
+        });
+        await Promise.all(seedPromises);
+        const seededSnapshot = await getDocs(propertiesCol);
+        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+    }
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
+  } catch (e) {
+    console.error("Error getting properties: ", e);
+    throw new Error("Could not fetch properties.");
+  }
+};
+
+export const getPropertyBySlug = async (slug: string): Promise<Property | undefined> => {
+    try {
+        const propertiesCol = collection(db, 'properties');
+        const q = query(propertiesCol, where("slug", "==", slug));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+            const docSnap = querySnapshot.docs[0];
+            return { id: docSnap.id, ...docSnap.data() } as Property;
+        }
+        return undefined;
+    } catch (e) {
+        console.error("Error getting property by slug: ", e);
+        throw new Error("Could not fetch property.");
+    }
 };
