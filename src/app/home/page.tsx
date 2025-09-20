@@ -162,7 +162,7 @@ export default function HomePage() {
 }
 
 const HeroSection = () => (
-    <section className="relative text-white h-[72vh] flex items-center justify-center">
+    <section className="relative text-white h-[58vh] flex items-center justify-center">
       <Image
         src="/images/maasaimara.jpg"
         alt="Maasai Mara"
@@ -314,7 +314,7 @@ const CeoGiveawaySection = () => {
 }
 
 const CuratedPicksSection = () => (
-    <section className="py-8 md:py-12">
+    <section className="py-4 md:py-12">
         <div className="container px-4">
             <Tabs defaultValue="ceo-giveaway" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto mb-8">
@@ -468,4 +468,5 @@ const Footer = () => (
     
 
     
+
 
