@@ -24,15 +24,40 @@ export function CountdownTimer({ targetDate }: { targetDate: string }) {
         return timeLeft;
     };
 
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
+        setIsClient(true);
+        const timer = setInterval(() => {
             setTimeLeft(calculateTimeLeft());
         }, 1000);
 
-        return () => clearTimeout(timer);
-    });
+        return () => clearInterval(timer);
+    }, [targetDate]);
+
+    if (!isClient) {
+        return (
+            <div className="flex justify-center gap-4 md:gap-8 my-4">
+                <div className="flex flex-col items-center">
+                    <span className="text-4xl font-bold text-primary">--</span>
+                    <span className="text-xs uppercase text-muted-foreground">days</span>
+                </div>
+                 <div className="flex flex-col items-center">
+                    <span className="text-4xl font-bold text-primary">--</span>
+                    <span className="text-xs uppercase text-muted-foreground">hours</span>
+                </div>
+                 <div className="flex flex-col items-center">
+                    <span className="text-4xl font-bold text-primary">--</span>
+                    <span className="text-xs uppercase text-muted-foreground">minutes</span>
+                </div>
+                 <div className="flex flex-col items-center">
+                    <span className="text-4xl font-bold text-primary">--</span>
+                    <span className="text-xs uppercase text-muted-foreground">seconds</span>
+                </div>
+            </div>
+        );
+    }
 
     const timerComponents = Object.entries(timeLeft).map(([interval, value]) => (
         <div key={interval} className="flex flex-col items-center">
