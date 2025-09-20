@@ -315,15 +315,18 @@ const CeoGiveawaySection = () => {
 const CuratedPicksSection = () => (
     <section className="py-8 md:py-12">
         <div className="container px-4">
-            <Tabs defaultValue="staff-picks" className="w-full">
+            <Tabs defaultValue="ceo-giveaway" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto mb-8">
+                    <TabsTrigger value="ceo-giveaway" className="gap-2"><Gift className="h-4 w-4"/>C.E.O Giveaway</TabsTrigger>
                     <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
                     <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
                     <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
                     <TabsTrigger value="frequently-bought" className="gap-2"><ShoppingCart className="h-4 w-4"/>Frequently Bought</TabsTrigger>
                     <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
-                    <TabsTrigger value="ceo-giveaway" className="gap-2"><Gift className="h-4 w-4"/>C.E.O Giveaway</TabsTrigger>
                 </TabsList>
+                <TabsContent value="ceo-giveaway">
+                    <CeoGiveawaySection />
+                </TabsContent>
                 <TabsContent value="staff-picks">
                     <ProductGrid items={staffPicks} />
                 </TabsContent>
@@ -338,9 +341,6 @@ const CuratedPicksSection = () => (
                 </TabsContent>
                 <TabsContent value="explosive-sale">
                     <ProductGrid items={explosiveSale} />
-                </TabsContent>
-                <TabsContent value="ceo-giveaway">
-                    <CeoGiveawaySection />
                 </TabsContent>
             </Tabs>
         </div>
