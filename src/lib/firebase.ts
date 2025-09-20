@@ -5,13 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  "projectId": "digitalnest-t4ebk",
-  "appId": "1:198507767471:web:5306295f5acc5901db965a",
-  "storageBucket": "digitalnest-t4ebk.firebasestorage.app",
-  "apiKey": "AIzaSyAFmZ3s2LfwvRn6JIVCW8d_h7qF7zW48Cs",
-  "authDomain": "digitalnest-t4ebk.firebaseapp.com",
-  "measurementId": "",
-  "messagingSenderId": "198507767471"
+  "projectId": "sgnest-03586887-7b439",
+  "appId": "1:25961790157:web:2c99b39ccf822f13630784",
+  "storageBucket": "sgnest-03586887-7b439.appspot.com",
+  "apiKey": "AIzaSyBLKFSMepOtOWogIgP_C-iZ2Bm6JLEa9jY",
+  "authDomain": "sgnest-03586887-7b439.firebaseapp.com",
+  "messagingSenderId": "25961790157"
 };
 
 // Initialize Firebase
