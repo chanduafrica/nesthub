@@ -228,7 +228,13 @@ const ProductGrid = ({ items, buttonDisabled = false, children }: { items?: any[
 );
 
 const CeoGiveawaySection = () => {
-    const now = new Date();
+    const [now, setNow] = useState(new Date());
+
+    useEffect(() => {
+        const timer = setInterval(() => setNow(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     const targetDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
 
     return (
@@ -256,14 +262,38 @@ const MiddayVaultSection = () => {
     const product = homeTabsData['midday-vault'][0];
     
     if (!isClient) {
-        return null; // or a loading skeleton
+        // Render a placeholder or skeleton on the server and during initial client render
+        return (
+            <div>
+                <div className="text-center my-8">
+                    <h3 className="text-2xl font-bold text-primary">Midday Vault</h3>
+                    <p className="text-muted-foreground">The vault opens at midday for 5 minutes only. Get ready!</p>
+                </div>
+                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+                    <Card className="overflow-hidden group col-span-full md:col-start-2 md:col-span-2 animate-pulse">
+                        <div className="relative h-80 w-full bg-muted"></div>
+                        <CardContent className="p-4">
+                            <div className="h-6 w-3/4 bg-muted rounded"></div>
+                            <div className="flex items-baseline gap-2 mt-2">
+                                <div className="h-8 w-1/4 bg-muted rounded"></div>
+                                <div className="h-6 w-1/3 bg-muted rounded"></div>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="p-4 pt-0">
+                             <Button className="w-full" disabled={true}>
+                                Awaiting Vault Opening
+                             </Button>
+                        </CardFooter>
+                    </Card>
+                </div>
+            </div>
+        );
     }
     
     const todayMidday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);
     const vaultEndTime = new Date(todayMidday.getTime() + 5 * 60 * 1000);
 
     const isVaultOpen = now >= todayMidday && now < vaultEndTime;
-    const isVaultPending = now < todayMidday;
 
     let targetDate: Date;
     if (now >= vaultEndTime) {
@@ -291,7 +321,7 @@ const MiddayVaultSection = () => {
                             src={product.imageUrl}
                             alt={product.title}
                             fill
-                            className={`object-cover transition-all duration-500 ${!isVaultOpen && 'blur-xl'}`}
+                            className={`object-cover transition-all duration-500 ${!isVaultOpen ? 'blur-xl' : ''}`}
                             data-ai-hint={product.imageHint}
                         />
                          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -305,7 +335,7 @@ const MiddayVaultSection = () => {
                         )}
                     </div>
                     <CardContent className="p-4">
-                        <h3 className={`text-lg font-semibold leading-tight truncate transition-all duration-500 ${!isVaultOpen && 'blur-sm text-transparent bg-clip-text bg-gradient-to-r from-muted-foreground to-muted-foreground'}`}>{product.title}</h3>
+                        <h3 className={`text-lg font-semibold leading-tight truncate transition-all duration-500 ${!isVaultOpen ? 'blur-sm bg-muted-foreground/20' : ''}`}>{product.title}</h3>
                         <div className="flex items-baseline gap-2 mt-2">
                             <p className="text-2xl font-bold text-primary">KES 1,000</p>
                             <p className="text-md text-muted-foreground line-through">KES {product.originalPrice.toLocaleString()}</p>
