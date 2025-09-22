@@ -4,7 +4,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, Referral, ShoppingBag, Edit } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -460,7 +460,7 @@ const CommunityCard = ({ title, description, imageUrl, imageHint }: { title: str
 );
 
 const CommunitySection = () => (
-  <section className="py-5 md:py-8">
+  <section className="py-5 md:py-8 bg-muted/30">
     <div className="container text-center max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
             Campfire by Standard Group.
@@ -499,9 +499,63 @@ const CommunitySection = () => (
                 </div>
             </DialogContent>
         </Dialog>
-      <p className="mt-8 text-lg font-semibold text-accent flex items-center justify-center gap-2">
-        Earn Sparks loyalty points & redeem across SG Hub.
-      </p>
+    </div>
+    <div className="container max-w-6xl mx-auto px-4 mt-16">
+        <div className="text-center">
+            <h2 className="text-3xl font-bold text-accent">Sparks Points - Loyalty That Connects Us</h2>
+            <p className="mt-2 text-muted-foreground max-w-3xl mx-auto">Sparks is more than points - it’s the glow that connects our SG Nest community. Just like sparks around an African campfire, every purchase, referral, or sale keeps the fire alive and rewards you back.</p>
+        </div>
+        <div className="mt-12 grid md:grid-cols-2 gap-12 items-start">
+            <div className="space-y-8">
+                <h3 className="text-2xl font-semibold text-primary">How to Earn Sparks</h3>
+                <div className="space-y-6">
+                    <div className="flex gap-4">
+                        <ShoppingBag className="h-8 w-8 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                            <h4 className="font-semibold">As a Customer</h4>
+                            <p className="text-muted-foreground">Earn Sparks every time you shop across Nest portals.</p>
+                        </div>
+                    </div>
+                     <div className="flex gap-4">
+                        <Users className="h-8 w-8 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                            <h4 className="font-semibold">Through Referrals</h4>
+                            <p className="text-muted-foreground">Invite friends and family - both of you earn Sparks when they join and shop.</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4">
+                        <Store className="h-8 w-8 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                            <h4 className="font-semibold">As a Vendor</h4>
+                            <p className="text-muted-foreground">Vendors gain Sparks for new listings, high ratings, and sales milestones.</p>
+                        </div>
+                    </div>
+                     <div className="flex gap-4">
+                        <MessageSquare className="h-8 w-8 text-accent flex-shrink-0 mt-1" />
+                        <div>
+                            <h4 className="font-semibold">Community Engagement</h4>
+                            <p className="text-muted-foreground">Join Campfire, post reviews, or share content and earn Sparks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div className="space-y-8 p-8 bg-white rounded-lg shadow-lg">
+                 <h3 className="text-2xl font-semibold text-primary">Redeem Sparks</h3>
+                 <p className="text-muted-foreground">Every month, redeem your Sparks for rewards across SG Nest:</p>
+                 <ul className="space-y-3">
+                    <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Shopping & travel discounts</li>
+                    <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Exclusive event access & premium content</li>
+                    <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Cashback & bill payments (where available)</li>
+                    <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Seasonal gifts and special offers</li>
+                </ul>
+            </div>
+        </div>
+        <div className="mt-12 flex flex-wrap justify-center gap-4">
+            <Button size="lg">Start Earning Sparks Today</Button>
+            <Button size="lg" variant="secondary">Customer Register</Button>
+            <Button size="lg" variant="outline">Vendor Register</Button>
+            <Button size="lg" variant="outline">Refer a Friend</Button>
+        </div>
     </div>
   </section>
 );
