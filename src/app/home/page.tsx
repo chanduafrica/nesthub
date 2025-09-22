@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
+import homeTabsData from '@/lib/data/home-tabs.json';
 
 const navLinks = [
   { href: "/modules/mall", icon: Store, text: "NestMall" },
@@ -143,15 +144,6 @@ function Header() {
 };
 
 export default function HomePage() {
-  const [homeTabsData, setHomeTabsData] = useState({});
-
-  useEffect(() => {
-    fetch('/api/data/home-tabs')
-      .then(res => res.json())
-      .then(data => setHomeTabsData(data))
-      .catch(err => console.error("Failed to fetch home tabs data:", err));
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
