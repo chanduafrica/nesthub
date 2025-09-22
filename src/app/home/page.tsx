@@ -476,7 +476,7 @@ const CommunitySection = () => (
                 <CommunityCard
                     title="🌱 Wellness Wednesdays"
                     description="Mental Health"
-                    imageUrl="/images/campfire/Wellness%20Wednesday.png"
+                    imageUrl="/images/campfire/.png"
                     imageHint="wellness yoga"
                 />
                 <CommunityCard
