@@ -1,12 +1,17 @@
 
-
-
-
-
-
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
+
+import clientsData from '@/lib/data/clients.json';
+import vendorsData from '@/lib/data/vendors.json';
+import transactionsData from '@/lib/data/transactions.json';
+import propertiesData from '@/lib/data/properties.json';
+import staysData from '@/lib/data/stays.json';
+import packagesData from '@/lib/data/packages.json';
+import productsData from '@/lib/data/products.json';
+import homeTabsData from '@/lib/data/home-tabs.json';
+
 
 const db = getFirestore(app);
 
@@ -127,160 +132,61 @@ export const getOffersForVendor = async (vendorId: string): Promise<VendorOffer[
 // === Client Functions ===
 
 export const getClients = async (): Promise<Client[]> => {
-  try {
-    const clientsCol = collection(db, 'clients');
-    const querySnapshot = await getDocs(clientsCol);
-    if (querySnapshot.empty) {
-        console.log('No clients found, seeding database...');
-        // If the collection is empty, seed it from the JSON file.
-        const clientsSeed = await import('@/lib/data/clients.json');
-        const seedPromises = clientsSeed.default.map(client => 
-            setDoc(doc(db, 'clients', client.id), client)
-        );
-        await Promise.all(seedPromises);
-        // After seeding, fetch again
-        const seededSnapshot = await getDocs(clientsCol);
-        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
-    }
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
-  } catch (e) {
-    console.error("Error getting clients: ", e);
-    throw new Error("Could not fetch clients.");
-  }
+    return clientsData as Client[];
 };
 
 export const getClient = async (id: string): Promise<Client | undefined> => {
-    try {
-        const clientDocRef = doc(db, 'clients', id);
-        const docSnap = await getDoc(clientDocRef);
-        if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() } as Client;
-        }
-        return undefined;
-    } catch (e) {
-        console.error("Error getting client: ", e);
-        throw new Error("Could not fetch client.");
-    }
+    return (clientsData as Client[]).find(c => c.id === id);
 };
 
 export const updateClientStatus = async (id: string, status: Client['status']): Promise<void> => {
-    try {
-        const clientDocRef = doc(db, 'clients', id);
-        await updateDoc(clientDocRef, { status });
-    } catch (e) {
-        console.error("Error updating client status: ", e);
-        throw new Error("Could not update client status.");
+    // This is a mock implementation. In a real app, you'd update the persistent data source.
+    console.log(`Updating client ${id} to status ${status}`);
+    const client = (clientsData as Client[]).find(c => c.id === id);
+    if(client) {
+      client.status = status;
     }
+    return Promise.resolve();
 }
 
 // === Vendor Functions ===
 
 export const getVendors = async (): Promise<Vendor[]> => {
-  try {
-    const vendorsCol = collection(db, 'vendors');
-    const querySnapshot = await getDocs(vendorsCol);
-    if (querySnapshot.empty) {
-        console.log('No vendors found, seeding database...');
-        const vendorsSeed = await import('@/lib/data/vendors.json');
-        const seedPromises = vendorsSeed.default.map(vendor => 
-            setDoc(doc(db, 'vendors', vendor.id), vendor)
-        );
-        await Promise.all(seedPromises);
-        const seededSnapshot = await getDocs(vendorsCol);
-        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Vendor));
-    }
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Vendor));
-  } catch (e) {
-    console.error("Error getting vendors: ", e);
-    throw new Error("Could not fetch vendors.");
-  }
+    return vendorsData as Vendor[];
 };
 
 export const getVendor = async (id: string): Promise<Vendor | undefined> => {
-    try {
-        const vendorDocRef = doc(db, 'vendors', id);
-        const docSnap = await getDoc(vendorDocRef);
-        if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() } as Vendor;
-        }
-        return undefined;
-    } catch (e) {
-        console.error("Error getting vendor: ", e);
-        throw new Error("Could not fetch vendor.");
-    }
+    return (vendorsData as Vendor[]).find(v => v.id === id);
 };
 
 export const updateVendorStatus = async (id: string, status: Vendor['status']): Promise<void> => {
-    try {
-        const vendorDocRef = doc(db, 'vendors', id);
-        await updateDoc(vendorDocRef, { status });
-    } catch (e) {
-        console.error("Error updating vendor status: ", e);
-        throw new Error("Could not update vendor status.");
+    // This is a mock implementation.
+    console.log(`Updating vendor ${id} to status ${status}`);
+    const vendor = (vendorsData as Vendor[]).find(v => v.id === id);
+    if(vendor) {
+      vendor.status = status;
     }
+    return Promise.resolve();
 }
 
 // === Transaction Functions ===
 
 export const getTransactions = async (): Promise<Transaction[]> => {
-  try {
-    const transactionsCol = collection(db, 'transactions');
-    const querySnapshot = await getDocs(transactionsCol);
-    if (querySnapshot.empty) {
-        console.log('No transactions found, seeding database...');
-        const transactionsSeed = await import('@/lib/data/transactions.json');
-        const seedPromises = transactionsSeed.default.map(tx => 
-            setDoc(doc(db, 'transactions', tx.id), tx)
-        );
-        await Promise.all(seedPromises);
-        const seededSnapshot = await getDocs(transactionsCol);
-        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Transaction));
-    }
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Transaction));
-  } catch (e) {
-    console.error("Error getting transactions: ", e);
-    throw new Error("Could not fetch transactions.");
-  }
+    return transactionsData as Transaction[];
 };
 
 // === Property Functions ===
 
 export const getProperties = async (): Promise<Property[]> => {
-  try {
-    const propertiesCol = collection(db, 'properties');
-    const querySnapshot = await getDocs(propertiesCol);
-    if (querySnapshot.empty) {
-        console.log('No properties found, seeding database...');
-        const propertiesSeed = (await import('@/lib/data/properties.json')).default;
-        const seedPromises = propertiesSeed.map(property => {
-            const propertyWithSlug = { ...property, slug: createSlug(property.title) };
-            return setDoc(doc(db, 'properties', property.id), propertyWithSlug);
-        });
-        await Promise.all(seedPromises);
-        const seededSnapshot = await getDocs(propertiesCol);
-        return seededSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
-    }
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Property));
-  } catch (e) {
-    console.error("Error getting properties: ", e);
-    throw new Error("Could not fetch properties.");
-  }
+    return propertiesData.map(p => ({
+        ...p,
+        slug: createSlug(p.title)
+    })) as Property[];
 };
 
 export const getPropertyBySlug = async (slug: string): Promise<Property | undefined> => {
-    try {
-        const propertiesCol = collection(db, 'properties');
-        const q = query(propertiesCol, where("slug", "==", slug));
-        const querySnapshot = await getDocs(q);
-        if (!querySnapshot.empty) {
-            const docSnap = querySnapshot.docs[0];
-            return { id: docSnap.id, ...docSnap.data() } as Property;
-        }
-        return undefined;
-    } catch (e) {
-        console.error("Error getting property by slug: ", e);
-        throw new Error("Could not fetch property.");
-    }
+    const properties = await getProperties();
+    return properties.find(p => p.slug === slug);
 };
 
 // === Build Project Functions ===
@@ -342,57 +248,20 @@ export const saveInsuranceQuote = async (quoteData: InsuranceQuoteData) => {
 
 // === Stays Functions ===
 export const getStays = async (): Promise<Stay[]> => {
-    try {
-        const staysCol = collection(db, 'stays');
-        let querySnapshot = await getDocs(staysCol);
-        if (querySnapshot.empty) {
-            console.log('No stays found, seeding database...');
-            const staysSeed = (await import('@/lib/data/stays.json')).default;
-            const seedPromises = staysSeed.map(stay => setDoc(doc(staysCol, stay.id), stay));
-            await Promise.all(seedPromises);
-            querySnapshot = await getDocs(staysCol);
-        }
-        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Stay));
-    } catch (e) {
-        console.error("Error getting stays: ", e);
-        throw new Error("Could not fetch stays.");
-    }
+    return staysData as Stay[];
 };
 
 // === Holiday Packages Functions ===
 export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
-    try {
-        const packagesCol = collection(db, 'packages');
-        let querySnapshot = await getDocs(packagesCol);
-        if (querySnapshot.empty) {
-            console.log('No packages found, seeding database...');
-            const packagesSeed = (await import('@/lib/data/packages.json')).default;
-            const seedPromises = packagesSeed.map(pkg => setDoc(doc(packagesCol, pkg.id), pkg));
-            await Promise.all(seedPromises);
-            querySnapshot = await getDocs(packagesCol);
-        }
-        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as HolidayPackage));
-    } catch (e) {
-        console.error("Error getting holiday packages: ", e);
-        throw new Error("Could not fetch holiday packages.");
-    }
+    return packagesData as HolidayPackage[];
 };
 
 // === Products Functions ===
 export const getProducts = async (): Promise<Product[]> => {
-    try {
-        const productsCol = collection(db, 'products');
-        let querySnapshot = await getDocs(productsCol);
-        if (querySnapshot.empty) {
-            console.log('No products found, seeding database...');
-            const productsSeed = (await import('@/lib/data/products.json')).default;
-            const seedPromises = productsSeed.map(product => setDoc(doc(productsCol, product.id), product));
-            await Promise.all(seedPromises);
-            querySnapshot = await getDocs(productsCol);
-        }
-        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
-    } catch (e) {
-        console.error("Error getting products: ", e);
-        throw new Error("Could not fetch products.");
-    }
+    return productsData as Product[];
 };
+
+// === Home Tabs Data ===
+export const getHomeTabsData = async (): Promise<any> => {
+    return homeTabsData;
+}
