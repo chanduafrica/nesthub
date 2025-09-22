@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -439,26 +440,62 @@ const EcosystemPortals = () => (
     </section>
 );
 
+const CommunityCard = ({ title, description, imageUrl, imageHint }: { title: string, description: string, imageUrl: string, imageHint: string }) => (
+    <DialogTrigger asChild>
+        <Card className="relative overflow-hidden group cursor-pointer h-64">
+            <Image
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                data-ai-hint={imageHint}
+            />
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                <h3 className="text-2xl font-bold">{title}</h3>
+                <p>{description}</p>
+            </div>
+        </Card>
+    </DialogTrigger>
+);
+
 const CommunitySection = () => (
   <section className="py-5 md:py-8">
-    <div className="container text-center max-w-4xl mx-auto px-4">
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-        Campfire by Standard Group.
-      </h2>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
-            <h3 className="text-xl font-semibold">🔥 Money Mondays</h3>
-            <p className="text-muted-foreground">Finance Literacy</p>
-          </div>
-           <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
-            <h3 className="text-xl font-semibold">🌱 Wellness Wednesdays</h3>
-            <p className="text-muted-foreground">Mental Health</p>
-          </div>
-           <div className="space-y-2 p-4 rounded-lg hover:bg-muted/50 transition-colors">
-            <h3 className="text-xl font-semibold">🚀 Hustle Fridays</h3>
-            <p className="text-muted-foreground">Jobs & Entrepreneurship</p>
-          </div>
-      </div>
+    <div className="container text-center max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
+            Campfire by Standard Group.
+        </h2>
+        <Dialog>
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <CommunityCard
+                    title="🔥 Money Mondays"
+                    description="Finance Literacy"
+                    imageUrl="/campfire/Money Mondays.jpg"
+                    imageHint="finance discussion"
+                />
+                <CommunityCard
+                    title="🌱 Wellness Wednesdays"
+                    description="Mental Health"
+                    imageUrl="/campfire/Wellness Wednesday.jpg"
+                    imageHint="wellness yoga"
+                />
+                <CommunityCard
+                    title="🚀 Ignite Fridays"
+                    description="Jobs & Entrepreneurship"
+                    imageUrl="/campfire/ignite Fridays.jpg"
+                    imageHint="entrepreneur meeting"
+                />
+            </div>
+
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <DialogTitle className="text-center text-2xl">Coming Soon!</DialogTitle>
+                </DialogHeader>
+                <div className="text-center py-4">
+                    <p className="text-lg">Something awesome is coming soon, stay tuned!!</p>
+                </div>
+            </DialogContent>
+        </Dialog>
       <p className="mt-8 text-lg font-semibold text-accent flex items-center justify-center gap-2">
         <Sparkles className="h-5 w-5" />
         Earn Sparks loyalty points & redeem across SG Hub.
@@ -466,6 +503,7 @@ const CommunitySection = () => (
     </div>
   </section>
 );
+
 
 const Footer = () => (
   <footer className="border-t bg-gray-900 text-gray-300">
@@ -483,7 +521,3 @@ const Footer = () => (
     </div>
   </footer>
 );
-
-    
-
-    
