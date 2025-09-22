@@ -404,7 +404,7 @@ const portals = [
 ];
 
 const EcosystemPortals = () => (
-    <section className="py-16 md:py-24">
+    <section className="py-5 md:py-8">
         <div className="container px-4">
             <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">One Hub, Endless Possibilities</h2>
@@ -472,5 +472,7 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
 
     
