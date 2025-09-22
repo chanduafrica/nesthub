@@ -470,7 +470,7 @@ const CommunitySection = () => (
                 <CommunityCard
                     title="🔥 Money Mondays"
                     description="Finance Literacy"
-                    imageUrl="/campfire/Money Mondays.jpg"
+                    imageUrl="/images/campfire/moneymondays.png"
                     imageHint="finance discussion"
                 />
                 <CommunityCard
