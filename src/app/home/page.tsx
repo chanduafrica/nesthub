@@ -152,7 +152,6 @@ export default function HomePage() {
         <div className="w-[94%] mx-auto">
           <CuratedPicksSection homeTabsData={homeTabsData} />
           <EcosystemPortals />
-          <MerchantRevenueSection />
           <CommunitySection />
         </div>
       </main>
@@ -428,38 +427,6 @@ const EcosystemPortals = () => (
         </div>
     </section>
 );
-
-const merchantFeatures = [
-    { icon: LayoutGrid, title: "List products & services" },
-    { icon: BarChart, title: "Access analytics & insights" },
-    { icon: Wallet, title: "Accept Mpesa, Cards, Bank transfers" },
-    { icon: Briefcase, title: "Logistics & courier integrations" },
-    { icon: Radio, title: "Boost with SG media advertising" },
-]
-
-const MerchantRevenueSection = () => (
-    <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4">
-            <div className="text-center max-w-3xl mx-auto">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-                    A Marketplace for Every Business.
-                </h2>
-            </div>
-             <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {merchantFeatures.map((feature) => (
-                <div key={feature.title} className="flex items-center gap-4 p-4 rounded-lg hover:bg-background transition-colors">
-                    <feature.icon className="h-8 w-8 text-primary flex-shrink-0" />
-                    <p className="text-lg font-medium">{feature.title}</p>
-                </div>
-                ))}
-            </div>
-            <div className="mt-12 text-center">
-                 <Button size="lg">Become a Merchant – Join Now</Button>
-            </div>
-        </div>
-    </section>
-);
-
 
 const CommunitySection = () => (
   <section className="py-16 md:py-24">
