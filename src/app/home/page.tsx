@@ -4,7 +4,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, Referral, ShoppingBag, Edit } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, Referral, ShoppingBag, Edit, Share2, Copy } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -16,6 +16,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
 import homeTabsData from '@/lib/data/home-tabs.json';
+import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
+
 
 const navLinks = [
   { href: "/modules/mall", icon: Store, text: "NestMall" },
@@ -61,8 +63,9 @@ function LoginPopup() {
                         </Label>
                         <Input id="password" type="password" className="col-span-3" />
                     </div>
-                     <div className="flex justify-end">
+                     <div className="flex justify-between items-center text-sm">
                         <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+                         <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
                     </div>
                 </div>
                 <DialogFooter>
@@ -459,6 +462,92 @@ const CommunityCard = ({ title, description, imageUrl, imageHint }: { title: str
     </DialogTrigger>
 );
 
+// Define WhatsApp icon as an SVG component
+const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="h-6 w-6"
+  >
+    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zM12.04 20.12c-1.48 0-2.92-.39-4.19-1.12l-.3-.18-3.12.82.83-3.04-.2-.31a8.27 8.27 0 0 1-1.27-4.38c0-4.54 3.69-8.23 8.23-8.23 2.22 0 4.28.87 5.82 2.41s2.41 3.6 2.41 5.82-3.69 8.23-8.23 8.23zm4.52-6.19c-.25-.12-1.47-.73-1.7-.81-.22-.08-.39-.12-.55.12-.17.25-.64.81-.79.98-.15.17-.29.18-.54.06-.25-.12-1.06-.39-2.02-1.25-.74-.67-1.23-1.5-1.38-1.75s-.15-.22-.02-.34c.12-.11.26-.28.39-.42.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.43s-.55-1.32-.76-1.81c-.2-.48-.4-.42-.55-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.9 2.4 1.02 2.56c.12.17 1.75 2.67 4.24 3.75 2.49 1.08 2.49.72 2.94.68.45-.04 1.47-.6 1.67-1.18.21-.58.21-1.08.15-1.18-.07-.1-.22-.16-.47-.28z" />
+  </svg>
+);
+
+
+function ReferFriendPopup() {
+    const referralLink = "https://sg-nest.com/join?ref=A4B2C1";
+    const { toast } = useToast();
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(referralLink);
+        toast({
+            title: "Copied!",
+            description: "Referral link copied to clipboard.",
+        });
+    };
+
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                 <Button size="lg" variant="outline">Refer a Friend</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                    <DialogTitle>Refer a Friend & Earn Sparks</DialogTitle>
+                    <DialogDescription>
+                        Share your unique link and you'll both get rewarded when they join and make their first purchase.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center space-x-2">
+                    <div className="grid flex-1 gap-2">
+                        <Label htmlFor="link" className="sr-only">
+                        Link
+                        </Label>
+                        <Input
+                        id="link"
+                        defaultValue={referralLink}
+                        readOnly
+                        />
+                    </div>
+                    <Button type="button" size="sm" className="px-3" onClick={copyToClipboard}>
+                        <span className="sr-only">Copy</span>
+                        <Copy className="h-4 w-4" />
+                    </Button>
+                </div>
+                 <div className="py-2 text-center text-sm text-muted-foreground">Or share via</div>
+                <div className="flex justify-center gap-4">
+                    <a href={`https://wa.me/?text=Join%20me%20on%20SG-Nest!%20${referralLink}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                        <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center">
+                            <WhatsAppIcon className="h-7 w-7" />
+                        </div>
+                        <span className="text-xs">WhatsApp</span>
+                    </a>
+                     <a href={`https://www.facebook.com/sharer/sharer.php?u=${referralLink}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                        <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center">
+                            <Facebook className="h-6 w-6" />
+                        </div>
+                        <span className="text-xs">Facebook</span>
+                    </a>
+                     <a href={`https://twitter.com/intent/tweet?url=${referralLink}&text=Join%20me%20on%20SG-Nest!`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                       <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center">
+                            <Twitter className="h-6 w-6" />
+                        </div>
+                        <span className="text-xs">Twitter</span>
+                    </a>
+                     <a href={`mailto:?subject=Join%20me%20on%20SG-Nest&body=Use%20my%20link%20to%20get%20started:%20${referralLink}`} className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                        <div className="w-12 h-12 rounded-full bg-gray-500 text-white flex items-center justify-center">
+                            <MailIcon className="h-6 w-6" />
+                        </div>
+                        <span className="text-xs">Email</span>
+                    </a>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
 const CommunitySection = () => (
   <section className="py-5 md:py-8 bg-muted/30">
     <div className="container text-center max-w-5xl mx-auto px-4">
@@ -552,9 +641,49 @@ const CommunitySection = () => (
         </div>
         <div className="mt-12 flex flex-wrap justify-center gap-4">
             <Button size="lg">Start Earning Sparks Today</Button>
-            <Button size="lg" variant="secondary">Customer Register</Button>
-            <Button size="lg" variant="outline">Vendor Register</Button>
-            <Button size="lg" variant="outline">Refer a Friend</Button>
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button size="lg" variant="secondary">Customer Register</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Login</DialogTitle>
+                        <DialogDescription>
+                            Access your SG-NEST account.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="email-login" className="text-right">
+                                Email
+                            </Label>
+                            <Input
+                                id="email-login"
+                                type="email"
+                                placeholder="m@example.com"
+                                className="col-span-3"
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="password-login" className="text-right">
+                                Password
+                            </Label>
+                            <Input id="password-login" type="password" className="col-span-3" />
+                        </div>
+                        <div className="flex justify-between items-center text-sm">
+                            <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+                            <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" className="w-full">Sign In</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+            <Button size="lg" variant="outline" asChild>
+                <Link href="/vendor-registration">Vendor Register</Link>
+            </Button>
+            <ReferFriendPopup />
         </div>
     </div>
   </section>
