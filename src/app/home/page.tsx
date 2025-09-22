@@ -31,50 +31,6 @@ const navLinks = [
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
 ];
 
-function LoginPopup() {
-    return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button>Login</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Login</DialogTitle>
-                    <DialogDescription>
-                        Access your SG-NEST account.
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right">
-                            Email
-                        </Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="m@example.com"
-                            className="col-span-3"
-                        />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="password" className="text-right">
-                            Password
-                        </Label>
-                        <Input id="password" type="password" className="col-span-3" />
-                    </div>
-                     <div className="flex justify-between items-center text-sm">
-                        <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
-                         <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
-                    </div>
-                </div>
-                <DialogFooter>
-                    <Button type="submit" className="w-full">Sign In</Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
-    )
-}
-
 
 function Header() {
   const { toast } = useToast();
@@ -139,7 +95,45 @@ function Header() {
            <Button variant="ghost" asChild>
               <Link href="/admin/login">Admin</Link>
           </Button>
-          <LoginPopup />
+           <Dialog>
+                <DialogTrigger asChild>
+                    <Button>Login</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>Login</DialogTitle>
+                        <DialogDescription>
+                            Access your SG-NEST account.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="email" className="text-right">
+                                Email
+                            </Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="m@example.com"
+                                className="col-span-3"
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="password" className="text-right">
+                                Password
+                            </Label>
+                            <Input id="password" type="password" className="col-span-3" />
+                        </div>
+                         <div className="flex justify-between items-center text-sm">
+                            <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+                             <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" className="w-full">Sign In</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
       </div>
     </header>
@@ -716,5 +710,3 @@ const Footer = () => (
     </div>
   </footer>
 );
-
-    
