@@ -76,7 +76,7 @@
             "type": "GIVEAWAY",
             "title": "Hisense 32\" A4K Series Smart",
             "details": "On sale for KES 1!",
-            "imageUrl": "https://picsum.photos/400/300?random=72",
+            "imageUrl": "/images/nestmall/hisense.jpg",
             "imageHint": "smart tv",
             "buttonText": "Get for KES 1",
             "href": "/modules/mall/product/hisense-smart-tv"
@@ -88,7 +88,7 @@
             "imageUrl": "/images/travel/Esidai-by-Camp-David-Spa.webp",
             "imageHint": "luxury resort spa",
             "buttonText": "Get for KES 1",
-            "href": "/modules/travel/package/esidai-camp-david-spa"
+            "href": "/modules/travel/package/esidai-by-camp-david-spa-nairobi-national-park"
         },
         {
             "type": "GIVEAWAY",
