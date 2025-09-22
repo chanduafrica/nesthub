@@ -21,33 +21,11 @@ import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
 
 const navLinks = [
   { href: "/home", icon: HomeIcon, text: "Home" },
-  { 
-    text: "Shop", 
-    icon: ShoppingCart,
-    dropdown: [
-        { href: "/modules/mall", icon: Store, text: "NestMall" },
-        { href: "#", icon: ShoppingCart, text: "Duka", comingSoon: true },
-        { href: "#", icon: Car, text: "AutoParts", comingSoon: true },
-        { href: "#", icon: BookOpen, text: "Back2School", comingSoon: true },
-    ]
-  },
-   { 
-    text: "Explore", 
-    icon: Plane,
-    dropdown: [
-        { href: "/modules/travel", icon: Plane, text: "Travel" },
-        { href: "/modules/homes/properties", icon: Building, text: "Properties" },
-        { href: "/modules/stays", icon: BedDouble, text: "Stays"},
-    ]
-  },
-  { 
-    text: "Lifestyle", 
-    icon: Flame,
-    dropdown: [
-        { href: "#", icon: Ticket, text: "Events", comingSoon: true },
-        { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
-    ]
-  },
+  { href: "/modules/mall", icon: ShoppingCart, text: "Shop" },
+  { href: "/modules/homes/properties", icon: Building, text: "Properties" },
+  { href: "/modules/travel", icon: Plane, text: "Travel" },
+  { href: "/modules/stays", icon: BedDouble, text: "Stays"},
+  { href: "#", icon: Ticket, text: "Events", comingSoon: true },
   { href: "#", icon: MessageSquare, text: "Community", comingSoon: true },
 ];
 
@@ -90,17 +68,6 @@ function Header() {
                         ) : (
                           <div key={link.text}>
                             <p className="flex items-center gap-3 text-lg font-medium text-foreground px-2 pt-4 pb-2">{link.text}</p>
-                            {(link.dropdown || []).map(item => (
-                               <Link
-                                key={item.text}
-                                href={item.href}
-                                onClick={(e) => (item as any).comingSoon && handleComingSoon(e, item.text)}
-                                className="flex items-center gap-3 text-md font-medium text-muted-foreground hover:text-foreground py-2 pl-8"
-                              >
-                                  <item.icon className="h-5 w-5" />
-                                  {item.text}
-                              </Link>
-                            ))}
                           </div>
                         )
                       )}
@@ -115,39 +82,17 @@ function Header() {
         </div>
 
          <nav className="hidden lg:flex items-center gap-2 text-sm font-medium">
-           {navLinks.map((link) =>
-            link.href ? (
-              <Link
-                key={link.text}
-                href={link.href}
-                onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
-                className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 rounded-md"
-              >
-                <link.icon className="h-4 w-4" />
-                {link.text}
-              </Link>
-            ) : (
-              <DropdownMenu key={link.text}>
-                <DropdownMenuTrigger asChild>
-                   <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 text-sm font-medium">
-                     <link.icon className="h-4 w-4" />
-                     {link.text}
-                     <ChevronDown className="h-4 w-4" />
-                   </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    {(link.dropdown || []).map(item => (
-                       <DropdownMenuItem key={item.text} asChild>
-                            <Link href={item.href} onClick={(e) => (item as any).comingSoon && handleComingSoon(e, item.text)} className="flex items-center gap-2">
-                                <item.icon className="h-4 w-4" />
-                                {item.text}
-                            </Link>
-                       </DropdownMenuItem>
-                    ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )
-           )}
+           {navLinks.map((link) => (
+            <Link
+              key={link.text}
+              href={link.href}
+              onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
+              className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 rounded-md"
+            >
+              <link.icon className="h-4 w-4" />
+              {link.text}
+            </Link>
+           ))}
         </nav>
 
         <div className="flex items-center justify-end space-x-2">
@@ -787,5 +732,7 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
 
     
