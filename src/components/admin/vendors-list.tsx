@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Vendor, VendorStatus } from '@/lib/mock-data';
+import { Vendor, VendorStatus, Transaction } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -51,7 +51,6 @@ export type VendorWithBusiness = Vendor & { totalBusiness: number };
 
 export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusiness[] }) {
     const [vendors, setVendors] = useState<VendorWithBusiness[]>(initialVendors);
-    const [transactions, setTransactions] = useState<any[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<VendorStatus | 'all'>('all');
     const [portalFilter, setPortalFilter] = useState<string | 'all'>('all');
@@ -60,17 +59,11 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
     const { currency } = useCurrency();
     const { toast } = useToast();
 
-    useEffect(() => {
-        getTransactions().then(setTransactions);
-    }, []);
+    const uniquePortals = useMemo(() => {
+        const portals = new Set(initialVendors.map(v => v.portal));
+        return Array.from(portals);
+    }, [initialVendors]);
 
-    const moduleEngagement = useMemo(() => {
-        const engagementMap = new Map<string, number>();
-        transactions.forEach(tx => {
-            engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
-        });
-        return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
-    }, [transactions]);
 
     const convertCurrency = (amount: number) => {
         const rate = conversionRates[currency] || 1;
@@ -151,8 +144,8 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All Portals</SelectItem>
-                    {moduleEngagement.map(mod => (
-                        <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
+                    {uniquePortals.map(portal => (
+                        <SelectItem key={portal} value={portal}>{portal}</SelectItem>
                     ))}
                 </SelectContent>
             </Select>

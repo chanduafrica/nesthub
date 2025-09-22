@@ -51,12 +51,10 @@ export function TransactionsList({ initialTransactions, initialClients }: Transa
     const { currency } = useCurrency();
 
     const clientMap = useMemo(() => new Map(initialClients.map(c => [c.id, c.name])), [initialClients]);
-    const moduleEngagement = useMemo(() => {
-        const engagementMap = new Map<string, number>();
-        initialTransactions.forEach(tx => {
-            engagementMap.set(tx.module, (engagementMap.get(tx.module) || 0) + tx.amount);
-        });
-        return Array.from(engagementMap.entries()).map(([name, value]) => ({ name, value }));
+    
+    const uniqueModules = useMemo(() => {
+        const modules = new Set(initialTransactions.map(tx => tx.module));
+        return Array.from(modules);
     }, [initialTransactions]);
 
     const convertCurrency = (amount: number) => {
@@ -122,8 +120,8 @@ export function TransactionsList({ initialTransactions, initialClients }: Transa
                 </SelectTrigger>
                 <SelectContent>
                     <SelectItem value="all">All Portals</SelectItem>
-                    {moduleEngagement.map(mod => (
-                        <SelectItem key={mod.name} value={mod.name}>{mod.name}</SelectItem>
+                    {uniqueModules.map(mod => (
+                        <SelectItem key={mod} value={mod}>{mod}</SelectItem>
                     ))}
                 </SelectContent>
             </Select>

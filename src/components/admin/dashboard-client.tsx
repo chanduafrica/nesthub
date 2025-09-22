@@ -51,9 +51,10 @@ export function DashboardClient({ clients, transactions }: DashboardClientProps)
       }, [transactions]);
     
     const salesByModuleData = useMemo(() => {
+        const rate = conversionRates[currency] || 1;
         return moduleEngagement.map(mod => ({
             name: mod.name,
-            sales: mod.value * (conversionRates[currency] || 1)
+            sales: mod.value * rate
         }));
 
     }, [currency, moduleEngagement]);
@@ -160,7 +161,7 @@ export function DashboardClient({ clients, transactions }: DashboardClientProps)
                             <RechartsBarChart data={salesByModuleData}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="name" />
-                                <YAxis tickFormatter={(value) => convertCurrency(value as number / (conversionRates[currency] || 1))} />
+                                <YAxis tickFormatter={(value) => convertCurrency(value / (conversionRates[currency] || 1))} />
                                 <Tooltip formatter={(value: number) => convertCurrency(value / (conversionRates[currency] || 1))} />
                                 <Legend />
                                 <Bar dataKey="sales" fill="hsl(var(--primary))" name="Sales" />
