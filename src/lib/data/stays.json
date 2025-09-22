@@ -1,11 +1,11 @@
 
 [
-    { "id": "stay1", "title": "Diani Beachfront Villa", "image": "/property/1.jpg", "hint": "diani beach villa", "rating": 4.9, "location": "Diani Beach", "type": "Entire Villa", "price": 25000 },
-    { "id": "stay2", "title": "Lamu Island Swahili House", "image": "/property/2.jpg", "hint": "lamu swahili house", "rating": 4.8, "location": "Lamu Old Town", "type": "Entire House", "price": 15000 },
-    { "id": "stay3", "title": "Naivasha Lakefront Cottage", "image": "/property/3.jpg", "hint": "naivasha cottage", "rating": 4.85, "location": "Lake Naivasha", "type": "Entire Cottage", "price": 18000 },
-    { "id": "stay4", "title": "Nanyuki Farm Stay", "image": "/property/4.jpg", "hint": "kenya farm stay", "rating": 4.95, "location": "Nanyuki", "type": "Farm Stay", "price": 12000 },
-    { "id": "stay5", "title": "Westlands Modern Apartment", "image": "/property/5.jpg", "hint": "nairobi apartment", "rating": 4.7, "location": "Westlands, Nairobi", "type": "Entire Apartment", "price": 8000 },
-    { "id": "stay6", "title": "Watamu Treehouse Escape", "image": "/property/6.jpg", "hint": "watamu treehouse", "rating": 4.9, "location": "Watamu", "type": "Treehouse", "price": 22000 },
-    { "id": "stay7", "title": "Aberdares Cabin Retreat", "image": "/property/7.jpg", "hint": "forest cabin", "rating": 4.75, "location": "Aberdare National Park", "type": "Cabin", "price": 16000 },
-    { "id": "stay8", "title": "Karen Eco-Lodge", "image": "/property/8.jpg", "hint": "eco lodge kenya", "rating": 4.8, "location": "Karen, Nairobi", "type": "Private Room", "price": 9500 }
+    { "id": "stay1", "title": "Diani Beachfront Villa", "image": "/images/travel/diani-beach.jpg", "hint": "diani beach villa", "rating": 4.9, "location": "Diani Beach, Kenya", "type": "Entire Villa", "price": 25000 },
+    { "id": "stay2", "title": "Lamu Island Swahili House", "image": "/images/travel/lamu.jpg", "hint": "lamu swahili house", "rating": 4.8, "location": "Lamu Old Town, Kenya", "type": "Entire House", "price": 15000 },
+    { "id": "stay3", "title": "Naivasha Lakefront Cottage", "image": "/images/travel/lake-naivasha.jpg", "hint": "naivasha cottage", "rating": 4.85, "location": "Lake Naivasha, Kenya", "type": "Entire Cottage", "price": 18000 },
+    { "id": "stay4", "title": "Nanyuki Farm Stay", "image": "/images/travel/mount-kenya.jpg", "hint": "kenya farm stay", "rating": 4.95, "location": "Nanyuki, Kenya", "type": "Farm Stay", "price": 12000 },
+    { "id": "stay5", "title": "Westlands Modern Apartment", "image": "https://picsum.photos/seed/stay5/800/600", "hint": "nairobi apartment", "rating": 4.7, "location": "Westlands, Nairobi, Kenya", "type": "Entire Apartment", "price": 8000 },
+    { "id": "stay6", "title": "Watamu Treehouse Escape", "image": "https://picsum.photos/seed/stay6/800/600", "hint": "watamu treehouse", "rating": 4.9, "location": "Watamu, Kenya", "type": "Treehouse", "price": 22000 },
+    { "id": "stay7", "title": "Aberdares Cabin Retreat", "image": "https://picsum.photos/seed/stay7/800/600", "hint": "forest cabin kenya", "rating": 4.75, "location": "Aberdare National Park, Kenya", "type": "Cabin", "price": 16000 },
+    { "id": "stay8", "title": "Karen Eco-Lodge", "image": "https://picsum.photos/seed/stay8/800/600", "hint": "eco lodge kenya", "rating": 4.8, "location": "Karen, Nairobi, Kenya", "type": "Private Room", "price": 9500 }
 ]
