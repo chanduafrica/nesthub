@@ -468,19 +468,19 @@ const CommunitySection = () => (
         <Dialog>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
                 <CommunityCard
-                    title="🔥 Money Mondays"
+                    title="Money Mondays"
                     description="Finance Literacy"
                     imageUrl="/images/campfire/moneymondays.png"
                     imageHint="finance discussion"
                 />
                 <CommunityCard
-                    title="🌱 Wellness Wednesdays"
+                    title="Wellness Wednesdays"
                     description="Mental Health"
                     imageUrl="/images/campfire/wellnesswednesdays.png"
                     imageHint="wellness yoga"
                 />
                 <CommunityCard
-                    title="🚀 Ignite Fridays"
+                    title="Ignite Fridays"
                     description="Jobs & Entrepreneurship"
                     imageUrl="/images/campfire/ignitefridays.png"
                     imageHint="entrepreneur meeting"
