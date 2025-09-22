@@ -3,10 +3,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building, Package, Dna, School } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -20,13 +20,16 @@ import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
 
 
 const navLinks = [
-  { href: "/home", icon: HomeIcon, text: "Home" },
-  { href: "/modules/mall", icon: ShoppingCart, text: "Shop" },
-  { href: "/modules/homes/properties", icon: Building, text: "Properties" },
+  { href: "/modules/mall", icon: ShoppingCart, text: "NestMall" },
+  { href: "#", icon: Dna, text: "Duka" },
+  { href: "#", icon: Car, text: "AutoParts" },
+  { href: "#", icon: School, text: "Back2School" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
+  { href: "/modules/homes/properties", icon: Building, text: "Properties" },
   { href: "/modules/stays", icon: BedDouble, text: "Stays"},
+  { href: "/modules/campfire", icon: MessageSquare, text: "Join Campfire" },
+  { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
-  { href: "#", icon: MessageSquare, text: "Community", comingSoon: true },
 ];
 
 
@@ -53,6 +56,9 @@ function Header() {
                   </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                   <SheetHeader>
+                        <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                   </SheetHeader>
                   <nav className="flex flex-col gap-4 mt-8">
                       {navLinks.map((link) => 
                         link.href ? (
@@ -81,7 +87,7 @@ function Header() {
           </Link>
         </div>
 
-         <nav className="hidden lg:flex items-center gap-2 text-sm font-medium">
+         <nav className="hidden lg:flex items-center gap-2 text-sm font-medium ml-6">
            {navLinks.map((link) => (
             <Link
               key={link.text}
@@ -95,7 +101,7 @@ function Header() {
            ))}
         </nav>
 
-        <div className="flex items-center justify-end space-x-2">
+        <div className="flex items-center justify-end space-x-2 ml-auto">
            <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline">
@@ -732,6 +738,8 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
 
     
 
