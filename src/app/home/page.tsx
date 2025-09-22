@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,7 @@ const navLinks = [
   { href: "/modules/homes/properties", icon: HomeIcon, text: "Properties" },
   { href: "/modules/stays", icon: BedDouble, text: "Stays"},
   { href: "#", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
-  { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
+  { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
 ];
 
@@ -477,8 +476,14 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 function ReferFriendPopup() {
-    const referralLink = "https://sg-nest.com/join?ref=A4B2C1";
     const { toast } = useToast();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    const referralLink = "https://sg-nest.com/join?ref=A4B2C1";
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(referralLink);
@@ -487,6 +492,16 @@ function ReferFriendPopup() {
             description: "Referral link copied to clipboard.",
         });
     };
+    
+    if (!isMounted) {
+        return (
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button size="lg" variant="outline">Refer a Friend</Button>
+                </DialogTrigger>
+            </Dialog>
+        );
+    }
 
     return (
         <Dialog>
