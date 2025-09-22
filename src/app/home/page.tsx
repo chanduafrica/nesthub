@@ -496,11 +496,13 @@ function ReferFriendPopup() {
     const referralLink = "https://sg-nest.com/join?ref=A4B2C1";
 
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(referralLink);
-        toast({
-            title: "Copied!",
-            description: "Referral link copied to clipboard.",
-        });
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(referralLink);
+            toast({
+                title: "Copied!",
+                description: "Referral link copied to clipboard.",
+            });
+        }
     };
 
     if (!isMounted) {
@@ -714,3 +716,5 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
