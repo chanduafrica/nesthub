@@ -494,13 +494,7 @@ function ReferFriendPopup() {
     };
     
     if (!isMounted) {
-        return (
-            <Dialog>
-                <DialogTrigger asChild>
-                    <Button size="lg" variant="outline">Refer a Friend</Button>
-                </DialogTrigger>
-            </Dialog>
-        );
+        return <Button size="lg" variant="outline">Refer a Friend</Button>;
     }
 
     return (
