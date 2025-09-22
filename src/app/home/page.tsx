@@ -119,9 +119,9 @@ function Header() {
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
-                                    <DialogTitle>Login</DialogTitle>
+                                    <DialogTitle>Customer Login</DialogTitle>
                                     <DialogDescription>
-                                        Access your SG-NEST account.
+                                        One account for all SG-NEST portals.
                                     </DialogDescription>
                                 </DialogHeader>
                                 <div className="grid gap-4 py-4">
@@ -154,11 +154,13 @@ function Header() {
                         </Dialog>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                        <Link href="#" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
+                        <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                      <DropdownMenuItem asChild>
-                        <Link href="/admin/login" className="flex items-center gap-2"><ShieldQuestion className="h-4 w-4"/> Admin</Link>
+                        <a href="/admin/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
+                            <ShieldQuestion className="h-4 w-4"/> Admin
+                        </a>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
            </DropdownMenu>
@@ -679,9 +681,9 @@ const CommunitySection = () => (
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
-                        <DialogTitle>Login</DialogTitle>
+                        <DialogTitle>Customer Login</DialogTitle>
                         <DialogDescription>
-                            Access your SG-NEST account.
+                            One account for all SG-NEST portals.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
