@@ -1,7 +1,4 @@
 
-
-'use client';
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock } from "lucide-react";
@@ -14,9 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
-import homeTabsData from '@/lib/data/home-tabs.json';
 import { useState, useEffect } from "react";
-
+import { getHomeTabsData } from "@/lib/firebase-services";
 
 const navLinks = [
   { href: "/modules/mall", icon: Store, text: "NestMall" },
@@ -31,7 +27,7 @@ const navLinks = [
   { href: "#", icon: Ticket, text: "Events", comingSoon: true },
 ];
 
-const LoginPopup = () => {
+function LoginPopup() {
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -75,7 +71,7 @@ const LoginPopup = () => {
 }
 
 
-const Header = () => {
+function Header() {
   const { toast } = useToast();
 
   const handleComingSoon = (e: React.MouseEvent, feature: string) => {
@@ -145,14 +141,16 @@ const Header = () => {
   );
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const homeTabsData = await getHomeTabsData();
+
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-1">
         <HeroSection />
         <div className="w-[94%] mx-auto">
-          <CuratedPicksSection />
+          <CuratedPicksSection homeTabsData={homeTabsData} />
           <EcosystemPortals />
           <MerchantRevenueSection />
           <CommunitySection />
@@ -227,7 +225,7 @@ const ProductGrid = ({ items, buttonDisabled = false, children }: { items?: any[
     </div>
 );
 
-const CeoGiveawaySection = () => {
+const CeoGiveawaySection = ({ items }: { items: any[] }) => {
     const [now, setNow] = useState(new Date());
 
     useEffect(() => {
@@ -244,12 +242,12 @@ const CeoGiveawaySection = () => {
                 <p className="text-muted-foreground">Be the first to grab these items for KES 1 when the timer hits zero!</p>
                 <CountdownTimer targetDate={targetDate.toISOString()} />
             </div>
-            <ProductGrid items={homeTabsData['ceo-giveaway']} buttonDisabled={true} />
+            <ProductGrid items={items} buttonDisabled={true} />
         </div>
     );
 };
 
-const MiddayVaultSection = () => {
+const MiddayVaultSection = ({ items }: { items: any[] }) => {
     const [isClient, setIsClient] = useState(false);
     const [now, setNow] = useState(new Date());
 
@@ -258,8 +256,6 @@ const MiddayVaultSection = () => {
         const timer = setInterval(() => setNow(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
-
-    const product = homeTabsData['midday-vault'][0];
     
     if (!isClient) {
         // Render a placeholder or skeleton on the server and during initial client render
@@ -270,21 +266,23 @@ const MiddayVaultSection = () => {
                     <p className="text-muted-foreground">The vault opens at midday for 5 minutes only. Get ready!</p>
                 </div>
                  <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
-                    <Card className="overflow-hidden group col-span-full md:col-start-2 md:col-span-2 animate-pulse">
-                        <div className="relative h-80 w-full bg-muted"></div>
-                        <CardContent className="p-4">
-                            <div className="h-6 w-3/4 bg-muted rounded"></div>
-                            <div className="flex items-baseline gap-2 mt-2">
-                                <div className="h-8 w-1/4 bg-muted rounded"></div>
-                                <div className="h-6 w-1/3 bg-muted rounded"></div>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="p-4 pt-0">
-                             <Button className="w-full" disabled={true}>
-                                Awaiting Vault Opening
-                             </Button>
-                        </CardFooter>
-                    </Card>
+                    {Array.from({ length: 4 }).map((_, index) => (
+                        <Card key={index} className="overflow-hidden group animate-pulse">
+                            <div className="relative h-56 w-full bg-muted"></div>
+                            <CardContent className="p-4">
+                                <div className="h-6 w-3/4 bg-muted rounded"></div>
+                                <div className="flex items-baseline gap-2 mt-2">
+                                    <div className="h-8 w-1/4 bg-muted rounded"></div>
+                                    <div className="h-6 w-1/3 bg-muted rounded"></div>
+                                </div>
+                            </CardContent>
+                            <CardFooter className="p-4 pt-0">
+                                <Button className="w-full" disabled={true}>
+                                    Awaiting Vault Opening
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    ))}
                 </div>
             </div>
         );
@@ -292,7 +290,6 @@ const MiddayVaultSection = () => {
     
     const todayMidday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);
     const vaultEndTime = new Date(todayMidday.getTime() + 5 * 60 * 1000);
-
     const isVaultOpen = now >= todayMidday && now < vaultEndTime;
 
     let targetDate: Date;
@@ -308,52 +305,54 @@ const MiddayVaultSection = () => {
             <div className="text-center my-8">
                 <h3 className="text-2xl font-bold text-primary">Midday Vault</h3>
                 {isVaultOpen ? (
-                    <p className="text-muted-foreground">The Vault is open! This deal is available for the next 5 minutes only!</p>
+                    <p className="text-muted-foreground">The Vault is open! These deals are available for the next 5 minutes only!</p>
                 ) : (
                     <p className="text-muted-foreground">The vault opens at midday for 5 minutes only. Get ready!</p>
                 )}
                  {!isVaultOpen && <CountdownTimer targetDate={targetDate.toISOString()} />}
             </div>
              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
-                 <Card className="overflow-hidden group col-span-full md:col-start-2 md:col-span-2">
-                    <div className="relative h-80 w-full">
-                        <Image
-                            src={product.imageUrl}
-                            alt={product.title}
-                            fill
-                            className={`object-cover transition-all duration-500 ${!isVaultOpen ? 'blur-xl' : ''}`}
-                            data-ai-hint={product.imageHint}
-                        />
-                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                        <div className="absolute bottom-0 left-0 p-4">
-                             <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{product.type}</span>
-                        </div>
-                        {isVaultOpen && (
-                            <div className="absolute top-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg animate-pulse">
-                                Vault is Open!
+                 {items.map((product) => (
+                    <Card key={product.title} className="overflow-hidden group">
+                        <div className="relative h-56 w-full">
+                            <Image
+                                src={product.imageUrl}
+                                alt={product.title}
+                                fill
+                                className={`object-cover transition-all duration-500 ${!isVaultOpen ? 'blur-xl' : ''}`}
+                                data-ai-hint={product.imageHint}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                            <div className="absolute bottom-0 left-0 p-4">
+                                <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{product.type}</span>
                             </div>
-                        )}
-                    </div>
-                    <CardContent className="p-4">
-                        <h3 className={`text-lg font-semibold leading-tight truncate transition-all duration-500 ${!isVaultOpen ? 'blur-sm bg-muted-foreground/20' : ''}`}>{product.title}</h3>
-                        <div className="flex items-baseline gap-2 mt-2">
-                            <p className="text-2xl font-bold text-primary">KES 1,000</p>
-                            <p className="text-md text-muted-foreground line-through">KES {product.originalPrice.toLocaleString()}</p>
+                            {isVaultOpen && (
+                                <div className="absolute top-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg animate-pulse">
+                                    Vault is Open!
+                                </div>
+                            )}
                         </div>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0">
-                         <Button className="w-full" disabled={!isVaultOpen}>
-                            {isVaultOpen ? 'Buy Now for KES 1,000' : 'Awaiting Vault Opening'}
-                         </Button>
-                    </CardFooter>
-                </Card>
+                        <CardContent className="p-4">
+                            <h3 className={`text-lg font-semibold leading-tight truncate transition-all duration-500 ${!isVaultOpen ? 'blur-sm bg-muted-foreground/20' : ''}`}>{product.title}</h3>
+                            <div className="flex items-baseline gap-2 mt-2">
+                                <p className="text-2xl font-bold text-primary">KES 1,000</p>
+                                <p className="text-md text-muted-foreground line-through">KES {product.originalPrice.toLocaleString()}</p>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="p-4 pt-0">
+                            <Button className="w-full" disabled={!isVaultOpen}>
+                                {isVaultOpen ? 'Buy Now for KES 1,000' : 'Awaiting Vault Opening'}
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                 ))}
             </div>
         </div>
     );
 };
 
 
-const CuratedPicksSection = () => (
+const CuratedPicksSection = ({ homeTabsData }: { homeTabsData: any }) => (
     <section className="py-4 md:py-12">
         <div className="container px-4">
             <Tabs defaultValue="ceo-giveaway" className="w-full">
@@ -367,10 +366,10 @@ const CuratedPicksSection = () => (
                     <TabsTrigger value="explosive-sale" className="gap-2"><Flame className="h-4 w-4"/>Explosive Sale</TabsTrigger>
                 </TabsList>
                 <TabsContent value="ceo-giveaway">
-                    <CeoGiveawaySection />
+                    <CeoGiveawaySection items={homeTabsData['ceo-giveaway'] || []} />
                 </TabsContent>
                 <TabsContent value="midday-vault">
-                    <MiddayVaultSection />
+                    <MiddayVaultSection items={homeTabsData['midday-vault'] || []} />
                 </TabsContent>
                 <TabsContent value="staff-picks">
                     <ProductGrid items={homeTabsData['staff-picks']} />

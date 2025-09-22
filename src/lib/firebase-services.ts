@@ -1,6 +1,7 @@
 
 
 
+
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
@@ -345,7 +346,7 @@ export const getStays = async (): Promise<Stay[]> => {
         if (querySnapshot.empty) {
             console.log('No stays found, seeding database...');
             const staysSeed = (await import('@/lib/data/stays.json')).default;
-            const seedPromises = staysSeed.map(stay => setDoc(doc(staysCol), stay));
+            const seedPromises = staysSeed.map(stay => setDoc(doc(staysCol, stay.id), stay));
             await Promise.all(seedPromises);
             querySnapshot = await getDocs(staysCol);
         }
@@ -364,7 +365,7 @@ export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
         if (querySnapshot.empty) {
             console.log('No packages found, seeding database...');
             const packagesSeed = (await import('@/lib/data/packages.json')).default;
-            const seedPromises = packagesSeed.map(pkg => setDoc(doc(packagesCol), pkg));
+            const seedPromises = packagesSeed.map(pkg => setDoc(doc(packagesCol, pkg.id), pkg));
             await Promise.all(seedPromises);
             querySnapshot = await getDocs(packagesCol);
         }
@@ -383,7 +384,7 @@ export const getProducts = async (): Promise<Product[]> => {
         if (querySnapshot.empty) {
             console.log('No products found, seeding database...');
             const productsSeed = (await import('@/lib/data/products.json')).default;
-            const seedPromises = productsSeed.map(product => setDoc(doc(productsCol), product));
+            const seedPromises = productsSeed.map(product => setDoc(doc(productsCol, product.id), product));
             await Promise.all(seedPromises);
             querySnapshot = await getDocs(productsCol);
         }
@@ -392,4 +393,23 @@ export const getProducts = async (): Promise<Product[]> => {
         console.error("Error getting products: ", e);
         throw new Error("Could not fetch products.");
     }
+};
+
+// === Home Tabs Data Function ===
+export const getHomeTabsData = async (): Promise<any> => {
+  try {
+    const homeTabsDocRef = doc(db, 'content', 'homeTabs');
+    const docSnap = await getDoc(homeTabsDocRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log('No homeTabs data found, seeding database...');
+      const homeTabsSeed = (await import('@/lib/data/home-tabs.json')).default;
+      await setDoc(homeTabsDocRef, homeTabsSeed);
+      return homeTabsSeed;
+    }
+  } catch (e) {
+    console.error("Error getting home tabs data: ", e);
+    throw new Error("Could not fetch home tabs data.");
+  }
 };
