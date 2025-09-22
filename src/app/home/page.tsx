@@ -4,7 +4,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import homeTabsData from '@/lib/data/home-tabs.json';
+import { useState, useEffect } from "react";
 
 
 const navLinks = [
@@ -192,9 +193,9 @@ const HeroSection = () => (
 );
 
 
-const ProductGrid = ({ items, buttonDisabled = false }: { items: any[], buttonDisabled?: boolean }) => (
+const ProductGrid = ({ items, buttonDisabled = false, children }: { items?: any[], buttonDisabled?: boolean, children?: React.ReactNode }) => (
     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
-        {items.map((pick) => (
+        {items && items.map((pick) => (
             <Card key={pick.title} className="overflow-hidden group">
                 <Link href={pick.href} className="block">
                     <div className="relative h-56 w-full">
@@ -222,6 +223,7 @@ const ProductGrid = ({ items, buttonDisabled = false }: { items: any[], buttonDi
                 </CardFooter>
             </Card>
         ))}
+        {children}
     </div>
 );
 
@@ -239,14 +241,95 @@ const CeoGiveawaySection = () => {
             <ProductGrid items={homeTabsData['ceo-giveaway']} buttonDisabled={true} />
         </div>
     );
-}
+};
+
+const MiddayVaultSection = () => {
+    const [isClient, setIsClient] = useState(false);
+    const [now, setNow] = useState(new Date());
+
+    useEffect(() => {
+        setIsClient(true);
+        const timer = setInterval(() => setNow(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const product = homeTabsData['midday-vault'][0];
+    
+    if (!isClient) {
+        return null; // or a loading skeleton
+    }
+    
+    const todayMidday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);
+    const vaultEndTime = new Date(todayMidday.getTime() + 5 * 60 * 1000);
+
+    const isVaultOpen = now >= todayMidday && now < vaultEndTime;
+    const isVaultPending = now < todayMidday;
+
+    let targetDate: Date;
+    if (now >= vaultEndTime) {
+        // If past today's vault time, set target for tomorrow's midday
+        targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 12, 0, 0);
+    } else {
+        targetDate = todayMidday;
+    }
+    
+    return (
+        <div>
+            <div className="text-center my-8">
+                <h3 className="text-2xl font-bold text-primary">Midday Vault</h3>
+                {isVaultOpen ? (
+                    <p className="text-muted-foreground">The Vault is open! This deal is available for the next 5 minutes only!</p>
+                ) : (
+                    <p className="text-muted-foreground">The vault opens at midday for 5 minutes only. Get ready!</p>
+                )}
+                 {!isVaultOpen && <CountdownTimer targetDate={targetDate.toISOString()} />}
+            </div>
+             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+                 <Card className="overflow-hidden group col-span-full md:col-start-2 md:col-span-2">
+                    <div className="relative h-80 w-full">
+                        <Image
+                            src={product.imageUrl}
+                            alt={product.title}
+                            fill
+                            className={`object-cover transition-all duration-500 ${!isVaultOpen && 'blur-xl'}`}
+                            data-ai-hint={product.imageHint}
+                        />
+                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                        <div className="absolute bottom-0 left-0 p-4">
+                             <span className="text-xs font-semibold uppercase tracking-wider text-white bg-black/50 px-2 py-1 rounded">{product.type}</span>
+                        </div>
+                        {isVaultOpen && (
+                            <div className="absolute top-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg animate-pulse">
+                                Vault is Open!
+                            </div>
+                        )}
+                    </div>
+                    <CardContent className="p-4">
+                        <h3 className={`text-lg font-semibold leading-tight truncate transition-all duration-500 ${!isVaultOpen && 'blur-sm text-transparent bg-clip-text bg-gradient-to-r from-muted-foreground to-muted-foreground'}`}>{product.title}</h3>
+                        <div className="flex items-baseline gap-2 mt-2">
+                            <p className="text-2xl font-bold text-primary">KES 1,000</p>
+                            <p className="text-md text-muted-foreground line-through">KES {product.originalPrice.toLocaleString()}</p>
+                        </div>
+                    </CardContent>
+                    <CardFooter className="p-4 pt-0">
+                         <Button className="w-full" disabled={!isVaultOpen}>
+                            {isVaultOpen ? 'Buy Now for KES 1,000' : 'Awaiting Vault Opening'}
+                         </Button>
+                    </CardFooter>
+                </Card>
+            </div>
+        </div>
+    );
+};
+
 
 const CuratedPicksSection = () => (
     <section className="py-4 md:py-12">
         <div className="container px-4">
             <Tabs defaultValue="ceo-giveaway" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto mb-8">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 h-auto mb-8">
                     <TabsTrigger value="ceo-giveaway" className="gap-2"><Gift className="h-4 w-4"/>C.E.O Giveaway</TabsTrigger>
+                    <TabsTrigger value="midday-vault" className="gap-2"><Lock className="h-4 w-4"/>Midday Vault</TabsTrigger>
                     <TabsTrigger value="staff-picks" className="gap-2"><Star className="h-4 w-4"/>Weekly Staff Picks</TabsTrigger>
                     <TabsTrigger value="top-stays" className="gap-2"><BedDouble className="h-4 w-4"/>Top 5 Stays</TabsTrigger>
                     <TabsTrigger value="top-destinations" className="gap-2"><MapPin className="h-4 w-4"/>Top 5 Destinations</TabsTrigger>
@@ -255,6 +338,9 @@ const CuratedPicksSection = () => (
                 </TabsList>
                 <TabsContent value="ceo-giveaway">
                     <CeoGiveawaySection />
+                </TabsContent>
+                <TabsContent value="midday-vault">
+                    <MiddayVaultSection />
                 </TabsContent>
                 <TabsContent value="staff-picks">
                     <ProductGrid items={homeTabsData['staff-picks']} />
