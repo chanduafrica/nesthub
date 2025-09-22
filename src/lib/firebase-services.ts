@@ -252,8 +252,17 @@ export const getStays = async (): Promise<Stay[]> => {
 
 // === Holiday Packages Functions ===
 export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
-    return packagesData as HolidayPackage[];
+    return (packagesData as HolidayPackage[]).map(p => ({
+        ...p,
+        slug: createSlug(p.title)
+    }));
 };
+
+export const getPackageBySlug = async (slug: string): Promise<HolidayPackage | undefined> => {
+    const packages = await getHolidayPackages();
+    return packages.find(p => (p as any).slug === slug);
+};
+
 
 // === Products Functions ===
 export const getProducts = async (): Promise<Product[]> => {

@@ -83,12 +83,12 @@
         },
         {
             "type": "GIVEAWAY",
-            "title": "Luxury Weekend Getaway",
+            "title": "Esidai by Camp David & Spa Nairobi National Park",
             "details": "On sale for KES 1!",
-            "imageUrl": "https://picsum.photos/400/300?random=73",
-            "imageHint": "luxury resort",
+            "imageUrl": "/images/travel/Esidai-by-Camp-David-Spa.webp",
+            "imageHint": "luxury resort spa",
             "buttonText": "Get for KES 1",
-            "href": "/modules/travel/packages/luxury-weekend-getaway"
+            "href": "/modules/travel/package/esidai-camp-david-spa"
         },
         {
             "type": "GIVEAWAY",

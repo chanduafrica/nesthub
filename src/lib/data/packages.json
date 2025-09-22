@@ -71,5 +71,18 @@
         "price": 40000,
         "tags": ["Beach", "Culture"],
         "highlights": ["UNESCO World Heritage Site", "Dhow sailing", "Swahili culture"]
+    },
+    {
+        "id": "pkg7",
+        "title": "Esidai by Camp David & Spa Nairobi National Park",
+        "description": "Welcome to Esidai by Camp David & Spa, where the rhythm of the wild meets elevated comfort. Tucked within the heart of Nairobi National Park, our luxury hideaway invites you to experience hospitality shaped by nature, thoughtful design, and genuine connection. Every stay is a chance to slow down, take in the landscape, and feel something truly rare.\nAt Esidai by Camp David & Spa, you’ll enjoy a luxury hospitality experience in the heart of Nairobi National Park, where comfort, style, and wellness come together effortlessly. Whether you’re visiting for a quiet escape, a wellness-focused getaway, or a special celebration, you’ll feel welcomed from the moment you arrive. Esidai is designed to offer everything that matters most: an extraordinary setting, personalized service, and a peaceful atmosphere to reconnect and recharge. No matter the reason for your stay, Esidai makes your time in Nairobi National Park truly memorable.",
+        "image": "/images/travel/Esidai-by-Camp-David-Spa.webp",
+        "hint": "luxury spa nairobi",
+        "rating": 5.0,
+        "location": "Nairobi National Park",
+        "duration": "2 Days, 1 Night",
+        "price": 60000,
+        "tags": ["Luxury", "Spa", "Wellness"],
+        "highlights": ["Located inside Nairobi National Park", "Luxury Spa & Wellness", "Gourmet Dining", "Unparalleled Views"]
     }
 ]
