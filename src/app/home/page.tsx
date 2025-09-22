@@ -17,6 +17,7 @@ import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
 import homeTabsData from '@/lib/data/home-tabs.json';
 import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
+import { useRouter } from "next/navigation";
 
 
 const navLinks = [
@@ -111,47 +112,7 @@ function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem asChild>
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <button className="w-full text-left">
-                                     <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
-                                </button>
-                            </DialogTrigger>
-                            <DialogContent className="sm:max-w-[425px]">
-                                <DialogHeader>
-                                    <DialogTitle>Customer Login</DialogTitle>
-                                    <DialogDescription>
-                                        One account for all SG-NEST portals.
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <div className="grid gap-4 py-4">
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="email" className="text-right">
-                                            Email
-                                        </Label>
-                                        <Input
-                                            id="email"
-                                            type="email"
-                                            placeholder="m@example.com"
-                                            className="col-span-3"
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="password" className="text-right">
-                                            Password
-                                        </Label>
-                                        <Input id="password" type="password" className="col-span-3" />
-                                    </div>
-                                     <div className="flex justify-between items-center text-sm">
-                                        <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
-                                         <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
-                                    </div>
-                                </div>
-                                <DialogFooter>
-                                    <Button type="submit" className="w-full">Sign In</Button>
-                                </DialogFooter>
-                            </DialogContent>
-                        </Dialog>
+                      <CustomerLoginPopup />
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                         <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
@@ -593,6 +554,133 @@ function ReferFriendPopup() {
     )
 }
 
+function CustomerLoginPopup() {
+    const router = useRouter();
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        router.push('/customer/dashboard');
+    };
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <button className="w-full text-left">
+                    <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
+                </button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Customer Login</DialogTitle>
+                    <DialogDescription>
+                        One account for all SG-NEST portals.
+                    </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleLogin}>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="email" className="text-right">
+                                Email/Phone
+                            </Label>
+                            <Input
+                                id="email"
+                                type="text"
+                                placeholder="Email or Phone Number"
+                                className="col-span-3"
+                            />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="password" className="text-right">
+                                Password
+                            </Label>
+                            <Input id="password" type="password" className="col-span-3" />
+                        </div>
+                        <div className="col-span-4 flex justify-between items-center text-sm">
+                            <ForgotPasswordPopup />
+                            <CustomerRegisterPopup />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button type="submit" className="w-full">Sign In</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function ForgotPasswordPopup() {
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Reset Password</DialogTitle>
+                    <DialogDescription>
+                        Enter your email address and we'll send you a link to reset your password.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="reset-email" className="text-right">
+                            Email
+                        </Label>
+                        <Input id="reset-email" type="email" placeholder="m@example.com" className="col-span-3" />
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Send Reset Link</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function CustomerRegisterPopup() {
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                 <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-lg">
+                <DialogHeader>
+                    <DialogTitle>Create Customer Account</DialogTitle>
+                    <DialogDescription>
+                        Join the SG-Nest ecosystem with a single account.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        <div className="grid gap-2">
+                           <Label htmlFor="first-name">First Name</Label>
+                           <Input id="first-name" placeholder="John" />
+                        </div>
+                        <div className="grid gap-2">
+                           <Label htmlFor="other-names">Other Names</Label>
+                           <Input id="other-names" placeholder="Doe" />
+                        </div>
+                    </div>
+                     <div className="grid gap-2">
+                        <Label htmlFor="reg-phone">Phone Number</Label>
+                        <Input id="reg-phone" placeholder="+254712345678" />
+                    </div>
+                     <div className="grid gap-2">
+                        <Label htmlFor="reg-email">Email Address</Label>
+                        <Input id="reg-email" type="email" placeholder="m@example.com" />
+                    </div>
+                     <div className="grid gap-2">
+                        <Label htmlFor="reg-password">Password</Label>
+                        <Input id="reg-password" type="password" />
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Create Account & Get OTP</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
 const CommunitySection = () => (
   <section className="py-5 md:py-8 bg-muted/30">
     <div className="container text-center max-w-5xl mx-auto px-4">
@@ -679,38 +767,39 @@ const CommunitySection = () => (
                 <DialogTrigger asChild>
                     <Button size="lg" variant="secondary">Customer Register</Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className="sm:max-w-lg">
                     <DialogHeader>
-                        <DialogTitle>Customer Login</DialogTitle>
+                        <DialogTitle>Create Customer Account</DialogTitle>
                         <DialogDescription>
-                            One account for all SG-NEST portals.
+                            Join the SG-Nest ecosystem with a single account.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="email-login" className="text-right">
-                                Email
-                            </Label>
-                            <Input
-                                id="email-login"
-                                type="email"
-                                placeholder="m@example.com"
-                                className="col-span-3"
-                            />
+                         <div className="grid sm:grid-cols-2 gap-4">
+                            <div className="grid gap-2">
+                               <Label htmlFor="first-name-main">First Name</Label>
+                               <Input id="first-name-main" placeholder="John" />
+                            </div>
+                            <div className="grid gap-2">
+                               <Label htmlFor="other-names-main">Other Names</Label>
+                               <Input id="other-names-main" placeholder="Doe" />
+                            </div>
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="password-login" className="text-right">
-                                Password
-                            </Label>
-                            <Input id="password-login" type="password" className="col-span-3" />
+                         <div className="grid gap-2">
+                            <Label htmlFor="reg-phone-main">Phone Number</Label>
+                            <Input id="reg-phone-main" placeholder="+254712345678" />
                         </div>
-                        <div className="flex justify-between items-center text-sm">
-                            <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
-                            <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
+                         <div className="grid gap-2">
+                            <Label htmlFor="reg-email-main">Email Address</Label>
+                            <Input id="reg-email-main" type="email" placeholder="m@example.com" />
+                        </div>
+                         <div className="grid gap-2">
+                            <Label htmlFor="reg-password-main">Password</Label>
+                            <Input id="reg-password-main" type="password" />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className="w-full">Sign In</Button>
+                        <Button type="submit" className="w-full">Create Account & Get OTP</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
