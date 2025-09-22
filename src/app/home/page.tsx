@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -423,13 +423,24 @@ const EcosystemPortals = () => (
                         </Card>
                     </Link>
                 ))}
+                 <Link href="/vendor-registration" className="no-underline">
+                    <Card className="hover:shadow-xl transition-shadow h-full bg-secondary text-secondary-foreground">
+                        <CardHeader className="flex flex-row items-center gap-4">
+                            <UserPlus className="h-8 w-8" />
+                            <CardTitle className="!text-xl !text-white">Become a Merchant</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p>Register your business and start selling on SG-Nest portals.</p>
+                        </CardContent>
+                    </Card>
+                </Link>
             </div>
         </div>
     </section>
 );
 
 const CommunitySection = () => (
-  <section className="py-16 md:py-24">
+  <section className="py-5 md:py-8">
     <div className="container text-center max-w-4xl mx-auto px-4">
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
         Campfire by Standard Group.
@@ -466,7 +477,7 @@ const Footer = () => (
       </div>
        <div className="flex gap-4">
           <Link href="#" className="text-sm hover:underline">About</Link>
-          <Link href="#" className="text-sm hover:underline">Merchant Sign-up</Link>
+          <Link href="/vendor-registration" className="text-sm hover:underline">Merchant Sign-up</Link>
           <Link href="#" className="text-sm hover:underline">Contact</Link>
       </div>
     </div>
@@ -476,4 +487,3 @@ const Footer = () => (
     
 
     
-
