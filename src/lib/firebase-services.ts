@@ -10,7 +10,6 @@ import propertiesData from '@/lib/data/properties.json';
 import staysData from '@/lib/data/stays.json';
 import packagesData from '@/lib/data/packages.json';
 import productsData from '@/lib/data/products.json';
-import homeTabsData from '@/lib/data/home-tabs.json';
 
 
 const db = getFirestore(app);
@@ -260,8 +259,3 @@ export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
 export const getProducts = async (): Promise<Product[]> => {
     return productsData as Product[];
 };
-
-// === Home Tabs Data ===
-export const getHomeTabsData = async (): Promise<any> => {
-    return homeTabsData;
-}
