@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, Referral, ShoppingBag, Edit, Share2, Copy } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -101,9 +101,9 @@ function Header() {
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                   <nav className="flex flex-col gap-4 mt-8">
                       {navLinks.map((link) => (
-                          <Link 
-                            key={link.text} 
-                            href={link.href} 
+                          <Link
+                            key={link.text}
+                            href={link.href}
                             onClick={(e) => link.comingSoon && handleComingSoon(e, link.text)}
                             className="flex items-center gap-3 text-lg font-medium text-muted-foreground hover:text-foreground"
                           >
@@ -123,9 +123,9 @@ function Header() {
 
          <nav className="hidden lg:flex items-center gap-4 text-sm font-medium">
            {navLinks.map((link) => (
-              <Link 
-                key={link.text} 
-                href={link.href} 
+              <Link
+                key={link.text}
+                href={link.href}
                 onClick={(e) => link.comingSoon && handleComingSoon(e, link.text)}
                 className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
               >
@@ -258,7 +258,7 @@ const MiddayVaultSection = ({ items }: { items: any[] }) => {
         const timer = setInterval(() => setNow(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
-    
+
     if (!isClient) {
         // Render a placeholder or skeleton on the server and during initial client render
         return (
@@ -289,7 +289,7 @@ const MiddayVaultSection = ({ items }: { items: any[] }) => {
             </div>
         );
     }
-    
+
     const todayMidday = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0, 0);
     const vaultEndTime = new Date(todayMidday.getTime() + 5 * 60 * 1000);
     const isVaultOpen = now >= todayMidday && now < vaultEndTime;
@@ -301,7 +301,7 @@ const MiddayVaultSection = ({ items }: { items: any[] }) => {
     } else {
         targetDate = todayMidday;
     }
-    
+
     return (
         <div>
             <div className="text-center my-8">
@@ -443,22 +443,32 @@ const EcosystemPortals = () => (
 );
 
 const CommunityCard = ({ title, description, imageUrl, imageHint }: { title: string, description: string, imageUrl: string, imageHint: string }) => (
-    <DialogTrigger asChild>
-        <Card className="relative overflow-hidden group cursor-pointer h-64">
-            <Image
-                src={imageUrl}
-                alt={title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                data-ai-hint={imageHint}
-            />
-            <div className="absolute inset-0 bg-black/50" />
-            <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                <h3 className="text-2xl font-bold">{title}</h3>
-                <p>{description}</p>
+    <Dialog>
+        <DialogTrigger asChild>
+            <Card className="relative overflow-hidden group cursor-pointer h-64">
+                <Image
+                    src={imageUrl}
+                    alt={title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    data-ai-hint={imageHint}
+                />
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                    <h3 className="text-2xl font-bold">{title}</h3>
+                    <p>{description}</p>
+                </div>
+            </Card>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+                <DialogTitle className="text-center text-2xl">Coming Soon!</DialogTitle>
+            </DialogHeader>
+            <div className="text-center py-4">
+                <p className="text-lg">Something awesome is coming soon, stay tuned!!</p>
             </div>
-        </Card>
-    </DialogTrigger>
+        </DialogContent>
+    </Dialog>
 );
 
 // Define WhatsApp icon as an SVG component
@@ -492,7 +502,7 @@ function ReferFriendPopup() {
             description: "Referral link copied to clipboard.",
         });
     };
-    
+
     if (!isMounted) {
         return <Button size="lg" variant="outline">Refer a Friend</Button>;
     }
@@ -566,37 +576,26 @@ const CommunitySection = () => (
         <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">
             Campfire is our digital fireside - just like the African campfire where wisdom was shared, stories told, and generations guided. It’s a space to connect, learn, and grow together in today’s digital age.
         </p>
-        <Dialog>
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <CommunityCard
-                    title="Money Mondays"
-                    description="Finance Literacy"
-                    imageUrl="/images/campfire/moneymondays.png"
-                    imageHint="finance discussion"
-                />
-                <CommunityCard
-                    title="Wellness Wednesdays"
-                    description="Mental Health"
-                    imageUrl="/images/campfire/wellnesswednesdays.png"
-                    imageHint="wellness yoga"
-                />
-                <CommunityCard
-                    title="Ignite Fridays"
-                    description="Jobs & Entrepreneurship"
-                    imageUrl="/images/campfire/ignitefridays.png"
-                    imageHint="entrepreneur meeting"
-                />
-            </div>
-
-            <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                    <DialogTitle className="text-center text-2xl">Coming Soon!</DialogTitle>
-                </DialogHeader>
-                <div className="text-center py-4">
-                    <p className="text-lg">Something awesome is coming soon, stay tuned!!</p>
-                </div>
-            </DialogContent>
-        </Dialog>
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <CommunityCard
+                title="Money Mondays"
+                description="Finance Literacy"
+                imageUrl="/images/campfire/moneymondays.png"
+                imageHint="finance discussion"
+            />
+            <CommunityCard
+                title="Wellness Wednesdays"
+                description="Mental Health"
+                imageUrl="/images/campfire/wellnesswednesdays.png"
+                imageHint="wellness yoga"
+            />
+            <CommunityCard
+                title="Ignite Fridays"
+                description="Jobs & Entrepreneurship"
+                imageUrl="/images/campfire/ignitefridays.png"
+                imageHint="entrepreneur meeting"
+            />
+        </div>
     </div>
     <div className="container max-w-6xl mx-auto px-4 mt-16">
         <div className="text-center">
