@@ -1,5 +1,5 @@
 
-import { Client, Transaction, ModuleEngagement } from '@/lib/mock-data';
+import { Client, Transaction } from '@/lib/mock-data';
 import { DashboardClient } from '@/components/admin/dashboard-client';
 import { getClients, getTransactions } from '@/lib/firebase-services';
 
