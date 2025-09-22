@@ -63,7 +63,7 @@
         { "type": "SALE", "title": "Ladies Handbag", "details": "KES 2,500 (was 4,000)", "imageUrl": "https://picsum.photos/400/300?random=64", "imageHint": "ladies handbag", "buttonText": "Shop Sale", "href": "#"}
     ],
     "ceo-giveaway": [
-        { "type": "GIVEAWAY", "title": "Latest Smartphone", "details": "On sale for KES 1!", "imageUrl": "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg", "imageHint": "latest smartphone", "buttonText": "Get for KES 1", "href": "#" },
+        { "type": "GIVEAWAY", "title": "Realme Note 50 6.74\" 128GB ROM+ 4GB (Expandable to 8GB RAM) 5000mAh (Dual sim) - Midnight Black", "details": "On sale for KES 1!", "imageUrl": "https://images.pexels.com/photos/1092644/pexels-photo-1092644.jpeg", "imageHint": "latest smartphone", "buttonText": "Get for KES 1", "href": "#" },
         { "type": "GIVEAWAY", "title": "4K Smart TV", "details": "On sale for KES 1!", "imageUrl": "https://picsum.photos/400/300?random=72", "imageHint": "smart tv", "buttonText": "Get for KES 1", "href": "#" },
         { "type": "GIVEAWAY", "title": "Luxury Weekend Getaway", "details": "On sale for KES 1!", "imageUrl": "https://picsum.photos/400/300?random=73", "imageHint": "luxury resort", "buttonText": "Get for KES 1", "href": "#" },
         { "type": "GIVEAWAY", "title": "KES 10,000 Shopping Voucher", "details": "On sale for KES 1!", "imageUrl": "https://picsum.photos/400/300?random=74", "imageHint": "shopping voucher", "buttonText": "Get for KES 1", "href": "#" }
