@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building, Package, Dna, School } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building, Package, Dna, School, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -725,21 +725,34 @@ const CommunitySection = () => (
 
 
 const Footer = () => (
-  <footer className="border-t bg-gray-900 text-gray-300">
-    <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-4 py-8 md:flex-row">
-      <div className="flex items-center gap-2">
-        <p className="text-sm">
-          © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
-        </p>
+    <footer className="border-t bg-gray-900 text-gray-300">
+      <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
+        <div className="flex items-center gap-2">
+          <p className="text-sm">
+            © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
+          </p>
+        </div>
+         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <Info className="h-4 w-4" /> About us
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <FileText className="h-4 w-4" /> Terms
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <Shield className="h-4 w-4" /> Privacy policy
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <RefreshCw className="h-4 w-4" /> Refund
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <MailIconLucide className="h-4 w-4" /> Contact us
+            </Link>
+        </div>
       </div>
-       <div className="flex gap-4">
-          <Link href="#" className="text-sm hover:underline">About</Link>
-          <Link href="/vendor-registration" className="text-sm hover:underline">Merchant Sign-up</Link>
-          <Link href="#" className="text-sm hover:underline">Contact</Link>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+  
 
     
 
