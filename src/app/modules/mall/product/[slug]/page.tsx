@@ -270,24 +270,26 @@ const ProductPurchaseCard = () => (
         </CardHeader>
         <CardContent>
           <Table>
-            <TableRow>
-              <TableCell>1-5 units</TableCell>
-              <TableCell className="text-right font-medium">
-                KES 120,000
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>6-20 units</TableCell>
-              <TableCell className="text-right font-medium">
-                KES 115,000
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>20+ units</TableCell>
-              <TableCell className="text-right font-medium">
-                KES 110,000
-              </TableCell>
-            </TableRow>
+            <TableBody>
+              <TableRow>
+                <TableCell>1-5 units</TableCell>
+                <TableCell className="text-right font-medium">
+                  KES 120,000
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>6-20 units</TableCell>
+                <TableCell className="text-right font-medium">
+                  KES 115,000
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>20+ units</TableCell>
+                <TableCell className="text-right font-medium">
+                  KES 110,000
+                </TableCell>
+              </TableRow>
+            </TableBody>
           </Table>
         </CardContent>
       </Card>
