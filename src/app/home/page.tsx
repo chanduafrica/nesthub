@@ -465,6 +465,9 @@ const CommunitySection = () => (
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
             Campfire by Standard Group.
         </h2>
+        <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">
+            Campfire is our digital fireside - just like the African campfire where wisdom was shared, stories told, and generations guided. It’s a space to connect, learn, and grow together in today’s digital age.
+        </p>
         <Dialog>
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
                 <CommunityCard
