@@ -497,7 +497,6 @@ const CommunitySection = () => (
             </DialogContent>
         </Dialog>
       <p className="mt-8 text-lg font-semibold text-accent flex items-center justify-center gap-2">
-        <Sparkles className="h-5 w-5" />
         Earn Sparks loyalty points & redeem across SG Hub.
       </p>
     </div>
