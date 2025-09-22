@@ -455,7 +455,7 @@ const EcosystemPortals = () => (
                             <CardTitle className="!text-xl !text-white">Become a Merchant</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p>Register your business and start selling on SG-Nest portals.</p>
+                            <p>click to register your business</p>
                         </CardContent>
                     </Card>
                 </Link>
