@@ -1,4 +1,5 @@
 
+
 export type Client = {
   id: string;
   name: string;
@@ -84,4 +85,40 @@ export type Property = {
     name: string;
     avatarUrl: string;
   };
+};
+
+export type Stay = {
+    id: string;
+    title: string;
+    image: string;
+    hint: string;
+    rating: number;
+    location: string;
+    type: string;
+    price: number;
+};
+
+export type HolidayPackage = {
+    id: string;
+    title: string;
+    image: string;
+    hint: string;
+    rating: number;
+    location: string;
+    duration: string;
+    price: number;
+    tags: string[];
+    highlights: string[];
+};
+
+export type Product = {
+    id: string;
+    slug: string;
+    image: string;
+    title: string;
+    vendor: string;
+    rating: number;
+    price: number;
+    discountPrice?: number;
+    category: string;
 };

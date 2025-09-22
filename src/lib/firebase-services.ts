@@ -1,8 +1,9 @@
 
 
+
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import type { Offer, VendorOffer, Client, Vendor, Transaction, Property } from './mock-data';
+import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
 
 const db = getFirestore(app);
 
@@ -13,6 +14,9 @@ export type ClientData = Omit<Client, 'id'>;
 export type VendorData = Omit<Vendor, 'id'>;
 export type TransactionData = Omit<Transaction, 'id'>;
 export type PropertyData = Omit<Property, 'id'>;
+export type StayData = Omit<Stay, 'id'>;
+export type HolidayPackageData = Omit<HolidayPackage, 'id'>;
+export type ProductData = Omit<Product, 'id'>;
 export type BuildProjectData = {
     designName: string;
     designId: string;
@@ -330,5 +334,62 @@ export const saveInsuranceQuote = async (quoteData: InsuranceQuoteData) => {
     } catch (e) {
         console.error("Error adding insurance quote: ", e);
         throw new Error("Could not save insurance quote.");
+    }
+};
+
+// === Stays Functions ===
+export const getStays = async (): Promise<Stay[]> => {
+    try {
+        const staysCol = collection(db, 'stays');
+        let querySnapshot = await getDocs(staysCol);
+        if (querySnapshot.empty) {
+            console.log('No stays found, seeding database...');
+            const staysSeed = (await import('@/lib/data/stays.json')).default;
+            const seedPromises = staysSeed.map(stay => setDoc(doc(staysCol), stay));
+            await Promise.all(seedPromises);
+            querySnapshot = await getDocs(staysCol);
+        }
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Stay));
+    } catch (e) {
+        console.error("Error getting stays: ", e);
+        throw new Error("Could not fetch stays.");
+    }
+};
+
+// === Holiday Packages Functions ===
+export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
+    try {
+        const packagesCol = collection(db, 'packages');
+        let querySnapshot = await getDocs(packagesCol);
+        if (querySnapshot.empty) {
+            console.log('No packages found, seeding database...');
+            const packagesSeed = (await import('@/lib/data/packages.json')).default;
+            const seedPromises = packagesSeed.map(pkg => setDoc(doc(packagesCol), pkg));
+            await Promise.all(seedPromises);
+            querySnapshot = await getDocs(packagesCol);
+        }
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as HolidayPackage));
+    } catch (e) {
+        console.error("Error getting holiday packages: ", e);
+        throw new Error("Could not fetch holiday packages.");
+    }
+};
+
+// === Products Functions ===
+export const getProducts = async (): Promise<Product[]> => {
+    try {
+        const productsCol = collection(db, 'products');
+        let querySnapshot = await getDocs(productsCol);
+        if (querySnapshot.empty) {
+            console.log('No products found, seeding database...');
+            const productsSeed = (await import('@/lib/data/products.json')).default;
+            const seedPromises = productsSeed.map(product => setDoc(doc(productsCol), product));
+            await Promise.all(seedPromises);
+            querySnapshot = await getDocs(productsCol);
+        }
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
+    } catch (e) {
+        console.error("Error getting products: ", e);
+        throw new Error("Could not fetch products.");
     }
 };
