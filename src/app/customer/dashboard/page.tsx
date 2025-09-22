@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Award, Package, Heart, Settings, ShoppingCart, User } from "lucide-react";
+import { Award, Heart, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const recentOrders = [
