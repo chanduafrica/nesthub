@@ -103,26 +103,33 @@ function Header() {
         </nav>
 
         <div className="flex items-center justify-end space-x-2 ml-auto">
-           <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                        Account
-                        <ChevronDown className="ml-2 h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <CustomerLoginPopup />
-                    <DropdownMenuItem asChild>
-                        <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                     <DropdownMenuItem asChild>
-                        <a href="/admin/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
-                            <ShieldQuestion className="h-4 w-4"/> Admin
-                        </a>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-           </DropdownMenu>
+          <Dialog>
+             <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                      <Button variant="outline">
+                          Account
+                          <ChevronDown className="ml-2 h-4 w-4" />
+                      </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                      <DialogTrigger asChild>
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                            <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
+                        </DropdownMenuItem>
+                      </DialogTrigger>
+                      <DropdownMenuItem asChild>
+                          <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                       <DropdownMenuItem asChild>
+                          <a href="/admin/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
+                              <ShieldQuestion className="h-4 w-4"/> Admin
+                          </a>
+                      </DropdownMenuItem>
+                  </DropdownMenuContent>
+             </DropdownMenu>
+             <CustomerLoginPopup />
+          </Dialog>
         </div>
       </div>
     </header>
@@ -559,49 +566,42 @@ function CustomerLoginPopup() {
         router.push('/customer/dashboard');
     };
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                    <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
-                </DropdownMenuItem>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>Customer Login</DialogTitle>
-                    <DialogDescription>
-                        One account for all SG-NEST portals.
-                    </DialogDescription>
-                </DialogHeader>
-                <form onSubmit={handleLogin}>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="email" className="text-right">
-                                Email/Phone
-                            </Label>
-                            <Input
-                                id="email"
-                                type="text"
-                                placeholder="Email or Phone Number"
-                                className="col-span-3"
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="password" className="text-right">
-                                Password
-                            </Label>
-                            <Input id="password" type="password" className="col-span-3" />
-                        </div>
-                        <div className="col-span-4 flex justify-between items-center text-sm">
-                            <ForgotPasswordPopup />
-                            <CustomerRegisterPopup />
-                        </div>
+        <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+                <DialogTitle>Customer Login</DialogTitle>
+                <DialogDescription>
+                    One account for all SG-NEST portals.
+                </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleLogin}>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="email" className="text-right">
+                            Email/Phone
+                        </Label>
+                        <Input
+                            id="email"
+                            type="text"
+                            placeholder="Email or Phone Number"
+                            className="col-span-3"
+                        />
                     </div>
-                    <DialogFooter>
-                        <Button type="submit" className="w-full">Sign In</Button>
-                    </DialogFooter>
-                </form>
-            </DialogContent>
-        </Dialog>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="password" className="text-right">
+                            Password
+                        </Label>
+                        <Input id="password" type="password" className="col-span-3" />
+                    </div>
+                    <div className="col-span-4 flex justify-between items-center text-sm">
+                        <ForgotPasswordPopup />
+                        <CustomerRegisterPopup />
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="submit" className="w-full">Sign In</Button>
+                </DialogFooter>
+            </form>
+        </DialogContent>
     );
 }
 
@@ -852,3 +852,5 @@ const Footer = () => (
     
 
       
+
+    
