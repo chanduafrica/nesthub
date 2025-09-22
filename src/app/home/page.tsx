@@ -406,7 +406,7 @@ const EcosystemPortals = () => (
             <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">One Hub, Endless Possibilities</h2>
             </div>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                  {portals.map((portal) => (
                     <Link href={portal.href} key={portal.title} className="no-underline">
                         <Card className="hover:shadow-xl transition-shadow h-full">
@@ -710,3 +710,5 @@ const Footer = () => (
     </div>
   </footer>
 );
+
+    
