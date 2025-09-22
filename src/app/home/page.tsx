@@ -111,9 +111,7 @@ function Header() {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem asChild>
-                      <CustomerLoginPopup />
-                    </DropdownMenuItem>
+                    <CustomerLoginPopup />
                     <DropdownMenuItem asChild>
                         <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
                     </DropdownMenuItem>
@@ -563,9 +561,9 @@ function CustomerLoginPopup() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="w-full text-left">
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
-                </button>
+                </DropdownMenuItem>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -852,3 +850,5 @@ const Footer = () => (
     
 
     
+
+      
