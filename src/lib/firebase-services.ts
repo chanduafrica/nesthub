@@ -3,6 +3,7 @@
 
 
 
+
 import app from './firebase';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
@@ -394,23 +395,4 @@ export const getProducts = async (): Promise<Product[]> => {
         console.error("Error getting products: ", e);
         throw new Error("Could not fetch products.");
     }
-};
-
-// === Home Tabs Data Function ===
-export const getHomeTabsData = async (): Promise<any> => {
-  try {
-    const homeTabsDocRef = doc(db, 'content', 'homeTabs');
-    const docSnap = await getDoc(homeTabsDocRef);
-    if (docSnap.exists()) {
-      return docSnap.data();
-    } else {
-      console.log('No homeTabs data found, seeding database...');
-      const homeTabsSeed = (await import('@/lib/data/home-tabs.json')).default;
-      await setDoc(homeTabsDocRef, homeTabsSeed);
-      return homeTabsSeed;
-    }
-  } catch (e) {
-    console.error("Error getting home tabs data: ", e);
-    throw new Error("Could not fetch home tabs data.");
-  }
 };
