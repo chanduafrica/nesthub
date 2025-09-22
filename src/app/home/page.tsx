@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -575,24 +574,19 @@ function CustomerLoginPopup() {
             </DialogHeader>
             <form onSubmit={handleLogin}>
                 <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right">
-                            Email/Phone
-                        </Label>
+                    <div className="grid gap-2">
+                        <Label htmlFor="email">Email/Phone</Label>
                         <Input
                             id="email"
                             type="text"
                             placeholder="Email or Phone Number"
-                            className="col-span-3"
                         />
                     </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="password" className="text-right">
-                            Password
-                        </Label>
-                        <Input id="password" type="password" className="col-span-3" />
+                    <div className="grid gap-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input id="password" type="password" />
                     </div>
-                    <div className="col-span-4 flex justify-between items-center text-sm">
+                    <div className="flex justify-between items-center text-sm">
                         <ForgotPasswordPopup />
                         <CustomerRegisterPopup />
                     </div>
@@ -619,11 +613,9 @@ function ForgotPasswordPopup() {
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="reset-email" className="text-right">
-                            Email
-                        </Label>
-                        <Input id="reset-email" type="email" placeholder="m@example.com" className="col-span-3" />
+                    <div className="grid gap-2">
+                        <Label htmlFor="reset-email">Email</Label>
+                        <Input id="reset-email" type="email" placeholder="m@example.com" />
                     </div>
                 </div>
                 <DialogFooter>
