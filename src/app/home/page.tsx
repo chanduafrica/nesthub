@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
 import homeTabsData from '@/lib/data/home-tabs.json';
@@ -19,16 +20,35 @@ import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
 
 
 const navLinks = [
-  { href: "/modules/mall", icon: Store, text: "NestMall" },
-  { href: "#", icon: ShoppingCart, text: "Duka", comingSoon: true },
-  { href: "#", icon: Car, text: "AutoParts", comingSoon: true },
-  { href: "#", icon: BookOpen, text: "Back2School", comingSoon: true },
-  { href: "/modules/travel", icon: Plane, text: "Travel" },
-  { href: "/modules/homes/properties", icon: HomeIcon, text: "Properties" },
-  { href: "/modules/stays", icon: BedDouble, text: "Stays"},
-  { href: "#", icon: MessageSquare, text: "Join Campfire", comingSoon: true },
-  { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
-  { href: "#", icon: Ticket, text: "Events", comingSoon: true },
+  { href: "/home", icon: HomeIcon, text: "Home" },
+  { 
+    text: "Shop", 
+    icon: ShoppingCart,
+    dropdown: [
+        { href: "/modules/mall", icon: Store, text: "NestMall" },
+        { href: "#", icon: ShoppingCart, text: "Duka", comingSoon: true },
+        { href: "#", icon: Car, text: "AutoParts", comingSoon: true },
+        { href: "#", icon: BookOpen, text: "Back2School", comingSoon: true },
+    ]
+  },
+   { 
+    text: "Explore", 
+    icon: Plane,
+    dropdown: [
+        { href: "/modules/travel", icon: Plane, text: "Travel" },
+        { href: "/modules/homes/properties", icon: Building, text: "Properties" },
+        { href: "/modules/stays", icon: BedDouble, text: "Stays"},
+    ]
+  },
+  { 
+    text: "Lifestyle", 
+    icon: Flame,
+    dropdown: [
+        { href: "#", icon: Ticket, text: "Events", comingSoon: true },
+        { href: "/modules/eats", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
+    ]
+  },
+  { href: "#", icon: MessageSquare, text: "Community", comingSoon: true },
 ];
 
 
@@ -56,17 +76,34 @@ function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                   <nav className="flex flex-col gap-4 mt-8">
-                      {navLinks.map((link) => (
+                      {navLinks.map((link) => 
+                        link.href ? (
                           <Link
                             key={link.text}
                             href={link.href}
-                            onClick={(e) => link.comingSoon && handleComingSoon(e, link.text)}
+                            onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
                             className="flex items-center gap-3 text-lg font-medium text-muted-foreground hover:text-foreground"
                           >
                               <link.icon className="h-5 w-5" />
                               {link.text}
                           </Link>
-                      ))}
+                        ) : (
+                          <div key={link.text}>
+                            <p className="flex items-center gap-3 text-lg font-medium text-foreground px-2 pt-4 pb-2">{link.text}</p>
+                            {(link.dropdown || []).map(item => (
+                               <Link
+                                key={item.text}
+                                href={item.href}
+                                onClick={(e) => (item as any).comingSoon && handleComingSoon(e, item.text)}
+                                className="flex items-center gap-3 text-md font-medium text-muted-foreground hover:text-foreground py-2 pl-8"
+                              >
+                                  <item.icon className="h-5 w-5" />
+                                  {item.text}
+                              </Link>
+                            ))}
+                          </div>
+                        )
+                      )}
                   </nav>
               </SheetContent>
           </Sheet>
@@ -77,63 +114,103 @@ function Header() {
           </Link>
         </div>
 
-         <nav className="hidden lg:flex items-center gap-4 text-sm font-medium">
-           {navLinks.map((link) => (
+         <nav className="hidden lg:flex items-center gap-2 text-sm font-medium">
+           {navLinks.map((link) =>
+            link.href ? (
               <Link
                 key={link.text}
                 href={link.href}
-                onClick={(e) => link.comingSoon && handleComingSoon(e, link.text)}
-                className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground"
+                onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
+                className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 rounded-md"
               >
                 <link.icon className="h-4 w-4" />
                 {link.text}
               </Link>
-            ))}
+            ) : (
+              <DropdownMenu key={link.text}>
+                <DropdownMenuTrigger asChild>
+                   <Button variant="ghost" className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 text-sm font-medium">
+                     <link.icon className="h-4 w-4" />
+                     {link.text}
+                     <ChevronDown className="h-4 w-4" />
+                   </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    {(link.dropdown || []).map(item => (
+                       <DropdownMenuItem key={item.text} asChild>
+                            <Link href={item.href} onClick={(e) => (item as any).comingSoon && handleComingSoon(e, item.text)} className="flex items-center gap-2">
+                                <item.icon className="h-4 w-4" />
+                                {item.text}
+                            </Link>
+                       </DropdownMenuItem>
+                    ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )
+           )}
         </nav>
 
         <div className="flex items-center justify-end space-x-2">
-           <Button variant="ghost" asChild>
-              <Link href="/admin/login">Admin</Link>
-          </Button>
-           <Dialog>
-                <DialogTrigger asChild>
-                    <Button>Login</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Login</DialogTitle>
-                        <DialogDescription>
-                            Access your SG-NEST account.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="email" className="text-right">
-                                Email
-                            </Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="m@example.com"
-                                className="col-span-3"
-                            />
-                        </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="password" className="text-right">
-                                Password
-                            </Label>
-                            <Input id="password" type="password" className="col-span-3" />
-                        </div>
-                         <div className="flex justify-between items-center text-sm">
-                            <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
-                             <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button type="submit" className="w-full">Sign In</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+           <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline">
+                        Account
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem asChild>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <button className="w-full text-left">
+                                     <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
+                                </button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Login</DialogTitle>
+                                    <DialogDescription>
+                                        Access your SG-NEST account.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="email" className="text-right">
+                                            Email
+                                        </Label>
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            placeholder="m@example.com"
+                                            className="col-span-3"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="password" className="text-right">
+                                            Password
+                                        </Label>
+                                        <Input id="password" type="password" className="col-span-3" />
+                                    </div>
+                                     <div className="flex justify-between items-center text-sm">
+                                        <Button variant="link" size="sm" className="p-0 h-auto">Forgot password?</Button>
+                                         <Button variant="link" size="sm" className="p-0 h-auto">Don't have an account? Sign Up</Button>
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" className="w-full">Sign In</Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="#" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                     <DropdownMenuItem asChild>
+                        <Link href="/admin/login" className="flex items-center gap-2"><ShieldQuestion className="h-4 w-4"/> Admin</Link>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+           </DropdownMenu>
         </div>
       </div>
     </header>
