@@ -476,13 +476,13 @@ const CommunitySection = () => (
                 <CommunityCard
                     title="🌱 Wellness Wednesdays"
                     description="Mental Health"
-                    imageUrl="/campfire/Wellness Wednesday.jpg"
+                    imageUrl="/images/campfire/Wellness Wednesday.png"
                     imageHint="wellness yoga"
                 />
                 <CommunityCard
                     title="🚀 Ignite Fridays"
                     description="Jobs & Entrepreneurship"
-                    imageUrl="/campfire/ignite Fridays.jpg"
+                    imageUrl="/images/campfire/ignitefridays.png"
                     imageHint="entrepreneur meeting"
                 />
             </div>
