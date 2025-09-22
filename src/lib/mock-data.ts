@@ -101,6 +101,7 @@ export type Stay = {
 export type HolidayPackage = {
     id: string;
     title: string;
+    slug: string;
     image: string;
     hint: string;
     rating: number;
@@ -109,6 +110,7 @@ export type HolidayPackage = {
     price: number;
     tags: string[];
     highlights: string[];
+    description?: string;
 };
 
 export type Product = {
