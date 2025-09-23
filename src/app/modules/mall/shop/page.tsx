@@ -5,5 +5,9 @@ import { ShopClient } from "@/components/modules/mall/shop-client";
 
 export default async function ShopAllPage() {
     const products: Product[] = await getProducts();
-    return <ShopClient initialProducts={products} />;
+    return (
+        <main>
+            <ShopClient initialProducts={products} />
+        </main>
+    );
 }

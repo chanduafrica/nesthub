@@ -12,5 +12,9 @@ export default async function PropertyDetailsPage({ params }: { params: { slug: 
         notFound();
     }
 
-    return <PropertyView property={property} />;
+    return (
+        <main>
+            <PropertyView property={property} />
+        </main>
+    );
 }

@@ -6,5 +6,9 @@ import { NestHomesClient } from '@/components/modules/homes/nesthomes-client';
 export default async function NestHomesPage() {
     const properties: Property[] = await getProperties();
 
-    return <NestHomesClient initialProperties={properties} />;
+    return (
+        <main>
+            <NestHomesClient initialProperties={properties} />
+        </main>
+    );
 }

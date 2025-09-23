@@ -16,5 +16,9 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
     }
 
     // 3. Pass the data as props to the Client Component
-    return <PackageDetailClient pkg={pkg} />;
+    return (
+        <div>
+            <PackageDetailClient pkg={pkg} />
+        </div>
+    );
 }

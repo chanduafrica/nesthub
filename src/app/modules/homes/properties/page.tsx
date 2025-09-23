@@ -6,5 +6,9 @@ import { AllPropertiesClient } from '@/components/modules/homes/properties-clien
 export default async function AllPropertiesPage() {
     const properties: Property[] = await getProperties();
 
-    return <AllPropertiesClient initialProperties={properties} />;
+    return (
+        <main>
+            <AllPropertiesClient initialProperties={properties} />
+        </main>
+    );
 }
