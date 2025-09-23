@@ -1,4 +1,3 @@
-
 'use client';
 import { useState }from 'react';
 import {
@@ -18,7 +17,7 @@ import {
   Package,
   ShoppingCart,
   Star,
-  BarChart,
+  BarChart as BarChartIcon,
   Settings,
   UserCircle,
   MessageSquare,
@@ -90,7 +89,7 @@ export default function VendorLayout({
              <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="#">
-                  <BarChart />
+                  <BarChartIcon />
                   <span>Analytics</span>
                 </Link>
               </SidebarMenuButton>
@@ -161,5 +160,3 @@ export default function VendorLayout({
     </SidebarProvider>
   );
 }
-
-    
