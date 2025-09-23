@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BarChart, DollarSign, Package, Star, Users } from "lucide-react";
+import { BarChart as BarChartIcon, DollarSign, Package, Star, Users } from "lucide-react";
 import Link from "next/link";
 import {
   ResponsiveContainer,
