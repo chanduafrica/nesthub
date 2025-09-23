@@ -77,8 +77,8 @@ export function PropertyView({ property }: { property: Property }) {
     return (
         <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
             <Header />
-            <main className="py-8 md:py-12">
-                 <div className="w-[94%] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <main>
+                 <div className="w-[94%] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 py-8 md:py-12">
                     {/* Left Column: Media and Description */}
                     <div className="lg:col-span-2 space-y-8">
                         <MediaGallery title={property.title} />
