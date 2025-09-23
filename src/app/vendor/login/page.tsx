@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -13,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CheckCircle, DollarSign, Rocket, Users } from 'lucide-react';
+import { DollarSign, Rocket, Users } from 'lucide-react';
 
 const benefits = [
     { icon: Rocket, text: "Reach millions of customers across Africa." },
@@ -64,27 +65,30 @@ export default function VendorLoginPage() {
             </div>
             <Card>
                 <form onSubmit={handleLogin}>
-                <CardContent className="grid gap-4 pt-6">
-                    <div className="grid gap-2">
-                    <Label htmlFor="email">Email or Phone</Label>
-                    <Input
-                        id="email"
-                        type="text"
-                        placeholder="m@example.com or +2547..."
-                        required
-                    />
-                    </div>
-                    <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input id="password" type="password" required />
-                    </div>
-                     <p className="text-xs text-muted-foreground text-center">You will receive an OTP to verify your login.</p>
-                </CardContent>
-                <CardHeader>
-                    <Button type="submit" className="w-full">
-                        Sign In
-                    </Button>
-                </CardHeader>
+                    <CardHeader>
+                        <CardTitle>Vendor Login</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid gap-4 pt-6">
+                        <div className="grid gap-2">
+                        <Label htmlFor="email">Email or Phone</Label>
+                        <Input
+                            id="email"
+                            type="text"
+                            placeholder="m@example.com or +2547..."
+                            required
+                        />
+                        </div>
+                        <div className="grid gap-2">
+                        <Label htmlFor="password">Password</Label>
+                        <Input id="password" type="password" required />
+                        </div>
+                        <p className="text-xs text-muted-foreground text-center">You will receive an OTP to verify your login.</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button type="submit" className="w-full">
+                            Sign In
+                        </Button>
+                    </CardFooter>
                 </form>
             </Card>
 
