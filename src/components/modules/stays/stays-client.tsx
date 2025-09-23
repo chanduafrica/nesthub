@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -205,37 +206,38 @@ export function StaysClient({ initialStays }: StaysClientProps) {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="w-[94%] mx-auto py-8">
-        <section className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Find your next stay</h1>
-            <p className="text-muted-foreground md:text-lg">Unforgettable homes, villas, and apartments hosted by locals.</p>
-        </section>
-
-        <section className="mb-8">
-            <StaysSearch />
-        </section>
-
-        <div className="grid lg:grid-cols-4 gap-8">
-            <aside className="hidden lg:block lg:col-span-1">
-                <div className="sticky top-24">
-                   <FiltersSidebar />
-                </div>
-            </aside>
-            <section className="lg:col-span-3">
-                 <div className="mb-4">
-                    <p className="text-sm text-muted-foreground">Showing {initialStays.length} of 2,345 available stays</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    {initialStays.map((stay) => (
-                        <StayCard key={stay.title} stay={stay} />
-                    ))}
-                </div>
-                 <div className="flex justify-center mt-8">
-                    <Button variant="outline">Load More Stays</Button>
-                </div>
+      <main>
+        <div className="w-[94%] mx-auto py-8">
+            <section className="mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Find your next stay</h1>
+                <p className="text-muted-foreground md:text-lg">Unforgettable homes, villas, and apartments hosted by locals.</p>
             </section>
-        </div>
 
+            <section className="mb-8">
+                <StaysSearch />
+            </section>
+
+            <div className="grid lg:grid-cols-4 gap-8">
+                <aside className="hidden lg:block lg:col-span-1">
+                    <div className="sticky top-24">
+                       <FiltersSidebar />
+                    </div>
+                </aside>
+                <section className="lg:col-span-3">
+                     <div className="mb-4">
+                        <p className="text-sm text-muted-foreground">Showing {initialStays.length} of 2,345 available stays</p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        {initialStays.map((stay) => (
+                            <StayCard key={stay.title} stay={stay} />
+                        ))}
+                    </div>
+                     <div className="flex justify-center mt-8">
+                        <Button variant="outline">Load More Stays</Button>
+                    </div>
+                </section>
+            </div>
+        </div>
       </main>
     </div>
   );

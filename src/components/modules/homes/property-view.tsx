@@ -1,3 +1,4 @@
+
 'use client';
 
 import { notFound } from 'next/navigation';
@@ -76,8 +77,8 @@ export function PropertyView({ property }: { property: Property }) {
     return (
         <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
             <Header />
-            <main className="w-[94%] mx-auto py-8 md:py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <main className="py-8 md:py-12">
+                 <div className="w-[94%] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Column: Media and Description */}
                     <div className="lg:col-span-2 space-y-8">
                         <MediaGallery title={property.title} />

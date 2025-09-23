@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -109,60 +110,62 @@ export function ShopClient({ initialProducts }: ShopClientProps) {
     return (
         <div className="flex flex-col min-h-screen bg-muted/20">
             <Header />
-            <main className="w-[94%] mx-auto py-8">
-                <div className="mb-6">
-                    <Card className="bg-primary/10 border-primary/20">
-                       <CardContent className="p-6 text-center">
-                            <h2 className="text-2xl font-bold text-primary">Back-to-School Deals!</h2>
-                            <p className="text-muted-foreground">Get up to 20% off on electronics and stationery.</p>
-                       </CardContent>
-                    </Card>
-                </div>
+            <main>
+                <div className="w-[94%] mx-auto py-8">
+                    <div className="mb-6">
+                        <Card className="bg-primary/10 border-primary/20">
+                           <CardContent className="p-6 text-center">
+                                <h2 className="text-2xl font-bold text-primary">Back-to-School Deals!</h2>
+                                <p className="text-muted-foreground">Get up to 20% off on electronics and stationery.</p>
+                           </CardContent>
+                        </Card>
+                    </div>
 
-                <div className="grid lg:grid-cols-4 gap-8">
-                    <aside className="lg:col-span-1">
-                        <div className="sticky top-20">
-                           <FiltersSidebar />
-                        </div>
-                    </aside>
-                    <section className="lg:col-span-3">
-                        <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-                            <p className="text-sm text-muted-foreground">
-                                Showing {initialProducts.length} products
-                            </p>
-                            <div className="flex items-center gap-4">
-                                <Select defaultValue="newest">
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Sort by" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="newest">Newest</SelectItem>
-                                        <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                                        <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                                        <SelectItem value="rating">Highest Rated</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                 <div className="flex items-center gap-1 p-1 rounded-md border bg-background">
-                                    <Button variant={layout === 'grid' ? 'secondary' : 'ghost'} size="icon" onClick={() => setLayout('grid')} className="h-8 w-8">
-                                        <Grid className="h-4 w-4" />
-                                    </Button>
-                                    <Button variant={layout === 'list' ? 'secondary' : 'ghost'} size="icon" onClick={() => setLayout('list')} className="h-8 w-8">
-                                        <List className="h-4 w-4" />
-                                    </Button>
+                    <div className="grid lg:grid-cols-4 gap-8">
+                        <aside className="lg:col-span-1">
+                            <div className="sticky top-20">
+                               <FiltersSidebar />
+                            </div>
+                        </aside>
+                        <section className="lg:col-span-3">
+                            <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+                                <p className="text-sm text-muted-foreground">
+                                    Showing {initialProducts.length} products
+                                </p>
+                                <div className="flex items-center gap-4">
+                                    <Select defaultValue="newest">
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Sort by" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="newest">Newest</SelectItem>
+                                            <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                                            <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                                            <SelectItem value="rating">Highest Rated</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                     <div className="flex items-center gap-1 p-1 rounded-md border bg-background">
+                                        <Button variant={layout === 'grid' ? 'secondary' : 'ghost'} size="icon" onClick={() => setLayout('grid')} className="h-8 w-8">
+                                            <Grid className="h-4 w-4" />
+                                        </Button>
+                                        <Button variant={layout === 'list' ? 'secondary' : 'ghost'} size="icon" onClick={() => setLayout('list')} className="h-8 w-8">
+                                            <List className="h-4 w-4" />
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
-                            {initialProducts.map((product) => (
-                                <ProductCard key={product.id} product={product} layout={layout} />
-                            ))}
-                        </div>
+                            <div className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
+                                {initialProducts.map((product) => (
+                                    <ProductCard key={product.id} product={product} layout={layout} />
+                                ))}
+                            </div>
 
-                         <div className="flex justify-center mt-8">
-                            <Button variant="outline">Load More Products</Button>
-                        </div>
-                    </section>
+                             <div className="flex justify-center mt-8">
+                                <Button variant="outline">Load More Products</Button>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </main>
         </div>
