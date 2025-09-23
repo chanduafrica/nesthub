@@ -117,8 +117,10 @@ function Header() {
                             <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
                         </DropdownMenuItem>
                       </DialogTrigger>
-                      <DropdownMenuItem asChild>
-                          <Link href="/vendor-registration" className="flex items-center gap-2"><Store className="h-4 w-4"/> Vendor Login</Link>
+                       <DropdownMenuItem asChild>
+                          <a href="/vendor/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
+                              <Store className="h-4 w-4"/> Vendor Login
+                          </a>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                        <DropdownMenuItem asChild>
@@ -845,6 +847,8 @@ const Footer = () => (
     
 
       
+
+    
 
     
 
