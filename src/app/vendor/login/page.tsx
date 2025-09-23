@@ -59,7 +59,6 @@ export default function VendorLoginPage() {
       <div className="flex w-full lg:w-1/2 items-center justify-center p-8">
           <div className="w-full max-w-md space-y-8">
             <div className="text-center">
-                 <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={48} height={48} className="mx-auto mb-4" />
                 <h1 className="text-3xl font-bold">Merchant Portal</h1>
                  <p className="text-muted-foreground">Sign in to manage your store.</p>
             </div>
