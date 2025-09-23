@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -41,7 +40,7 @@ type Step = 'summary' | 'kyc' | 'payment' | 'confirmation';
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
                         <span className="hidden font-bold sm:inline-block">
@@ -147,7 +146,7 @@ export default function CheckoutPage() {
   return (
     <div className="bg-background min-h-screen">
       <Header />
-      <div className="container mx-auto py-10 max-w-4xl">
+      <div className="w-[94%] mx-auto py-10 max-w-4xl">
        <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold text-primary">Secure Checkout</h1>
          <Button variant="outline" asChild>

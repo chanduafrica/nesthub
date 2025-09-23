@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -28,7 +27,7 @@ interface NestHomesClientProps {
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
                         <span className="hidden font-bold sm:inline-block">
@@ -79,7 +78,7 @@ const HeroSection = () => {
             data-ai-hint="modern house"
         />
         <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 container mx-auto flex flex-col justify-center items-center text-center px-4">
+        <div className="relative z-10 w-[94%] mx-auto flex flex-col justify-center items-center text-center px-4">
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-8">
             Find Your Dream Home
           </h1>
@@ -117,7 +116,7 @@ const FeaturedPropertiesSection = ({ properties }: { properties: Property[] }) =
 
     return (
         <section className="py-16 md:py-24 bg-background">
-            <div className="container mx-auto">
+            <div className="w-[94%] mx-auto">
                 <div className="text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Featured Properties</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
@@ -194,7 +193,7 @@ const NewsSection = () => {
     ]
     return (
         <section className="py-16 md:py-24 bg-secondary/10">
-            <div className="container mx-auto">
+            <div className="w-[94%] mx-auto">
                 <div className="text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Latest News</h2>
                     <p className="mt-4 text-lg text-muted-foreground">
@@ -213,7 +212,7 @@ const NewsSection = () => {
 
 const Footer = () => (
     <footer className="border-t">
-        <div className="container py-8">
+        <div className="w-[94%] mx-auto py-8">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                 <div>
                     <h3 className="font-semibold mb-2">NestHomes</h3>

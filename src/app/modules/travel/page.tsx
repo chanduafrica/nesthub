@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -48,7 +47,7 @@ import { NestIcon } from '@/components/icons';
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden lg:flex">
                      <Link href="/modules/travel" className="mr-6 flex items-center space-x-2">
                         <Plane className="h-6 w-6 text-primary" />
@@ -148,7 +147,7 @@ const HeroSection = () => {
             style={{ backgroundImage: "url(/maasaimara.jpg)" }}
         >
             <div className="absolute inset-0 bg-black/50" />
-            <div className="relative z-10 container text-center flex flex-col items-center px-4">
+            <div className="relative z-10 w-[94%] mx-auto text-center flex flex-col items-center px-4">
                 <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
                     Discover Africa, Your Way.
                 </h1>
@@ -173,7 +172,7 @@ const FeaturedCategories = () => {
     ];
     return (
          <section className="py-16 bg-muted/50">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {categories.map(cat => (
                         <Link href={cat.href} key={cat.title}>
@@ -233,7 +232,7 @@ const SpecialOffersSection = () => {
 
     return (
         <section className="py-16">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold tracking-tight text-primary">Special Offers</h2>
                     <p className="mt-2 text-lg text-muted-foreground">Unbeatable deals for your next adventure.</p>
@@ -293,7 +292,7 @@ const TrustSection = () => {
     ];
     return (
         <section className="py-16 bg-muted/50">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                 <div className="text-center mb-12">
                      <h2 className="text-3xl font-bold tracking-tight text-primary">Why Book with NestTravel?</h2>
                      <p className="mt-2 text-lg text-muted-foreground">Your peace of mind is our priority.</p>
@@ -313,7 +312,7 @@ const TrustSection = () => {
 
 const Footer = () => (
     <footer className="border-t bg-background">
-        <div className="container py-12">
+        <div className="w-[94%] mx-auto py-12">
             <div className="grid gap-8 grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
                 <div className="col-span-2 lg:col-span-1">
                      <Link href="/modules/travel" className="flex items-center space-x-2 mb-4">

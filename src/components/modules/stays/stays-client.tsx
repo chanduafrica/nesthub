@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -39,7 +38,7 @@ interface StaysClientProps {
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden lg:flex">
                      <Link href="/modules/travel" className="mr-6 flex items-center space-x-2">
                         <BedDouble className="h-6 w-6 text-primary" />
@@ -206,7 +205,7 @@ export function StaysClient({ initialStays }: StaysClientProps) {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="container py-8">
+      <main className="w-[94%] mx-auto py-8">
         <section className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Find your next stay</h1>
             <p className="text-muted-foreground md:text-lg">Unforgettable homes, villas, and apartments hosted by locals.</p>

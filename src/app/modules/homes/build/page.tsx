@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -60,7 +59,7 @@ const howItWorksSteps = [
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
                         <span className="hidden font-bold sm:inline-block">
@@ -125,7 +124,7 @@ export default function BuildMyOwnPage() {
   return (
     <div className="bg-background">
       <Header />
-      <main className="container mx-auto py-10">
+      <main className="w-[94%] mx-auto py-10">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-primary">Build Your Own Green Home</h1>
           <p className="text-muted-foreground mt-2 max-w-2xl mx-auto">

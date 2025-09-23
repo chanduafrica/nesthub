@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -11,7 +10,7 @@ import Image from "next/image";
 
 const Header = () => (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="w-[94%] mx-auto flex h-14 items-center">
             <div className="mr-4 hidden md:flex">
                 <Link href="/modules/mall" className="mr-6 flex items-center space-x-2">
                     <Store className="h-6 w-6 text-primary" />
@@ -42,7 +41,7 @@ const HeroSection = () => (
             className="object-cover brightness-50"
             data-ai-hint="african shoppers market"
         />
-        <div className="relative z-10 container text-center flex flex-col items-center px-4">
+        <div className="relative z-10 w-[94%] mx-auto text-center flex flex-col items-center px-4">
             <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
                 Africa’s Digital Mall — Shop, Sell & Grow
             </h1>
@@ -82,7 +81,7 @@ const coreFeatures = [
 
 const CoreFeaturesSection = () => (
     <section id="features" className="py-16 md:py-24 bg-muted/50">
-        <div className="container">
+        <div className="w-[94%] mx-auto">
             <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {coreFeatures.map((prop) => (
                     <Card key={prop.title} className="text-center border-none shadow-none bg-transparent">
@@ -113,7 +112,7 @@ const categories = [
 
 const CategoriesSection = () => (
   <section id="categories" className="py-16 md:py-24">
-    <div className="container">
+    <div className="w-[94%] mx-auto">
       <div className="text-center max-w-3xl mx-auto">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
           Shop from a World of Choices
@@ -143,7 +142,7 @@ const CategoriesSection = () => (
 
 const VendorJourneySection = () => (
     <section className="py-16 md:py-24 bg-primary/5">
-        <div className="container">
+        <div className="w-[94%] mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
                     Open Your Digital Store Today
@@ -180,7 +179,7 @@ const VendorJourneySection = () => (
 
 const TrustSection = () => (
     <section className="py-16 md:py-24">
-        <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="w-[94%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
              <div>
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
                     Shop with Confidence.
@@ -227,7 +226,7 @@ const TrustSection = () => (
 
 const CtaSection = () => (
     <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-      <div className="container text-center max-w-4xl mx-auto">
+      <div className="w-[94%] mx-auto text-center max-w-4xl">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-white">
           From Nairobi to Lagos, NestMall is building Africa’s largest digital marketplace. Be part of the movement.
         </h2>

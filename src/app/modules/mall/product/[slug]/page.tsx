@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -71,7 +70,7 @@ import { useState } from 'react';
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-    <div className="container flex h-14 items-center">
+    <div className="w-[94%] mx-auto flex h-14 items-center">
       <div className="mr-4 hidden md:flex">
         <Link href="/modules/mall" className="mr-6 flex items-center space-x-2">
           <Store className="h-6 w-6 text-primary" />
@@ -490,7 +489,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   return (
     <div className="bg-muted/20">
       <Header />
-      <main className="container py-8">
+      <main className="w-[94%] mx-auto py-8">
         <div className="mb-4">
             <p className="text-sm text-muted-foreground">
                 <Link href="/modules/mall" className="hover:underline">Home</Link> &gt; 

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -25,7 +24,7 @@ interface ShopClientProps {
 
 const Header = () => (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="w-[94%] mx-auto flex h-14 items-center">
             <div className="mr-4 hidden md:flex">
                 <Link href="/modules/mall" className="mr-6 flex items-center space-x-2">
                     <Store className="h-6 w-6 text-primary" />
@@ -110,7 +109,7 @@ export function ShopClient({ initialProducts }: ShopClientProps) {
     return (
         <div className="flex flex-col min-h-screen bg-muted/20">
             <Header />
-            <main className="container py-8">
+            <main className="w-[94%] mx-auto py-8">
                 <div className="mb-6">
                     <Card className="bg-primary/10 border-primary/20">
                        <CardContent className="p-6 text-center">

@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { notFound } from 'next/navigation';
@@ -45,7 +43,7 @@ export function PropertyView({ property }: { property: Property }) {
     const Header = () => {
         return (
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <div className="container flex h-14 items-center">
+                <div className="w-[94%] mx-auto flex h-14 items-center">
                     <div className="mr-4 hidden md:flex">
                         <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
                             <span className="hidden font-bold sm:inline-block">
@@ -78,7 +76,7 @@ export function PropertyView({ property }: { property: Property }) {
     return (
         <div className="flex flex-col min-h-screen bg-background nesthomes-theme">
             <Header />
-            <main className="container py-8 md:py-12">
+            <main className="w-[94%] mx-auto py-8 md:py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Column: Media and Description */}
                     <div className="lg:col-span-2 space-y-8">
@@ -527,5 +525,3 @@ function InsuranceLeadDialog({ property }: { property: Property }) {
         </DialogContent>
     );
 }
-
-    

@@ -128,33 +128,37 @@ export default function VendorLayout({
       <SidebarInset>
         <header className="flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <SidebarTrigger className="sm:hidden" />
-          <h1 className="text-lg font-semibold md:text-xl">Kariuki's Electronics</h1>
-          <div className="ml-auto flex items-center gap-4">
-             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="overflow-hidden rounded-full"
-                  >
-                    <UserCircle className="h-6 w-6" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuItem>Support</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/vendor/login">Logout</Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+          <div className="w-[94%] mx-auto flex items-center justify-between">
+            <h1 className="text-lg font-semibold md:text-xl">Kariuki's Electronics</h1>
+            <div className="ml-auto flex items-center gap-4">
+              <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="overflow-hidden rounded-full"
+                    >
+                      <UserCircle className="h-6 w-6" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Settings</DropdownMenuItem>
+                    <DropdownMenuItem>Support</DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href="/vendor/login">Logout</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
           </div>
         </header>
         <main className="flex-1 overflow-auto p-4 sm:p-6">
-            {children}
+            <div className="w-[94%] mx-auto">
+              {children}
+            </div>
         </main>
       </SidebarInset>
     </SidebarProvider>

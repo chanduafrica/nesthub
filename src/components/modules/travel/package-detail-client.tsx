@@ -1,4 +1,3 @@
-
 'use client';
 
 import { HolidayPackage } from '@/lib/mock-data';
@@ -23,7 +22,7 @@ export function PackageDetailClient({ pkg }: { pkg: HolidayPackage }) {
     return (
         <div className="bg-muted/40">
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-                <div className="container flex h-14 items-center justify-between">
+                <div className="w-[94%] mx-auto flex h-14 items-center justify-between">
                     <Button variant="outline" asChild>
                         <Link href="/modules/travel/packages" className="flex items-center gap-2 font-semibold">
                             <ArrowLeft className="h-5 w-5"/>
@@ -34,7 +33,7 @@ export function PackageDetailClient({ pkg }: { pkg: HolidayPackage }) {
                 </div>
             </header>
 
-            <main className="container py-8">
+            <main className="w-[94%] mx-auto py-8">
                 <div className="grid lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-8">
                         {/* Image Gallery */}

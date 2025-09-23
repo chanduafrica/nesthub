@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -18,7 +17,7 @@ interface AllPropertiesClientProps {
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden md:flex">
                     <Link href="/modules/homes" className="mr-6 flex items-center space-x-2">
                         <span className="hidden font-bold sm:inline-block">
@@ -46,7 +45,7 @@ const Header = () => {
 
 const Footer = () => (
     <footer className="border-t">
-        <div className="container py-8">
+        <div className="w-[94%] mx-auto py-8">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                 <div>
                     <h3 className="font-semibold mb-2">NestHomes</h3>
@@ -178,14 +177,14 @@ export function AllPropertiesClient({ initialProperties }: AllPropertiesClientPr
             <Header />
             <main className="flex-1">
                  <section className="py-8 bg-secondary/10">
-                    <div className="container">
+                    <div className="w-[94%] mx-auto">
                         <h1 className="text-4xl font-bold text-primary">All Properties</h1>
                         <p className="text-muted-foreground mt-2">Browse our full collection of premium properties.</p>
                     </div>
                 </section>
 
                 <section className="py-12">
-                    <div className="container">
+                    <div className="w-[94%] mx-auto">
                          <div className="mb-8">
                             <SearchForm filters={filters} onFilterChange={handleFilterChange} />
                         </div>

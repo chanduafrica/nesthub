@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -37,7 +36,7 @@ interface PackagesClientProps {
 const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 items-center">
+            <div className="w-[94%] mx-auto flex h-14 items-center">
                 <div className="mr-4 hidden lg:flex">
                      <Link href="/modules/travel" className="mr-6 flex items-center space-x-2">
                         <Package className="h-6 w-6 text-primary" />
@@ -63,40 +62,41 @@ const Header = () => {
 
 const PackageCard = ({ deal }: { deal: HolidayPackage }) => (
     <Card className="overflow-hidden group flex flex-col">
-        <div className="relative w-full h-48">
-            <Image
-                src={deal.image}
-                alt={deal.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                data-ai-hint={deal.hint}
-            />
-             <div className="absolute top-2 left-2 flex gap-2">
-                {deal.tags.map((tag:string) => <Badge key={tag}>{tag}</Badge>)}
-             </div>
-        </div>
-        <CardContent className="p-4 flex-grow">
-             <div className="flex justify-between items-start">
-                <h3 className="font-semibold text-lg leading-tight">{deal.title}</h3>
-                <div className="flex items-center gap-1 font-semibold whitespace-nowrap">
-                    <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-                    <span>{deal.rating}</span>
+        <Link href={`/modules/travel/package/${deal.slug}`} className="block flex-grow">
+            <div className="relative w-full h-48">
+                <Image
+                    src={deal.image}
+                    alt={deal.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    data-ai-hint={deal.hint}
+                />
+                <div className="absolute top-2 left-2 flex gap-2">
+                    {deal.tags.map((tag:string) => <Badge key={tag}>{tag}</Badge>)}
                 </div>
             </div>
-            <div className="text-sm text-muted-foreground mt-2 space-y-1">
-                <div className="flex items-center gap-2"><MapPin className="h-4 w-4" />{deal.location}</div>
-                <div className="flex items-center gap-2"><Clock className="h-4 w-4" />{deal.duration}</div>
-            </div>
-            <ul className="mt-3 list-disc list-inside text-sm text-muted-foreground space-y-1">
-                {deal.highlights.map((h:string) => <li key={h}>{h}</li>)}
-            </ul>
-        </CardContent>
+            <CardContent className="p-4 flex-grow">
+                <div className="flex justify-between items-start">
+                    <h3 className="font-semibold text-lg leading-tight">{deal.title}</h3>
+                    <div className="flex items-center gap-1 font-semibold whitespace-nowrap">
+                        <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                        <span>{deal.rating}</span>
+                    </div>
+                </div>
+                <div className="text-sm text-muted-foreground mt-2 space-y-1">
+                    <div className="flex items-center gap-2"><MapPin className="h-4 w-4" />{deal.location}</div>
+                    <div className="flex items-center gap-2"><Clock className="h-4 w-4" />{deal.duration}</div>
+                </div>
+            </CardContent>
+        </Link>
         <CardFooter className="flex justify-between items-center bg-muted/50 p-4">
              <div>
                 <p className="text-xs text-muted-foreground">From</p>
                 <p className="font-bold text-primary text-xl">KES {deal.price.toLocaleString()}</p>
              </div>
-             <Button>View Package</Button>
+             <Button asChild>
+                <Link href={`/modules/travel/package/${deal.slug}`}>View Package</Link>
+            </Button>
         </CardFooter>
     </Card>
 );
@@ -167,7 +167,7 @@ export function PackagesClient({ initialPackages }: PackagesClientProps) {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
-      <main className="container py-8">
+      <main className="w-[94%] mx-auto py-8">
         <section className="mb-8 text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2">Holiday Packages & Tours</h1>
             <p className="text-muted-foreground md:text-lg max-w-3xl mx-auto">Hand-picked adventures across Kenya, from thrilling safaris to serene beach getaways.</p>
