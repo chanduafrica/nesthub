@@ -7,8 +7,6 @@ export default async function NestHomesPage() {
     const properties: Property[] = await getProperties();
 
     return (
-        <main>
-            <NestHomesClient initialProperties={properties} />
-        </main>
+        <NestHomesClient initialProperties={properties} />
     );
 }

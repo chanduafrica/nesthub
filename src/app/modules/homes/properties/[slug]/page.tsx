@@ -13,8 +13,6 @@ export default async function PropertyDetailsPage({ params }: { params: { slug: 
     }
 
     return (
-        <main>
-            <PropertyView property={property} />
-        </main>
+        <PropertyView property={property} />
     );
 }

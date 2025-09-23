@@ -183,69 +183,67 @@ export function AllPropertiesClient({ initialProperties }: AllPropertiesClientPr
                     </div>
                 </section>
 
-                <section className="py-12">
-                    <div className="w-[94%] mx-auto">
-                         <div className="mb-8">
-                            <SearchForm filters={filters} onFilterChange={handleFilterChange} />
-                        </div>
-                        
-                        <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-                            <div className="text-sm text-muted-foreground">
-                                Showing {paginatedProperties.length} of {sortedProperties.length} results
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Select value={sortOrder} onValueChange={setSortOrder}>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Sort by" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="relevance">Sort by Relevance</SelectItem>
-                                        <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                                        <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                                        <SelectItem value="date-desc">Newest First</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                                 <div className="flex items-center gap-2">
-                                    <Button variant={layout === 'grid' ? 'default' : 'outline'} size="icon" onClick={() => setLayout('grid')}>
-                                        <Grid className="h-4 w-4" />
-                                    </Button>
-                                    <Button variant={layout === 'list' ? 'default' : 'outline'} size="icon" onClick={() => setLayout('list')}>
-                                        <List className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`}>
-                            {paginatedProperties.map((property) => (
-                                <PropertyCard key={property.id} property={property} layout={layout} />
-                            ))}
-                        </div>
-
-                        {totalPages > 1 && (
-                            <div className="flex justify-center mt-12">
-                                <div className="flex items-center gap-2">
-                                    <Button 
-                                        variant="outline"
-                                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                        disabled={currentPage === 1}
-                                    >
-                                        Previous
-                                    </Button>
-                                    <span className="text-sm text-muted-foreground">
-                                        Page {currentPage} of {totalPages}
-                                    </span>
-                                    <Button 
-                                        variant="outline"
-                                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                        disabled={currentPage === totalPages}
-                                    >
-                                        Next
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
+                <section className="py-12 w-[94%] mx-auto">
+                    <div className="mb-8">
+                        <SearchForm filters={filters} onFilterChange={handleFilterChange} />
                     </div>
+                    
+                    <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+                        <div className="text-sm text-muted-foreground">
+                            Showing {paginatedProperties.length} of {sortedProperties.length} results
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <Select value={sortOrder} onValueChange={setSortOrder}>
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Sort by" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="relevance">Sort by Relevance</SelectItem>
+                                    <SelectItem value="price-asc">Price: Low to High</SelectItem>
+                                    <SelectItem value="price-desc">Price: High to Low</SelectItem>
+                                    <SelectItem value="date-desc">Newest First</SelectItem>
+                                </SelectContent>
+                            </Select>
+                             <div className="flex items-center gap-2">
+                                <Button variant={layout === 'grid' ? 'default' : 'outline'} size="icon" onClick={() => setLayout('grid')}>
+                                    <Grid className="h-4 w-4" />
+                                </Button>
+                                <Button variant={layout === 'list' ? 'default' : 'outline'} size="icon" onClick={() => setLayout('list')}>
+                                    <List className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={`w-[94%] mx-auto grid gap-6 ${layout === 'grid' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' : 'grid-cols-1'}`}>
+                        {paginatedProperties.map((property) => (
+                            <PropertyCard key={property.id} property={property} layout={layout} />
+                        ))}
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="flex justify-center mt-12">
+                            <div className="flex items-center gap-2">
+                                <Button 
+                                    variant="outline"
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                >
+                                    Previous
+                                </Button>
+                                <span className="text-sm text-muted-foreground">
+                                    Page {currentPage} of {totalPages}
+                                </span>
+                                <Button 
+                                    variant="outline"
+                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Next
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </section>
             </main>
             <Footer />

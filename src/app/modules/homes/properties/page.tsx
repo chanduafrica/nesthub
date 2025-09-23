@@ -7,8 +7,6 @@ export default async function AllPropertiesPage() {
     const properties: Property[] = await getProperties();
 
     return (
-        <main>
-            <AllPropertiesClient initialProperties={properties} />
-        </main>
+        <AllPropertiesClient initialProperties={properties} />
     );
 }
