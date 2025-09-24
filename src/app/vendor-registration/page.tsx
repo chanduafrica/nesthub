@@ -7,9 +7,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, ArrowLeft, Building, Car, School, Dna, MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide } from "lucide-react";
+import {
+    FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, ArrowLeft, Building, Car, School, Dna,
+    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu
+} from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+
 
 const availablePortals = [
     { id: "nesthomes", name: "NestHomes", icon: HomeIcon },
@@ -45,11 +50,40 @@ const Header = () => {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
             <div className="w-[94%] mx-auto flex h-14 items-center justify-between">
-                 <Link href="/" className="flex items-center space-x-2">
+                <div className="flex items-center">
+                  <Sheet>
+                      <SheetTrigger asChild>
+                          <Button variant="ghost" size="icon" className="lg:hidden mr-2">
+                              <Menu className="h-6 w-6" />
+                              <span className="sr-only">Toggle Menu</span>
+                          </Button>
+                      </SheetTrigger>
+                      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                           <SheetHeader>
+                                <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                           </SheetHeader>
+                          <nav className="flex flex-col gap-4 mt-8">
+                              {navLinks.map((link) => 
+                                <Link
+                                    key={link.text}
+                                    href={link.href}
+                                    onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
+                                    className="flex items-center gap-3 text-lg font-medium text-muted-foreground hover:text-foreground"
+                                >
+                                    <link.icon className="h-5 w-5" />
+                                    {link.text}
+                                </Link>
+                              )}
+                          </nav>
+                      </SheetContent>
+                  </Sheet>
+                  <Link href="/" className="flex items-center space-x-2">
                     <span className="font-bold text-lg">
                     <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
                     </span>
                 </Link>
+                </div>
+                
                 <nav className="hidden lg:flex items-center gap-1 text-sm font-medium">
                     {navLinks.map((link) => (
                         <Link
