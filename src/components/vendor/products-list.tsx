@@ -1,0 +1,175 @@
+
+'use client';
+
+import { useState } from 'react';
+import { Product } from '@/lib/mock-data';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
+import { MoreHorizontal, Search, PlusCircle, FileUp } from 'lucide-react';
+import Image from 'next/image';
+
+export function ProductsList({ initialProducts }: { initialProducts: Product[] }) {
+    const [products, setProducts] = useState<Product[]>(initialProducts);
+    const [searchTerm, setSearchTerm] = useState('');
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const filteredProducts = products.filter(product => {
+        return product.title.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const paginatedProducts = filteredProducts.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+    const formatCurrency = (amount: number) => {
+        return `KES ${amount.toLocaleString('en-US')}`;
+    }
+
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+            <CardTitle>My Products</CardTitle>
+            <CardDescription>
+            Manage your product listings and inventory.
+            </CardDescription>
+        </div>
+        <div className="flex gap-2">
+            <Button variant="outline">
+                <FileUp className="mr-2 h-4 w-4" />
+                Import
+            </Button>
+             <Button>
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Product
+            </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input 
+                placeholder="Search by product name..." 
+                className="pl-10" 
+                value={searchTerm}
+                onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1); // Reset to first page on search
+                }}
+            />
+          </div>
+        </div>
+
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[80px]">Image</TableHead>
+                <TableHead>Product Name</TableHead>
+                <TableHead className="hidden md:table-cell">Category</TableHead>
+                <TableHead className="hidden lg:table-cell">Rating</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedProducts.length > 0 ? paginatedProducts.map(product => (
+                <TableRow key={product.id}>
+                  <TableCell>
+                      <Image
+                        src={product.image}
+                        alt={product.title}
+                        width={40}
+                        height={40}
+                        className="rounded-md object-cover"
+                      />
+                  </TableCell>
+                  <TableCell className="font-medium">{product.title}</TableCell>
+                  <TableCell className="hidden md:table-cell">{product.category}</TableCell>
+                  <TableCell className="hidden lg:table-cell">{product.rating}</TableCell>
+                  <TableCell>{formatCurrency(product.price)}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <span className="sr-only">Open menu</span>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                         <DropdownMenuItem>View Analytics</DropdownMenuItem>
+                         <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              )) : (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center h-24">
+                        No products found.
+                    </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </CardContent>
+       <CardFooter className="flex justify-between items-center">
+            <div className="text-xs text-muted-foreground">
+                Showing <strong>{paginatedProducts.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0}-{(currentPage - 1) * itemsPerPage + paginatedProducts.length}</strong> of <strong>{filteredProducts.length}</strong> products
+            </div>
+            <div className="flex items-center gap-2">
+                <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </Button>
+                <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages || totalPages === 0}
+                >
+                    Next
+                </Button>
+            </div>
+      </CardFooter>
+    </Card>
+  );
+}

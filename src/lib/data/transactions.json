@@ -27,5 +27,7 @@
   { "id": "txn_25", "clientId": "15", "vendorId": "v15", "date": "2025-07-26", "module": "NestHomes", "description": "Rental payment - Kilimani", "amount": 50000, "currency": "KES", "status": "Completed" },
   { "id": "txn_26", "clientId": "16", "vendorId": "v16", "date": "2025-07-25", "module": "NestTravel", "description": "Masai Mara Safari Package", "amount": 45000, "currency": "KES", "status": "Completed" },
   { "id": "txn_27", "clientId": "18", "vendorId": "v22", "date": "2025-07-24", "module": "Back2School", "description": "Purchase of 'Textbooks & Stationery'", "amount": 7800, "currency": "KES", "status": "Completed" },
-  { "id": "txn_28", "clientId": "20", "vendorId": "v13", "date": "2025-07-23", "module": "NestStays", "description": "Booking: Diani Beach Villa", "amount": 75000, "currency": "KES", "status": "Completed" }
+  { "id": "txn_28", "clientId": "20", "vendorId": "v13", "date": "2025-07-23", "module": "NestStays", "description": "Booking: Diani Beach Villa", "amount": 75000, "currency": "KES", "status": "Completed" },
+  { "id": "txn_29", "clientId": "28", "vendorId": "v26", "date": "2025-07-28", "module": "NestMedia", "description": "Digital Ad Campaign", "amount": 120000, "currency": "KES", "status": "Completed" },
+  { "id": "txn_30", "clientId": "29", "vendorId": "v26", "date": "2025-07-28", "module": "NestEvents", "description": "Corporate Sponsorship: Tech Expo", "amount": 500000, "currency": "KES", "status": "Completed" }
 ]

@@ -56,7 +56,7 @@ export default function VendorLayout({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="/vendor/dashboard">
                   <LayoutDashboard />
                   <span>Dashboard</span>
@@ -64,7 +64,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="/vendor/kyc">
                   <FileCheck2 />
                   <span>KYC/Verification</span>
@@ -72,7 +72,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="/vendor/products">
                   <Package />
                   <span>Products</span>
@@ -80,7 +80,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="#">
                   <ShoppingCart />
                   <span>Orders</span>
@@ -88,7 +88,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="#">
                   <Landmark />
                   <span>Payouts</span>
@@ -96,7 +96,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="#">
                   <Star />
                   <span>Reviews</span>
@@ -104,7 +104,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="#">
                   <BarChartIcon />
                   <span>Analytics</span>
@@ -112,7 +112,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild className="text-primary hover:text-primary">
+              <SidebarMenuButton asChild>
                 <Link href="#">
                   <MessageSquare />
                   <span>Messages</span>
