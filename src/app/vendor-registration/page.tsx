@@ -1,12 +1,15 @@
 
+'use client';
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, Cpu } from "lucide-react";
+import { FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, ArrowLeft, Building, Car, School, Dna, MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide } from "lucide-react";
 import Link from "next/link";
+import { useToast } from "@/hooks/use-toast";
 
 const availablePortals = [
     { id: "nesthomes", name: "NestHomes", icon: HomeIcon },
@@ -16,23 +19,93 @@ const availablePortals = [
     { id: "nesttravel", name: "NestTravel", icon: Plane },
 ]
 
+const navLinks = [
+  { href: "/modules/mall", icon: ShoppingCart, text: "NestMall" },
+  { href: "#", icon: Dna, text: "Duka" },
+  { href: "#", icon: Car, text: "AutoParts" },
+  { href: "#", icon: School, text: "Back2School" },
+  { href: "/modules/travel", icon: Plane, text: "Travel" },
+  { href: "/modules/homes/properties", icon: Building, text: "Properties" },
+  { href: "/modules/stays", icon: BedDouble, text: "Stays"},
+  { href: "/modules/campfire", icon: MessageSquare, text: "Join Campfire" },
+  { href: "#", icon: UtensilsCrossed, text: "Mama Africa", comingSoon: true },
+  { href: "#", icon: Ticket, text: "Events", comingSoon: true },
+];
+
+const Header = () => {
+    const { toast } = useToast();
+    const handleComingSoon = (e: React.MouseEvent, feature: string) => {
+        e.preventDefault();
+        toast({
+        title: "Coming Soon!",
+        description: `${feature} is under construction. Stay tuned!`,
+        });
+    };
+
+    return (
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+            <div className="w-[94%] mx-auto flex h-14 items-center justify-between">
+                 <Link href="/" className="flex items-center space-x-2">
+                    <span className="font-bold text-lg">
+                    <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+                    </span>
+                </Link>
+                <nav className="hidden lg:flex items-center gap-1 text-sm font-medium">
+                    {navLinks.map((link) => (
+                        <Link
+                        key={link.text}
+                        href={link.href}
+                        onClick={(e) => (link as any).comingSoon && handleComingSoon(e, link.text)}
+                        className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground px-3 py-2 rounded-md"
+                        >
+                        <link.icon className="h-4 w-4" />
+                        {link.text}
+                        </Link>
+                    ))}
+                </nav>
+                <Button asChild variant="outline">
+                    <Link href="/home"><ArrowLeft className="mr-2 h-4 w-4" /> Back to Home</Link>
+                </Button>
+            </div>
+        </header>
+    );
+};
+
+const Footer = () => (
+    <footer className="border-t bg-gray-900 text-gray-300">
+      <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
+        <div className="flex items-center gap-2">
+          <p className="text-sm">
+            © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
+          </p>
+        </div>
+         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <Info className="h-4 w-4" /> About us
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <FileText className="h-4 w-4" /> Terms
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <Shield className="h-4 w-4" /> Privacy policy
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <RefreshCw className="h-4 w-4" /> Refund
+            </Link>
+            <Link href="#" className="text-sm text-white hover:underline flex items-center gap-2">
+                <MailIconLucide className="h-4 w-4" /> Contact us
+            </Link>
+        </div>
+      </div>
+    </footer>
+  );
+
 export default function VendorRegistrationPage() {
     return (
-        <div className="min-h-screen bg-muted/40">
-            <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-                <div className="container flex h-14 items-center justify-between">
-                     <Link href="/" className="flex items-center space-x-2">
-                        <span className="font-bold text-lg">
-                        <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
-                        </span>
-                    </Link>
-                    <Button asChild variant="outline">
-                        <Link href="/home">Back to Home</Link>
-                    </Button>
-                </div>
-            </header>
+        <div className="min-h-screen bg-muted/40 flex flex-col">
+            <Header />
 
-            <main className="container py-12 max-w-4xl mx-auto">
+            <main className="flex-1 w-[94%] mx-auto py-12">
                  <div className="text-center mb-12">
                     <h1 className="text-4xl font-bold text-primary">Become a Nest Merchant</h1>
                     <p className="text-lg text-muted-foreground mt-2">Join Africa's fastest-growing digital ecosystem. Register once, sell everywhere.</p>
@@ -132,6 +205,7 @@ export default function VendorRegistrationPage() {
                     </CardFooter>
                 </Card>
             </main>
+            <Footer />
         </div>
     );
 }
