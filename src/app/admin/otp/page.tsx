@@ -1,5 +1,6 @@
 
 'use client';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -13,13 +14,24 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useToast } from '@/hooks/use-toast';
 
 export default function OtpPage() {
   const router = useRouter();
+  const { toast } = useToast();
+  const [otp, setOtp] = useState('');
 
   const handleVerify = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/admin/dashboard');
+    if (otp === '123456') {
+      router.push('/admin/dashboard');
+    } else {
+      toast({
+        title: 'Invalid OTP',
+        description: 'The OTP you entered is incorrect. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   return (
@@ -32,14 +44,21 @@ export default function OtpPage() {
             <CardHeader className="text-center">
             <CardTitle className="text-2xl">Enter OTP</CardTitle>
             <CardDescription>
-                We've sent a one-time password to your email.
+                We've sent a one-time password to your email. (Hint: 123456)
             </CardDescription>
             </CardHeader>
             <form onSubmit={handleVerify}>
             <CardContent className="grid gap-4">
                 <div className="grid gap-2">
                 <Label htmlFor="otp">One-Time Password</Label>
-                <Input id="otp" type="text" inputMode="numeric" required />
+                <Input 
+                    id="otp" 
+                    type="text" 
+                    inputMode="numeric" 
+                    required 
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                    />
                 </div>
             </CardContent>
             <CardFooter className="flex-col gap-4">
