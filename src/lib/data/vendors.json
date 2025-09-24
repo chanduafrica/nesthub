@@ -1,3 +1,4 @@
+
 [
     { "id": "v1", "name": "Kariuki's Electronics", "email": "sales@kariuki.com", "phone": "+254711111111", "country": "Kenya", "portal": "NestMall", "products": 50, "rating": 4.5, "status": "Active" },
     { "id": "v2", "name": "Mama Ntilie Foods", "email": "orders@mamantilie.co.tz", "phone": "+255788888888", "country": "Tanzania", "portal": "MamaAfrica", "products": 25, "rating": 4.8, "status": "Active" },
@@ -6,9 +7,17 @@
     { "id": "v5", "name": "Kenya Airways", "email": "contact@kenya-airways.com", "phone": "+254709000000", "country": "Kenya", "portal": "NestTravel", "products": 100, "rating": 3.8, "status": "Active" },
     { "id": "v6", "name": "Blankets & Wine Org", "email": "events@blanketsandwine.com", "phone": "+254744444444", "country": "Kenya", "portal": "NestEvents", "products": 10, "rating": 4.9, "status": "Pending" },
     { "id": "v7", "name": "Sendy Logistics", "email": "support@sendy.it", "phone": "+254755555555", "country": "Kenya", "portal": "NestParcel", "products": 1, "rating": 4.3, "status": "Active" },
-    { "id": "v8", "name": "Tuskys Supermarket", "email": "customercare@tuskys.com", "phone": "+254766666666", "country": "Kenya", "portal": "NestMall", "products": 10000, "rating": 3.5, "status": "Inactive" },
+    { "id": "v8", "name": "Tuskys Supermarket", "email": "customercare@tuskys.com", "phone": "+254766666666", "country": "Kenya", "portal": "Duka", "products": 10000, "rating": 3.5, "status": "Inactive" },
     { "id": "v9", "name": "Pulse Live", "email": "editor@pulselive.co.ke", "phone": "+254777777777", "country": "Kenya", "portal": "NestMedia", "products": 500, "rating": 4.6, "status": "Active" },
-    { "id": "v10", "name": "Kazi Mtaani Initiative", "email": "jobs@kazimtaani.go.ke", "phone": "+254788888888", "country": "Kenya", "portal": "NestJobs", "products": 30, "rating": 4.1, "status": "Pending" }
+    { "id": "v10", "name": "Kazi Mtaani Initiative", "email": "jobs@kazimtaani.go.ke", "phone": "+254788888888", "country": "Kenya", "portal": "NestJobs", "products": 30, "rating": 4.1, "status": "Pending" },
+    { "id": "v11", "name": "Auto Express", "email": "sales@autoexpress.co.ke", "phone": "+254712345678", "country": "Kenya", "portal": "AutoParts", "products": 250, "rating": 4.6, "status": "Active" },
+    { "id": "v12", "name": "Shule Uniforms", "email": "info@shuleuniforms.com", "phone": "+254723456789", "country": "Kenya", "portal": "Back2School", "products": 120, "rating": 4.8, "status": "Active" },
+    { "id": "v13", "name": "Diani Beach Villas", "email": "bookings@dianivillas.com", "phone": "+254734567890", "country": "Kenya", "portal": "NestStays", "products": 15, "rating": 4.9, "status": "Active" },
+    { "id": "v14", "name": "Nairobi Biz Directory", "email": "listings@nrbiz.com", "phone": "+254745678901", "country": "Kenya", "portal": "NestBiz", "products": 5000, "rating": 4.4, "status": "Active" },
+    { "id": "v15", "name": "Kilimani Homes", "email": "rentals@kilimanihomes.com", "phone": "+254756789012", "country": "Kenya", "portal": "NestHomes", "products": 50, "rating": 4.5, "status": "Active" },
+    { "id": "v16", "name": "Safari Deals", "email": "contact@safarideals.co.ke", "phone": "+254767890123", "country": "Kenya", "portal": "NestTravel", "products": 30, "rating": 4.8, "status": "Active" },
+    { "id": "v17", "name": "Naivas Supermarket", "email": "support@naivas.co.ke", "phone": "+254778901234", "country": "Kenya", "portal": "Duka", "products": 12000, "rating": 4.5, "status": "Active" },
+    { "id": "v18", "name": "Jumia Foods", "email": "delivery@jumia.co.ke", "phone": "+254789012345", "country": "Kenya", "portal": "MamaAfrica", "products": 200, "rating": 4.3, "status": "Active" },
+    { "id": "v19", "name": "Ticket Sasa", "email": "info@ticketsasa.com", "phone": "+254790123456", "country": "Kenya", "portal": "NestEvents", "products": 80, "rating": 4.7, "status": "Active" },
+    { "id": "v20", "name": "Street Style Kicks", "email": "orders@sskicks.com", "phone": "+254702345678", "country": "Kenya", "portal": "NestMall", "products": 150, "rating": 4.6, "status": "Active" }
 ]
-
-    

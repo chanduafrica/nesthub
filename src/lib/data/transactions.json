@@ -1,5 +1,6 @@
+
 [
-  { "id": "txn_1", "clientId": "1", "vendorId": "v1", "date": "2025-07-22", "module": "NestMall", "description": "Purchase of 'Super-fly Sneakers'", "amount": 5500, "currency": "KES", "status": "Completed" },
+  { "id": "txn_1", "clientId": "1", "vendorId": "v20", "date": "2025-07-22", "module": "NestMall", "description": "Purchase of 'Super-fly Sneakers'", "amount": 5500, "currency": "KES", "status": "Completed" },
   { "id": "txn_2", "clientId": "2", "vendorId": "v5", "date": "2025-07-21", "module": "NestTravel", "description": "Flight booking NBO-MBA", "amount": 8200, "currency": "KES", "status": "Completed" },
   { "id": "txn_3", "clientId": "1", "vendorId": "v2", "date": "2025-07-20", "module": "MamaAfrica", "description": "Order of 'Pilau & Beef Stew'", "amount": 1500, "currency": "KES", "status": "Completed" },
   { "id": "txn_4", "clientId": "4", "vendorId": "v6", "date": "2025-07-19", "module": "NestEvents", "description": "Ticket for 'Sauti Sol Concert'", "amount": 3000, "currency": "KES", "status": "Completed" },
@@ -18,5 +19,9 @@
   { "id": "txn_17", "clientId": "1", "vendorId": "v1", "date": "2025-07-03", "module": "NestMall", "description": "Purchase of 'Ankara Print Dress'", "amount": 3500, "currency": "KES", "status": "Completed" },
   { "id": "txn_18", "clientId": "4", "vendorId": "v1", "date": "2025-07-02", "module": "NestMall", "description": "Purchase of 'Beaded Necklace'", "amount": 1200, "currency": "KES", "status": "Completed" },
   { "id": "txn_19", "clientId": "9", "vendorId": "v2", "date": "2025-07-01", "module": "MamaAfrica", "description": "Order of 'Mukimo & Beef'", "amount": 1250, "currency": "KES", "status": "Completed" },
-  { "id": "txn_20", "clientId": "10", "vendorId": "v1", "date": "2025-06-30", "module": "NestMall", "description": "Purchase of 'Leather Sandals'", "amount": 3000, "currency": "KES", "status": "Completed" }
+  { "id": "txn_20", "clientId": "10", "vendorId": "v1", "date": "2025-06-30", "module": "NestMall", "description": "Purchase of 'Leather Sandals'", "amount": 3000, "currency": "KES", "status": "Completed" },
+  { "id": "txn_21", "clientId": "1", "vendorId": "v1", "date": "2025-07-23", "module": "NestMall", "description": "Purchase of 'Galaxy Watch 6'", "amount": 35000, "currency": "KES", "status": "Completed" },
+  { "id": "txn_22", "clientId": "2", "vendorId": "v1", "date": "2025-07-24", "module": "NestMall", "description": "Purchase of 'iPhone 15 Pro'", "amount": 150000, "currency": "KES", "status": "Completed" },
+  { "id": "txn_23", "clientId": "4", "vendorId": "v1", "date": "2025-07-25", "module": "NestMall", "description": "Purchase of 'High-Speed Blender'", "amount": 9500, "currency": "KES", "status": "Completed" },
+  { "id": "txn_24", "clientId": "6", "vendorId": "v1", "date": "2025-07-26", "module": "NestMall", "description": "Purchase of 'Anker Power Bank'", "amount": 8000, "currency": "KES", "status": "Completed" }
 ]
