@@ -36,7 +36,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Image from 'next/image';
 
 export default function VendorLayout({
   children,
@@ -49,7 +48,6 @@ export default function VendorLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
-            <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={24} height={24} className="w-6 h-6" />
             <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
               Vendor Portal
             </span>
@@ -58,7 +56,7 @@ export default function VendorLayout({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="/vendor/dashboard">
                   <LayoutDashboard />
                   <span>Dashboard</span>
@@ -66,7 +64,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="/vendor/kyc">
                   <FileCheck2 />
                   <span>KYC/Verification</span>
@@ -74,7 +72,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="/vendor/products">
                   <Package />
                   <span>Products</span>
@@ -82,7 +80,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="#">
                   <ShoppingCart />
                   <span>Orders</span>
@@ -90,7 +88,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="#">
                   <Landmark />
                   <span>Payouts</span>
@@ -98,7 +96,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="#">
                   <Star />
                   <span>Reviews</span>
@@ -106,7 +104,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="#">
                   <BarChartIcon />
                   <span>Analytics</span>
@@ -114,7 +112,7 @@ export default function VendorLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild>
+              <SidebarMenuButton asChild className="text-primary hover:text-primary">
                 <Link href="#">
                   <MessageSquare />
                   <span>Messages</span>
