@@ -25,5 +25,6 @@
     { "id": "v23", "name": "Watamu Hostels", "email": "info@watamuhostels.com", "phone": "+254735792468", "country": "Kenya", "portal": "NestStays", "products": 5, "rating": 4.2, "status": "Active" },
     { "id": "v24", "name": "Yellow Pages KE", "email": "advertise@yellowpages.co.ke", "phone": "+254792468135", "country": "Kenya", "portal": "NestBiz", "products": 15000, "rating": 4.0, "status": "Inactive" },
     { "id": "v25", "name": "G4S Courier", "email": "parcels@ke.g4s.com", "phone": "+254711042000", "country": "Kenya", "portal": "NestParcel", "products": 1, "rating": 4.1, "status": "Active" },
-    { "id": "v26", "name": "Standard Group PLC", "email": "digital@standardmedia.co.ke", "phone": "+254719012111", "country": "Kenya", "portal": "All Portals", "products": 2500, "rating": 4.8, "status": "Active" }
+    { "id": "v26", "name": "Standard Group PLC", "email": "digital@standardmedia.co.ke", "phone": "+254719012111", "country": "Kenya", "portal": "All Portals", "products": 10, "rating": 4.8, "status": "Active" },
+    { "id": "v27", "name": "The Nairobian", "email": "news@nairobian.co.ke", "phone": "+254719012800", "country": "Kenya", "portal": "NestMedia", "products": 100, "rating": 4.5, "status": "Active" }
 ]
