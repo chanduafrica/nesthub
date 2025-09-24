@@ -6,9 +6,9 @@ import { VendorDashboardClient } from '@/components/vendor/dashboard-client';
 
 // This is the main Server Component for the vendor dashboard.
 export default async function VendorDashboardPage() {
-  // For this prototype, we'll fetch data for a hardcoded vendor.
+  // For this prototype, we'll fetch data for the hardcoded "super vendor".
   // In a real app, you would get the logged-in vendor's ID from the session.
-  const vendorId = 'v1'; 
+  const vendorId = 'v26'; 
 
   // 1. Fetch all required data on the server
   const vendor = await getVendor(vendorId);
