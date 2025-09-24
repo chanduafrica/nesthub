@@ -1,5 +1,5 @@
 
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 import path from 'path';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
 
@@ -10,14 +10,12 @@ const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 async function readData<T>(filename: string): Promise<T[]> {
     const filePath = path.join(dataDirectory, filename);
     try {
-        // Check if file exists before trying to read
         await fs.access(filePath);
         const fileContent = await fs.readFile(filePath, 'utf8');
         return JSON.parse(fileContent) as T[];
     } catch (error: any) {
-        // If file does not exist, return empty array
         if (error.code === 'ENOENT') {
-            await writeData(filename, []); // Create the file if it doesn't exist
+            await writeData(filename, []);
             return [];
         }
         console.error(`Error reading or parsing ${filename}:`, error);
@@ -34,11 +32,11 @@ async function writeData<T>(filename: string, data: T[]): Promise<void> {
     }
 }
 
-
 function createSlug(title: string) {
     if (!title) return '';
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
+
 
 // --- Type Definitions for Data Payloads ---
 
