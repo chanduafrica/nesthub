@@ -1,3 +1,4 @@
+
 'use client';
 import { useState }from 'react';
 import {
@@ -37,27 +38,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
 
-function VendorFooter() {
-  return (
-    <footer className="border-t bg-background p-4 sm:p-6">
-       <div className="w-[94%] mx-auto text-sm text-muted-foreground flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p>&copy; {new Date().getFullYear()} SG-Nest Vendor Portal. All Rights Reserved.</p>
-        <div className="flex gap-4">
-            <Link href="#" className="hover:text-primary">Terms of Service</Link>
-            <Link href="#" className="hover:text-primary">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary">Support</Link>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-
 export default function VendorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  function VendorFooter() {
+    return (
+      <footer className="border-t bg-background p-4 sm:p-6">
+        <div className="w-[94%] mx-auto text-sm text-muted-foreground flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p>&copy; {new Date().getFullYear()} SG-Nest Vendor Portal. All Rights Reserved.</p>
+          <div className="flex gap-4">
+              <Link href="#" className="hover:text-primary">Terms of Service</Link>
+              <Link href="#" className="hover:text-primary">Privacy Policy</Link>
+              <Link href="#" className="hover:text-primary">Support</Link>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <SidebarProvider>
