@@ -118,7 +118,7 @@ const VendorHeroSection = () => (
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 w-[94%] mx-auto text-center flex flex-col items-center px-4">
-            <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+            <h1 className="text-4xl font-bold text-white tracking-tight">
                 Become a Nest Merchant
             </h1>
             <p className="mt-6 text-lg max-w-3xl mx-auto">
@@ -165,7 +165,7 @@ export default function VendorRegistrationPage() {
 
             <main className="flex-1">
                 <VendorHeroSection />
-                <div className="w-[94%] mx-auto py-5">
+                <div className="w-[94%] mx-auto py-8">
                      <Breadcrumb className="mb-4">
                         <BreadcrumbList>
                             <BreadcrumbItem>
