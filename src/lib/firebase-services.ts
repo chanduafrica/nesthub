@@ -1,29 +1,46 @@
 
-import app from './firebase';
-import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
+'use server';
+
+import fs from 'fs';
+import path from 'path';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
 
-import clientsData from '@/lib/data/clients.json';
-import vendorsData from '@/lib/data/vendors.json';
-import transactionsData from '@/lib/data/transactions.json';
-import propertiesData from '@/lib/data/properties.json';
-import staysData from '@/lib/data/stays.json';
-import packagesData from '@/lib/data/packages.json';
-import productsData from '@/lib/data/products.json';
+// --- Helper Functions to interact with JSON files ---
 
+const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 
-const db = getFirestore(app);
+function readData<T>(filename: string): T[] {
+    const filePath = path.join(dataDirectory, filename);
+    try {
+        if (fs.existsSync(filePath)) {
+            const fileContent = fs.readFileSync(filePath, 'utf8');
+            return JSON.parse(fileContent) as T[];
+        }
+        return [];
+    } catch (error) {
+        console.error(`Error reading or parsing ${filename}:`, error);
+        return [];
+    }
+}
 
-// Define a type for the offer data when creating it (without the 'id')
+function writeData<T>(filename: string, data: T[]): void {
+    const filePath = path.join(dataDirectory, filename);
+    try {
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (error) {
+        console.error(`Error writing to ${filename}:`, error);
+    }
+}
+
+function createSlug(title: string) {
+    if (!title) return '';
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+// --- Type Definitions for Data Payloads ---
+
 export type OfferData = Omit<Offer, 'id'>;
 export type VendorOfferData = Omit<VendorOffer, 'id'>;
-export type ClientData = Omit<Client, 'id'>;
-export type VendorData = Omit<Vendor, 'id'>;
-export type TransactionData = Omit<Transaction, 'id'>;
-export type PropertyData = Omit<Property, 'id'>;
-export type StayData = Omit<Stay, 'id'>;
-export type HolidayPackageData = Omit<HolidayPackage, 'id'>;
-export type ProductData = Omit<Product, 'id'>;
 export type BuildProjectData = {
     designName: string;
     designId: string;
@@ -65,122 +82,95 @@ export type InsuranceQuoteData = {
 };
 
 
-function createSlug(title: string) {
-    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
+// --- Service Functions for CRUD Operations ---
 
-
-// Function to save a new offer to Firestore
+// OFFERS
 export const saveOffer = async (offerData: OfferData): Promise<Offer> => {
-  try {
-    const docRef = await addDoc(collection(db, 'offers'), offerData);
-    return { id: docRef.id, ...offerData };
-  } catch (e) {
-    console.error("Error adding document: ", e);
-    throw new Error("Could not save offer.");
-  }
+  const offers = readData<Offer>('offers.json');
+  const newOffer: Offer = { 
+    id: `offer_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, 
+    ...offerData 
+  };
+  offers.push(newOffer);
+  writeData('offers.json', offers);
+  return newOffer;
 };
 
-// Function to get all offers for a specific client
 export const getOffersForClient = async (clientId: string): Promise<Offer[]> => {
-  try {
-    const offersCol = collection(db, 'offers');
-    const q = query(offersCol, where("clientId", "==", clientId), orderBy("dateSent", "desc"));
-    const querySnapshot = await getDocs(q);
-    const offers: Offer[] = [];
-    querySnapshot.forEach((doc) => {
-      offers.push({ id: doc.id, ...(doc.data() as OfferData) });
-    });
-    return offers;
-  } catch (e) {
-    console.error("Error getting documents: ", e);
-    throw new Error("Could not fetch offers.");
-  }
+  const offers = readData<Offer>('offers.json');
+  return offers.filter(o => o.clientId === clientId).sort((a, b) => new Date(b.dateSent).getTime() - new Date(a.dateSent).getTime());
 };
 
-
-// Function to save a new vendor offer to Firestore
 export const saveVendorOffer = async (offerData: VendorOfferData): Promise<VendorOffer> => {
-  try {
-    const docRef = await addDoc(collection(db, 'vendorOffers'), offerData);
-    return { id: docRef.id, ...offerData };
-  } catch (e) {
-    console.error("Error adding document: ", e);
-    throw new Error("Could not save vendor offer.");
-  }
+  const vendorOffers = readData<VendorOffer>('vendorOffers.json');
+  const newOffer: VendorOffer = { 
+    id: `voffer_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`, 
+    ...offerData 
+  };
+  vendorOffers.push(newOffer);
+  writeData('vendorOffers.json', vendorOffers);
+  return newOffer;
 };
 
-// Function to get all offers for a specific vendor
 export const getOffersForVendor = async (vendorId: string): Promise<VendorOffer[]> => {
-  try {
-    const offersCol = collection(db, 'vendorOffers');
-    const q = query(offersCol, where("vendorId", "==", vendorId), orderBy("dateSent", "desc"));
-    const querySnapshot = await getDocs(q);
-    const offers: VendorOffer[] = [];
-    querySnapshot.forEach((doc) => {
-      offers.push({ id: doc.id, ...(doc.data() as VendorOfferData) });
-    });
-    return offers;
-  } catch (e) {
-    console.error("Error getting documents: ", e);
-    throw new Error("Could not fetch vendor offers.");
-  }
+    const offers = readData<VendorOffer>('vendorOffers.json');
+    return offers.filter(o => o.vendorId === vendorId).sort((a, b) => new Date(b.dateSent).getTime() - new Date(a.dateSent).getTime());
 };
 
-
-// === Client Functions ===
-
+// CLIENTS
 export const getClients = async (): Promise<Client[]> => {
-    return clientsData as Client[];
+    return readData<Client>('clients.json');
 };
 
 export const getClient = async (id: string): Promise<Client | undefined> => {
-    return (clientsData as Client[]).find(c => c.id === id);
+    const clients = await getClients();
+    return clients.find(c => c.id === id);
 };
 
 export const updateClientStatus = async (id: string, status: Client['status']): Promise<void> => {
-    // This is a mock implementation. In a real app, you'd update the persistent data source.
-    console.log(`Updating client ${id} to status ${status}`);
-    const client = (clientsData as Client[]).find(c => c.id === id);
-    if(client) {
-      client.status = status;
+    let clients = await getClients();
+    const clientIndex = clients.findIndex(c => c.id === id);
+    if (clientIndex !== -1) {
+        clients[clientIndex].status = status;
+        writeData('clients.json', clients);
+    } else {
+        throw new Error(`Client with id ${id} not found.`);
     }
-    return Promise.resolve();
-}
+};
 
-// === Vendor Functions ===
-
+// VENDORS
 export const getVendors = async (): Promise<Vendor[]> => {
-    return vendorsData as Vendor[];
+    return readData<Vendor>('vendors.json');
 };
 
 export const getVendor = async (id: string): Promise<Vendor | undefined> => {
-    return (vendorsData as Vendor[]).find(v => v.id === id);
+    const vendors = await getVendors();
+    return vendors.find(v => v.id === id);
 };
 
 export const updateVendorStatus = async (id: string, status: Vendor['status']): Promise<void> => {
-    // This is a mock implementation.
-    console.log(`Updating vendor ${id} to status ${status}`);
-    const vendor = (vendorsData as Vendor[]).find(v => v.id === id);
-    if(vendor) {
-      vendor.status = status;
+    let vendors = await getVendors();
+    const vendorIndex = vendors.findIndex(v => v.id === id);
+    if (vendorIndex !== -1) {
+        vendors[vendorIndex].status = status;
+        writeData('vendors.json', vendors);
+    } else {
+        throw new Error(`Vendor with id ${id} not found.`);
     }
-    return Promise.resolve();
-}
-
-// === Transaction Functions ===
-
-export const getTransactions = async (): Promise<Transaction[]> => {
-    return transactionsData as Transaction[];
 };
 
-// === Property Functions ===
+// TRANSACTIONS
+export const getTransactions = async (): Promise<Transaction[]> => {
+    return readData<Transaction>('transactions.json');
+};
 
+// PROPERTIES
 export const getProperties = async (): Promise<Property[]> => {
-    return propertiesData.map(p => ({
+    const properties = readData<Property>('properties.json');
+    return properties.map(p => ({
         ...p,
-        slug: createSlug(p.title)
-    })) as Property[];
+        slug: p.slug || createSlug(p.title)
+    }));
 };
 
 export const getPropertyBySlug = async (slug: string): Promise<Property | undefined> => {
@@ -188,83 +178,82 @@ export const getPropertyBySlug = async (slug: string): Promise<Property | undefi
     return properties.find(p => p.slug === slug);
 };
 
-// === Build Project Functions ===
+// BUILD PROJECTS
 export const saveBuildProject = async (projectData: BuildProjectData) => {
-    try {
-        const docRef = await addDoc(collection(db, 'build-projects'), {
-            ...projectData,
-            submittedAt: new Date().toISOString(),
-        });
-        return { id: docRef.id, ...projectData };
-    } catch (e) {
-        console.error("Error adding build project: ", e);
-        throw new Error("Could not save build project.");
-    }
+    const projects = readData<any>('build-projects.json');
+    const newProject = { 
+        id: `proj_${Date.now()}`,
+        ...projectData,
+        submittedAt: new Date().toISOString(),
+    };
+    projects.push(newProject);
+    writeData('build-projects.json', projects);
+    return newProject;
 };
 
-// === Viewing Request Functions ===
+// VIEWING REQUESTS
 export const saveViewingRequest = async (requestData: ViewingRequestData) => {
-    try {
-        const docRef = await addDoc(collection(db, 'viewing-requests'), {
-            ...requestData,
-            submittedAt: new Date().toISOString(),
-        });
-        return { id: docRef.id, ...requestData };
-    } catch (e) {
-        console.error("Error adding viewing request: ", e);
-        throw new Error("Could not save viewing request.");
-    }
+    const requests = readData<any>('viewing-requests.json');
+    const newRequest = {
+        id: `vr_${Date.now()}`,
+        ...requestData,
+        submittedAt: new Date().toISOString(),
+    };
+    requests.push(newRequest);
+    writeData('viewing-requests.json', requests);
+    return newRequest;
 };
 
-// === Mortgage Lead Functions ===
+// MORTGAGE LEADS
 export const saveMortgageLead = async (leadData: MortgageLeadData) => {
-    try {
-        const docRef = await addDoc(collection(db, 'mortgage-leads'), {
-            ...leadData,
-            submittedAt: new Date().toISOString(),
-        });
-        return { id: docRef.id, ...leadData };
-    } catch (e) {
-        console.error("Error adding mortgage lead: ", e);
-        throw new Error("Could not save mortgage lead.");
-    }
+    const leads = readData<any>('mortgage-leads.json');
+    const newLead = {
+        id: `ml_${Date.now()}`,
+        ...leadData,
+        submittedAt: new Date().toISOString(),
+    };
+    leads.push(newLead);
+writeData('mortgage-leads.json', leads);
+    return newLead;
 };
 
-
-// === Insurance Quote Functions ===
+// INSURANCE QUOTES
 export const saveInsuranceQuote = async (quoteData: InsuranceQuoteData) => {
-    try {
-        const docRef = await addDoc(collection(db, 'insurance-quotes'), {
-            ...quoteData,
-            submittedAt: new Date().toISOString(),
-        });
-        return { id: docRef.id, ...quoteData };
-    } catch (e) {
-        console.error("Error adding insurance quote: ", e);
-        throw new Error("Could not save insurance quote.");
-    }
+    const quotes = readData<any>('insurance-quotes.json');
+    const newQuote = {
+        id: `iq_${Date.now()}`,
+        ...quoteData,
+        submittedAt: new Date().toISOString(),
+    };
+    quotes.push(newQuote);
+    writeData('insurance-quotes.json', quotes);
+    return newQuote;
 };
 
-// === Stays Functions ===
+// STAYS
 export const getStays = async (): Promise<Stay[]> => {
-    return staysData as Stay[];
+    return readData<Stay>('stays.json');
 };
 
-// === Holiday Packages Functions ===
+// HOLIDAY PACKAGES
 export const getHolidayPackages = async (): Promise<HolidayPackage[]> => {
-    return (packagesData as HolidayPackage[]).map(p => ({
+    const packages = readData<HolidayPackage>('packages.json');
+    return packages.map(p => ({
         ...p,
-        slug: createSlug(p.title)
+        slug: p.slug || createSlug(p.title)
     }));
 };
 
 export const getPackageBySlug = async (slug: string): Promise<HolidayPackage | undefined> => {
     const packages = await getHolidayPackages();
-    return packages.find(p => (p as any).slug === slug);
+    return packages.find(p => p.slug === slug);
 };
 
-
-// === Products Functions ===
+// PRODUCTS
 export const getProducts = async (): Promise<Product[]> => {
-    return productsData as Product[];
+    const products = readData<Product>('products.json');
+    return products.map(p => ({
+        ...p,
+        slug: p.slug || createSlug(p.title)
+    }));
 };
