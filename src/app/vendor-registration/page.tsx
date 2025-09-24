@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 
 const availablePortals = [
@@ -107,7 +108,7 @@ const Header = () => {
 };
 
 const VendorHeroSection = () => (
-    <section className="relative h-[50vh] flex items-center justify-center text-white">
+    <section className="relative h-[20vh] flex items-center justify-center text-white">
         <Image
             src="/images/herovendoreg.jpg"
             alt="Smiling African vendor at a market stall"
@@ -164,7 +165,20 @@ export default function VendorRegistrationPage() {
 
             <main className="flex-1">
                 <VendorHeroSection />
-                <div className="w-[94%] mx-auto py-12">
+                <div className="w-[94%] mx-auto py-5">
+                     <Breadcrumb className="mb-4">
+                        <BreadcrumbList>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink asChild>
+                                    <Link href="/home">Home</Link>
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                                <BreadcrumbPage>Vendor Registration</BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                    </Breadcrumb>
                     <Card>
                         <CardHeader>
                             <CardTitle>Registration Steps</CardTitle>
@@ -264,5 +278,3 @@ export default function VendorRegistrationPage() {
         </div>
     );
 }
-
-    
