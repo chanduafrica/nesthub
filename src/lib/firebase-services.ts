@@ -1,6 +1,4 @@
 
-'use server';
-
 import fs from 'fs/promises';
 import path from 'path';
 import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
@@ -19,6 +17,7 @@ async function readData<T>(filename: string): Promise<T[]> {
     } catch (error: any) {
         // If file does not exist, return empty array
         if (error.code === 'ENOENT') {
+            await writeData(filename, []); // Create the file if it doesn't exist
             return [];
         }
         console.error(`Error reading or parsing ${filename}:`, error);
@@ -123,7 +122,7 @@ export const getOffersForVendor = async (vendorId: string): Promise<VendorOffer[
 
 // CLIENTS
 export const getClients = async (): Promise<Client[]> => {
-    return readData<Client>('clients.json');
+    return await readData<Client>('clients.json');
 };
 
 export const getClient = async (id: string): Promise<Client | undefined> => {
@@ -144,7 +143,7 @@ export const updateClientStatus = async (id: string, status: Client['status']): 
 
 // VENDORS
 export const getVendors = async (): Promise<Vendor[]> => {
-    return readData<Vendor>('vendors.json');
+    return await readData<Vendor>('vendors.json');
 };
 
 export const getVendor = async (id: string): Promise<Vendor | undefined> => {
@@ -165,7 +164,7 @@ export const updateVendorStatus = async (id: string, status: Vendor['status']): 
 
 // TRANSACTIONS
 export const getTransactions = async (): Promise<Transaction[]> => {
-    return readData<Transaction>('transactions.json');
+    return await readData<Transaction>('transactions.json');
 };
 
 // PROPERTIES
@@ -236,7 +235,7 @@ export const saveInsuranceQuote = async (quoteData: InsuranceQuoteData) => {
 
 // STAYS
 export const getStays = async (): Promise<Stay[]> => {
-    return readData<Stay>('stays.json');
+    return await readData<Stay>('stays.json');
 };
 
 // HOLIDAY PACKAGES
@@ -261,5 +260,3 @@ export const getProducts = async (): Promise<Product[]> => {
         slug: createSlug(p.title)
     }));
 };
-
-    

@@ -41,7 +41,7 @@ import { MoreHorizontal, Search, FileCheck, FileX, CircleHelp } from 'lucide-rea
 import Link from 'next/link';
 import { useCurrency } from '@/hooks/use-currency';
 import { useToast } from '@/hooks/use-toast';
-import { getTransactions, updateVendorStatus } from '@/lib/firebase-services';
+import { updateVendorStatus } from '@/lib/firebase-services';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1, UGX: 29.45, TZS: 20.45, RWF: 10.33, BIF: 22.58, SSP: 1.22, SOS: 4.55,

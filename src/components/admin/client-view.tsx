@@ -109,23 +109,25 @@ export function ClientView({ client, transactions: clientTransactions }: ClientV
   const { toast } = useToast();
 
   useEffect(() => {
-    if (client.id) {
-        setLoadingOffers(true);
-        getOffersForClient(client.id)
-            .then(offers => {
+    async function fetchOffers() {
+        if (client.id) {
+            setLoadingOffers(true);
+            try {
+                const offers = await getOffersForClient(client.id);
                 setSentOffers(offers);
-                setLoadingOffers(false);
-            })
-            .catch(error => {
-                console.error("Error fetching offers: ", error);
+            } catch (error) {
+                 console.error("Error fetching offers: ", error);
                 toast({
                     title: "Error",
                     description: "Could not fetch client offers.",
                     variant: "destructive"
                 });
+            } finally {
                 setLoadingOffers(false);
-            });
+            }
+        }
     }
+    fetchOffers();
   }, [client.id, toast]);
 
     const totalOffersPages = Math.ceil(sentOffers.length / offersItemsPerPage);
