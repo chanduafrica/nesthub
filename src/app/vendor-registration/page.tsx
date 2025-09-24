@@ -21,11 +21,15 @@ import { useRouter } from "next/navigation";
 
 
 const availablePortals = [
-    { id: "nesthomes", name: "NestHomes", icon: HomeIcon },
-    { id: "neststays", name: "NestStays", icon: BedDouble },
-    { id: "nestmall", name: "NestMall", icon: ShoppingCart },
-    { id: "nestevents", name: "NestEvents", icon: Ticket },
-    { id: "nesttravel", name: "NestTravel", icon: Plane },
+    { id: "nesthomes", name: "NestHomes", icon: HomeIcon, description: "List properties for sale or rent." },
+    { id: "neststays", name: "NestStays", icon: BedDouble, description: "Host guests in your home or rental." },
+    { id: "nestmall", name: "NestMall", icon: ShoppingCart, description: "Sell electronics, fashion, and more." },
+    { id: "duka", name: "Duka", icon: Dna, description: "Retail and FMCG products for local delivery." },
+    { id: "autoparts", name: "AutoParts", icon: Car, description: "Sell vehicle spare parts and accessories." },
+    { id: "back2school", name: "Back2School", icon: School, description: "Provide school supplies and uniforms." },
+    { id: "nesttravel", name: "NestTravel", icon: Plane, description: "Offer travel packages and tours." },
+    { id: "mama-africa", name: "Mama Africa", icon: UtensilsCrossed, description: "Sell meals or groceries." },
+    { id: "nestevents", name: "NestEvents", icon: Ticket, description: "List tickets for your events." },
 ]
 
 const navLinks = [
@@ -223,7 +227,7 @@ export default function VendorRegistrationPage() {
                         </BreadcrumbList>
                     </Breadcrumb>
                     
-                    <Card className="max-w-2xl mx-auto">
+                    <Card className="max-w-4xl mx-auto">
                         {step === 'details' && (
                             <form onSubmit={handleDetailsSubmit}>
                                 <CardHeader>
@@ -312,11 +316,17 @@ export default function VendorRegistrationPage() {
                                 <CardContent className="space-y-4">
                                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
                                         {availablePortals.map(portal => (
-                                            <div key={portal.id} className="flex items-center space-x-2 p-3 border rounded-md has-[:checked]:bg-primary/10 has-[:checked]:border-primary">
-                                                <Checkbox id={portal.id} />
-                                                <Label htmlFor={portal.id} className="flex items-center gap-2 font-normal cursor-pointer">
-                                                    <portal.icon className="h-5 w-5 text-muted-foreground" />
-                                                    {portal.name}
+                                            <div key={portal.id} className="relative">
+                                                <Checkbox id={portal.id} className="absolute top-3 left-3 h-5 w-5 peer" />
+                                                <Label 
+                                                    htmlFor={portal.id} 
+                                                    className="block border-2 border-muted bg-popover p-4 rounded-lg cursor-pointer hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                                                >
+                                                    <div className="pl-8">
+                                                        <portal.icon className="h-6 w-6 mb-2" />
+                                                        <h4 className="font-semibold text-base">{portal.name}</h4>
+                                                        <p className="text-xs text-muted-foreground">{portal.description}</p>
+                                                    </div>
                                                 </Label>
                                             </div>
                                         ))}
