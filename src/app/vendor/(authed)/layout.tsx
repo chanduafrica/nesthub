@@ -1,3 +1,4 @@
+
 'use client';
 import { useState }from 'react';
 import {
@@ -21,7 +22,9 @@ import {
   Settings,
   UserCircle,
   MessageSquare,
-  LifeBuoy
+  LifeBuoy,
+  Landmark,
+  FileCheck2
 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -62,9 +65,17 @@ export default function VendorLayout({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="/vendor/kyc">
+                  <FileCheck2 />
+                  <span>KYC/Verification</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/products">
                   <Package />
                   <span>Products</span>
                 </Link>
@@ -75,6 +86,14 @@ export default function VendorLayout({
                 <Link href="#">
                   <ShoppingCart />
                   <span>Orders</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href="#">
+                  <Landmark />
+                  <span>Payouts</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

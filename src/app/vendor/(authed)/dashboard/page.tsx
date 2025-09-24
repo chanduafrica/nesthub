@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BarChart as BarChartIcon, DollarSign, Package, Star, Users } from "lucide-react";
+import { BarChart as BarChartIcon, DollarSign, Package, Star, Users, AlertTriangle, FileCheck2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import {
   ResponsiveContainer,
@@ -15,6 +15,7 @@ import {
   Legend,
   Bar as RechartsBar,
 } from 'recharts';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const recentOrders = [
     { id: "ORD101", product: "Handmade Leather Bag", date: "2023-08-10", customer: "Wanjiku Kamau", amount: "KES 4,500" },
@@ -34,6 +35,22 @@ const salesData = [
 export default function VendorDashboardPage() {
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+        
+        <Alert variant="destructive" className="flex items-center justify-between">
+            <div className="flex items-center">
+                <AlertTriangle className="h-5 w-5 mr-3"/>
+                <div>
+                    <AlertTitle className="font-bold">Verification Required</AlertTitle>
+                    <AlertDescription>
+                        Please complete your KYB (Know Your Business) verification to activate your account and start selling.
+                    </AlertDescription>
+                </div>
+            </div>
+            <Button asChild>
+                <Link href="/vendor/kyc">Start Verification <ArrowRight className="ml-2 h-4 w-4"/></Link>
+            </Button>
+        </Alert>
+
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
             <Card>
                 <CardHeader className="pb-2">
@@ -70,14 +87,14 @@ export default function VendorDashboardPage() {
             </Card>
             <Card>
                 <CardHeader className="pb-2">
-                <CardDescription>Average Rating</CardDescription>
-                <CardTitle className="text-4xl flex items-center gap-2">
-                    <Star className="h-8 w-8 text-yellow-400 fill-yellow-400" /> 4.8
+                <CardDescription>Verification Status</CardDescription>
+                <CardTitle className="text-4xl flex items-center gap-2 text-amber-500">
+                    <FileCheck2 className="h-8 w-8" /> Pending
                 </CardTitle>
                 </CardHeader>
                 <CardContent>
                 <div className="text-xs text-muted-foreground">
-                    Based on 530 reviews
+                    Complete KYC to activate account
                 </div>
                 </CardContent>
             </Card>

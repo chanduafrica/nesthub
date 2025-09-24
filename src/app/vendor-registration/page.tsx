@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -9,14 +10,14 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, Building, Car, School, Dna,
-    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft
+    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft, Loader2, KeyRound
 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useRouter } from "next/navigation";
 
 
 const availablePortals = [
@@ -129,7 +130,6 @@ const VendorHeroSection = () => (
     </section>
 );
 
-
 const Footer = () => (
     <footer className="border-t bg-gray-900 text-gray-300">
       <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
@@ -159,11 +159,53 @@ const Footer = () => (
     </footer>
   );
 
+type RegStep = 'details' | 'otp' | 'portals' | 'password';
+
 export default function VendorRegistrationPage() {
+    const [step, setStep] = useState<RegStep>('details');
+    const [isLoading, setIsLoading] = useState(false);
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const handleDetailsSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        // Simulate API call
+        setTimeout(() => {
+            toast({ title: "OTP Sent!", description: "Check your phone for the verification code." });
+            setIsLoading(false);
+            setStep('otp');
+        }, 1500);
+    }
+
+    const handleOtpSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setTimeout(() => {
+             toast({ title: "Verification Successful!", variant: "default" });
+             setIsLoading(false);
+             setStep('portals');
+        }, 1500);
+    }
+    
+    const handlePortalsSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setStep('password');
+    }
+
+    const handlePasswordSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setTimeout(() => {
+             toast({ title: "Registration Complete!", description: "Redirecting to your dashboard..." });
+             setIsLoading(false);
+             router.push('/vendor/dashboard');
+        }, 1500);
+    }
+
     return (
         <div className="min-h-screen bg-muted/40 flex flex-col">
             <Header />
-
             <main className="flex-1">
                 <VendorHeroSection />
                 <div className="w-[94%] mx-auto py-8">
@@ -180,117 +222,138 @@ export default function VendorRegistrationPage() {
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Registration Steps</CardTitle>
-                            <CardDescription>Follow these steps to get your business online.</CardDescription>
-                        </CardHeader>
-                         <CardContent>
-                            <Tabs defaultValue="step1" className="w-full">
-                                <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
-                                    <TabsTrigger value="step1">Step 1: Business Details</TabsTrigger>
-                                    <TabsTrigger value="step2">Step 2: Upload Documents</TabsTrigger>
-                                    <TabsTrigger value="step3">Step 3: AI Verification</TabsTrigger>
-                                    <TabsTrigger value="step4">Step 4: Select Portals</TabsTrigger>
-                                    <TabsTrigger value="step5">Step 5: Access Dashboard</TabsTrigger>
-                                </TabsList>
-                                <TabsContent value="step1" className="pt-6">
-                                     <div className="flex items-start gap-6">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">1</div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold">Business Details (KYB)</h3>
-                                            <p className="text-muted-foreground">Provide your business or individual registration details. This includes business name, registration number, and contact information.</p>
+                    
+                    <Card className="max-w-2xl mx-auto">
+                        {step === 'details' && (
+                            <form onSubmit={handleDetailsSubmit}>
+                                <CardHeader>
+                                    <CardTitle>Step 1: Business Details</CardTitle>
+                                    <CardDescription>Start by telling us about your business.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="businessName">Business Name</Label>
+                                            <Input id="businessName" placeholder="e.g., Wanjiku's Crafts" required />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="businessType">Business Type</Label>
+                                            <Select required>
+                                                <SelectTrigger id="businessType">
+                                                    <SelectValue placeholder="Select type" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectItem value="individual">Individual / Sole Proprietor</SelectItem>
+                                                    <SelectItem value="company">Registered Company</SelectItem>
+                                                    <SelectItem value="group">SHG / Group</SelectItem>
+                                                </SelectContent>
+                                            </Select>
                                         </div>
                                     </div>
-                                </TabsContent>
-                                <TabsContent value="step2" className="pt-6">
-                                     <div className="flex items-start gap-6">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">2</div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold">Upload Documents</h3>
-                                            <p className="text-muted-foreground">Submit required documents like company registration, KRA PIN, and director IDs for verification.</p>
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="email">Contact Email</Label>
+                                            <Input id="email" type="email" placeholder="contact@yourbusiness.com" required />
+                                        </div>
+                                         <div className="space-y-2">
+                                            <Label htmlFor="phone">Phone Number</Label>
+                                            <Input id="phone" type="tel" placeholder="+254712345678" required />
                                         </div>
                                     </div>
-                                </TabsContent>
-                                <TabsContent value="step3" className="pt-6">
-                                     <div className="flex items-start gap-6">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">3</div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold">AI Verification</h3>
-                                            <p className="text-muted-foreground">Our AI-powered tool will review your documents for an 80% faster approval process. You'll be notified of the outcome via email.</p>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox id="terms" required />
+                                            <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                                I accept the <a href="#" className="text-primary underline">Terms & Conditions</a> of KYB and Background Checks.
+                                            </label>
                                         </div>
                                     </div>
-                                </TabsContent>
-                                <TabsContent value="step4" className="pt-6">
-                                     <div className="flex items-start gap-6">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">4</div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold">Select Your Portals</h3>
-                                            <p className="text-muted-foreground">Choose which SG-Nest portals you want to sell on. You can select multiple portals to maximize your reach.</p>
-                                        </div>
+                                    <div className="flex justify-center p-4 bg-muted rounded-md">
+                                        <p className="text-sm text-muted-foreground">[Captcha Placeholder]</p>
                                     </div>
-                                </TabsContent>
-                                <TabsContent value="step5" className="pt-6">
-                                     <div className="flex items-start gap-6">
-                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">5</div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold">Access Merchant Dashboard</h3>
-                                            <p className="text-muted-foreground">Once approved, you'll gain access to your merchant dashboard to manage products, view orders, and track your performance.</p>
-                                        </div>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button size="lg" className="w-full" type="submit" disabled={isLoading}>
+                                        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        Get OTP
+                                    </Button>
+                                </CardFooter>
+                            </form>
+                        )}
+                        
+                        {step === 'otp' && (
+                             <form onSubmit={handleOtpSubmit}>
+                                <CardHeader>
+                                    <CardTitle>Step 2: Verify OTP</CardTitle>
+                                    <CardDescription>Enter the code sent to your phone.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="otp">One-Time Password</Label>
+                                        <Input id="otp" type="text" inputMode="numeric" required placeholder="_ _ _ _ _ _"/>
                                     </div>
-                                </TabsContent>
-                            </Tabs>
-                        </CardContent>
-                    </Card>
+                                    <Button variant="link" size="sm" type="button">Resend OTP</Button>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button size="lg" className="w-full" type="submit" disabled={isLoading}>
+                                        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        Verify & Continue
+                                    </Button>
+                                </CardFooter>
+                            </form>
+                        )}
 
-                    <Card className="mt-8">
-                        <CardHeader>
-                            <CardTitle>Start Your Application</CardTitle>
-                            <CardDescription>Fill out the initial details to begin.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="businessName">Business Name</Label>
-                                    <Input id="businessName" placeholder="e.g., Wanjiku's Crafts" />
-                                </div>
-                                 <div className="space-y-2">
-                                    <Label htmlFor="businessType">Business Type</Label>
-                                    <Select>
-                                        <SelectTrigger id="businessType">
-                                            <SelectValue placeholder="Select type" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="individual">Individual / Sole Proprietor</SelectItem>
-                                            <SelectItem value="company">Registered Company</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-                             <div className="space-y-2">
-                                <Label htmlFor="email">Contact Email</Label>
-                                <Input id="email" type="email" placeholder="contact@yourbusiness.com" />
-                            </div>
-                             <div className="space-y-2">
-                                <Label>Which portals are you interested in?</Label>
-                                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-                                    {availablePortals.map(portal => (
-                                        <div key={portal.id} className="flex items-center space-x-2">
-                                            <Checkbox id={portal.id} />
-                                            <Label htmlFor={portal.id} className="flex items-center gap-2 font-normal">
-                                                <portal.icon className="h-5 w-5 text-muted-foreground" />
-                                                {portal.name}
-                                            </Label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <Button size="lg" className="w-full">
-                                Continue Application <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </CardFooter>
+                        {step === 'portals' && (
+                             <form onSubmit={handlePortalsSubmit}>
+                                <CardHeader>
+                                    <CardTitle>Step 3: Select Portals</CardTitle>
+                                    <CardDescription>Choose where you want to sell. You can add more later.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+                                        {availablePortals.map(portal => (
+                                            <div key={portal.id} className="flex items-center space-x-2 p-3 border rounded-md has-[:checked]:bg-primary/10 has-[:checked]:border-primary">
+                                                <Checkbox id={portal.id} />
+                                                <Label htmlFor={portal.id} className="flex items-center gap-2 font-normal cursor-pointer">
+                                                    <portal.icon className="h-5 w-5 text-muted-foreground" />
+                                                    {portal.name}
+                                                </Label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                                <CardFooter>
+                                     <Button size="lg" className="w-full" type="submit">
+                                        Continue <ArrowRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </CardFooter>
+                            </form>
+                        )}
+                        
+                         {step === 'password' && (
+                             <form onSubmit={handlePasswordSubmit}>
+                                <CardHeader>
+                                    <CardTitle>Step 4: Set Your Password</CardTitle>
+                                    <CardDescription>Secure your new merchant account.</CardDescription>
+                                </CardHeader>
+                                <CardContent className="space-y-4">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="password">New Password</Label>
+                                        <Input id="password" type="password" required />
+                                    </div>
+                                     <div className="space-y-2">
+                                        <Label htmlFor="confirm-password">Confirm Password</Label>
+                                        <Input id="confirm-password" type="password" required />
+                                    </div>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button size="lg" className="w-full" type="submit" disabled={isLoading}>
+                                        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                                        Complete Registration & Login
+                                    </Button>
+                                </CardFooter>
+                            </form>
+                        )}
                     </Card>
                 </div>
             </main>
