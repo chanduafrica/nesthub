@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 const availablePortals = [
@@ -184,42 +185,61 @@ export default function VendorRegistrationPage() {
                             <CardTitle>Registration Steps</CardTitle>
                             <CardDescription>Follow these steps to get your business online.</CardDescription>
                         </CardHeader>
-                         <CardContent className="space-y-8">
-                            <div className="flex items-start gap-6">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl">1</div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">Business Details (KYB)</h3>
-                                    <p className="text-muted-foreground">Provide your business or individual registration details. This includes business name, registration number, and contact information.</p>
-                                </div>
-                            </div>
-                             <div className="flex items-start gap-6">
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl">2</div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">Upload Documents</h3>
-                                    <p className="text-muted-foreground">Submit required documents like company registration, KRA PIN, and director IDs for verification.</p>
-                                </div>
-                            </div>
-                             <div className="flex items-start gap-6">
-                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl">3</div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">AI Verification</h3>
-                                    <p className="text-muted-foreground">Our AI-powered tool will review your documents for an 80% faster approval process. You'll be notified of the outcome via email.</p>
-                                </div>
-                            </div>
-                              <div className="flex items-start gap-6">
-                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl">4</div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">Select Your Portals</h3>
-                                    <p className="text-muted-foreground">Choose which SG-Nest portals you want to sell on. You can select multiple portals to maximize your reach.</p>
-                                </div>
-                            </div>
-                               <div className="flex items-start gap-6">
-                                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl">5</div>
-                                <div>
-                                    <h3 className="text-lg font-semibold">Access Merchant Dashboard</h3>
-                                    <p className="text-muted-foreground">Once approved, you'll gain access to your merchant dashboard to manage products, view orders, and track your performance.</p>
-                                </div>
-                            </div>
+                         <CardContent>
+                            <Tabs defaultValue="step1" className="w-full">
+                                <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
+                                    <TabsTrigger value="step1">Step 1: Business Details</TabsTrigger>
+                                    <TabsTrigger value="step2">Step 2: Upload Documents</TabsTrigger>
+                                    <TabsTrigger value="step3">Step 3: AI Verification</TabsTrigger>
+                                    <TabsTrigger value="step4">Step 4: Select Portals</TabsTrigger>
+                                    <TabsTrigger value="step5">Step 5: Access Dashboard</TabsTrigger>
+                                </TabsList>
+                                <TabsContent value="step1" className="pt-6">
+                                     <div className="flex items-start gap-6">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">1</div>
+                                        <div>
+                                            <h3 className="text-lg font-semibold">Business Details (KYB)</h3>
+                                            <p className="text-muted-foreground">Provide your business or individual registration details. This includes business name, registration number, and contact information.</p>
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="step2" className="pt-6">
+                                     <div className="flex items-start gap-6">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">2</div>
+                                        <div>
+                                            <h3 className="text-lg font-semibold">Upload Documents</h3>
+                                            <p className="text-muted-foreground">Submit required documents like company registration, KRA PIN, and director IDs for verification.</p>
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="step3" className="pt-6">
+                                     <div className="flex items-start gap-6">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">3</div>
+                                        <div>
+                                            <h3 className="text-lg font-semibold">AI Verification</h3>
+                                            <p className="text-muted-foreground">Our AI-powered tool will review your documents for an 80% faster approval process. You'll be notified of the outcome via email.</p>
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="step4" className="pt-6">
+                                     <div className="flex items-start gap-6">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">4</div>
+                                        <div>
+                                            <h3 className="text-lg font-semibold">Select Your Portals</h3>
+                                            <p className="text-muted-foreground">Choose which SG-Nest portals you want to sell on. You can select multiple portals to maximize your reach.</p>
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                                <TabsContent value="step5" className="pt-6">
+                                     <div className="flex items-start gap-6">
+                                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xl flex-shrink-0">5</div>
+                                        <div>
+                                            <h3 className="text-lg font-semibold">Access Merchant Dashboard</h3>
+                                            <p className="text-muted-foreground">Once approved, you'll gain access to your merchant dashboard to manage products, view orders, and track your performance.</p>
+                                        </div>
+                                    </div>
+                                </TabsContent>
+                            </Tabs>
                         </CardContent>
                     </Card>
 
