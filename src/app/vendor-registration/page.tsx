@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-    FileCheck2, HomeIcon, Plane, ShoppingCart, Ticket, UserCheck, BedDouble, ArrowRight, Building, Car, School, Dna,
-    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft, Loader2, KeyRound
+    HomeIcon, Plane, ShoppingCart, Ticket, BedDouble, ArrowRight, Building, Car, School, Dna,
+    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft, Loader2
 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
@@ -440,3 +440,5 @@ export default function VendorRegistrationPage() {
         </div>
     );
 }
+
+    
