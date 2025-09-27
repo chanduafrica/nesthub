@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -394,7 +395,8 @@ const portals = [
     { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#" },
     { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#" },
     { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#" },
-    { icon: Car, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#" },
+    { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "#" },
+    { icon: Package, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#" },
     { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#" },
 ];
 
@@ -847,6 +849,8 @@ const Footer = () => (
     
 
       
+
+    
 
     
 

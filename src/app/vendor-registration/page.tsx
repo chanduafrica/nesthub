@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from "react";
@@ -9,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
     HomeIcon, Plane, ShoppingCart, Ticket, BedDouble, ArrowRight, Building, Car, School, Dna,
-    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft, Loader2
+    MessageSquare, UtensilsCrossed, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Menu, ArrowLeft, Loader2, Package
 } from "lucide-react";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
@@ -25,8 +26,9 @@ const availablePortals = [
     { id: "NestHomes", name: "NestHomes", icon: HomeIcon, description: "List properties for sale or rent." },
     { id: "NestStays", name: "NestStays", icon: BedDouble, description: "Host guests in your home or rental." },
     { id: "NestMall", name: "NestMall", icon: ShoppingCart, description: "Sell electronics, fashion, and more." },
+    { id: "BuyMyCar", name: "BuyMyCar", icon: Car, description: "Sell new and used vehicles." },
     { id: "Duka", name: "Duka", icon: Dna, description: "Retail and FMCG products for local delivery." },
-    { id: "AutoParts", name: "AutoParts", icon: Car, description: "Sell vehicle spare parts and accessories." },
+    { id: "AutoParts", name: "AutoParts", icon: Package, description: "Sell vehicle spare parts and accessories." },
     { id: "Back2School", name: "Back2School", icon: School, description: "Provide school supplies and uniforms." },
     { id: "NestTravel", name: "NestTravel", icon: Plane, description: "Offer travel packages and tours." },
     { id: "MamaAfrica", name: "Mama Africa", icon: UtensilsCrossed, description: "Sell meals or groceries." },
@@ -438,3 +440,5 @@ export default function VendorRegistrationPage() {
         </div>
     );
 }
+
+    
