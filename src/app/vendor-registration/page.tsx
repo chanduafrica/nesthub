@@ -18,18 +18,20 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { useRouter } from "next/navigation";
+import type { VendorRegistrationData } from "@/lib/firebase-services";
+import { handleRegisterVendor } from "./actions";
 
 
 const availablePortals = [
-    { id: "nesthomes", name: "NestHomes", icon: HomeIcon, description: "List properties for sale or rent." },
-    { id: "neststays", name: "NestStays", icon: BedDouble, description: "Host guests in your home or rental." },
-    { id: "nestmall", name: "NestMall", icon: ShoppingCart, description: "Sell electronics, fashion, and more." },
-    { id: "duka", name: "Duka", icon: Dna, description: "Retail and FMCG products for local delivery." },
-    { id: "autoparts", name: "AutoParts", icon: Car, description: "Sell vehicle spare parts and accessories." },
-    { id: "back2school", name: "Back2School", icon: School, description: "Provide school supplies and uniforms." },
-    { id: "nesttravel", name: "NestTravel", icon: Plane, description: "Offer travel packages and tours." },
-    { id: "mama-africa", name: "Mama Africa", icon: UtensilsCrossed, description: "Sell meals or groceries." },
-    { id: "nestevents", name: "NestEvents", icon: Ticket, description: "List tickets for your events." },
+    { id: "NestHomes", name: "NestHomes", icon: HomeIcon, description: "List properties for sale or rent." },
+    { id: "NestStays", name: "NestStays", icon: BedDouble, description: "Host guests in your home or rental." },
+    { id: "NestMall", name: "NestMall", icon: ShoppingCart, description: "Sell electronics, fashion, and more." },
+    { id: "Duka", name: "Duka", icon: Dna, description: "Retail and FMCG products for local delivery." },
+    { id: "AutoParts", name: "AutoParts", icon: Car, description: "Sell vehicle spare parts and accessories." },
+    { id: "Back2School", name: "Back2School", icon: School, description: "Provide school supplies and uniforms." },
+    { id: "NestTravel", name: "NestTravel", icon: Plane, description: "Offer travel packages and tours." },
+    { id: "MamaAfrica", name: "Mama Africa", icon: UtensilsCrossed, description: "Sell meals or groceries." },
+    { id: "NestEvents", name: "NestEvents", icon: Ticket, description: "List tickets for your events." },
 ]
 
 const navLinks = [
@@ -164,6 +166,7 @@ const Footer = () => (
   );
 
 type RegStep = 'details' | 'otp' | 'portals' | 'password';
+type FormData = Omit<VendorRegistrationData, 'portals'> & { portals: Set<string>; password: string };
 
 export default function VendorRegistrationPage() {
     const [step, setStep] = useState<RegStep>('details');
@@ -171,12 +174,42 @@ export default function VendorRegistrationPage() {
     const { toast } = useToast();
     const router = useRouter();
 
+    const [formData, setFormData] = useState<FormData>({
+        businessName: '',
+        businessType: '',
+        email: '',
+        phone: '',
+        portals: new Set(),
+        password: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSelectChange = (name: keyof FormData, value: string) => {
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handlePortalToggle = (portalId: string, checked: boolean | 'indeterminate') => {
+        setFormData(prev => {
+            const newPortals = new Set(prev.portals);
+            if (checked) {
+                newPortals.add(portalId);
+            } else {
+                newPortals.delete(portalId);
+            }
+            return { ...prev, portals: newPortals };
+        });
+    };
+
     const handleDetailsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         // Simulate API call
         setTimeout(() => {
-            toast({ title: "OTP Sent!", description: "Check your phone for the verification code." });
+            toast({ title: "OTP Sent!", description: "Check your phone for the verification code. (Hint: 123456)" });
             setIsLoading(false);
             setStep('otp');
         }, 1500);
@@ -184,27 +217,58 @@ export default function VendorRegistrationPage() {
 
     const handleOtpSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        const otp = (e.currentTarget as HTMLFormElement).otp.value;
+        if (otp !== '123456') {
+            toast({ title: "Invalid OTP", description: "Please enter the correct OTP.", variant: "destructive" });
+            return;
+        }
         setIsLoading(true);
         setTimeout(() => {
              toast({ title: "Verification Successful!", variant: "default" });
              setIsLoading(false);
              setStep('portals');
-        }, 1500);
+        }, 1000);
     }
     
     const handlePortalsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (formData.portals.size === 0) {
+            toast({ title: "No portals selected", description: "Please choose at least one portal to sell on.", variant: "destructive"});
+            return;
+        }
         setStep('password');
     }
 
-    const handlePasswordSubmit = (e: React.FormEvent) => {
+    const handlePasswordSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const password = (e.currentTarget as HTMLFormElement).password.value;
+        const confirmPassword = (e.currentTarget as HTMLFormElement)['confirm-password'].value;
+
+        if (password !== confirmPassword) {
+            toast({ title: "Passwords do not match", variant: "destructive" });
+            return;
+        }
+        
         setIsLoading(true);
-        setTimeout(() => {
-             toast({ title: "Registration Complete!", description: "Redirecting to your dashboard..." });
-             setIsLoading(false);
-             router.push('/vendor/dashboard');
-        }, 1500);
+
+        const registrationData: VendorRegistrationData = {
+            businessName: formData.businessName,
+            businessType: formData.businessType,
+            email: formData.email,
+            phone: formData.phone,
+            portals: Array.from(formData.portals),
+        };
+
+        try {
+            await handleRegisterVendor(registrationData);
+            toast({ title: "Registration Complete!", description: "Your application is pending review. Redirecting to login..." });
+            setTimeout(() => {
+                router.push('/vendor/login');
+            }, 2000);
+        } catch (error) {
+            toast({ title: "Registration Failed", description: "Could not save your registration. Please try again.", variant: "destructive" });
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -238,11 +302,11 @@ export default function VendorRegistrationPage() {
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="businessName">Business Name</Label>
-                                            <Input id="businessName" placeholder="e.g., Wanjiku's Crafts" required />
+                                            <Input id="businessName" name="businessName" placeholder="e.g., Wanjiku's Crafts" required value={formData.businessName} onChange={handleInputChange} />
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="businessType">Business Type</Label>
-                                            <Select required>
+                                            <Select required name="businessType" value={formData.businessType} onValueChange={(value) => handleSelectChange('businessType', value)}>
                                                 <SelectTrigger id="businessType">
                                                     <SelectValue placeholder="Select type" />
                                                 </SelectTrigger>
@@ -257,11 +321,11 @@ export default function VendorRegistrationPage() {
                                     <div className="grid sm:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <Label htmlFor="email">Contact Email</Label>
-                                            <Input id="email" type="email" placeholder="contact@yourbusiness.com" required />
+                                            <Input id="email" name="email" type="email" placeholder="contact@yourbusiness.com" required value={formData.email} onChange={handleInputChange} />
                                         </div>
                                          <div className="space-y-2">
                                             <Label htmlFor="phone">Phone Number</Label>
-                                            <Input id="phone" type="tel" placeholder="+254712345678" required />
+                                            <Input id="phone" name="phone" type="tel" placeholder="+254712345678" required value={formData.phone} onChange={handleInputChange} />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
@@ -294,7 +358,7 @@ export default function VendorRegistrationPage() {
                                 <CardContent className="space-y-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="otp">One-Time Password</Label>
-                                        <Input id="otp" type="text" inputMode="numeric" required placeholder="_ _ _ _ _ _"/>
+                                        <Input id="otp" name="otp" type="text" inputMode="numeric" required placeholder="_ _ _ _ _ _"/>
                                     </div>
                                     <Button variant="link" size="sm" type="button">Resend OTP</Button>
                                 </CardContent>
@@ -317,7 +381,12 @@ export default function VendorRegistrationPage() {
                                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
                                         {availablePortals.map(portal => (
                                             <div key={portal.id} className="relative">
-                                                <Checkbox id={portal.id} className="absolute top-3 left-3 h-5 w-5 peer" />
+                                                <Checkbox 
+                                                    id={portal.id} 
+                                                    className="absolute top-3 left-3 h-5 w-5 peer" 
+                                                    onCheckedChange={(checked) => handlePortalToggle(portal.id, checked)}
+                                                    checked={formData.portals.has(portal.id)}
+                                                />
                                                 <Label 
                                                     htmlFor={portal.id} 
                                                     className="block border-2 border-muted bg-popover p-4 rounded-lg cursor-pointer hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
@@ -349,11 +418,11 @@ export default function VendorRegistrationPage() {
                                 <CardContent className="space-y-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="password">New Password</Label>
-                                        <Input id="password" type="password" required />
+                                        <Input id="password" name="password" type="password" required />
                                     </div>
                                      <div className="space-y-2">
                                         <Label htmlFor="confirm-password">Confirm Password</Label>
-                                        <Input id="confirm-password" type="password" required />
+                                        <Input id="confirm-password" name="confirm-password" type="password" required />
                                     </div>
                                 </CardContent>
                                 <CardFooter>

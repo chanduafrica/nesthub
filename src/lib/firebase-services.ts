@@ -1,7 +1,8 @@
 
+
 import { promises as fs } from 'fs';
 import path from 'path';
-import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
+import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, VendorStatus } from './mock-data';
 
 // --- Helper Functions to interact with JSON files ---
 
@@ -81,7 +82,13 @@ export type InsuranceQuoteData = {
     phone: string;
     preferredInsurer: string;
 };
-
+export type VendorRegistrationData = {
+    businessName: string;
+    businessType: string;
+    email: string;
+    phone: string;
+    portals: string[];
+}
 
 // --- Service Functions for CRUD Operations ---
 
@@ -158,6 +165,29 @@ export const updateVendorStatus = async (id: string, status: Vendor['status']): 
     } else {
         throw new Error(`Vendor with id ${id} not found.`);
     }
+};
+
+export const registerVendor = async (vendorData: VendorRegistrationData): Promise<Vendor> => {
+    const vendors = await getVendors();
+    const newId = `v${vendors.length + 1}_${Date.now()}`;
+
+    // A bit simplistic, in a real app you'd join the selected portals
+    const portalName = vendorData.portals.length > 1 ? 'Multiple' : vendorData.portals[0] || 'N/A';
+
+    const newVendor: Vendor = {
+        id: newId,
+        name: vendorData.businessName,
+        email: vendorData.email,
+        phone: vendorData.phone,
+        country: "Kenya", // Default for now
+        portal: portalName,
+        products: 0,
+        rating: 0,
+        status: 'Pending' as VendorStatus,
+    };
+    vendors.push(newVendor);
+    await writeData('vendors.json', vendors);
+    return newVendor;
 };
 
 // TRANSACTIONS
