@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -13,6 +14,7 @@ import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { handleSaveBuildProject } from '@/app/modules/homes/build/actions';
+import { NestSearch } from '@/components/nest-search';
 
 const designs = [
   {
@@ -338,6 +340,7 @@ export default function CheckoutPage() {
         </div>
       </div>
      </div>
+     <NestSearch />
     </div>
   );
 }

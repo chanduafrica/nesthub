@@ -20,6 +20,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { useRouter } from "next/navigation";
 import type { VendorRegistrationData } from "@/lib/firebase-services";
 import { handleRegisterVendor } from "./actions";
+import { NestSearch } from '@/components/nest-search';
 
 
 const availablePortals = [
@@ -437,6 +438,7 @@ export default function VendorRegistrationPage() {
                 </div>
             </main>
             <Footer />
+            <NestSearch />
         </div>
     );
 }

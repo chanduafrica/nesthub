@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -67,6 +68,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { NestSearch } from '@/components/nest-search';
 
 const Header = () => (
   <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -513,6 +515,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </main>
+      <NestSearch />
     </div>
   );
 }

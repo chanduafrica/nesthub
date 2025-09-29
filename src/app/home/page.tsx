@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import homeTabsData from '@/lib/data/home-tabs.json';
 import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
 import { useRouter } from "next/navigation";
+import { NestSearch } from '@/components/nest-search';
 
 
 const navLinks = [
@@ -155,6 +156,7 @@ export default function HomePage() {
         </div>
       </main>
       <Footer />
+      <NestSearch />
     </div>
   );
 }
@@ -860,5 +862,6 @@ const Footer = () => (
     
 
     
+
 
 

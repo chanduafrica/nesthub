@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Property } from '@/lib/mock-data';
 import { PropertyView } from '@/components/modules/homes/property-view';
 import { getPropertyBySlug } from '@/lib/firebase-services';
+import { NestSearch } from '@/components/nest-search';
 
 // This is the main Server Component for the page
 export default async function PropertyDetailsPage({ params }: { params: { slug: string } }) {
@@ -13,6 +14,9 @@ export default async function PropertyDetailsPage({ params }: { params: { slug: 
     }
 
     return (
-        <PropertyView property={property} />
+        <>
+            <PropertyView property={property} />
+            <NestSearch />
+        </>
     );
 }

@@ -2,7 +2,6 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
-import { NestSearch } from '@/components/nest-search';
 
 export const metadata: Metadata = {
   title: 'SG-Nest',
@@ -24,7 +23,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-body">
         {children}
-        <NestSearch />
         <Toaster />
       </body>
     </html>

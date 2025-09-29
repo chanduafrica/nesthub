@@ -19,6 +19,7 @@ import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { NestSearch } from '@/components/nest-search';
 
 // Mock data, in a real app this would be fetched based on the [id] param
 const thread: Thread = {
@@ -129,6 +130,7 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
                 </Card>
             </div>
         </main>
+        <NestSearch />
     </div>
   );
 }

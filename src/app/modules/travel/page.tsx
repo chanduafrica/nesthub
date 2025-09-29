@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -43,6 +44,7 @@ import {
     Wallet,
 } from 'lucide-react';
 import { NestIcon } from '@/components/icons';
+import { NestSearch } from '@/components/nest-search';
 
 const Header = () => {
     return (
@@ -379,6 +381,7 @@ export default function NestTravelPage() {
         <TrustSection />
       </main>
       <Footer />
+      <NestSearch />
     </div>
   );
 }

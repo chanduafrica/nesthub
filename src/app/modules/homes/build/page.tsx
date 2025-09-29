@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -13,6 +14,7 @@ import { CheckCircle, ChevronRight, Home, MapPin, Milestone, Sun, Wind, Building
 import Image from 'next/image';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { NestSearch } from '@/components/nest-search';
 
 const designs = [
   {
@@ -285,6 +287,7 @@ export default function BuildMyOwnPage() {
           </div>
         </div>
       </main>
+      <NestSearch />
     </div>
   );
 }

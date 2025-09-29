@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { HolidayPackage } from '@/lib/mock-data';
 import { getPackageBySlug } from '@/lib/firebase-services';
 import { PackageDetailClient } from '@/components/modules/travel/package-detail-client';
+import { NestSearch } from '@/components/nest-search';
 
 
 // This is now the main Server Component for the page.
@@ -17,6 +18,9 @@ export default async function PackageDetailPage({ params }: { params: { slug: st
 
     // 3. Pass the data as props to the Client Component
     return (
-        <PackageDetailClient pkg={pkg} />
+        <>
+            <PackageDetailClient pkg={pkg} />
+            <NestSearch />
+        </>
     );
 }

@@ -35,6 +35,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { NestSearch } from '@/components/nest-search';
 
 const threads: Thread[] = [
     {
@@ -218,6 +219,7 @@ export default function CampfireForumPage() {
             </Card>
         </aside>
       </div>
+      <NestSearch />
     </div>
   );
 }

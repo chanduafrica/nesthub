@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Car, ChevronsRight, Home, LayoutGrid, Award, Briefcase, HandCoins, Package, Percent, Phone, Rocket, Search, ShoppingBag, Store, Tag, Users, Wallet, Warehouse, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { NestSearch } from '@/components/nest-search';
 
 const Header = () => (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -254,6 +256,7 @@ export default function NestMallPage() {
         <TrustSection />
         <CtaSection />
       </main>
+      <NestSearch />
     </div>
   );
 }

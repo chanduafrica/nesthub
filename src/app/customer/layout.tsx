@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { NestSearch } from '@/components/nest-search';
 
 const navLinks = [
     { href: "/home", icon: HomeIcon, text: "Home" },
@@ -132,6 +133,7 @@ export default function CustomerDashboardLayout({
             </Breadcrumb>
             {children}
         </main>
+        <NestSearch />
     </div>
   );
 }
