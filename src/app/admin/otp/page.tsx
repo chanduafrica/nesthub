@@ -13,7 +13,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 
 export default function OtpPage() {

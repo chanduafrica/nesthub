@@ -138,4 +138,3 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
     </div>
   );
 }
-
