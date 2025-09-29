@@ -49,13 +49,13 @@ const portalConfig = {
     Back2School: { icon: Package, href: '#' },
 } as const;
 
-type PortalName = keyof typeof portalConfig | 'All Portals';
-
 export function VendorSidebar({ vendor }: { vendor: Vendor }) {
   
-  const portalMenuItems = vendor.portal === 'All Portals'
-    ? Object.keys(portalConfig) as (keyof typeof portalConfig)[]
-    : [vendor.portal] as (keyof typeof portalConfig)[];
+  const portalMenuItems = (vendor.portal === 'All Portals'
+    ? Object.keys(portalConfig)
+    : [vendor.portal]).filter(
+        (portalName): portalName is keyof typeof portalConfig => portalName in portalConfig
+    );
 
   return (
     <Sidebar>
@@ -91,8 +91,7 @@ export function VendorSidebar({ vendor }: { vendor: Vendor }) {
                 <span className="px-2 text-xs font-medium text-muted-foreground">My Portals</span>
              </SidebarMenuItem>
              {portalMenuItems.map(portalName => {
-                const config = portalConfig[portalName as keyof typeof portalConfig];
-                if (!config || !config.href) return null;
+                const config = portalConfig[portalName];
                 const Icon = config.icon;
                 return (
                     <SidebarMenuItem key={portalName}>
