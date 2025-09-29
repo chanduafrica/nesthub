@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NestSearchResult, searchNest } from '@/ai/flows/nest-search-flow';
 import { Loader2, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
@@ -143,8 +143,6 @@ function ResultCard({ item }: { item: NestSearchResult }) {
 
 export default function SearchResultsPage() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <SearchResults />
-        </Suspense>
+        <SearchResults />
     );
 }
