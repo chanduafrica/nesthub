@@ -49,7 +49,7 @@ import {
 } from 'recharts';
 import { useCurrency } from '@/hooks/use-currency';
 import { useToast } from '@/hooks/use-toast';
-import { updateVendorStatus } from '@/lib/firebase-services';
+import { handleUpdateVendorStatus } from '@/app/admin/(authed)/vendors/actions';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -87,7 +87,7 @@ export function VendorView({ vendor, transactions: vendorTransactions }: VendorV
   
   const handleStatusChange = async (newStatus: VendorStatus) => {
     try {
-        await updateVendorStatus(vendor.id, newStatus);
+        await handleUpdateVendorStatus(vendor.id, newStatus);
         setVendorStatus(newStatus);
         toast({
             title: `Vendor Status Updated`,

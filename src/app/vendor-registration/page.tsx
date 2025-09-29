@@ -17,8 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { useRouter } from "next/navigation";
-import type { VendorRegistrationData } from "@/lib/firebase-services";
-import { handleRegisterVendor } from "./actions";
+import { handleRegisterVendor, type VendorRegistrationData } from "./actions";
 import { NestSearch } from '@/components/nest-search';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
@@ -435,6 +434,7 @@ export default function VendorRegistrationPage() {
 }
 
     
+
 
 
 
