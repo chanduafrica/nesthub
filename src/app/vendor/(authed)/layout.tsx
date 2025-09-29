@@ -15,12 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserCircle } from 'lucide-react';
 import Link from 'next/link';
-import { VendorSidebar } from './vendor-sidebar';
 
-
-// This is now a client component to manage UI state.
-// It renders the <VendorSidebar />, which is a Server Component.
-// Next.js handles this composition correctly.
 export default function VendorLayout({
   children,
 }: {
@@ -29,7 +24,6 @@ export default function VendorLayout({
 
   return (
     <SidebarProvider>
-      <VendorSidebar />
       <SidebarInset className="flex flex-col">
           <header className="flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <SidebarTrigger className="sm:hidden" />
@@ -61,8 +55,8 @@ export default function VendorLayout({
           </div>
           </header>
           <main className="flex-1 overflow-auto p-4 sm:p-6">
-              <div className="mx-auto">
-              {children}
+              <div className="mx-auto flex">
+                {children}
               </div>
           </main>
           <VendorFooter />

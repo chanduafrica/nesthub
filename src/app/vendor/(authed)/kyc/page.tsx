@@ -18,10 +18,12 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { UploadCloud, CheckCircle, AlertTriangle, Clock, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import VendorLayout from './layout';
+import { VendorSidebar } from './vendor-sidebar';
 
 type KycStatus = 'Approved' | 'In Progress' | 'Rejected' | 'Not Submitted';
 
-export default function KycPage() {
+function KycContent() {
   const [status, setStatus] = useState<KycStatus>('Not Submitted');
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -186,4 +188,13 @@ export default function KycPage() {
       </form>
     </div>
   );
+}
+
+export default function KycPage() {
+    return (
+        <VendorLayout>
+            <VendorSidebar />
+            <KycContent />
+        </VendorLayout>
+    )
 }

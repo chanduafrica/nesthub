@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { Vendor, Transaction } from '@/lib/mock-data';
 import { getVendor, getTransactions } from '@/lib/firebase-services';
 import { VendorDashboardClient } from '@/components/vendor/dashboard-client';
+import VendorLayout from './layout';
+import { VendorSidebar } from './vendor-sidebar';
 
 // This is the main Server Component for the vendor dashboard.
 export default async function VendorDashboardPage() {
@@ -22,5 +24,10 @@ export default async function VendorDashboardPage() {
   const vendorTransactions = allTransactions.filter(tx => tx.vendorId === vendor.id);
 
   // 3. Pass all the data as props to the client component
-  return <VendorDashboardClient vendor={vendor} transactions={vendorTransactions} />;
+  return (
+    <VendorLayout>
+        <VendorSidebar />
+        <VendorDashboardClient vendor={vendor} transactions={vendorTransactions} />
+    </VendorLayout>
+  );
 }

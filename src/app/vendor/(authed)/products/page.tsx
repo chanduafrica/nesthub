@@ -3,6 +3,8 @@ import { getProducts, getVendor } from "@/lib/firebase-services";
 import { Product, Vendor } from "@/lib/mock-data";
 import { ProductsList } from "@/components/vendor/products-list";
 import { notFound } from "next/navigation";
+import VendorLayout from './layout';
+import { VendorSidebar } from './vendor-sidebar';
 
 export default async function VendorProductsPage() {
     // For this prototype, we'll fetch data for the hardcoded "super vendor".
@@ -18,5 +20,10 @@ export default async function VendorProductsPage() {
     const allProducts: Product[] = await getProducts();
     const vendorProducts = allProducts.filter(p => p.vendor === vendor.name);
     
-    return <ProductsList initialProducts={vendorProducts} />;
+    return (
+        <VendorLayout>
+            <VendorSidebar />
+            <ProductsList initialProducts={vendorProducts} />
+        </VendorLayout>
+    );
 }
