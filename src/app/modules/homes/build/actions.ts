@@ -1,7 +1,21 @@
 
 'use server';
 
-import { getBuildProjects, writeData } from '@/lib/firebase-services';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { getBuildProjects } from '@/lib/firebase-services';
+
+// Helper function to write data to a JSON file
+async function writeData<T>(filename: string, data: T[]): Promise<void> {
+    const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
+    const filePath = path.join(dataDirectory, filename);
+    try {
+        await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (error) {
+        console.error(`Error writing to ${filename}:`, error);
+    }
+}
+
 
 export type BuildProjectData = {
     designName: string;
