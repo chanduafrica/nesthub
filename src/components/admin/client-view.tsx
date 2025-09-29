@@ -73,7 +73,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
-import { getOffersForClient, saveOffer, updateClientStatus } from '@/lib/firebase-services';
+import { getOffersForClient, handleSaveOffer, handleUpdateClientStatus } from '@/app/admin/(authed)/clients/actions';
 
 const conversionRates: { [key: string]: number } = {
     KES: 1,
@@ -155,7 +155,7 @@ export function ClientView({ client, transactions: clientTransactions }: ClientV
   
   const handleStatusChange = async (newStatus: ClientStatus) => {
     try {
-        await updateClientStatus(client.id, newStatus);
+        await handleUpdateClientStatus(client.id, newStatus);
         setClientStatus(newStatus);
         toast({
             title: `Client ${newStatus === 'Active' ? 'Activated' : 'Deactivated'}`,
@@ -186,7 +186,7 @@ export function ClientView({ client, transactions: clientTransactions }: ClientV
       };
 
       try {
-        const savedOffer = await saveOffer(newOfferData);
+        const savedOffer = await handleSaveOffer(newOfferData);
         setSentOffers(prev => [savedOffer, ...prev]);
         toast({
             title: 'Discount Sent!',

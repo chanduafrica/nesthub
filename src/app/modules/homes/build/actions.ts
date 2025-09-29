@@ -1,18 +1,33 @@
 
 'use server';
 
-import { saveBuildProject, type BuildProjectData } from '@/lib/firebase-services';
-import { revalidatePath } from 'next/cache';
+import { getBuildProjects, writeData } from '@/lib/firebase-services';
+
+export type BuildProjectData = {
+    designName: string;
+    designId: string;
+    totalCost: number;
+    depositPaid: number;
+    paymentMethod: string;
+    contractNo: string;
+    projectManager: string;
+    status: string;
+};
 
 export async function handleSaveBuildProject(projectData: BuildProjectData) {
     try {
-        const result = await saveBuildProject(projectData);
-        // Optionally revalidate a path if you have a page that lists build projects
-        // revalidatePath('/admin/build-projects');
-        return result;
+        const projects = await getBuildProjects();
+        const newProject = { 
+            id: `proj_${Date.now()}`,
+            ...projectData,
+            submittedAt: new Date().toISOString(),
+        };
+        projects.push(newProject);
+        await writeData('build-projects.json', projects);
+
+        return { success: true, project: newProject };
     } catch (error) {
         console.error("Server Action Error: Failed to save build project", error);
-        // Throwing the error so the client-side .catch() can handle it
         if (error instanceof Error) {
             throw new Error(error.message);
         }
