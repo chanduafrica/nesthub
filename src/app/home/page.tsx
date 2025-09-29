@@ -60,6 +60,7 @@ function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                    <SheetHeader className="p-4 border-b">
+                        <SheetTitle className="sr-only">Nest Portals</SheetTitle>
                        <div className="flex items-center gap-3">
                            <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={32} height={32} />
                            <span className="font-semibold text-lg">Nest Portals</span>
@@ -862,6 +863,7 @@ const Footer = () => (
     
 
     
+
 
 
 

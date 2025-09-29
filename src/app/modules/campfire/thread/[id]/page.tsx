@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,7 @@ import Link from "next/link";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NestSearch } from '@/components/nest-search';
 
 // Mock data, in a real app this would be fetched based on the [id] param
@@ -63,6 +64,9 @@ const Header = () => (
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="left">
+                         <SheetHeader>
+                            <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                         </SheetHeader>
                          <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2 mb-4">
                             <Flame className="h-6 w-6 text-primary" />
                             <span className="font-bold text-lg">Campfire</span>
@@ -134,3 +138,4 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
     </div>
   );
 }
+

@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { ThreadCard, Thread } from "@/components/modules/campfire/thread-card";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NestSearch } from '@/components/nest-search';
 
 const threads: Thread[] = [
@@ -110,6 +111,9 @@ const Header = () => (
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="left">
+                         <SheetHeader>
+                            <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                         </SheetHeader>
                          <Link href="/modules/campfire" className="mr-6 flex items-center space-x-2 mb-4">
                             <Flame className="h-6 w-6 text-primary" />
                             <span className="font-bold text-lg">Campfire</span>
@@ -225,3 +229,4 @@ export default function CampfireForumPage() {
 }
 
     
+
