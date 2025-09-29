@@ -11,6 +11,7 @@ export async function VendorSidebar() {
   const vendor = await getVendor(vendorId);
 
   if (!vendor) {
+    // This will be caught by the nearest not-found.js file
     notFound();
   }
 

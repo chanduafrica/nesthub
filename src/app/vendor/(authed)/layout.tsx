@@ -1,3 +1,4 @@
+
 'use client';
 import {
   SidebarProvider,
@@ -15,6 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { UserCircle } from 'lucide-react';
 import Link from 'next/link';
+import { VendorSidebar } from './vendor-sidebar';
 
 export default function VendorLayout({
   children,
@@ -24,6 +26,7 @@ export default function VendorLayout({
 
   return (
     <SidebarProvider>
+      <VendorSidebar />
       <SidebarInset className="flex flex-col">
           <header className="flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <SidebarTrigger className="sm:hidden" />

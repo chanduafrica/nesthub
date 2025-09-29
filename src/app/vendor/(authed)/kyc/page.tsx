@@ -18,8 +18,6 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { UploadCloud, CheckCircle, AlertTriangle, Clock, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import VendorLayout from './layout';
-import { VendorSidebar } from './vendor-sidebar';
 
 type KycStatus = 'Approved' | 'In Progress' | 'Rejected' | 'Not Submitted';
 
@@ -71,7 +69,7 @@ function KycContent() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 flex-1">
       <Card>
         <CardHeader>
           <CardTitle>KYB/KYC Verification Status</CardTitle>
@@ -192,9 +190,6 @@ function KycContent() {
 
 export default function KycPage() {
     return (
-        <VendorLayout>
-            <VendorSidebar />
-            <KycContent />
-        </VendorLayout>
+        <KycContent />
     )
 }
