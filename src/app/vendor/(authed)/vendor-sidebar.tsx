@@ -1,5 +1,4 @@
 
-'use client';
 import {
   Sidebar,
   SidebarHeader,
@@ -32,6 +31,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import type { Vendor } from '@/lib/mock-data';
+import { getVendor } from '@/lib/firebase-services';
+import { notFound } from 'next/navigation';
 
 const portalConfig = {
     NestMall: { icon: Store, href: '/vendor/products' },
@@ -49,7 +50,16 @@ const portalConfig = {
     Back2School: { icon: Package, href: '#' },
 } as const;
 
-export function VendorSidebar({ vendor }: { vendor: Vendor }) {
+// This is now a server component that fetches its own data.
+export async function VendorSidebar() {
+  // In a real app, you'd get the vendor ID from a session.
+  // We continue to use the hardcoded ID for the super-vendor for this prototype.
+  const vendorId = 'v26';
+  const vendor = await getVendor(vendorId);
+
+  if (!vendor) {
+    notFound();
+  }
   
   const portalMenuItems = (vendor.portal === 'All Portals'
     ? Object.keys(portalConfig)
@@ -62,7 +72,7 @@ export function VendorSidebar({ vendor }: { vendor: Vendor }) {
         <SidebarHeader>
         <div className="flex items-center gap-2">
             <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
-            Vendor Portal
+            {vendor.name}
             </span>
         </div>
         </SidebarHeader>
