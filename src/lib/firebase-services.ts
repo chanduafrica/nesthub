@@ -1,8 +1,7 @@
 
-
 import { promises as fs } from 'fs';
 import path from 'path';
-import type { Offer, VendorOffer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, VendorStatus } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
 
 // --- Helper Functions to interact with JSON files ---
 
@@ -16,7 +15,8 @@ async function readData<T>(filename: string): Promise<T[]> {
         return JSON.parse(fileContent) as T[];
     } catch (error: any) {
         if (error.code === 'ENOENT') {
-            await writeData(filename, []);
+            const dataPath = path.join(dataDirectory, filename);
+            await fs.writeFile(dataPath, JSON.stringify([], null, 2), 'utf8');
             return [];
         }
         console.error(`Error reading or parsing ${filename}:`, error);
@@ -32,6 +32,7 @@ export async function writeData<T>(filename: string, data: T[]): Promise<void> {
         console.error(`Error writing to ${filename}:`, error);
     }
 }
+
 
 function createSlug(title: string) {
     if (!title) return '';

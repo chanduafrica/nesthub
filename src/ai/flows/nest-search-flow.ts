@@ -4,13 +4,13 @@
  * @fileOverview A search agent for the DigitalNest ecosystem.
  *
  * - searchNest - A function that searches across all Nest portals.
- * - NestSearchInput - The input type for the searchNest function.
- * - NestSearchResult - The output type for the searchNest function.
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import { getProducts, getProperties, getHolidayPackages, getStays } from '@/lib/firebase-services';
+import { NestSearchInputSchema, NestSearchOutput, NestSearchOutputSchema, NestSearchResult, NestSearchResultSchema } from './nest-search-types';
+import type { NestSearchInput } from './nest-search-types';
+
 
 // Helper function to create URL-friendly slugs
 function createSlug(title: string) {
@@ -18,32 +18,15 @@ function createSlug(title: string) {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-// 1. Define Input and Output Schemas with Zod
-const NestSearchInputSchema = z.string();
-export type NestSearchInput = z.infer<typeof NestSearchInputSchema>;
-
-const NestSearchResultSchema = z.object({
-  title: z.string().describe('The title of the item.'),
-  description: z.string().describe('A brief description of the item.'),
-  price: z.number().optional().describe('The price of the item, if applicable.'),
-  portal: z.string().describe('The Nest portal the item belongs to (e.g., NestMall, NestHomes, NestTravel).'),
-  imageUrl: z.string().describe('A URL for an image of the item.'),
-  url: z.string().describe('A deep link URL to the item\'s page.'),
-});
-export type NestSearchResult = z.infer<typeof NestSearchResultSchema>;
-
-const NestSearchOutputSchema = z.array(NestSearchResultSchema);
-export type NestSearchOutput = z.infer<typeof NestSearchOutputSchema>;
-
 // 2. Define the Search Tool
 const searchAcrossPortalsTool = ai.defineTool(
     {
         name: 'searchAcrossPortals',
         description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, NestStays, and NestTravel.',
-        inputSchema: z.object({ query: z.string() }),
+        inputSchema: NestSearchInputSchema,
         outputSchema: NestSearchOutputSchema,
     },
-    async ({ query }) => {
+    async (query) => {
         console.log(`[Search Tool] Searching for: ${query}`);
         const results: NestSearchResult[] = [];
         const lowerCaseQuery = query.toLowerCase();
@@ -149,6 +132,6 @@ const searchNestFlow = ai.defineFlow(
 
 
 // 4. Export a callable server action
-export async function searchNest(query: string): Promise<NestSearchOutput> {
+export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
     return await searchNestFlow(query);
 }

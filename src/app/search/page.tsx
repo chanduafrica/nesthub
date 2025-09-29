@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { NestSearchResult, searchNest } from '@/ai/flows/nest-search-flow';
+import { searchNest } from '@/ai/flows/nest-search-flow';
+import type { NestSearchResult } from '@/ai/flows/nest-search-types';
 import { Loader2, ExternalLink, Menu, ShoppingCart, Dna, Car, School, Plane, Building, BedDouble, MessageSquare, UtensilsCrossed, Ticket, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, UserCircle, Award } from 'lucide-react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -304,5 +305,3 @@ export default function SearchResultsPage() {
         </div>
     );
 }
-
-    
