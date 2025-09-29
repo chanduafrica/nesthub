@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 const navLinks = [
   { href: "/modules/mall", icon: ShoppingCart, text: "NestMall" },
   { href: "#", icon: Dna, text: "Duka" },
-  { href: "#", icon: Car, text: "AutoParts" },
+  { href: "/modules/mall", icon: Car, text: "BuyMyCar" },
   { href: "#", icon: School, text: "Back2School" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
   { href: "/modules/homes/properties", icon: Building, text: "Properties" },
@@ -58,10 +58,13 @@ function Header() {
                   </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                   <SheetHeader>
-                        <SheetTitle className="sr-only">Main Menu</SheetTitle>
+                   <SheetHeader className="p-4 border-b">
+                       <div className="flex items-center gap-3">
+                           <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={32} height={32} />
+                           <span className="font-semibold text-lg">Nest Portals</span>
+                       </div>
                    </SheetHeader>
-                  <nav className="flex flex-col gap-4 mt-8">
+                  <nav className="flex flex-col gap-4 mt-4 p-4">
                       {navLinks.map((link) => 
                         link.href ? (
                           <Link
@@ -394,8 +397,8 @@ const portals = [
     { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya.", href: "/modules/stays" },
     { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#" },
     { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#" },
-    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#" },
-    { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "#" },
+    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "/modules/campfire" },
+    { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "/modules/mall" },
     { icon: Package, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#" },
     { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#" },
 ];
@@ -857,3 +860,4 @@ const Footer = () => (
     
 
     
+
