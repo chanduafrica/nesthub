@@ -61,6 +61,7 @@ export default function AdminLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
+            <Handshake className="hidden size-6 group-data-[collapsible=icon]:block" />
             <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
               SG-Nest
             </span>
