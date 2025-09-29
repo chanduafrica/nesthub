@@ -46,7 +46,6 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from '@/components/ui/dropdown-menu';
-import Image from 'next/image';
 import { CurrencyProvider, useCurrency } from '@/hooks/use-currency';
 
 
