@@ -7,12 +7,13 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { NestSearchResult, searchNest } from '@/ai/flows/nest-search-flow';
-import { Loader2, ExternalLink, Menu, ShoppingCart, Dna, Car, School, Plane, Building, BedDouble, MessageSquare, UtensilsCrossed, Ticket, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide } from 'lucide-react';
+import { Loader2, ExternalLink, Menu, ShoppingCart, Dna, Car, School, Plane, Building, BedDouble, MessageSquare, UtensilsCrossed, Ticket, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, UserCircle, Award } from 'lucide-react';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { useToast } from '@/hooks/use-toast';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 
 const navLinks = [
@@ -98,6 +99,28 @@ function Header() {
             </Link>
            ))}
         </nav>
+        <div className="flex items-center gap-4">
+            <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <UserCircle className="h-5 w-5" />
+                <span className="sr-only">Toggle user menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/customer/dashboard">Dashboard</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/home">Logout</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
     </header>
   );
@@ -171,7 +194,14 @@ function SearchResults() {
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold">NestSearch Results</h1>
                 <p className="text-muted-foreground">Showing results for: <span className="font-semibold text-primary">"{query}"</span></p>
-                {phone && <p className="text-sm text-muted-foreground mt-2">Contact Details Captured: {phone} / {email}</p>}
+                {phone && <p className="text-sm text-muted-foreground mt-1">Contact Details: {phone} / {email}</p>}
+                
+                <Card className="max-w-xs mx-auto mt-4 bg-green-50 border-green-200">
+                    <CardContent className="p-3 flex items-center justify-center gap-2">
+                        <Award className="h-6 w-6 text-green-600" />
+                        <span className="font-semibold text-green-700">10 Spark Points Earned!</span>
+                    </CardContent>
+                </Card>
             </div>
 
             {loading ? (
@@ -272,3 +302,5 @@ export default function SearchResultsPage() {
         </div>
     );
 }
+
+    

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Search, MessageSquare, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
-import { searchNest } from '@/ai/flows/nest-search-flow';
 
 export function NestSearch() {
     const [isChatOpen, setChatOpen] = useState(false);
@@ -17,8 +16,25 @@ export function NestSearch() {
     const [isLoading, setIsLoading] = useState(false);
     const [query, setQuery] = useState('');
     const [userDetails, setUserDetails] = useState({ phone: '', email: '' });
+    const [otp, setOtp] = useState('');
+    const [isOtpStep, setIsOtpStep] = useState(false);
+    const [timer, setTimer] = useState(60);
     const router = useRouter();
     const { toast } = useToast();
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (isOtpStep && timer > 0) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer - 1);
+            }, 1000);
+        } else if (timer === 0) {
+            setIsOtpStep(false);
+            toast({ title: 'OTP Expired', description: 'Please try again.', variant: 'destructive' });
+        }
+        return () => clearInterval(interval);
+    }, [isOtpStep, timer, toast]);
+
 
     const handleSearchSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,13 +43,11 @@ export function NestSearch() {
             return;
         }
         setIsLoading(true);
-        // We don't need to call the AI here, just on the results page.
-        // This makes the perceived performance faster for the user.
         setTimeout(() => {
             setIsLoading(false);
             setChatOpen(false);
             setCaptureOpen(true);
-        }, 500); // A short delay to feel like it's processing.
+        }, 500);
     };
 
     const handleCaptureSubmit = (e: React.FormEvent) => {
@@ -42,20 +56,31 @@ export function NestSearch() {
             toast({ title: 'Please enter your phone and email.', variant: 'destructive' });
             return;
         }
-        // In a real app, you'd save the user details here.
-        console.log('User Details Captured:', userDetails);
-        toast({ title: 'Thank you!', description: 'Redirecting to your search results...' });
+        toast({ title: 'OTP Sent!', description: 'Check your phone/email for the code. (Hint: 123456)' });
+        setIsOtpStep(true);
+        setTimer(60);
+    };
 
-        // Redirect to the results page with all the info
+    const handleOtpSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (otp !== '123456') {
+            toast({ title: 'Invalid OTP', description: 'Please enter the correct code.', variant: 'destructive' });
+            return;
+        }
+
+        toast({ title: 'Verification Successful!', description: 'Redirecting to your search results...' });
+
         const searchParams = new URLSearchParams({
             q: query,
             phone: userDetails.phone,
-            email: userDetails.email
+            email: userDetails.email,
         });
         router.push(`/search?${searchParams.toString()}`);
         
         setCaptureOpen(false);
+        setIsOtpStep(false);
         setQuery('');
+        setOtp('');
     };
 
     return (
@@ -107,42 +132,70 @@ export function NestSearch() {
             <Dialog open={isCaptureOpen} onOpenChange={setCaptureOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>One More Step!</DialogTitle>
+                        <DialogTitle>{isOtpStep ? 'Enter OTP' : 'One More Step!'}</DialogTitle>
                         <DialogDescription>
-                            Provide your details to view results and earn 10 Sparks Points!
+                            {isOtpStep ? `An OTP has been sent to ${userDetails.phone}. It expires in ${timer}s.` : 'Provide your details to view results and earn 10 Sparks Points!'}
                         </DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleCaptureSubmit}>
-                        <div className="space-y-4 py-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="phone">Phone Number</Label>
-                                <Input
-                                    id="phone"
-                                    type="tel"
-                                    placeholder="+254712345678"
-                                    value={userDetails.phone}
-                                    onChange={(e) => setUserDetails(p => ({...p, phone: e.target.value}))}
-                                    required
-                                />
+                    
+                    {!isOtpStep ? (
+                        <form onSubmit={handleCaptureSubmit}>
+                            <div className="space-y-4 py-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="phone">Phone Number</Label>
+                                    <Input
+                                        id="phone"
+                                        type="tel"
+                                        placeholder="+254712345678"
+                                        value={userDetails.phone}
+                                        onChange={(e) => setUserDetails(p => ({...p, phone: e.target.value}))}
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="email">Email Address</Label>
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        placeholder="you@example.com"
+                                        value={userDetails.email}
+                                        onChange={(e) => setUserDetails(p => ({...p, email: e.target.value}))}
+                                        required
+                                    />
+                                </div>
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="email">Email Address</Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="you@example.com"
-                                    value={userDetails.email}
-                                    onChange={(e) => setUserDetails(p => ({...p, email: e.target.value}))}
-                                    required
-                                />
+                            <DialogFooter>
+                                <Button type="submit" className="w-full">Get OTP</Button>
+                            </DialogFooter>
+                        </form>
+                    ) : (
+                         <form onSubmit={handleOtpSubmit}>
+                            <div className="space-y-4 py-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="otp">One-Time Password</Label>
+                                    <Input
+                                        id="otp"
+                                        type="text"
+                                        inputMode="numeric"
+                                        placeholder="123456"
+                                        value={otp}
+                                        onChange={(e) => setOtp(e.target.value)}
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <DialogFooter>
-                             <Button type="submit" className="w-full">View Results & Claim Sparks</Button>
-                        </DialogFooter>
-                    </form>
+                             <DialogFooter className="flex-col gap-2">
+                                <Button type="submit" className="w-full" disabled={timer === 0}>
+                                    {timer > 0 ? 'Verify & View Results' : 'OTP Expired'}
+                                </Button>
+                                <Button type="button" variant="link" size="sm" onClick={() => setIsOtpStep(false)}>Back to details</Button>
+                            </DialogFooter>
+                        </form>
+                    )}
                 </DialogContent>
             </Dialog>
         </>
     );
 }
+
+    
