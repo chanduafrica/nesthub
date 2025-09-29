@@ -62,7 +62,6 @@ export default function AdminLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2">
-            <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={24} height={24} className="w-6 h-6" />
             <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">
               SG-Nest
             </span>
