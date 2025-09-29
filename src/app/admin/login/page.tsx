@@ -1,5 +1,6 @@
 
 'use client';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -14,13 +15,35 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const { toast } = useToast();
+  const [staffNumber, setStaffNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/admin/dashboard');
+    if (
+        staffNumber === 'SGNEST01' &&
+        email === 'admin@sgnest.africa' &&
+        password === '1234567890'
+    ) {
+        toast({
+            title: 'Credentials Verified',
+            description: 'Please enter the OTP sent to your device.',
+        });
+        router.push('/admin/otp');
+    } else {
+        toast({
+            title: 'Invalid Credentials',
+            description: 'Please check your login details and try again.',
+            variant: 'destructive',
+        });
+    }
   };
 
   return (
@@ -44,7 +67,8 @@ export default function AdminLoginPage() {
                     id="staff-number"
                     type="text"
                     placeholder="Your staff number"
-                    required
+                    value={staffNumber}
+                    onChange={(e) => setStaffNumber(e.target.value)}
                 />
                 </div>
                 <div className="grid gap-2">
@@ -54,11 +78,19 @@ export default function AdminLoginPage() {
                     type="email"
                     placeholder="m@example.com"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 </div>
                 <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" required />
+                <Input 
+                    id="password" 
+                    type="password" 
+                    required 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
                 </div>
             </CardContent>
             <CardFooter className="flex-col gap-4">

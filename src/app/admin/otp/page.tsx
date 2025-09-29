@@ -44,7 +44,7 @@ export default function OtpPage() {
             <CardHeader className="text-center">
             <CardTitle className="text-2xl">Enter OTP</CardTitle>
             <CardDescription>
-                We've sent a one-time password to your email. (Hint: 123456)
+                We've sent a one-time password to your registered device. (Hint: 123456)
             </CardDescription>
             </CardHeader>
             <form onSubmit={handleVerify}>
