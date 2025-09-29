@@ -87,7 +87,7 @@ export type VendorRegistrationData = {
     businessType: string;
     email: string;
     phone: string;
-    portals: string[];
+    portal: string;
 }
 
 // --- Service Functions for CRUD Operations ---
@@ -171,16 +171,13 @@ export const registerVendor = async (vendorData: VendorRegistrationData): Promis
     const vendors = await getVendors();
     const newId = `v${vendors.length + 1}_${Date.now()}`;
 
-    // A bit simplistic, in a real app you'd join the selected portals
-    const portalName = vendorData.portals.length > 1 ? 'Multiple' : vendorData.portals[0] || 'N/A';
-
     const newVendor: Vendor = {
         id: newId,
         name: vendorData.businessName,
         email: vendorData.email,
         phone: vendorData.phone,
         country: "Kenya", // Default for now
-        portal: portalName,
+        portal: vendorData.portal,
         products: 0,
         rating: 0,
         status: 'Pending' as VendorStatus,

@@ -5,7 +5,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -16,12 +15,12 @@ import {
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import Image from "next/image";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { useRouter } from "next/navigation";
 import type { VendorRegistrationData } from "@/lib/firebase-services";
 import { handleRegisterVendor } from "./actions";
 import { NestSearch } from '@/components/nest-search';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 
 const availablePortals = [
@@ -111,11 +110,11 @@ const Header = ({ handleComingSoon }: { handleComingSoon: (e: React.MouseEvent, 
 
 const VendorHeroSection = () => (
     <section className="relative h-[20vh] flex items-center justify-center text-white">
-        <Image
+        <img
             src="/images/herovendoreg.jpg"
             alt="Smiling African vendor at a market stall"
-            fill
-            className="object-cover brightness-50"
+            
+            className="object-cover brightness-50 absolute inset-0 w-full h-full"
             data-ai-hint="african merchant"
         />
         <div className="absolute inset-0 bg-black/50" />
@@ -160,7 +159,7 @@ const Footer = () => (
   );
 
 type RegStep = 'details' | 'otp' | 'portals' | 'password';
-type FormData = Omit<VendorRegistrationData, 'portals'> & { portals: Set<string>; password: string };
+type FormData = Omit<VendorRegistrationData, 'portal'> & { portal: string; password: string };
 
 export default function VendorRegistrationPage() {
     const [step, setStep] = useState<RegStep>('details');
@@ -173,7 +172,7 @@ export default function VendorRegistrationPage() {
         businessType: '',
         email: '',
         phone: '',
-        portals: new Set(),
+        portal: '',
         password: ''
     });
 
@@ -193,18 +192,10 @@ export default function VendorRegistrationPage() {
     const handleSelectChange = (name: keyof FormData, value: string) => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
-
-    const handlePortalToggle = (portalId: string, checked: boolean | 'indeterminate') => {
-        setFormData(prev => {
-            const newPortals = new Set(prev.portals);
-            if (checked) {
-                newPortals.add(portalId);
-            } else {
-                newPortals.delete(portalId);
-            }
-            return { ...prev, portals: newPortals };
-        });
-    };
+    
+    const handlePortalChange = (portalId: string) => {
+        setFormData(prev => ({...prev, portal: portalId }));
+    }
 
     const handleDetailsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -234,8 +225,8 @@ export default function VendorRegistrationPage() {
     
     const handlePortalsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (formData.portals.size === 0) {
-            toast({ title: "No portals selected", description: "Please choose at least one portal to sell on.", variant: "destructive"});
+        if (!formData.portal) {
+            toast({ title: "No portal selected", description: "Please choose one portal to sell on.", variant: "destructive"});
             return;
         }
         setStep('password');
@@ -258,7 +249,7 @@ export default function VendorRegistrationPage() {
             businessType: formData.businessType,
             email: formData.email,
             phone: formData.phone,
-            portals: Array.from(formData.portals),
+            portal: formData.portal,
         };
 
         try {
@@ -332,7 +323,7 @@ export default function VendorRegistrationPage() {
                                     </div>
                                     <div className="space-y-2">
                                         <div className="flex items-center space-x-2">
-                                            <Checkbox id="terms" required />
+                                            <Input type="checkbox" id="terms" required />
                                             <label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                                                 I accept the <a href="#" className="text-primary underline">Terms & Conditions</a> of KYB and Background Checks.
                                             </label>
@@ -376,32 +367,31 @@ export default function VendorRegistrationPage() {
                         {step === 'portals' && (
                              <form onSubmit={handlePortalsSubmit}>
                                 <CardHeader>
-                                    <CardTitle>Step 3: Select Portals</CardTitle>
+                                    <CardTitle>Step 3: Select Portal</CardTitle>
                                     <CardDescription>Choose where you want to sell. You can add more later.</CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
-                                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+                                    <RadioGroup
+                                        name="portal"
+                                        className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2"
+                                        value={formData.portal}
+                                        onValueChange={handlePortalChange}
+                                    >
                                         {availablePortals.map(portal => (
-                                            <div key={portal.id} className="relative">
-                                                <Checkbox 
-                                                    id={portal.id} 
-                                                    className="absolute top-3 left-3 h-5 w-5 peer" 
-                                                    onCheckedChange={(checked) => handlePortalToggle(portal.id, checked)}
-                                                    checked={formData.portals.has(portal.id)}
-                                                />
-                                                <Label 
-                                                    htmlFor={portal.id} 
-                                                    className="block border-2 border-muted bg-popover p-4 rounded-lg cursor-pointer hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                                                >
-                                                    <div className="pl-8">
-                                                        <portal.icon className="h-6 w-6 mb-2" />
-                                                        <h4 className="font-semibold text-base">{portal.name}</h4>
-                                                        <p className="text-xs text-muted-foreground">{portal.description}</p>
-                                                    </div>
-                                                </Label>
-                                            </div>
+                                             <Label 
+                                                key={portal.id}
+                                                htmlFor={portal.id} 
+                                                className="flex items-center border-2 border-muted bg-popover p-4 rounded-lg cursor-pointer hover:bg-accent hover:text-accent-foreground has-[:checked]:border-primary"
+                                            >
+                                                <RadioGroupItem value={portal.id} id={portal.id} className="mr-4" />
+                                                <div>
+                                                    <portal.icon className="h-6 w-6 mb-2" />
+                                                    <h4 className="font-semibold text-base">{portal.name}</h4>
+                                                    <p className="text-xs text-muted-foreground">{portal.description}</p>
+                                                </div>
+                                            </Label>
                                         ))}
-                                    </div>
+                                    </RadioGroup>
                                 </CardContent>
                                 <CardFooter>
                                      <Button size="lg" className="w-full" type="submit">
@@ -445,5 +435,6 @@ export default function VendorRegistrationPage() {
 }
 
     
+
 
 

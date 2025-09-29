@@ -47,17 +47,15 @@ const portalConfig = {
     Duka: { icon: ShoppingCart, href: '#' },
     AutoParts: { icon: Car, href: '#' },
     Back2School: { icon: Package, href: '#' },
-    'All Portals': { icon: null, href: null }
 } as const;
 
-type PortalName = keyof typeof portalConfig;
+type PortalName = keyof typeof portalConfig | 'All Portals';
 
 export function VendorSidebar({ vendor }: { vendor: Vendor }) {
-  const registeredPortals = vendor.portal.split(',').map(p => p.trim()) as PortalName[];
   
-  const portalMenuItems = registeredPortals[0] === 'All Portals'
-    ? Object.keys(portalConfig).filter(p => p !== 'All Portals') as PortalName[]
-    : registeredPortals;
+  const portalMenuItems = vendor.portal === 'All Portals'
+    ? Object.keys(portalConfig) as (keyof typeof portalConfig)[]
+    : [vendor.portal] as (keyof typeof portalConfig)[];
 
   return (
     <Sidebar>
@@ -93,7 +91,7 @@ export function VendorSidebar({ vendor }: { vendor: Vendor }) {
                 <span className="px-2 text-xs font-medium text-muted-foreground">My Portals</span>
              </SidebarMenuItem>
              {portalMenuItems.map(portalName => {
-                const config = portalConfig[portalName];
+                const config = portalConfig[portalName as keyof typeof portalConfig];
                 if (!config || !config.href) return null;
                 const Icon = config.icon;
                 return (

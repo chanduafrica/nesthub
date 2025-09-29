@@ -1,4 +1,4 @@
-[
+{[
   {
     "id": "v1",
     "name": "Kariuki's Electronics",
@@ -276,9 +276,9 @@
   },
   {
     "id": "v26",
-    "name": "Standard Group PLC",
-    "email": "digital@standardmedia.co.ke",
-    "phone": "+254719012111",
+    "name": "SGNEST SUPER VENDOR",
+    "email": "vendor@sgnest.africa",
+    "phone": "0754735164",
     "country": "Kenya",
     "portal": "All Portals",
     "products": 10,
