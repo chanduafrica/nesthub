@@ -156,17 +156,6 @@ export const getVendor = async (id: string): Promise<Vendor | undefined> => {
     return vendors.find(v => v.id === id);
 };
 
-export const updateVendorStatus = async (id: string, status: Vendor['status']): Promise<void> => {
-    let vendors = await getVendors();
-    const vendorIndex = vendors.findIndex(v => v.id === id);
-    if (vendorIndex !== -1) {
-        vendors[vendorIndex].status = status;
-        await writeData('vendors.json', vendors);
-    } else {
-        throw new Error(`Vendor with id ${id} not found.`);
-    }
-};
-
 export const registerVendor = async (vendorData: VendorRegistrationData): Promise<Vendor> => {
     const vendors = await getVendors();
     const newId = `v${vendors.length + 1}_${Date.now()}`;

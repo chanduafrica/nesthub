@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
@@ -41,7 +40,8 @@ import { MoreHorizontal, Search, FileCheck, FileX, CircleHelp } from 'lucide-rea
 import Link from 'next/link';
 import { useCurrency } from '@/hooks/use-currency';
 import { useToast } from '@/hooks/use-toast';
-import { updateVendorStatus } from '@/lib/firebase-services';
+import { handleUpdateVendorStatus } from '@/app/admin/(authed)/vendors/actions';
+
 
 const conversionRates: { [key: string]: number } = {
     KES: 1, UGX: 29.45, TZS: 20.45, RWF: 10.33, BIF: 22.58, SSP: 1.22, SOS: 4.55,
@@ -75,7 +75,7 @@ export function VendorsList({ initialVendors }: { initialVendors: VendorWithBusi
     const handleAction = async (action: 'Approve' | 'Reject', vendor: VendorWithBusiness) => {
         const newStatus = action === 'Approve' ? 'Active' : 'Inactive';
         try {
-            await updateVendorStatus(vendor.id, newStatus);
+            await handleUpdateVendorStatus(vendor.id, newStatus);
             setVendors(vendors.map(v => v.id === vendor.id ? {...v, status: newStatus} : v));
             toast({
                 title: `Vendor ${action}d`,
