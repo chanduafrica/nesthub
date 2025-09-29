@@ -1,12 +1,11 @@
 
+'use client';
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-  SidebarHeader,
 } from '@/components/ui/sidebar';
-import { getVendor } from '@/lib/firebase-services';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -20,27 +19,52 @@ import { UserCircle } from 'lucide-react';
 import Link from 'next/link';
 import { VendorSidebar } from './vendor-sidebar';
 import type { Vendor } from '@/lib/mock-data';
+import { useEffect, useState } from 'react';
+import { getVendor } from '@/lib/firebase-services';
 
+// This is now a client component to manage UI state and avoid server-side redirect loops.
 
-async function getVendorData(): Promise<Vendor> {
-    // For this prototype, we'll fetch data for the hardcoded "super vendor".
-    // In a real app, you would get the logged-in vendor's ID from the session.
-    const vendorId = 'v26'; 
-    const vendor = await getVendor(vendorId);
-
-    if (!vendor) {
-        notFound();
-    }
-    return vendor;
-}
-
-
-export default async function VendorLayout({
+export default function VendorLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-    const vendor = await getVendorData();
+    const [vendor, setVendor] = useState<Vendor | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchVendorData() {
+            // In a real app, you'd get the vendor ID from a session.
+            // We continue to use the hardcoded ID for the super-vendor for this prototype.
+            const vendorId = 'v26';
+            try {
+                const vendorData = await getVendor(vendorId);
+                if (!vendorData) {
+                    notFound();
+                } else {
+                    setVendor(vendorData);
+                }
+            } catch (error) {
+                console.error("Failed to fetch vendor data", error);
+                // Handle error appropriately, maybe redirect to an error page
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchVendorData();
+    }, []);
+
+    if (loading) {
+        // You can render a loading skeleton here if needed
+        return <div>Loading...</div>;
+    }
+    
+    if (!vendor) {
+        // This case should be handled by the notFound() in the effect,
+        // but as a fallback, we can show an error or redirect.
+        return <div>Vendor not found. Please log in again.</div>
+    }
+
 
   return (
     <SidebarProvider>
