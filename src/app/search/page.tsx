@@ -56,7 +56,7 @@ function Header() {
                    <SheetHeader className="p-4 border-b">
                         <SheetTitle className="sr-only">Nest Portals</SheetTitle>
                        <div className="flex items-center gap-3">
-                           <Image src="/images/dnlogo.png" alt="SG-Nest Logo" width={32} height={32} />
+                           
                            <span className="font-semibold text-lg">Nest Portals</span>
                        </div>
                    </SheetHeader>
@@ -196,7 +196,7 @@ function SearchResults() {
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold">NestSearch Results</h1>
                 <p className="text-muted-foreground">Showing results for: <span className="font-semibold text-primary">"{query}"</span></p>
-                {phone && <p className="text-sm text-muted-foreground mt-1">Contact Details: {phone} / {email}</p>}
+                {phone && <p className="text-sm text-muted-foreground mt-1">Contact Details Captured: {phone} / {email}</p>}
                 
                 <Card className="max-w-xs mx-auto mt-4 bg-green-50 border-green-200">
                     <CardContent className="p-3 flex items-center justify-center gap-2">
