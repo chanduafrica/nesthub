@@ -19,7 +19,8 @@ import { VendorSidebar } from './vendor-sidebar';
 
 
 // This is now a client component to manage UI state.
-// Data fetching is handled by the server component <VendorSidebar />.
+// It renders the <VendorSidebar />, which is a Server Component.
+// Next.js handles this composition correctly.
 export default function VendorLayout({
   children,
 }: {
