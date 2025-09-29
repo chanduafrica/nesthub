@@ -96,7 +96,7 @@ const searchAcrossPortalsTool = ai.defineTool(
         // Search Stays (NestStays)
         const stays = await getStays();
         stays.forEach(s => {
-            if (s.title.toLowerCase().includes(lowerCaseQuery) || s.location.toLowerCase().includes(lowerCaseQuery) || s.type.toLowerCase().includes(lowerCaseQuery)) {
+            if (s.title.toLowerCase().includes(lowerCaseQuery) || s.type.toLowerCase().includes(lowerCaseQuery)) {
                 results.push({
                     title: s.title,
                     description: `${s.type} in ${s.location}`,
