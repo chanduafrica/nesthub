@@ -12,6 +12,12 @@ import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 import { getProducts, getProperties, getHolidayPackages } from '@/lib/firebase-services';
 
+// Helper function to create URL-friendly slugs
+function createSlug(title: string) {
+    if (!title) return '';
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
 // 1. Define Input and Output Schemas with Zod
 const NestSearchInputSchema = z.string();
 export type NestSearchInput = z.infer<typeof NestSearchInputSchema>;
@@ -52,7 +58,7 @@ const searchAcrossPortalsTool = ai.defineTool(
                     price: p.discountPrice || p.price,
                     portal: 'NestMall',
                     imageUrl: p.image,
-                    url: `/modules/mall/product/${p.slug}`,
+                    url: `/modules/mall/product/${createSlug(p.title)}`,
                 });
             }
         });
@@ -67,7 +73,7 @@ const searchAcrossPortalsTool = ai.defineTool(
                     price: p.price,
                     portal: 'NestHomes',
                     imageUrl: p.imageUrl,
-                    url: `/modules/homes/properties/${p.slug}`,
+                    url: `/modules/homes/properties/${createSlug(p.title)}`,
                 });
             }
         });
@@ -75,14 +81,14 @@ const searchAcrossPortalsTool = ai.defineTool(
         // Search Packages (NestTravel)
         const packages = await getHolidayPackages();
         packages.forEach(p => {
-             if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
+             if (p.title.toLowerCase().includes(lowerCaseQuery)) {
                 results.push({
                     title: p.title,
                     description: p.duration,
                     price: p.price,
                     portal: 'NestTravel',
                     imageUrl: p.image,
-                    url: `/modules/travel/package/${p.slug}`,
+                    url: `/modules/travel/package/${createSlug(p.title)}`,
                 });
             }
         });
