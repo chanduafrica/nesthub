@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Search, MessageSquare, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
+import { searchNest } from '@/ai/flows/nest-search-flow';
 
 export function NestSearch() {
     const [isChatOpen, setChatOpen] = useState(false);
@@ -19,19 +20,20 @@ export function NestSearch() {
     const router = useRouter();
     const { toast } = useToast();
 
-    const handleSearchSubmit = (e: React.FormEvent) => {
+    const handleSearchSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!query.trim()) {
             toast({ title: 'Please enter a search query.', variant: 'destructive' });
             return;
         }
         setIsLoading(true);
-        // Simulate AI thinking time
+        // We don't need to call the AI here, just on the results page.
+        // This makes the perceived performance faster for the user.
         setTimeout(() => {
             setIsLoading(false);
             setChatOpen(false);
             setCaptureOpen(true);
-        }, 1500);
+        }, 500); // A short delay to feel like it's processing.
     };
 
     const handleCaptureSubmit = (e: React.FormEvent) => {
