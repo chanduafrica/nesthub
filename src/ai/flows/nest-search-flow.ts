@@ -10,7 +10,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import { getProducts, getProperties, getHolidayPackages } from '@/lib/firebase-services';
+import { getProducts, getProperties, getHolidayPackages, getStays } from '@/lib/firebase-services';
 
 // Helper function to create URL-friendly slugs
 function createSlug(title: string) {
@@ -39,7 +39,7 @@ export type NestSearchOutput = z.infer<typeof NestSearchOutputSchema>;
 const searchAcrossPortalsTool = ai.defineTool(
     {
         name: 'searchAcrossPortals',
-        description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, and NestTravel.',
+        description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, NestStays, and NestTravel.',
         inputSchema: z.object({ query: z.string() }),
         outputSchema: NestSearchOutputSchema,
     },
@@ -81,7 +81,7 @@ const searchAcrossPortalsTool = ai.defineTool(
         // Search Packages (NestTravel)
         const packages = await getHolidayPackages();
         packages.forEach(p => {
-             if (p.title.toLowerCase().includes(lowerCaseQuery)) {
+             if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
                 results.push({
                     title: p.title,
                     description: p.duration,
@@ -92,6 +92,22 @@ const searchAcrossPortalsTool = ai.defineTool(
                 });
             }
         });
+
+        // Search Stays (NestStays)
+        const stays = await getStays();
+        stays.forEach(s => {
+            if (s.title.toLowerCase().includes(lowerCaseQuery) || s.location.toLowerCase().includes(lowerCaseQuery) || s.type.toLowerCase().includes(lowerCaseQuery)) {
+                results.push({
+                    title: s.title,
+                    description: `${s.type} in ${s.location}`,
+                    price: s.price,
+                    portal: 'NestStays',
+                    imageUrl: s.image,
+                    url: `/modules/stays`, // Assuming a generic stays page for now
+                });
+            }
+        });
+
 
         console.log(`[Search Tool] Found ${results.length} initial results.`);
         // In a real scenario, you'd have better ranking. Here we just take the first 20.
@@ -109,7 +125,7 @@ const nestSearchPrompt = ai.definePrompt(
     tools: [searchAcrossPortalsTool],
     prompt: `
         You are NestSearch, an AI assistant for the DigitalNest ecosystem.
-        Your task is to help users find what they are looking for across all portals (NestMall, NestHomes, NestTravel, etc.).
+        Your task is to help users find what they are looking for across all portals (NestMall, NestHomes, NestTravel, NestStays, etc.).
 
         1. Use the 'searchAcrossPortals' tool with the user's query: {{{prompt}}}.
         2. From the tool's results, identify the top 10 most relevant items.
