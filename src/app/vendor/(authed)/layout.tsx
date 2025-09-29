@@ -1,4 +1,3 @@
-
 'use client';
 import {
   SidebarProvider,
@@ -20,7 +19,7 @@ import { VendorSidebar } from './vendor-sidebar';
 
 
 // This is now a client component to manage UI state.
-// Data fetching is handled by server components within the pages and sidebar.
+// Data fetching is handled by the server component <VendorSidebar />.
 export default function VendorLayout({
   children,
 }: {
