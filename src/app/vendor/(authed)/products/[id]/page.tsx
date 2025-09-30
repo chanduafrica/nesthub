@@ -74,17 +74,12 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
         if (!product) return;
         const updatedProductData = {
             id: product.id,
-            title: product.title,
-            category: product.category,
-            price: product.price,
-            discountPrice: product.discountPrice,
-            image: product.image,
             [flag]: value,
         };
 
         try {
-            const updatedProduct = await handleUpdateProduct(updatedProductData as any);
-             setProduct(prev => prev ? { ...prev, ...updatedProduct.product } : null);
+            const updatedProductResult = await handleUpdateProduct(updatedProductData as any);
+             setProduct(prev => prev ? { ...prev, ...updatedProductResult.product } : null);
             toast({
                 title: 'Promotion Flag Updated',
                 description: `Product's eligibility for promotion has been updated.`,
