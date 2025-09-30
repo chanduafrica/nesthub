@@ -72,7 +72,7 @@ const searchAcrossPortalsTool = ai.defineTool(
                     price: p.price,
                     portal: 'NestTravel',
                     imageUrl: p.image,
-                    url: `/modules/travel/package/${createulk(p.title)}`,
+                    url: `/modules/travel/package/${createSlug(p.title)}`,
                 });
             }
         });
@@ -111,7 +111,7 @@ const nestSearchPrompt = ai.definePrompt(
         You are NestSearch, an AI assistant for the DigitalNest ecosystem.
         Your primary function is to understand a user's request and use the available tools to find relevant items within our internal portals.
 
-        - Your main task is to analyze the user's query: {{{prompt}}}.
+        - Your main task is to analyze the user's query: {{{this}}}.
         - Identify key information like item names, categories (e.g., "electronics", "fashion"), locations (e.g., "Kilimani", "Diani"), or attributes (e.g., "cheap", "luxury").
         - Use this information to call the 'searchAcrossPortals' tool. This is the ONLY way you can get information.
         - You CANNOT access the public internet or any external data sources. Your knowledge is limited to the output of the 'searchAcrossPortals' tool.
@@ -139,4 +139,5 @@ const searchNestFlow = ai.defineFlow(
 export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
     return await searchNestFlow(query);
 }
+
 
