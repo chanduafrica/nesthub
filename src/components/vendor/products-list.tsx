@@ -57,7 +57,7 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
     }
 
   return (
-    <Card>
+    <Card className="flex-1">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
             <CardTitle>My Products</CardTitle>

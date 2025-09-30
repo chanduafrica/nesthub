@@ -119,7 +119,7 @@ export type Product = {
     image: string;
     title: string;
     vendor: string;
-    vendorId: string;
+    vendorId?: string;
     rating: number;
     price: number;
     discountPrice?: number;

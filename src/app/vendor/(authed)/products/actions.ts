@@ -21,6 +21,7 @@ export async function handleAddProduct(productData: NewProductData) {
         const newProduct: Product = {
             id: newId,
             slug: newSlug,
+            vendorId: 'v26', // Assign to Super Vendor
             ...productData
         };
 
