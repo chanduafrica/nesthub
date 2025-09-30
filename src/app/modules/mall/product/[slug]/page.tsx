@@ -239,9 +239,6 @@ const ProductPurchaseCard = () => (
         <Button size="lg" variant="secondary" className="w-full">
           Buy Now
         </Button>
-        <Button size="lg" variant="outline" className="w-full">
-          <Coins className="mr-2 h-4 w-4" /> Buy in Installments (BNPL)
-        </Button>
       </div>
 
       <Separator />
