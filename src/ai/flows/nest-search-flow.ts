@@ -19,13 +19,13 @@ function createSlug(title: string) {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
 
-// 2. Define the Search Tool
+// 1. Define the Search Tool
 const searchAcrossPortalsTool = ai.defineTool(
     {
         name: 'searchAcrossPortals',
         description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, NestStays, and NestTravel.',
         inputSchema: NestSearchInputSchema,
-        outputSchema: NestSearchOutputSchema,
+        outputSchema: z.array(NestSearchResultSchema),
     },
     async (query) => {
         console.log(`[Search Tool] Searching for: ${query}`);
@@ -33,91 +33,110 @@ const searchAcrossPortalsTool = ai.defineTool(
         const lowerCaseQuery = query.toLowerCase();
 
         // Search Products (NestMall)
-        const products = await getProducts();
-        products.forEach(p => {
-            if (p.title.toLowerCase().includes(lowerCaseQuery) || (p.category && p.category.toLowerCase().includes(lowerCaseQuery))) {
-                results.push({
-                    title: p.title,
-                    description: `Category: ${p.category}`,
-                    price: p.discountPrice || p.price,
-                    portal: 'NestMall',
-                    imageUrl: p.image,
-                    url: `/modules/mall/product/${createSlug(p.title)}`,
-                });
-            }
-        });
+        try {
+            const products = await getProducts();
+            products.forEach(p => {
+                if (p.title.toLowerCase().includes(lowerCaseQuery) || (p.category && p.category.toLowerCase().includes(lowerCaseQuery))) {
+                    results.push({
+                        title: p.title,
+                        description: `Category: ${p.category}`,
+                        price: p.discountPrice || p.price,
+                        portal: 'NestMall',
+                        imageUrl: p.image,
+                        url: `/modules/mall/product/${createSlug(p.title)}`,
+                    });
+                }
+            });
+        } catch (e) { console.error("Error searching products", e); }
 
         // Search Properties (NestHomes)
-        const properties = await getProperties();
-        properties.forEach(p => {
-            if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
-                results.push({
-                    title: p.title,
-                    description: `${p.beds} beds, ${p.baths} baths in ${p.location}`,
-                    price: p.price,
-                    portal: 'NestHomes',
-                    imageUrl: p.imageUrl,
-                    url: `/modules/homes/properties/${createSlug(p.title)}`,
-                });
-            }
-        });
+         try {
+            const properties = await getProperties();
+            properties.forEach(p => {
+                if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
+                    results.push({
+                        title: p.title,
+                        description: `${p.beds} beds, ${p.baths} baths in ${p.location}`,
+                        price: p.price,
+                        portal: 'NestHomes',
+                        imageUrl: p.imageUrl,
+                        url: `/modules/homes/properties/${createSlug(p.title)}`,
+                    });
+                }
+            });
+        } catch (e) { console.error("Error searching properties", e); }
+
 
         // Search Packages (NestTravel)
-        const packages = await getHolidayPackages();
-        packages.forEach(p => {
-             if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
-                results.push({
-                    title: p.title,
-                    description: p.duration,
-                    price: p.price,
-                    portal: 'NestTravel',
-                    imageUrl: p.image,
-                    url: `/modules/travel/package/${createSlug(p.title)}`,
-                });
-            }
-        });
+        try {
+            const packages = await getHolidayPackages();
+            packages.forEach(p => {
+                if (p.title.toLowerCase().includes(lowerCaseQuery) || p.location.toLowerCase().includes(lowerCaseQuery)) {
+                    results.push({
+                        title: p.title,
+                        description: p.duration,
+                        price: p.price,
+                        portal: 'NestTravel',
+                        imageUrl: p.image,
+                        url: `/modules/travel/package/${createSlug(p.title)}`,
+                    });
+                }
+            });
+        } catch(e) { console.error("Error searching packages", e); }
 
         // Search Stays (NestStays)
-        const stays = await getStays();
-        stays.forEach(s => {
-            if (s.title.toLowerCase().includes(lowerCaseQuery) || s.type.toLowerCase().includes(lowerCaseQuery) || s.location.toLowerCase().includes(lowerCaseQuery)) {
-                results.push({
-                    title: s.title,
-                    description: `${s.type} in ${s.location}`,
-                    price: s.price,
-                    portal: 'NestStays',
-                    imageUrl: s.image,
-                    url: `/modules/stays`, // Assuming a generic stays page for now
-                });
-            }
-        });
+        try {
+            const stays = await getStays();
+            stays.forEach(s => {
+                if (s.title.toLowerCase().includes(lowerCaseQuery) || s.type.toLowerCase().includes(lowerCaseQuery) || s.location.toLowerCase().includes(lowerCaseQuery)) {
+                    results.push({
+                        title: s.title,
+                        description: `${s.type} in ${s.location}`,
+                        price: s.price,
+                        portal: 'NestStays',
+                        imageUrl: s.image,
+                        url: `/modules/stays`, // Assuming a generic stays page for now
+                    });
+                }
+            });
+        } catch (e) { console.error("Error searching stays", e); }
 
 
         console.log(`[Search Tool] Found ${results.length} initial results.`);
-        // In a real scenario, you'd have better ranking. Here we just take the first 20.
-        return results.slice(0, 20);
+        return results;
     }
 );
+
+
+const SearchFlowInputSchema = z.object({
+  query: z.string(),
+  results: z.array(NestSearchResultSchema),
+});
 
 
 // 3. Define the Main AI Prompt/Flow
 const nestSearchPrompt = ai.definePrompt(
   {
     name: 'nestSearchPrompt',
-    input: { schema: NestSearchInputSchema },
+    input: { schema: SearchFlowInputSchema },
     output: { schema: NestSearchOutputSchema },
-    tools: [searchAcrossPortalsTool],
     prompt: `
         You are NestSearch, an AI assistant for the DigitalNest ecosystem.
-        Your primary function is to understand a user's request and use the available tools to find relevant items within our internal portals.
+        Your primary function is to intelligently rank and select the most relevant items from a provided list of search results based on the user's original query.
 
-        - Your main task is to analyze the user's query: {{{this}}}.
-        - Identify key information like item names, categories (e.g., "electronics", "fashion"), locations (e.g., "Kilimani", "Diani"), or attributes (e.g., "cheap", "luxury").
-        - Use this information to call the 'searchAcrossPortals' tool. This is the ONLY way you can get information.
-        - You CANNOT access the public internet or any external data sources. Your knowledge is limited to the output of the 'searchAcrossPortals' tool.
-        - From the tool's results, select the top 10 most relevant items that best match the user's original query.
-        - Return these top 10 items as your final output in the specified JSON format.
-        - If the tool returns no relevant results, return an empty array.
+        The user's original query was: "{{query}}"
+        
+        Here are the search results retrieved from our internal portals:
+        
+        {{#each results}}
+        - {{this.title}} in {{this.portal}} (Description: {{this.description}}, Price: {{this.price}})
+        {{/each}}
+        
+        Your task:
+        - Analyze the user's query to understand their intent (e.g., looking for a specific item, a category, a location, or a price range).
+        - From the provided search results, select the top 10 most relevant items that best match the user's original query.
+        - Return ONLY these top 10 items in the specified JSON format.
+        - If there are no relevant results in the provided list, or if the list is empty, return an empty array.
     `,
   },
 );
@@ -129,7 +148,20 @@ const searchNestFlow = ai.defineFlow(
     outputSchema: NestSearchOutputSchema,
   },
   async (query) => {
-    const { output } = await nestSearchPrompt(query);
+    // 1. Perform the search using the tool
+    const searchResults = await searchAcrossPortalsTool(query);
+
+    // 2. If no results, return empty array
+    if (searchResults.length === 0) {
+      return [];
+    }
+
+    // 3. Use the LLM to rank and select the best results
+    const { output } = await nestSearchPrompt({
+      query: query,
+      results: searchResults.slice(0, 20), // Limit to 20 to keep prompt size reasonable
+    });
+    
     return output || [];
   }
 );
@@ -139,5 +171,3 @@ const searchNestFlow = ai.defineFlow(
 export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
     return await searchNestFlow(query);
 }
-
-
