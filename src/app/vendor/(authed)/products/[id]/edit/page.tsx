@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 import { getProducts } from '@/lib/firebase-services';
 import type { Product } from '@/lib/mock-data';
+import { RichTextEditor, RichTextEditorContent, RichTextEditorToolbar } from '@/components/ui/rich-text-editor';
 
 const categories = {
   "Electronics": ["Smartphones", "Laptops", "Wearables", "Audio", "Accessories"],
@@ -130,7 +131,10 @@ export default function EditProductPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="description">Description</Label>
-                                    <Textarea id="description" name="description" placeholder="Describe your product in detail..." />
+                                     <RichTextEditor>
+                                        <RichTextEditorToolbar />
+                                        <RichTextEditorContent />
+                                    </RichTextEditor>
                                 </div>
                             </CardContent>
                         </Card>
