@@ -1,86 +1,82 @@
 
 "use client"
 
-import * as React from "react"
-import Balancer from "react-wrap-balancer"
+import { useEditor, EditorContent, type Editor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import { Bold, Italic, List, ListOrdered, Strikethrough } from 'lucide-react'
+import { Toggle } from '@/components/ui/toggle'
 
-import { cn } from "@/lib/utils"
-
-const RichTextEditor = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
-  <div ref={ref} className={cn("w-full", className)} {...props}>
-    {children}
-  </div>
-))
-RichTextEditor.displayName = "RichTextEditor"
-
-const RichTextEditorToolbar = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "flex w-full items-center justify-between rounded-t-lg border bg-background p-2",
-        className
-      )}
-      {...props}
-    />
-  )
-})
-RichTextEditorToolbar.displayName = "RichTextEditorToolbar"
-
-const RichTextEditorContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-  return (
-    <div
-      ref={ref}
-      contentEditable
-      className={cn(
-        "h-48 w-full rounded-b-lg border-x border-b p-4 text-base focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      {...props}
-    />
-  )
-})
-RichTextEditorContent.displayName = "RichTextEditorContent"
-
-const RichTextEditorCharacterCount = React.forwardRef<
-  HTMLSpanElement,
-  React.HTMLAttributes<HTMLSpanElement> & {
-    characterLimit: number
-  }
->(({ className, characterLimit, ...props }, ref) => {
-  const [text, setText] = React.useState("")
+const Tiptap = ({
+  description,
+  onChange,
+}: {
+  description: string
+  onChange: (richText: string) => void
+}) => {
+  const editor = useEditor({
+    extensions: [StarterKit.configure()],
+    content: description,
+    editorProps: {
+      attributes: {
+        class: 'rounded-md border min-h-[150px] border-input bg-background p-4',
+      },
+    },
+    onUpdate({ editor }) {
+      onChange(editor.getHTML())
+    },
+  })
 
   return (
-    <span
-      ref={ref}
-      className={cn(
-        "mt-2.5 text-sm text-muted-foreground",
-        text.length > characterLimit && "text-destructive",
-        className
-      )}
-      {...props}
-    >
-      <Balancer>
-        {text.length}/{characterLimit} characters
-      </Balancer>
-    </span>
+    <div className='flex flex-col justify-stretch min-h-[250px] gap-2'>
+      <Toolbar editor={editor} />
+      <EditorContent editor={editor} />
+    </div>
   )
-})
-
-RichTextEditorCharacterCount.displayName = "RichTextEditorCharacterCount"
-
-export {
-  RichTextEditor,
-  RichTextEditorContent,
-  RichTextEditorToolbar,
-  RichTextEditorCharacterCount,
 }
+
+const Toolbar = ({ editor }: { editor: Editor | null }) => {
+  if (!editor) {
+    return null
+  }
+  return (
+    <div className='border border-input bg-transparent rounded-md p-1 flex gap-1'>
+      <Toggle
+        size='sm'
+        pressed={editor.isActive('bold')}
+        onPressedChange={() => editor.chain().focus().toggleBold().run()}
+      >
+        <Bold className='h-4 w-4' />
+      </Toggle>
+      <Toggle
+        size='sm'
+        pressed={editor.isActive('italic')}
+        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+      >
+        <Italic className='h-4 w-4' />
+      </Toggle>
+      <Toggle
+        size='sm'
+        pressed={editor.isActive('strike')}
+        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
+      >
+        <Strikethrough className='h-4 w-4' />
+      </Toggle>
+       <Toggle
+        size='sm'
+        pressed={editor.isActive('bulletList')}
+        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+      >
+        <List className='h-4 w-4' />
+      </Toggle>
+       <Toggle
+        size='sm'
+        pressed={editor.isActive('orderedList')}
+        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
+      >
+        <ListOrdered className='h-4 w-4' />
+      </Toggle>
+    </div>
+  )
+}
+
+export { Tiptap as RichTextEditor }

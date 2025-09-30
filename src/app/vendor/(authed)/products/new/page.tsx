@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { handleAddProduct } from '@/app/vendor/(authed)/products/actions';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { RichTextEditor, RichTextEditorContent, RichTextEditorToolbar } from '@/components/ui/rich-text-editor';
+import { RichTextEditor } from '@/components/ui/rich-text-editor';
 
 const categories = {
   "Electronics": ["Smartphones", "Laptops", "Wearables", "Audio", "Accessories"],
@@ -43,6 +43,7 @@ export default function AddProductPage() {
     const [specifications, setSpecifications] = useState([{ key: '', value: '' }]);
     const [faqs, setFaqs] = useState([{ question: '', answer: '' }]);
     const [variations, setVariations] = useState([{ type: 'Size', name: '', price: '' }]);
+    const [description, setDescription] = useState('');
 
     const handleMainImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -123,7 +124,7 @@ export default function AddProductPage() {
 
         const productData = {
             title: formData.get('title') as string,
-            description: formData.get('description') as string,
+            description: description,
             price: Number(formData.get('price')),
             discountPrice: Number(formData.get('discountPrice')) || undefined,
             taxable: formData.get('taxable') === 'on',
@@ -192,10 +193,7 @@ export default function AddProductPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="description">Description</Label>
-                                     <RichTextEditor>
-                                        <RichTextEditorToolbar />
-                                        <RichTextEditorContent />
-                                    </RichTextEditor>
+                                     <RichTextEditor description={description} onChange={setDescription} />
                                 </div>
                             </CardContent>
                         </Card>

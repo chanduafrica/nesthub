@@ -9,14 +9,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, Loader2, UploadCloud } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 import { getProducts } from '@/lib/firebase-services';
 import type { Product } from '@/lib/mock-data';
-import { RichTextEditor, RichTextEditorContent, RichTextEditorToolbar } from '@/components/ui/rich-text-editor';
+import { RichTextEditor } from '@/components/ui/rich-text-editor';
 
 const categories = {
   "Electronics": ["Smartphones", "Laptops", "Wearables", "Audio", "Accessories"],
@@ -33,6 +32,7 @@ export default function EditProductPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState<Product | null>(null);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [description, setDescription] = useState('');
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -42,6 +42,7 @@ export default function EditProductPage() {
             if (foundProduct) {
                 setProduct(foundProduct);
                 setSelectedCategories(foundProduct.category || []);
+                setDescription(foundProduct.description || '');
             } else {
                 toast({ title: "Product not found", variant: "destructive" });
                 router.push('/vendor/products');
@@ -69,6 +70,7 @@ export default function EditProductPage() {
         const productData = {
             id: product.id,
             title: formData.get('title') as string,
+            description: description,
             category: selectedCategories,
             price: Number(formData.get('price')),
             discountPrice: Number(formData.get('discountPrice')) || undefined,
@@ -131,10 +133,7 @@ export default function EditProductPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="description">Description</Label>
-                                     <RichTextEditor>
-                                        <RichTextEditorToolbar />
-                                        <RichTextEditorContent />
-                                    </RichTextEditor>
+                                     <RichTextEditor description={description} onChange={setDescription} />
                                 </div>
                             </CardContent>
                         </Card>
