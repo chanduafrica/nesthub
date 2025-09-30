@@ -8,6 +8,7 @@
 
 import { ai } from '@/ai/genkit';
 import { getProducts, getProperties, getHolidayPackages, getStays } from '@/lib/firebase-services';
+import { z } from 'zod';
 import { NestSearchInputSchema, NestSearchOutput, NestSearchOutputSchema, NestSearchResult, NestSearchResultSchema } from './nest-search-types';
 import type { NestSearchInput } from './nest-search-types';
 
@@ -23,7 +24,7 @@ const searchAcrossPortalsTool = ai.defineTool(
     {
         name: 'searchAcrossPortals',
         description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, NestStays, and NestTravel.',
-        inputSchema: NestSearchInputSchema,
+        inputSchema: z.string(),
         outputSchema: NestSearchOutputSchema,
     },
     async (query) => {
