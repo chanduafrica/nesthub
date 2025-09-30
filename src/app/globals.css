@@ -12,7 +12,7 @@
     --popover-foreground: 240 10% 3.9%;
     --primary: 209 75% 40%; /* DigitalNest Blue - #1767b0 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 10% 3.9%; /* Charcoal Gray - #2b2b2b */
+    --secondary: 358 83% 54%; /* DigitalNest Red - #ea262c */
     --secondary-foreground: 0 0% 100%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 240 5% 45.1%;
@@ -48,8 +48,8 @@
     --popover-foreground: 0 0% 98%;
     --primary: 209 75% 40%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 98%; /* Light Gray for dark mode secondary */
-    --secondary-foreground: 240 10% 3.9%;
+    --secondary: 358 83% 54%; /* DigitalNest Red - #ea262c */
+    --secondary-foreground: 0 0% 100%;
     --muted: 240 5% 14.9%;
     --muted-foreground: 240 5% 63.9%;
     --accent: 358 83% 54%;
