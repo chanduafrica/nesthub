@@ -72,7 +72,7 @@ const searchAcrossPortalsTool = ai.defineTool(
                     price: p.price,
                     portal: 'NestTravel',
                     imageUrl: p.image,
-                    url: `/modules/travel/package/${createSlug(p-title)}`,
+                    url: `/modules/travel/package/${createulk(p.title)}`,
                 });
             }
         });
@@ -139,3 +139,4 @@ const searchNestFlow = ai.defineFlow(
 export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
     return await searchNestFlow(query);
 }
+
