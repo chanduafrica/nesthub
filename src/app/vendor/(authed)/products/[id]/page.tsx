@@ -1,7 +1,7 @@
 
 'use client';
 
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { getProducts } from '@/lib/firebase-services';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,7 +18,6 @@ import { useState, useEffect } from 'react';
 import type { Product, ProductStatus } from '@/lib/mock-data';
 import { handleUpdateProductStatus, handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 
-// This is a new Client Component that fetches its own data
 export default function ViewProductPage({ params }: { params: { id: string } }) {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -26,64 +25,39 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
 
     useEffect(() => {
         const fetchProduct = async () => {
+            if (!params.id) return;
+            setLoading(true);
             const products = await getProducts();
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
                 setProduct(foundProduct);
+            } else {
+                toast({ title: "Product not found", variant: "destructive" });
             }
             setLoading(false);
         };
         fetchProduct();
-    }, [params.id]);
+    }, [params.id, toast]);
 
-    if (loading) {
-        return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>
-    }
-    
-    if (!product) {
-        notFound();
-    }
-    
-    const formatCurrency = (amount: number | undefined) => {
-        if (amount === undefined) return 'N/A';
-        return `KES ${amount.toLocaleString('en-US')}`;
-    }
-
-    const discountPercentage = product.discountPrice ? ((product.price - product.discountPrice) / product.price) * 100 : 0;
-    const isExplosiveDealEligible = discountPercentage >= 80;
-
-    const toggleProductStatus = async () => {
-        const newStatus = product.status === 'Active' ? 'Inactive' : 'Active';
-        try {
-            await handleUpdateProductStatus(product!.id, newStatus);
-            setProduct(prev => prev ? { ...prev, status: newStatus } : null);
-            toast({
-                title: 'Status Updated',
-                description: `${product!.title} has been set to ${newStatus}.`,
-            });
-        } catch (error) {
-            toast({
-                title: 'Error',
-                description: 'Could not update product status.',
-                variant: 'destructive',
-            });
-        }
-    };
-    
     const handlePromoFlagChange = async (flag: 'isCeoPick' | 'inMiddayVault' | 'inExplosiveDeal', value: boolean) => {
         if (!product) return;
-        const updatedProductData = {
+
+        const updatedProductData: Partial<Product> = {
             id: product.id,
             [flag]: value,
         };
 
         try {
-            const updatedProductResult = await handleUpdateProduct(updatedProductData as any);
-             setProduct(prev => prev ? { ...prev, ...updatedProductResult.product } : null);
-            toast({
-                title: 'Promotion Flag Updated',
-                description: `Product's eligibility for promotion has been updated.`,
-            });
+            const result = await handleUpdateProduct(updatedProductData);
+            if (result.success && result.product) {
+                setProduct(result.product); // Update state with the full returned product
+                toast({
+                    title: 'Promotion Flag Updated',
+                    description: `Product's eligibility for promotion has been updated.`,
+                });
+            } else {
+                throw new Error("Failed to update product from server.");
+            }
         } catch (error) {
             console.error(error);
             toast({
@@ -93,6 +67,41 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
             });
         }
     };
+    
+    const toggleProductStatus = async () => {
+        if (!product) return;
+        const newStatus: ProductStatus = product.status === 'Active' ? 'Inactive' : 'Active';
+        try {
+            await handleUpdateProductStatus(product.id, newStatus);
+            setProduct(prev => prev ? { ...prev, status: newStatus } : null);
+            toast({
+                title: 'Status Updated',
+                description: `${product.title} has been set to ${newStatus}.`,
+            });
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: 'Could not update product status.',
+                variant: 'destructive',
+            });
+        }
+    };
+
+    if (loading) {
+        return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /></div>;
+    }
+    
+    if (!product) {
+        return notFound();
+    }
+    
+    const formatCurrency = (amount: number | undefined) => {
+        if (amount === undefined) return 'N/A';
+        return `KES ${amount.toLocaleString('en-US')}`;
+    };
+
+    const discountPercentage = product.price && product.discountPrice ? ((product.price - product.discountPrice) / product.price) * 100 : 0;
+    const isExplosiveDealEligible = discountPercentage >= 80;
 
     return (
         <div className="flex-1">
