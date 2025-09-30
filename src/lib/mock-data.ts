@@ -118,7 +118,8 @@ export type ProductStatus = 'Active' | 'Inactive';
 export type Product = {
     id: string;
     slug: string;
-    image: string;
+    image: string; // Main image
+    galleryImages?: string[];
     title: string;
     vendor: string;
     vendorId?: string;
@@ -130,4 +131,7 @@ export type Product = {
     isCeoPick?: boolean;
     inMiddayVault?: boolean;
     inExplosiveDeal?: boolean;
+    description?: string;
+    specifications?: { key: string; value: string; }[];
+    faqs?: { question: string; answer: string; }[];
 };

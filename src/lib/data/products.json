@@ -1,8 +1,10 @@
+
 [
   {
     "id": "prod1",
     "slug": "samsung-galaxy-s24-256gb",
     "image": "/mall/s24-1.jpg",
+    "galleryImages": ["/mall/s24-2.jpg", "/mall/s24-3.jpg"],
     "title": "Samsung Galaxy S24 - 256GB",
     "vendor": "SGNEST SUPER VENDOR",
     "vendorId": "v26",
@@ -12,7 +14,10 @@
     "status": "Active",
     "isCeoPick": true,
     "inMiddayVault": true,
-    "inExplosiveDeal": false
+    "inExplosiveDeal": false,
+    "description": "Experience the future of mobile technology with the Samsung Galaxy S24. Featuring a stunning Dynamic AMOLED 2X display, a professional-grade camera system, and the fastest processor ever in a Galaxy, it's designed to elevate your everyday.",
+    "specifications": [{"key": "Display", "value": "6.2\" Dynamic AMOLED 2X"}, {"key": "Processor", "value": "Snapdragon 8 Gen 3"}, {"key": "RAM", "value": "8GB"}],
+    "faqs": [{"question": "Is it new or refurbished?", "answer": "All our products are brand new and sealed."}, {"question": "What is the return policy?", "answer": "We offer a 7-day return policy for defective items."}]
   },
   {
     "id": "prod2",

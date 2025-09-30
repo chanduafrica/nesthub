@@ -1,4 +1,5 @@
 
+
 'use server';
 
 import { promises as fs } from 'fs';
@@ -103,5 +104,3 @@ export async function handleUpdateProduct(productData: Partial<Product> & { id: 
         return { success: false, message: "An unknown error occurred while updating the product." };
     }
 }
-
-    
