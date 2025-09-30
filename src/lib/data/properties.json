@@ -10,7 +10,7 @@
     "beds": 3,
     "baths": 2,
     "area": 1500,
-    "imageUrl": "https://picsum.photos/800/600?random=1",
+    "imageUrl": "/property/1.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
   },
@@ -24,7 +24,7 @@
     "beds": 5,
     "baths": 5,
     "area": 4500,
-    "imageUrl": "https://picsum.photos/800/600?random=2",
+    "imageUrl": "/property/2.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   },
@@ -38,7 +38,7 @@
     "beds": 2,
     "baths": 1,
     "area": 1200,
-    "imageUrl": "https://picsum.photos/800/600?random=3",
+    "imageUrl": "/property/3.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
   },
@@ -52,7 +52,7 @@
     "beds": 4,
     "baths": 4,
     "area": 3000,
-    "imageUrl": "https://picsum.photos/800/600?random=4",
+    "imageUrl": "/property/4.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
   },
@@ -66,7 +66,7 @@
     "beds": 0,
     "baths": 2,
     "area": 2500,
-    "imageUrl": "https://picsum.photos/800/600?random=5",
+    "imageUrl": "/property/5.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
   },
@@ -80,7 +80,7 @@
     "beds": 4,
     "baths": 5,
     "area": 5000,
-    "imageUrl": "https://picsum.photos/800/600?random=6",
+    "imageUrl": "/property/6.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Coastal Properties", "avatarUrl": "https://picsum.photos/100/100?random=a6" }
   },
@@ -94,7 +94,7 @@
     "beds": 6,
     "baths": 6,
     "area": 7000,
-    "imageUrl": "https://picsum.photos/800/600?random=7",
+    "imageUrl": "/property/7.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kariuki & Co.", "avatarUrl": "https://picsum.photos/100/100?random=a7" }
   },
@@ -108,7 +108,7 @@
     "beds": 1,
     "baths": 1,
     "area": 800,
-    "imageUrl": "https://picsum.photos/800/600?random=8",
+    "imageUrl": "/property/8.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Nyumba Poa", "avatarUrl": "https://picsum.photos/100/100?random=a8" }
   },
@@ -122,7 +122,7 @@
     "beds": 7,
     "baths": 8,
     "area": 10000,
-    "imageUrl": "https://picsum.photos/800/600?random=9",
+    "imageUrl": "/property/1.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   },
@@ -136,7 +136,7 @@
     "beds": 4,
     "baths": 4,
     "area": 3500,
-    "imageUrl": "https://picsum.photos/800/600?random=10",
+    "imageUrl": "/property/2.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
   },
@@ -150,7 +150,7 @@
     "beds": 5,
     "baths": 5,
     "area": 6000,
-    "imageUrl": "https://picsum.photos/800/600?random=11",
+    "imageUrl": "/property/3.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
   },
@@ -164,7 +164,7 @@
     "beds": 1,
     "baths": 1,
     "area": 400,
-    "imageUrl": "https://picsum.photos/800/600?random=12",
+    "imageUrl": "/property/4.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Nyumba Poa", "avatarUrl": "https://picsum.photos/100/100?random=a8" }
   },
@@ -178,7 +178,7 @@
     "beds": 0,
     "baths": 10,
     "area": 20000,
-    "imageUrl": "https://picsum.photos/800/600?random=13",
+    "imageUrl": "/property/5.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
   },
@@ -192,7 +192,7 @@
     "beds": 1,
     "baths": 1,
     "area": 600,
-    "imageUrl": "https://picsum.photos/800/600?random=14",
+    "imageUrl": "/property/6.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
   },
@@ -206,7 +206,7 @@
     "beds": 4,
     "baths": 3,
     "area": 2200,
-    "imageUrl": "https://picsum.photos/800/600?random=15",
+    "imageUrl": "/property/7.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kariuki & Co.", "avatarUrl": "https://picsum.photos/100/100?random=a7" }
   },
@@ -220,7 +220,7 @@
     "beds": 3,
     "baths": 3,
     "area": 2000,
-    "imageUrl": "https://picsum.photos/800/600?random=16",
+    "imageUrl": "/property/8.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
   },
@@ -234,7 +234,7 @@
     "beds": 5,
     "baths": 6,
     "area": 5500,
-    "imageUrl": "https://picsum.photos/800/600?random=17",
+    "imageUrl": "/property/1.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Coastal Properties", "avatarUrl": "https://picsum.photos/100/100?random=a6" }
   },
@@ -248,7 +248,7 @@
     "beds": 4,
     "baths": 4,
     "area": 3200,
-    "imageUrl": "https://picsum.photos/800/600?random=18",
+    "imageUrl": "/property/2.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
   },
@@ -262,7 +262,7 @@
     "beds": 3,
     "baths": 1,
     "area": 1300,
-    "imageUrl": "https://picsum.photos/800/600?random=19",
+    "imageUrl": "/property/3.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
   },
@@ -276,7 +276,7 @@
     "beds": 2,
     "baths": 2,
     "area": 1800,
-    "imageUrl": "https://picsum.photos/800/600?random=20",
+    "imageUrl": "/property/4.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   },
@@ -290,7 +290,7 @@
     "beds": 1,
     "baths": 1,
     "area": 500,
-    "imageUrl": "https://picsum.photos/800/600?random=21",
+    "imageUrl": "/property/5.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Nyumba Poa", "avatarUrl": "https://picsum.photos/100/100?random=a8" }
   },
@@ -304,7 +304,7 @@
     "beds": 5,
     "baths": 4,
     "area": 4800,
-    "imageUrl": "https://picsum.photos/800/600?random=22",
+    "imageUrl": "/property/6.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Kariuki & Co.", "avatarUrl": "https://picsum.photos/100/100?random=a7" }
   },
@@ -318,7 +318,7 @@
     "beds": 2,
     "baths": 2,
     "area": 1300,
-    "imageUrl": "https://picsum.photos/800/600?random=23",
+    "imageUrl": "/property/7.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
   },
@@ -332,7 +332,7 @@
     "beds": 20,
     "baths": 20,
     "area": 15000,
-    "imageUrl": "https://picsum.photos/800/600?random=24",
+    "imageUrl": "/property/8.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
   },
@@ -346,7 +346,7 @@
     "beds": 3,
     "baths": 4,
     "area": 2800,
-    "imageUrl": "https://picsum.photos/800/600?random=25",
+    "imageUrl": "/property/1.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Wanjiku Homes", "avatarUrl": "https://picsum.photos/100/100?random=a4" }
   },
@@ -360,7 +360,7 @@
     "beds": 4,
     "baths": 4,
     "area": 3500,
-    "imageUrl": "https://picsum.photos/800/600?random=26",
+    "imageUrl": "/property/2.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   },
@@ -374,7 +374,7 @@
     "beds": 2,
     "baths": 2,
     "area": 1400,
-    "imageUrl": "https://picsum.photos/800/600?random=27",
+    "imageUrl": "/property/3.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Mutua & Sons", "avatarUrl": "https://picsum.photos/100/100?random=a3" }
   },
@@ -388,7 +388,7 @@
     "beds": 0,
     "baths": 0,
     "area": 43560,
-    "imageUrl": "https://picsum.photos/800/600?random=28",
+    "imageUrl": "/property/4.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
   },
@@ -402,7 +402,7 @@
     "beds": 4,
     "baths": 3,
     "area": 2500,
-    "imageUrl": "https://picsum.photos/800/600?random=29",
+    "imageUrl": "/property/5.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Amina Properties", "avatarUrl": "https://picsum.photos/100/100?random=a1" }
   },
@@ -416,7 +416,7 @@
     "beds": 5,
     "baths": 5,
     "area": 6000,
-    "imageUrl": "https://picsum.photos/800/600?random=30",
+    "imageUrl": "/property/6.jpg",
     "shariaCompliant": false,
     "agent": { "name": "Coastal Properties", "avatarUrl": "https://picsum.photos/100/100?random=a6" }
   },
@@ -430,7 +430,7 @@
     "beds": 6,
     "baths": 7,
     "area": 12000,
-    "imageUrl": "https://picsum.photos/800/600?random=31",
+    "imageUrl": "/property/7.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Ochieng Real Estate", "avatarUrl": "https://picsum.photos/100/100?random=a2" }
   },
@@ -444,7 +444,7 @@
     "beds": 0,
     "baths": 4,
     "area": 10000,
-    "imageUrl": "https://picsum.photos/800/600?random=32",
+    "imageUrl": "/property/8.jpg",
     "shariaCompliant": true,
     "agent": { "name": "Kamau Enterprises", "avatarUrl": "https://picsum.photos/100/100?random=a5" }
   }
