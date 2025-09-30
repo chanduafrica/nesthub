@@ -127,5 +127,9 @@ export type Product = {
     discountPrice?: number;
     category: string;
     status: ProductStatus;
+    isCeoPick?: boolean;
+    inMiddayVault?: boolean;
+    inExplosiveDeal?: boolean;
 };
+
 

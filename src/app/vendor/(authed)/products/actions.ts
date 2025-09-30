@@ -25,6 +25,9 @@ export async function handleAddProduct(productData: NewProductData) {
             slug: newSlug,
             vendorId: 'v26', // Assign to Super Vendor
             status: 'Active',
+            isCeoPick: false,
+            inMiddayVault: false,
+            inExplosiveDeal: false,
             ...productData
         };
 
@@ -53,6 +56,7 @@ export async function handleUpdateProductStatus(productId: string, status: Produ
             products[productIndex].status = status;
             await fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), 'utf8');
             revalidatePath('/vendor/products');
+            revalidatePath(`/vendor/products/${productId}`);
             return { success: true, product: products[productIndex] };
         }
         throw new Error(`Product with id ${productId} not found.`);
@@ -66,13 +70,13 @@ export async function handleUpdateProductStatus(productId: string, status: Produ
     }
 }
 
-export async function handleUpdateProduct(productData: UpdateProductData) {
+export async function handleUpdateProduct(productData: Partial<Product>) {
     try {
         const products = await getProducts();
         const productIndex = products.findIndex(p => p.id === productData.id);
 
         if (productIndex !== -1) {
-            const newSlug = productData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            const newSlug = productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : products[productIndex].slug;
             const updatedProduct = {
                 ...products[productIndex],
                 ...productData,
@@ -83,6 +87,7 @@ export async function handleUpdateProduct(productData: UpdateProductData) {
             await fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), 'utf8');
             revalidatePath('/vendor/products');
             revalidatePath(`/vendor/products/${productData.id}/edit`);
+            revalidatePath(`/vendor/products/${productData.id}`);
             
             return { success: true, product: updatedProduct };
         }

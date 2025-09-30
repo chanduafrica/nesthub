@@ -58,7 +58,7 @@ export default function EditProductPage() {
         };
 
         try {
-            await handleUpdateProduct(productData);
+            await handleUpdateProduct(productData as any);
             toast({
                 title: 'Product Updated!',
                 description: `${productData.title} has been successfully updated.`,
