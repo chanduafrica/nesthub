@@ -9,20 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Loader2, UploadCloud, DollarSign, Trash2 } from 'lucide-react';
+import { ArrowLeft, Loader2, UploadCloud } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 import { handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 import { getProducts } from '@/lib/firebase-services';
 import type { Product } from '@/lib/mock-data';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 
 export default function EditProductPage() {
     const router = useRouter();
@@ -30,10 +22,10 @@ export default function EditProductPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState<Product | null>(null);
-    const [wholesaleRows, setWholesaleRows] = useState([{ minQty: '', price: '' }]);
 
     useEffect(() => {
         const fetchProduct = async () => {
+            setIsLoading(true);
             const products = await getProducts();
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
@@ -42,20 +34,12 @@ export default function EditProductPage() {
                 toast({ title: "Product not found", variant: "destructive" });
                 router.push('/vendor/products');
             }
+            setIsLoading(false);
         };
         if (params.id) {
             fetchProduct();
         }
     }, [params.id, router, toast]);
-
-    const handleAddWholesaleRow = () => {
-        setWholesaleRows([...wholesaleRows, { minQty: '', price: '' }]);
-    };
-    
-    const handleRemoveWholesaleRow = (index: number) => {
-        const newRows = wholesaleRows.filter((_, i) => i !== index);
-        setWholesaleRows(newRows);
-    };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -70,7 +54,7 @@ export default function EditProductPage() {
             category: formData.get('category') as string,
             price: Number(formData.get('price')),
             discountPrice: Number(formData.get('discountPrice')) || undefined,
-            image: product.image, // Not handling image updates in this example
+            image: product.image, // Image updates are not handled in this version
         };
 
         try {
@@ -90,7 +74,7 @@ export default function EditProductPage() {
         }
     };
     
-    if (!product) {
+    if (isLoading || !product) {
         return (
             <div className="flex items-center justify-center h-full">
                 <Loader2 className="h-8 w-8 animate-spin" />
@@ -160,41 +144,6 @@ export default function EditProductPage() {
                                     <Label htmlFor="discountPrice">Discounted Price (KES)</Label>
                                     <Input id="discountPrice" name="discountPrice" type="number" defaultValue={product.discountPrice} placeholder="(optional)" />
                                 </div>
-                            </CardContent>
-                        </Card>
-                         <Card>
-                            <CardHeader>
-                                <CardTitle className="flex items-center gap-2"><DollarSign className="h-5 w-5" />Wholesale Pricing (Optional)</CardTitle>
-                                <CardDescription>Offer discounts for bulk purchases.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Minimum Quantity</TableHead>
-                                            <TableHead>Price per Item (KES)</TableHead>
-                                            <TableHead></TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        {wholesaleRows.map((row, index) => (
-                                            <TableRow key={index}>
-                                                <TableCell>
-                                                    <Input type="number" placeholder="e.g., 10" />
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Input type="number" placeholder="e.g., 2000" />
-                                                </TableCell>
-                                                <TableCell className="text-right">
-                                                    <Button type="button" variant="ghost" size="icon" onClick={() => handleRemoveWholesaleRow(index)}>
-                                                        <Trash2 className="h-4 w-4 text-destructive"/>
-                                                    </Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                                <Button type="button" variant="outline" className="mt-4" onClick={handleAddWholesaleRow}>Add Tier</Button>
                             </CardContent>
                         </Card>
                     </div>

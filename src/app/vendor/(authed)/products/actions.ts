@@ -10,7 +10,7 @@ import { getProducts } from '@/lib/firebase-services';
 const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 const productsFilePath = path.join(dataDirectory, 'products.json');
 
-type NewProductData = Omit<Product, 'id' | 'slug' | 'status'>;
+type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId'>;
 type UpdateProductData = Omit<Product, 'slug' | 'status' | 'vendorId' | 'vendor' | 'rating'>;
 
 
