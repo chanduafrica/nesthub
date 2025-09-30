@@ -10,7 +10,7 @@ import { getProducts } from '@/lib/firebase-services';
 const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 const productsFilePath = path.join(dataDirectory, 'products.json');
 
-type NewProductData = Omit<Product, 'id' | 'slug' | 'status'>;
+type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId' >;
 
 export async function handleAddProduct(productData: NewProductData) {
     try {
@@ -103,3 +103,5 @@ export async function handleUpdateProduct(productData: Partial<Product> & { id: 
         return { success: false, message: "An unknown error occurred while updating the product." };
     }
 }
+
+    

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,8 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Loader2, UploadCloud, DollarSign, Trash2 } from 'lucide-react';
+import { ArrowLeft, Loader2, UploadCloud, DollarSign, Trash2, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { handleAddProduct } from '@/app/vendor/(authed)/products/actions';
 import {
@@ -27,6 +28,9 @@ export default function AddProductPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [wholesaleRows, setWholesaleRows] = useState([{ minQty: '', price: '' }]);
+    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [imageFile, setImageFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleAddWholesaleRow = () => {
         setWholesaleRows([...wholesaleRows, { minQty: '', price: '' }]);
@@ -37,18 +41,44 @@ export default function AddProductPage() {
         setWholesaleRows(newRows);
     };
 
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result as string);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+    
+    const removeImage = () => {
+        setImageFile(null);
+        setImagePreview(null);
+        if(fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    }
+
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
 
         const formData = new FormData(e.currentTarget);
+        
+        // For this prototype, we'll use a placeholder path for the image.
+        // In a real app, you'd upload the imageFile to a cloud storage service
+        // and get a URL back to save in the database.
+        const imageUrl = imageFile ? `/mall/${imageFile.name}` : '/mall/placeholder.jpg';
+
         const productData = {
             title: formData.get('title') as string,
             category: formData.get('category') as string,
             price: Number(formData.get('price')),
             discountPrice: Number(formData.get('discountPrice')) || undefined,
-            // In a real app, you would handle file uploads properly
-            image: '/mall/placeholder.jpg',
+            image: imageUrl, 
             vendor: 'SGNEST SUPER VENDOR',
             rating: 0,
         };
@@ -108,15 +138,45 @@ export default function AddProductPage() {
                         <Card>
                             <CardHeader>
                                 <CardTitle>Images</CardTitle>
-                                <CardDescription>Upload high-quality images for your product.</CardDescription>
+                                <CardDescription>Upload a high-quality image for your product.</CardDescription>
                             </CardHeader>
                              <CardContent>
-                                <div className="border-2 border-dashed border-muted-foreground/50 rounded-lg p-10 flex flex-col items-center justify-center text-center">
-                                    <UploadCloud className="h-10 w-10 text-muted-foreground mb-4"/>
-                                    <p className="font-semibold mb-2">Drag & drop images here</p>
-                                    <p className="text-sm text-muted-foreground mb-4">or</p>
-                                    <Button type="button" variant="outline">Browse Files</Button>
-                                </div>
+                                <Input 
+                                  type="file" 
+                                  className="hidden"
+                                  ref={fileInputRef}
+                                  onChange={handleImageChange}
+                                  accept="image/*"
+                                />
+                                {!imagePreview ? (
+                                    <div 
+                                        onClick={() => fileInputRef.current?.click()}
+                                        className="border-2 border-dashed border-muted-foreground/50 rounded-lg p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50"
+                                    >
+                                        <UploadCloud className="h-10 w-10 text-muted-foreground mb-4"/>
+                                        <p className="font-semibold mb-2">Click to upload an image</p>
+                                        <p className="text-sm text-muted-foreground">PNG, JPG, or WEBP. 800x800px recommended.</p>
+                                    </div>
+                                ) : (
+                                    <div className="relative w-full max-w-sm mx-auto">
+                                        <Image 
+                                            src={imagePreview} 
+                                            alt="Product preview" 
+                                            width={400} 
+                                            height={400}
+                                            className="rounded-lg object-cover aspect-square"
+                                        />
+                                        <Button
+                                            type="button"
+                                            variant="destructive"
+                                            size="icon"
+                                            className="absolute top-2 right-2 h-7 w-7"
+                                            onClick={removeImage}
+                                        >
+                                            <X className="h-4 w-4"/>
+                                        </Button>
+                                    </div>
+                                )}
                              </CardContent>
                         </Card>
                         <Card>
@@ -203,3 +263,5 @@ export default function AddProductPage() {
         </div>
     );
 }
+
+    
