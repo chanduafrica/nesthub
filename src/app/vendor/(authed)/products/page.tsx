@@ -16,7 +16,7 @@ export default async function VendorProductsPage() {
 
     // This is a placeholder. In a real app, you'd fetch products for the specific vendor more directly.
     const allProducts: Product[] = await getProducts();
-    const vendorProducts = allProducts.filter(p => p.vendor === vendor.name);
+    const vendorProducts = allProducts.filter(p => p.vendorId === vendor.id);
     
     return (
         <ProductsList initialProducts={vendorProducts} />
