@@ -24,7 +24,7 @@ const searchAcrossPortalsTool = ai.defineTool(
     {
         name: 'searchAcrossPortals',
         description: 'Searches for items across all DigitalNest portals like NestMall, NestHomes, NestStays, and NestTravel.',
-        inputSchema: z.string(),
+        inputSchema: NestSearchInputSchema,
         outputSchema: NestSearchOutputSchema,
     },
     async (query) => {
@@ -104,7 +104,7 @@ const searchAcrossPortalsTool = ai.defineTool(
 const nestSearchPrompt = ai.definePrompt(
   {
     name: 'nestSearchPrompt',
-    input: { schema: NestSearchInputSchema },
+    input: { schema: z.object({prompt: NestSearchInputSchema}) },
     output: { schema: NestSearchOutputSchema },
     tools: [searchAcrossPortalsTool],
     prompt: `
@@ -125,7 +125,7 @@ const nestSearchPrompt = ai.definePrompt(
 const searchNestFlow = ai.defineFlow(
   {
     name: 'searchNestFlow',
-    inputSchema: NestSearchInputSchema,
+    inputSchema: z.object({prompt: NestSearchInputSchema}),
     outputSchema: NestSearchOutputSchema,
   },
   async (query) => {
@@ -137,5 +137,5 @@ const searchNestFlow = ai.defineFlow(
 
 // 4. Export a callable server action
 export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
-    return await searchNestFlow(query);
+    return await searchNestFlow({prompt: query});
 }
