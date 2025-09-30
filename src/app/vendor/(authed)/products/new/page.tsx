@@ -10,25 +10,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Loader2, UploadCloud, DollarSign, Trash2, X, PlusCircle } from 'lucide-react';
+import { ArrowLeft, Loader2, UploadCloud, Trash2, X, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { handleAddProduct } from '@/app/vendor/(authed)/products/actions';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 
 export default function AddProductPage() {
     const router = useRouter();
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
-    const [wholesaleRows, setWholesaleRows] = useState([{ minQty: '', price: '' }]);
     
     const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
     const [mainImageFile, setMainImageFile] = useState<File | null>(null);

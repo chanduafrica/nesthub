@@ -11,7 +11,7 @@ import { getProducts } from '@/lib/firebase-services';
 const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 const productsFilePath = path.join(dataDirectory, 'products.json');
 
-type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId' >;
+type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId' | 'isCeoPick' | 'inMiddayVault' | 'inExplosiveDeal'>;
 
 export async function handleAddProduct(productData: NewProductData) {
     try {
