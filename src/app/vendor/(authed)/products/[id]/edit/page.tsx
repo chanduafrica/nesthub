@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -7,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, Loader2, UploadCloud } from 'lucide-react';
 import Link from 'next/link';
@@ -16,12 +17,21 @@ import { handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 import { getProducts } from '@/lib/firebase-services';
 import type { Product } from '@/lib/mock-data';
 
+const categories = {
+  "Electronics": ["Smartphones", "Laptops", "Wearables", "Audio", "Accessories"],
+  "Fashion": ["Women's Clothing", "Men's Clothing", "Footwear"],
+  "Home & Living": ["Furniture", "Appliances", "Decor"],
+  "Groceries": ["Fresh Produce", "Pantry Staples"],
+  "Auto Parts": ["Engine Parts", "Braking System"]
+};
+
 export default function EditProductPage() {
     const router = useRouter();
     const params = useParams();
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
     const [product, setProduct] = useState<Product | null>(null);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -30,6 +40,7 @@ export default function EditProductPage() {
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
                 setProduct(foundProduct);
+                setSelectedCategories(foundProduct.category || []);
             } else {
                 toast({ title: "Product not found", variant: "destructive" });
                 router.push('/vendor/products');
@@ -41,6 +52,12 @@ export default function EditProductPage() {
         }
     }, [params.id, router, toast]);
 
+    const handleCategoryChange = (category: string, checked: boolean) => {
+      setSelectedCategories(prev => 
+        checked ? [...prev, category] : prev.filter(c => c !== category)
+      );
+    }
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!product) return;
@@ -51,7 +68,7 @@ export default function EditProductPage() {
         const productData = {
             id: product.id,
             title: formData.get('title') as string,
-            category: formData.get('category') as string,
+            category: selectedCategories,
             price: Number(formData.get('price')),
             discountPrice: Number(formData.get('discountPrice')) || undefined,
             image: product.image, // Image updates are not handled in this version
@@ -154,19 +171,33 @@ export default function EditProductPage() {
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="category">Category</Label>
-                                    <Select name="category" defaultValue={product.category} required>
-                                        <SelectTrigger id="category">
-                                            <SelectValue placeholder="Select a category" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="Electronics">Electronics</SelectItem>
-                                            <SelectItem value="Fashion">Fashion</SelectItem>
-                                            <SelectItem value="Home & Living">Home & Living</SelectItem>
-                                            <SelectItem value="Groceries">Groceries</SelectItem>
-                                            <SelectItem value="Auto Parts">Auto Parts</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                  <Label>Categories</Label>
+                                    <div className="space-y-2 rounded-md border p-4 max-h-60 overflow-y-auto">
+                                        {Object.entries(categories).map(([parent, children]) => (
+                                          <div key={parent}>
+                                              <div className="flex items-center space-x-2">
+                                                <Checkbox 
+                                                  id={parent}
+                                                  checked={selectedCategories.includes(parent)}
+                                                  onCheckedChange={(checked) => handleCategoryChange(parent, !!checked)}
+                                                />
+                                                <label htmlFor={parent} className="font-semibold text-sm">{parent}</label>
+                                              </div>
+                                              <div className="pl-6 mt-2 space-y-2">
+                                                {children.map(child => (
+                                                  <div key={child} className="flex items-center space-x-2">
+                                                      <Checkbox
+                                                        id={child}
+                                                        checked={selectedCategories.includes(child)}
+                                                        onCheckedChange={(checked) => handleCategoryChange(child, !!checked)}
+                                                      />
+                                                      <label htmlFor={child} className="text-sm text-muted-foreground">{child}</label>
+                                                  </div>
+                                                ))}
+                                              </div>
+                                          </div>
+                                        ))}
+                                    </div>
                                 </div>
                                  <div className="space-y-2">
                                     <Label htmlFor="tags">Tags (comma-separated)</Label>

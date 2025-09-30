@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -141,7 +142,7 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                       />
                   </TableCell>
                   <TableCell className="font-medium">{product.title}</TableCell>
-                  <TableCell className="hidden md:table-cell">{product.category}</TableCell>
+                  <TableCell className="hidden md:table-cell">{product.category.join(', ')}</TableCell>
                   <TableCell>{formatCurrency(product.price)}</TableCell>
                   <TableCell className="text-center">
                     <Badge variant={product.status === 'Active' ? 'default' : 'secondary'}>

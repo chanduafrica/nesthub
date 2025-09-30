@@ -126,7 +126,7 @@ export type Product = {
     rating: number;
     price: number;
     discountPrice?: number;
-    category: string;
+    category: string[];
     status: ProductStatus;
     isCeoPick?: boolean;
     inMiddayVault?: boolean;
