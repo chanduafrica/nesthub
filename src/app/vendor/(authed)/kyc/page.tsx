@@ -16,15 +16,60 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { UploadCloud, CheckCircle, AlertTriangle, Clock, Loader2 } from 'lucide-react';
+import { UploadCloud, CheckCircle, AlertTriangle, Clock, Loader2, Edit } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 type KycStatus = 'Approved' | 'In Progress' | 'Rejected' | 'Not Submitted';
 
+type KycData = {
+    businessName: string;
+    businessType: string;
+    regNumber: string;
+    address: string;
+    location: string;
+    portal: string;
+    contactName: string;
+    idNumber: string;
+    contactPhone: string;
+    certOfInc?: File | null;
+    kraPin?: File | null;
+}
+
 function KycContent() {
   const [status, setStatus] = useState<KycStatus>('Not Submitted');
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
   const { toast } = useToast();
+  
+  const [formData, setFormData] = useState<KycData>({
+    businessName: "SGNEST SUPER VENDOR",
+    businessType: "company",
+    regNumber: "",
+    address: "",
+    location: "",
+    portal: "All Portals",
+    contactName: "",
+    idNumber: "",
+    contactPhone: "0754735164",
+    certOfInc: null,
+    kraPin: null
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({...prev, [name]: value}));
+  }
+  
+  const handleSelectChange = (name: keyof KycData, value: string) => {
+    setFormData(prev => ({...prev, [name]: value}));
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, files } = e.target;
+      if (files && files.length > 0) {
+          setFormData(prev => ({...prev, [name]: files[0]}));
+      }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +82,7 @@ function KycContent() {
     setTimeout(() => {
         setIsLoading(false);
         setStatus('In Progress');
+        setIsEditing(false); // Lock the form and show summary
         toast({
             title: "Submission Successful!",
             description: "Your KYC details have been submitted and are now under review.",
@@ -101,32 +147,49 @@ function KycContent() {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Business Information</CardTitle>
+              {status !== 'Not Submitted' && !isEditing && (
+                  <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
+                      <Edit className="h-3 w-3 mr-2" /> Edit
+                  </Button>
+              )}
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="businessName">Registered Business Name</Label>
-                <Input id="businessName" defaultValue="SGNEST SUPER VENDOR" disabled={status === 'Approved'} />
-              </div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="businessType">Business Type</Label>
-                  <Select defaultValue="company" disabled={status === 'Approved'}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="individual">Sole Proprietor</SelectItem>
-                      <SelectItem value="company">Limited Company</SelectItem>
-                      <SelectItem value="partnership">Partnership</SelectItem>
-                    </SelectContent>
-                  </Select>
+                 <div className="space-y-2">
+                    <Label htmlFor="businessName">Registered Business Name</Label>
+                    <Input id="businessName" name="businessName" value={formData.businessName} onChange={handleInputChange} disabled={!isEditing} />
                 </div>
-                <div className="space-y-2">
+                 <div className="space-y-2">
+                    <Label htmlFor="businessType">Business Type</Label>
+                    <Select name="businessType" value={formData.businessType} onValueChange={(val) => handleSelectChange('businessType', val)} disabled={!isEditing}>
+                        <SelectTrigger>
+                        <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                        <SelectItem value="individual">Sole Proprietor</SelectItem>
+                        <SelectItem value="company">Limited Company</SelectItem>
+                        <SelectItem value="partnership">Partnership</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+              </div>
+              <div className="space-y-2">
                   <Label htmlFor="regNumber">Business Registration Number</Label>
-                  <Input id="regNumber" placeholder="e.g. PVT-ABC123D" disabled={status === 'Approved'} />
-                </div>
+                  <Input id="regNumber" name="regNumber" value={formData.regNumber} onChange={handleInputChange} placeholder="e.g. PVT-ABC123D" disabled={!isEditing} />
+              </div>
+               <div className="space-y-2">
+                  <Label htmlFor="address">Business Address</Label>
+                  <Input id="address" name="address" value={formData.address} onChange={handleInputChange} placeholder="e.g. 123 Nest Towers, Nairobi" disabled={!isEditing} />
+              </div>
+               <div className="space-y-2">
+                  <Label htmlFor="location">Location / Town</Label>
+                  <Input id="location" name="location" value={formData.location} onChange={handleInputChange} placeholder="e.g. Westlands" disabled={!isEditing} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="portal">Registered Portal</Label>
+                <Input id="portal" name="portal" value={formData.portal} disabled />
               </div>
             </CardContent>
           </Card>
@@ -137,16 +200,16 @@ function KycContent() {
             <CardContent className="space-y-4">
                <div className="space-y-2">
                 <Label htmlFor="contactName">Full Name</Label>
-                <Input id="contactName" placeholder="e.g. Wanjiku Kamau" disabled={status === 'Approved'}/>
+                <Input id="contactName" name="contactName" value={formData.contactName} onChange={handleInputChange} placeholder="e.g. Wanjiku Kamau" disabled={!isEditing}/>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                  <div className="space-y-2">
                     <Label htmlFor="idNumber">National ID/Passport Number</Label>
-                    <Input id="idNumber" placeholder="e.g. 12345678" disabled={status === 'Approved'}/>
+                    <Input id="idNumber" name="idNumber" value={formData.idNumber} onChange={handleInputChange} placeholder="e.g. 12345678" disabled={!isEditing}/>
                 </div>
                 <div className="space-y-2">
                     <Label htmlFor="contactPhone">Phone Number</Label>
-                    <Input id="contactPhone" type="tel" defaultValue="0754735164" disabled={status === 'Approved'} />
+                    <Input id="contactPhone" name="contactPhone" type="tel" value={formData.contactPhone} onChange={handleInputChange} disabled={!isEditing} />
                 </div>
               </div>
             </CardContent>
@@ -161,27 +224,37 @@ function KycContent() {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 gap-6">
-            <div className="space-y-2">
+             <div className="space-y-2">
                 <Label htmlFor="certOfInc">Certificate of Incorporation</Label>
-                <div className="flex items-center gap-2">
-                    <Input id="certOfInc" type="file" disabled={status === 'Approved'}/>
-                    <Button variant="outline" size="icon" type="button"><UploadCloud className="h-4 w-4"/></Button>
-                </div>
+                {isEditing ? (
+                    <div className="flex items-center gap-2">
+                        <Input id="certOfInc" name="certOfInc" type="file" onChange={handleFileChange} />
+                        <Button variant="outline" size="icon" type="button"><UploadCloud className="h-4 w-4"/></Button>
+                    </div>
+                ) : (
+                    <Input value={formData.certOfInc?.name || 'Not Uploaded'} disabled />
+                )}
             </div>
              <div className="space-y-2">
                 <Label htmlFor="kraPin">KRA PIN Certificate</Label>
-                <div className="flex items-center gap-2">
-                    <Input id="kraPin" type="file" disabled={status === 'Approved'}/>
-                    <Button variant="outline" size="icon" type="button"><UploadCloud className="h-4 w-4"/></Button>
-                </div>
+                {isEditing ? (
+                    <div className="flex items-center gap-2">
+                        <Input id="kraPin" name="kraPin" type="file" onChange={handleFileChange} />
+                        <Button variant="outline" size="icon" type="button"><UploadCloud className="h-4 w-4"/></Button>
+                    </div>
+                ) : (
+                     <Input value={formData.kraPin?.name || 'Not Uploaded'} disabled />
+                )}
             </div>
           </CardContent>
+          {isEditing && (
            <CardFooter className="border-t pt-6">
-                <Button size="lg" className="w-full sm:w-auto ml-auto" type="submit" disabled={isLoading || status === 'Approved' || status === 'In Progress'}>
+                <Button size="lg" className="w-full sm:w-auto ml-auto" type="submit" disabled={isLoading || status === 'Approved'}>
                     {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    {status === 'In Progress' ? 'Verification in Progress' : status === 'Approved' ? 'KYC Approved' : 'Submit for Verification'}
+                    {status === 'In Progress' ? 'Resubmit for Verification' : status === 'Approved' ? 'KYC Approved' : 'Submit for Verification'}
                 </Button>
             </CardFooter>
+            )}
         </Card>
       </form>
     </div>
