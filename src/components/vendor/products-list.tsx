@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState } from 'react';
@@ -30,8 +31,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, Search, PlusCircle, FileUp } from 'lucide-react';
+import { MoreHorizontal, Search, PlusCircle, FileUp, Edit, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function ProductsList({ initialProducts }: { initialProducts: Product[] }) {
     const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -61,7 +63,7 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
         <div>
             <CardTitle>My Products</CardTitle>
             <CardDescription>
-            Manage your product listings and inventory.
+            Manage your product listings and inventory for NestMall.
             </CardDescription>
         </div>
         <div className="flex gap-2">
@@ -69,9 +71,11 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                 <FileUp className="mr-2 h-4 w-4" />
                 Import
             </Button>
-             <Button>
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add Product
+             <Button asChild>
+                <Link href="/vendor/products/new">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add Product
+                </Link>
             </Button>
         </div>
       </CardHeader>
@@ -98,8 +102,8 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                 <TableHead className="w-[80px]">Image</TableHead>
                 <TableHead>Product Name</TableHead>
                 <TableHead className="hidden md:table-cell">Category</TableHead>
-                <TableHead className="hidden lg:table-cell">Rating</TableHead>
                 <TableHead>Price</TableHead>
+                <TableHead className="text-center">Status</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -117,8 +121,8 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                   </TableCell>
                   <TableCell className="font-medium">{product.title}</TableCell>
                   <TableCell className="hidden md:table-cell">{product.category}</TableCell>
-                  <TableCell className="hidden lg:table-cell">{product.rating}</TableCell>
                   <TableCell>{formatCurrency(product.price)}</TableCell>
+                  <TableCell className="text-center"><Badge>Active</Badge></TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -129,9 +133,13 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                         <DropdownMenuItem>View Analytics</DropdownMenuItem>
-                         <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <Edit className="mr-2 h-4 w-4" /> Edit
+                        </DropdownMenuItem>
+                         <DropdownMenuSeparator />
+                        <DropdownMenuItem className="text-destructive">
+                            <Trash2 className="mr-2 h-4 w-4" /> Deactivate
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
