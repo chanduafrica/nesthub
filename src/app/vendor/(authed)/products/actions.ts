@@ -13,27 +13,28 @@ const productsFilePath = path.join(dataDirectory, 'products.json');
 
 type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId' | 'isCeoPick' | 'inMiddayVault' | 'inExplosiveDeal'>;
 
-export async function handleAddProduct(productData: NewProductData) {
+export async function handleAddProduct(productData: any) {
     try {
         const products = await getProducts();
         const newId = `prod${products.length + 1}_${Date.now()}`;
-        const newSlug = productData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        
+        const slug = productData.seo?.slug || productData.title;
+        const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
         const newProduct: Product = {
+            ...productData,
             id: newId,
             slug: newSlug,
             vendorId: 'v26', // Assign to Super Vendor
-            status: 'Active',
+            status: productData.visibility === 'Published' ? 'Active' : 'Inactive',
             isCeoPick: false,
             inMiddayVault: false,
             inExplosiveDeal: false,
-            ...productData
         };
 
         products.push(newProduct);
         await fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), 'utf8');
 
-        // Revalidate the products list page so the new product shows up
         revalidatePath('/vendor/products');
         
         return { success: true, product: newProduct, message: "Product added successfully" };

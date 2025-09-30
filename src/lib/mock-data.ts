@@ -114,24 +114,37 @@ export type HolidayPackage = {
 };
 
 export type ProductStatus = 'Active' | 'Inactive';
+export type ProductVisibility = 'Published' | 'Draft';
+export type ProductType = 'Physical' | 'Digital';
 
 export type Product = {
     id: string;
     slug: string;
     image: string; // Main image
     galleryImages?: string[];
+    videoUrl?: string;
     title: string;
     vendor: string;
     vendorId?: string;
     rating: number;
     price: number;
     discountPrice?: number;
+    taxable?: boolean;
+    sku?: string;
+    stock?: number;
     category: string[];
     status: ProductStatus;
+    visibility: ProductVisibility;
+    productType: ProductType;
     isCeoPick?: boolean;
     inMiddayVault?: boolean;
     inExplosiveDeal?: boolean;
     description?: string;
     specifications?: { key: string; value: string; }[];
     faqs?: { question: string; answer: string; }[];
+    seo?: {
+        title: string;
+        description: string;
+        slug: string;
+    };
 };
