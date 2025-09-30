@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState } from 'react';
@@ -58,7 +57,7 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
     }
 
   return (
-    <Card className="flex-1">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
             <CardTitle>My Products</CardTitle>
