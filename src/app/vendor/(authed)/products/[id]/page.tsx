@@ -18,26 +18,34 @@ import { useState, useEffect } from 'react';
 import type { Product, ProductStatus } from '@/lib/mock-data';
 import { handleUpdateProductStatus, handleUpdateProduct } from '@/app/vendor/(authed)/products/actions';
 
-export default function ViewProductPage({ params }: { params: { id: string } }) {
+export default function ViewProductPage() {
+    const params = useParams();
+    const { id } = params;
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
 
     useEffect(() => {
         const fetchProduct = async () => {
-            if (!params.id) return;
+            if (!id) return;
             setLoading(true);
-            const products = await getProducts();
-            const foundProduct = products.find(p => p.id === params.id);
-            if (foundProduct) {
-                setProduct(foundProduct);
-            } else {
-                toast({ title: "Product not found", variant: "destructive" });
+            try {
+                const products = await getProducts();
+                const foundProduct = products.find(p => p.id === id);
+                if (foundProduct) {
+                    setProduct(foundProduct);
+                } else {
+                    toast({ title: "Product not found", variant: "destructive" });
+                }
+            } catch (error) {
+                console.error("Failed to fetch product", error);
+                toast({ title: "Error fetching product data", variant: "destructive" });
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         };
         fetchProduct();
-    }, [params.id, toast]);
+    }, [id, toast]);
 
     const handlePromoFlagChange = async (flag: 'isCeoPick' | 'inMiddayVault' | 'inExplosiveDeal', value: boolean) => {
         if (!product) return;
@@ -46,20 +54,26 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
             id: product.id,
             [flag]: value,
         };
+        
+        // Optimistically update UI
+        setProduct(prev => prev ? { ...prev, ...updatedProductData } : null);
 
         try {
             const result = await handleUpdateProduct(updatedProductData);
             if (result.success && result.product) {
-                setProduct(result.product); // Update state with the full returned product
+                // Re-sync state with server response
+                setProduct(result.product); 
                 toast({
                     title: 'Promotion Flag Updated',
                     description: `Product's eligibility for promotion has been updated.`,
                 });
             } else {
-                throw new Error("Failed to update product from server.");
+                throw new Error(result.message || "Failed to update product from server.");
             }
         } catch (error) {
             console.error(error);
+            // Revert UI on error
+            setProduct(prev => prev ? { ...prev, [flag]: !value } : null);
             toast({
                 title: 'Error',
                 description: 'Could not update the promotion flag.',
@@ -71,14 +85,20 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
     const toggleProductStatus = async () => {
         if (!product) return;
         const newStatus: ProductStatus = product.status === 'Active' ? 'Inactive' : 'Active';
+        
+        // Optimistic UI update
+        const oldStatus = product.status;
+        setProduct(prev => prev ? { ...prev, status: newStatus } : null);
+
         try {
             await handleUpdateProductStatus(product.id, newStatus);
-            setProduct(prev => prev ? { ...prev, status: newStatus } : null);
             toast({
                 title: 'Status Updated',
                 description: `${product.title} has been set to ${newStatus}.`,
             });
         } catch (error) {
+            // Revert UI on error
+            setProduct(prev => prev ? { ...prev, status: oldStatus } : null);
             toast({
                 title: 'Error',
                 description: 'Could not update product status.',
@@ -100,7 +120,10 @@ export default function ViewProductPage({ params }: { params: { id: string } }) 
         return `KES ${amount.toLocaleString('en-US')}`;
     };
 
-    const discountPercentage = product.price && product.discountPrice ? ((product.price - product.discountPrice) / product.price) * 100 : 0;
+    const discountPercentage = product.price && product.discountPrice && product.price > 0 
+        ? ((product.price - product.discountPrice) / product.price) * 100 
+        : 0;
+        
     const isExplosiveDealEligible = discountPercentage >= 80;
 
     return (

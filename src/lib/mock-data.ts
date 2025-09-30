@@ -131,5 +131,3 @@ export type Product = {
     inMiddayVault?: boolean;
     inExplosiveDeal?: boolean;
 };
-
-

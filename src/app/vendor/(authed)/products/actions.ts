@@ -10,9 +10,7 @@ import { getProducts } from '@/lib/firebase-services';
 const dataDirectory = path.join(process.cwd(), 'src', 'lib', 'data');
 const productsFilePath = path.join(dataDirectory, 'products.json');
 
-type NewProductData = Omit<Product, 'id' | 'slug' | 'status' | 'vendorId'>;
-type UpdateProductData = Omit<Product, 'slug' | 'status' | 'vendorId' | 'vendor' | 'rating'>;
-
+type NewProductData = Omit<Product, 'id' | 'slug' | 'status'>;
 
 export async function handleAddProduct(productData: NewProductData) {
     try {
@@ -37,13 +35,13 @@ export async function handleAddProduct(productData: NewProductData) {
         // Revalidate the products list page so the new product shows up
         revalidatePath('/vendor/products');
         
-        return { success: true, product: newProduct };
+        return { success: true, product: newProduct, message: "Product added successfully" };
     } catch (error) {
         console.error("Server Action Error: Failed to add product", error);
         if (error instanceof Error) {
-            throw new Error(error.message);
+            return { success: false, message: error.message };
         }
-        throw new Error("An unknown error occurred while adding the product.");
+        return { success: false, message: "An unknown error occurred while adding the product." };
     }
 }
 
@@ -57,26 +55,30 @@ export async function handleUpdateProductStatus(productId: string, status: Produ
             await fs.writeFile(productsFilePath, JSON.stringify(products, null, 2), 'utf8');
             revalidatePath('/vendor/products');
             revalidatePath(`/vendor/products/${productId}`);
-            return { success: true, product: products[productIndex] };
+            return { success: true, product: products[productIndex], message: "Status updated" };
         }
         throw new Error(`Product with id ${productId} not found.`);
 
     } catch (error) {
         console.error("Server Action Error: Failed to update product status", error);
         if (error instanceof Error) {
-            throw new Error(error.message);
+            return { success: false, message: error.message };
         }
-        throw new Error("An unknown error occurred while updating product status.");
+        return { success: false, message: "An unknown error occurred while updating product status." };
     }
 }
 
-export async function handleUpdateProduct(productData: Partial<Product>) {
+export async function handleUpdateProduct(productData: Partial<Product> & { id: string }) {
     try {
         const products = await getProducts();
         const productIndex = products.findIndex(p => p.id === productData.id);
 
         if (productIndex !== -1) {
-            const newSlug = productData.title ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : products[productIndex].slug;
+            // Create a new slug only if the title is being changed
+            const newSlug = productData.title 
+                ? productData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') 
+                : products[productIndex].slug;
+                
             const updatedProduct = {
                 ...products[productIndex],
                 ...productData,
@@ -89,15 +91,15 @@ export async function handleUpdateProduct(productData: Partial<Product>) {
             revalidatePath(`/vendor/products/${productData.id}/edit`);
             revalidatePath(`/vendor/products/${productData.id}`);
             
-            return { success: true, product: updatedProduct };
+            return { success: true, product: updatedProduct, message: "Product updated successfully" };
         }
         throw new Error(`Product with id ${productData.id} not found.`);
 
     } catch (error) {
         console.error("Server Action Error: Failed to update product", error);
         if (error instanceof Error) {
-            throw new Error(error.message);
+            return { success: false, message: error.message };
         }
-        throw new Error("An unknown error occurred while updating the product.");
+        return { success: false, message: "An unknown error occurred while updating the product." };
     }
 }
