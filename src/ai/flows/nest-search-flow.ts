@@ -72,7 +72,7 @@ const searchAcrossPortalsTool = ai.defineTool(
                     price: p.price,
                     portal: 'NestTravel',
                     imageUrl: p.image,
-                    url: `/modules/travel/package/${createSlug(p.title)}`,
+                    url: `/modules/travel/package/${createSlug(p-title)}`,
                 });
             }
         });
@@ -104,7 +104,7 @@ const searchAcrossPortalsTool = ai.defineTool(
 const nestSearchPrompt = ai.definePrompt(
   {
     name: 'nestSearchPrompt',
-    input: { schema: z.object({prompt: NestSearchInputSchema}) },
+    input: { schema: NestSearchInputSchema },
     output: { schema: NestSearchOutputSchema },
     tools: [searchAcrossPortalsTool],
     prompt: `
@@ -125,7 +125,7 @@ const nestSearchPrompt = ai.definePrompt(
 const searchNestFlow = ai.defineFlow(
   {
     name: 'searchNestFlow',
-    inputSchema: z.object({prompt: NestSearchInputSchema}),
+    inputSchema: NestSearchInputSchema,
     outputSchema: NestSearchOutputSchema,
   },
   async (query) => {
@@ -137,5 +137,5 @@ const searchNestFlow = ai.defineFlow(
 
 // 4. Export a callable server action
 export async function searchNest(query: NestSearchInput): Promise<NestSearchOutput> {
-    return await searchNestFlow({prompt: query});
+    return await searchNestFlow(query);
 }
