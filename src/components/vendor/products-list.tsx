@@ -159,6 +159,11 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuItem asChild>
+                          <Link href={`/vendor/products/${product.id}`}>
+                            <Eye className="mr-2 h-4 w-4" /> View Product
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
                           <Link href={`/modules/mall/product/${product.slug}`} target="_blank">
                             <Eye className="mr-2 h-4 w-4" /> View Public Page
                           </Link>
