@@ -30,7 +30,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, Search, PlusCircle, FileUp, Edit, Trash2, Eye, ToggleLeft, ToggleRight } from 'lucide-react';
+import { MoreHorizontal, Search, PlusCircle, FileUp, Edit, Eye, ToggleLeft, ToggleRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
