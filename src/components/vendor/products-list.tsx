@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Product } from '@/lib/mock-data';
+import { Product, ProductStatus } from '@/lib/mock-data';
 import {
   Table,
   TableBody,
@@ -30,9 +30,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Badge } from '@/components/ui/badge';
-import { MoreHorizontal, Search, PlusCircle, FileUp, Edit, Trash2 } from 'lucide-react';
+import { MoreHorizontal, Search, PlusCircle, FileUp, Edit, Trash2, Eye, ToggleLeft, ToggleRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useToast } from '@/hooks/use-toast';
+import { handleUpdateProductStatus } from '@/app/vendor/(authed)/products/actions';
 
 export function ProductsList({ initialProducts }: { initialProducts: Product[] }) {
     const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -40,6 +42,7 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
     
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const { toast } = useToast();
 
     const filteredProducts = products.filter(product => {
         return product.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -55,6 +58,25 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
     const formatCurrency = (amount: number) => {
         return `KES ${amount.toLocaleString('en-US')}`;
     }
+
+    const toggleProductStatus = async (product: Product) => {
+        const newStatus = product.status === 'Active' ? 'Inactive' : 'Active';
+        try {
+            await handleUpdateProductStatus(product.id, newStatus);
+            setProducts(products.map(p => p.id === product.id ? { ...p, status: newStatus } : p));
+            toast({
+                title: 'Status Updated',
+                description: `${product.title} has been set to ${newStatus}.`,
+            });
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: 'Could not update product status.',
+                variant: 'destructive',
+            });
+        }
+    };
+
 
   return (
     <Card className="flex-1">
@@ -121,7 +143,11 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                   <TableCell className="font-medium">{product.title}</TableCell>
                   <TableCell className="hidden md:table-cell">{product.category}</TableCell>
                   <TableCell>{formatCurrency(product.price)}</TableCell>
-                  <TableCell className="text-center"><Badge>Active</Badge></TableCell>
+                  <TableCell className="text-center">
+                    <Badge variant={product.status === 'Active' ? 'default' : 'secondary'}>
+                        {product.status}
+                    </Badge>
+                  </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -132,12 +158,23 @@ export function ProductsList({ initialProducts }: { initialProducts: Product[] }
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/modules/mall/product/${product.slug}`} target="_blank">
+                            <Eye className="mr-2 h-4 w-4" /> View Public Page
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link href={`/vendor/products/${product.id}/edit`}>
                             <Edit className="mr-2 h-4 w-4" /> Edit
+                          </Link>
                         </DropdownMenuItem>
                          <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-destructive">
-                            <Trash2 className="mr-2 h-4 w-4" /> Deactivate
+                        <DropdownMenuItem onClick={() => toggleProductStatus(product)}>
+                            {product.status === 'Active' ? (
+                                <><ToggleLeft className="mr-2 h-4 w-4 text-destructive" /> Deactivate</>
+                            ) : (
+                                <><ToggleRight className="mr-2 h-4 w-4 text-green-500" /> Activate</>
+                            )}
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

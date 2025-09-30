@@ -113,6 +113,8 @@ export type HolidayPackage = {
     description?: string;
 };
 
+export type ProductStatus = 'Active' | 'Inactive';
+
 export type Product = {
     id: string;
     slug: string;
@@ -124,4 +126,6 @@ export type Product = {
     price: number;
     discountPrice?: number;
     category: string;
+    status: ProductStatus;
 };
+
