@@ -1,0 +1,43 @@
+
+[
+  {
+    "id": "b2s_01",
+    "partnerId": "TBC_Kenya",
+    "title": "A4 Exercise Books (Dozen)",
+    "description": "12-pack of 200-page A4 exercise books, perfect for all subjects.",
+    "price": 850,
+    "currency": "KES",
+    "category": "Stationery",
+    "imageUrl": "https://picsum.photos/seed/b2s1/400/300"
+  },
+  {
+    "id": "b2s_02",
+    "partnerId": "UniformsKE",
+    "title": "Primary School Uniform Set",
+    "description": "Complete set including shirt, shorts/skirt, sweater, and socks. Sizes 6-12 years.",
+    "price": 2500,
+    "currency": "KES",
+    "category": "Uniforms",
+    "imageUrl": "https://picsum.photos/seed/b2s2/400/300"
+  },
+  {
+    "id": "b2s_03",
+    "partnerId": "TBC_Kenya",
+    "title": "Scientific Calculator",
+    "description": "Casio FX-82MS scientific calculator, approved for KCSE.",
+    "price": 1200,
+    "currency": "KES",
+    "category": "Electronics",
+    "imageUrl": "https://picsum.photos/seed/b2s3/400/300"
+  },
+  {
+    "id": "b2s_04",
+    "partnerId": "ScholarPacks",
+    "title": "School Backpack",
+    "description": "Durable and spacious backpack with multiple compartments for books and a laptop.",
+    "price": 1800,
+    "currency": "KES",
+    "category": "Accessories",
+    "imageUrl": "https://picsum.photos/seed/b2s4/400/300"
+  }
+]

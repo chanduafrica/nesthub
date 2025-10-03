@@ -12,6 +12,7 @@ import buildProjectsData from './data/build-projects.json';
 import viewingRequestsData from './data/viewing-requests.json';
 import mortgageLeadsData from './data/mortgage-leads.json';
 import insuranceQuotesData from './data/insurance-quotes.json';
+import back2schoolData from './data/back2school.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -26,6 +27,8 @@ const buildProjects: any[] = buildProjectsData as any[];
 const viewingRequests: any[] = viewingRequestsData as any[];
 const mortgageLeads: any[] = mortgageLeadsData as any[];
 const insuranceQuotes: any[] = insuranceQuotesData as any[];
+const back2school: any[] = back2schoolData as any[];
+
 
 function createSlug(title: string) {
     if (!title) return '';
@@ -120,4 +123,9 @@ export const getMortgageLeads = async(): Promise<any[]> => {
 // INSURANCE QUOTES
 export const getInsuranceQuotes = async(): Promise<any[]> => {
     return JSON.parse(JSON.stringify(insuranceQuotes));
+};
+
+// BACK TO SCHOOL
+export const getBack2SchoolProducts = async(): Promise<any[]> => {
+    return JSON.parse(JSON.stringify(back2school));
 };
