@@ -15,8 +15,10 @@ import { useToast } from '@/hooks/use-toast';
 import { RichTextEditor } from '@/components/ui/rich-text-editor';
 import { handleAddTravelListing } from '../actions';
 import { TravelListingType } from '@/lib/mock-data';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Textarea } from '@/components/ui/textarea';
 
-type Step = 'type' | 'details' | 'media';
+type Step = 'type' | 'details';
 
 const listingTypes = [
     { id: 'Flight', name: 'Flight', icon: Plane },
@@ -32,7 +34,6 @@ export default function AddTravelListingPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [step, setStep] = useState<Step>('type');
     const [listingType, setListingType] = useState<TravelListingType | ''>('');
-    const [formData, setFormData] = useState<any>({});
     const [description, setDescription] = useState('');
 
     const handleNextStep = () => {
@@ -41,12 +42,10 @@ export default function AddTravelListingPage() {
             return;
         }
         if (step === 'type') setStep('details');
-        if (step === 'details') setStep('media');
     };
 
     const handlePrevStep = () => {
         if (step === 'details') setStep('type');
-        if (step === 'media') setStep('details');
     };
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,19 +53,18 @@ export default function AddTravelListingPage() {
         setIsLoading(true);
         const form = e.currentTarget;
         
+        const data = Object.fromEntries(new FormData(form).entries());
+
         const finalData = {
+            ...data,
             listingType,
-            title: form.title.value,
             description,
-            location: form.location?.value,
-            price: Number(form.price.value),
-            // Add other fields based on listingType
         };
 
         try {
             await handleAddTravelListing(finalData);
             toast({
-                title: 'Listing Added!',
+                title: 'Listing Submitted!',
                 description: `${finalData.title} has been submitted for review.`,
             });
             router.push('/vendor/nesttravel');
@@ -79,6 +77,128 @@ export default function AddTravelListingPage() {
             setIsLoading(false);
         }
     };
+
+    const renderCommonFields = () => (
+        <>
+            <div className="space-y-2">
+                <Label htmlFor="title">Listing Title</Label>
+                <Input id="title" name="title" required />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="description">Long Description / Itinerary</Label>
+                <RichTextEditor description={description} onChange={setDescription} />
+            </div>
+            <div className="space-y-2">
+                <Label>Main Image / Banner</Label>
+                <div className="border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50">
+                    <UploadCloud className="h-8 w-8 text-muted-foreground mb-2"/>
+                    <p className="font-semibold text-sm">Click to upload image</p>
+                </div>
+            </div>
+        </>
+    );
+
+    const renderFlightFields = () => (
+        <>
+            {renderCommonFields()}
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="airline">Airline Name</Label><Input id="airline" name="airline" /></div>
+                <div className="space-y-2"><Label htmlFor="flight-class">Class</Label><Select name="class"><SelectTrigger><SelectValue placeholder="Select Class"/></SelectTrigger><SelectContent><SelectItem value="economy">Economy</SelectItem><SelectItem value="business">Business</SelectItem><SelectItem value="first">First</SelectItem></SelectContent></Select></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="departure-airport">Departure Airport</Label><Input id="departure-airport" name="departureAirport" /></div>
+                <div className="space-y-2"><Label htmlFor="arrival-airport">Arrival Airport</Label><Input id="arrival-airport" name="arrivalAirport" /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label>Departure Date</Label><DatePicker /></div>
+                <div className="space-y-2"><Label>Return Date (Optional)</Label><DatePicker /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="price">Price (KES)</Label><Input id="price" name="price" type="number" required /></div>
+                <div className="space-y-2"><Label htmlFor="seats">Seats Available</Label><Input id="seats" name="seats" type="number" /></div>
+            </div>
+        </>
+    );
+
+     const renderSGRFields = () => (
+        <>
+            {renderCommonFields()}
+            <div className="space-y-2"><Label htmlFor="route-name">Route Name</Label><Input id="route-name" name="routeName" placeholder="e.g. Nairobi to Mombasa" /></div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="from-station">From Station</Label><Input id="from-station" name="fromStation" /></div>
+                <div className="space-y-2"><Label htmlFor="to-station">To Station</Label><Input id="to-station" name="toStation" /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="departure-time">Departure Time</Label><Input id="departure-time" name="departureTime" type="time"/></div>
+                <div className="space-y-2"><Label htmlFor="arrival-time">Arrival Time</Label><Input id="arrival-time" name="arrivalTime" type="time" /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="price">Ticket Price (KES)</Label><Input id="price" name="price" type="number" required /></div>
+                <div className="space-y-2"><Label htmlFor="seats">Seats Available</Label><Input id="seats" name="seats" type="number" /></div>
+            </div>
+        </>
+    );
+
+     const renderBusFields = () => (
+        <>
+            {renderCommonFields()}
+            <div className="space-y-2"><Label htmlFor="operator">Operator Name</Label><Input id="operator" name="operator" placeholder="e.g. Easy Coach"/></div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="from-point">From</Label><Input id="from-point" name="fromPoint" /></div>
+                <div className="space-y-2"><Label htmlFor="to-point">To</Label><Input id="to-point" name="toPoint" /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="departure-time">Departure Time</Label><Input id="departure-time" name="departureTime" type="time"/></div>
+                <div className="space-y-2"><Label htmlFor="duration">Duration</Label><Input id="duration" name="duration" placeholder="e.g. 8 hours" /></div>
+            </div>
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="price">Price per Seat (KES)</Label><Input id="price" name="price" type="number" required /></div>
+                <div className="space-y-2"><Label htmlFor="seats">Available Seats</Label><Input id="seats" name="seats" type="number" /></div>
+            </div>
+        </>
+    );
+
+    const renderHotelFields = () => (
+        <>
+            {renderCommonFields()}
+            <div className="space-y-2"><Label htmlFor="hotel-name">Hotel Name</Label><Input id="hotel-name" name="hotelName" /></div>
+            <div className="space-y-2"><Label htmlFor="price">Price per Night (KES)</Label><Input id="price" name="price" type="number" required /></div>
+            <div className="space-y-2">
+                <Label>Amenities</Label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {["Wi-Fi", "Pool", "Parking", "Breakfast", "Gym", "Spa"].map(amenity => (
+                        <div key={amenity} className="flex items-center gap-2"><Checkbox id={`amenity-${amenity}`} name="amenities" value={amenity} /><Label htmlFor={`amenity-${amenity}`}>{amenity}</Label></div>
+                    ))}
+                </div>
+            </div>
+        </>
+    );
+
+    const renderTourFields = () => (
+        <>
+            {renderCommonFields()}
+             <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2"><Label htmlFor="duration">Duration</Label><Input id="duration" name="duration" placeholder="e.g. 3 Days, 2 Nights" /></div>
+                <div className="space-y-2"><Label htmlFor="group-size">Group Size Limit</Label><Input id="group-size" name="groupSize" type="number" /></div>
+            </div>
+             <div className="space-y-2"><Label htmlFor="price">Price per Person (KES)</Label><Input id="price" name="price" type="number" required /></div>
+            <div className="space-y-2">
+                <Label>Inclusions (what is covered)</Label>
+                <Textarea name="inclusions" placeholder="e.g. Park Fees, Meals, Accommodation" />
+            </div>
+        </>
+    );
+
+    const renderDetailsForm = () => {
+        switch (listingType) {
+            case 'Flight': return renderFlightFields();
+            case 'SGR': return renderSGRFields();
+            case 'Bus': return renderBusFields();
+            case 'Hotel': return renderHotelFields();
+            case 'Tour': return renderTourFields();
+            default: return <p>Please select a listing type.</p>;
+        }
+    }
     
     return (
         <div className="flex-1">
@@ -91,25 +211,6 @@ export default function AddTravelListingPage() {
                     </Button>
                     <h1 className="text-2xl font-bold">Add New Travel Listing</h1>
                 </div>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="flex justify-between w-full max-w-xl mx-auto mb-8">
-                 {['Type', 'Details', 'Media'].map((s, i) => {
-                    const stepId = s.toLowerCase() as Step;
-                    const allSteps: Step[] = ['type', 'details', 'media'];
-                    const currentIndex = allSteps.indexOf(step);
-                    const stepIndex = i;
-                    const isCompleted = stepIndex < currentIndex;
-                    const isCurrent = step === stepId;
-
-                    return (
-                        <div key={s} className="flex-1 text-center">
-                            <div className={`text-sm font-semibold ${isCurrent || isCompleted ? 'text-primary' : 'text-muted-foreground'}`}>{s}</div>
-                            <div className={`h-1 mt-1 mx-auto rounded-full ${isCurrent || isCompleted ? 'bg-primary' : 'bg-border'}`} style={{width: '80%'}} />
-                        </div>
-                    );
-                })}
             </div>
 
             <Card className="max-w-4xl mx-auto">
@@ -144,44 +245,7 @@ export default function AddTravelListingPage() {
                                 <CardDescription>Provide all the necessary information for your {listingType} listing.</CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                 <div className="space-y-2">
-                                    <Label htmlFor="title">Listing Title</Label>
-                                    <Input id="title" name="title" required />
-                                </div>
-                                 <div className="space-y-2">
-                                    <Label htmlFor="description">Long Description / Itinerary</Label>
-                                    <RichTextEditor description={description} onChange={setDescription} />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                     <div className="space-y-2">
-                                        <Label htmlFor="location">Location / Destination City</Label>
-                                        <Input id="location" name="location" />
-                                    </div>
-                                     <div className="space-y-2">
-                                        <Label htmlFor="price">Price (KES)</Label>
-                                        <Input id="price" name="price" type="number" required />
-                                    </div>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="flex justify-between">
-                                <Button onClick={handlePrevStep} variant="outline">Previous Step</Button>
-                                <Button onClick={handleNextStep}>Next Step</Button>
-                            </CardFooter>
-                        </>
-                    )}
-
-                     {step === 'media' && (
-                         <>
-                            <CardHeader>
-                                <CardTitle>Step 3: Upload Media</CardTitle>
-                                <CardDescription>Add images for your listing.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="border-2 border-dashed rounded-lg p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50">
-                                    <UploadCloud className="h-10 w-10 text-muted-foreground mb-4"/>
-                                    <p className="font-semibold mb-2">Click to upload or drag & drop images</p>
-                                    <p className="text-sm text-muted-foreground">PNG, JPG, GIF up to 10MB</p>
-                                </div>
+                                {renderDetailsForm()}
                             </CardContent>
                             <CardFooter className="flex justify-between">
                                 <Button onClick={handlePrevStep} variant="outline">Previous Step</Button>
