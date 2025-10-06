@@ -342,3 +342,41 @@ export type BuyMyCarListing = {
   views?: number;
   leads?: number;
 };
+
+export type Back2SchoolListingStatus = 'Active' | 'Pending' | 'Out of Stock' | 'Archived';
+
+export type Back2SchoolListing = {
+  id: string;
+  vendorId: string;
+  title: string;
+  category: 'Uniforms' | 'Books & Stationery' | 'Electronics' | 'School Furniture' | 'Art & Music Supplies';
+  brand?: string;
+  description: string;
+  pricing: {
+    unitPrice: number;
+    bulkDiscounts?: { quantity: number; discount: number }[];
+    schoolSpecificPricing?: { schoolId: string; price: number }[];
+  };
+  stock: {
+    quantity: number;
+    restockAlertThreshold?: number;
+  };
+  media: {
+    mainImage: string;
+    gallery: string[];
+    videoUrl?: string;
+  };
+  variations?: {
+    size?: string[];
+    color?: string[];
+    gradeLevel?: string[];
+  };
+  delivery: {
+    method: 'Courier' | 'Pickup' | 'Partner School Distribution';
+    estimatedTime: string; // e.g., '1-3 days'
+    returnPolicy: 'No Returns' | '7-Day Return' | 'Exchange Only';
+  };
+  status: Back2SchoolListingStatus;
+  views?: number;
+  orders?: number;
+};

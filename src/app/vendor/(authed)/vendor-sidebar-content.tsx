@@ -1,4 +1,3 @@
-
 'use client';
 import {
   Sidebar,
@@ -39,15 +38,15 @@ const portalConfig = {
     NestHomes: { icon: Home, href: '/vendor/nesthomes' },
     NestTravel: { icon: Plane, href: '/vendor/nesttravel' },
     NestStays: { icon: BedDouble, href: '/vendor/neststays' },
+    MamaAfrica: { icon: UtensilsCrossed, href: '/vendor/mamaafrica' },
+    BuyMyCar: { icon: Car, href: '/vendor/buymycar' },
+    AutoParts: { icon: Car, href: '/vendor/autoparts' },
+    Duka: { icon: ShoppingCart, href: '#' },
+    Back2School: { icon: School, href: '/vendor/back2school' },
     NestEvents: { icon: Ticket, href: '#' },
-    MamaAfrica: { icon: UtensilsCrossed, href: '#' },
     NestJobs: { icon: Briefcase, href: '#' },
     NestBiz: { icon: Landmark, href: '#' },
     NestParcel: { icon: Package, href: '#' },
-    BuyMyCar: { icon: Car, href: '#' },
-    AutoParts: { icon: Car, href: '/vendor/autoparts' },
-    Duka: { icon: ShoppingCart, href: '#' },
-    Back2School: { icon: School, href: '#' },
 } as const;
 
 // This is now a pure client component that receives data via props.
