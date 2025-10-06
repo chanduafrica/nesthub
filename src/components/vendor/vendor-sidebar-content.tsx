@@ -46,7 +46,7 @@ const portalConfig = {
     Back2School: { icon: School, href: '/vendor/back2school' },
     NestEvents: { icon: Ticket, href: '#' },
     NestJobs: { icon: Briefcase, href: '#' },
-    NestBiz: { icon: Landmark, href: '#' },
+    NestBiz: { icon: Landmark, href: '/vendor/nestbiz' },
     NestParcel: { icon: Package, href: '#' },
 } as const;
 

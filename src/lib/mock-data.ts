@@ -400,3 +400,57 @@ export type DukaListing = {
   expiryDate?: string;
   status: DukaListingStatus;
 };
+
+export type NestBizListingStatus = 'Active' | 'Pending' | 'Archived';
+
+export type NestBizListing = {
+  id: string;
+  vendorId: string;
+  businessName: string;
+  registrationType: string;
+  registrationNumber?: string;
+  industryCategory: string;
+  tagline?: string;
+  description: string;
+  contact: {
+    address: string;
+    county: string;
+    phone: string;
+    secondaryPhone?: string;
+    email: string;
+    website?: string;
+    socials: {
+      facebook?: string;
+      instagram?: string;
+      linkedin?: string;
+      youtube?: string;
+      x?: string;
+    };
+  };
+  media: {
+    logo: string;
+    coverBanner: string;
+    gallery: string[];
+    introVideo?: string;
+  };
+  operatingDetails: {
+    businessHours: { day: string; open: string; close: string; }[];
+    availableOnlineServices: string[];
+    paymentMethods: string[];
+  };
+  services: {
+    name: string;
+    description: string;
+    priceRange: string;
+    duration?: string;
+    image?: string;
+  }[];
+  offers: {
+    title: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    type: 'Discount' | 'Bundle' | 'Free Consultation';
+  }[];
+  status: NestBizListingStatus;
+};
