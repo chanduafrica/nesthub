@@ -40,14 +40,14 @@ const portalConfig = {
     NestTravel: { icon: Plane, href: '/vendor/nesttravel' },
     NestStays: { icon: BedDouble, href: '/vendor/neststays' },
     MamaAfrica: { icon: UtensilsCrossed, href: '/vendor/mamaafrica' },
+    BuyMyCar: { icon: Car, href: '/vendor/buymycar' },
+    AutoParts: { icon: Car, href: '/vendor/autoparts' },
+    Duka: { icon: ShoppingCart, href: '#' },
+    Back2School: { icon: School, href: '#' },
     NestEvents: { icon: Ticket, href: '#' },
     NestJobs: { icon: Briefcase, href: '#' },
     NestBiz: { icon: Landmark, href: '#' },
     NestParcel: { icon: Package, href: '#' },
-    BuyMyCar: { icon: Car, href: '#' },
-    AutoParts: { icon: Car, href: '/vendor/autoparts' },
-    Duka: { icon: ShoppingCart, href: '#' },
-    Back2School: { icon: School, href: '#' },
 } as const;
 
 // This is now a pure client component that receives data via props.

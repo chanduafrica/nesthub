@@ -263,7 +263,7 @@ export type AutoPartListing = {
         videoUrl?: string;
     };
     logistics: {
-        deliveryOptions: ('Vendor Delivery' | 'Courier' | 'Pick-up')[];
+        deliveryOptions: ('Vendor Delivery' | 'Courier' | 'Pick-up at Shop')[];
         shippingCostPolicy: 'Flat Rate' | 'Free Delivery' | 'Buyer Pays';
         location: {
             county: string;
@@ -305,4 +305,40 @@ export type MamaAfricaListing = {
     status: MamaAfricaListingStatus;
     rating?: number;
     orders?: number;
+};
+
+export type BuyMyCarListingStatus = 'Active' | 'Pending' | 'Sold' | 'Archived';
+
+export type BuyMyCarListing = {
+  id: string;
+  vendorId: string;
+  title: string;
+  vehicleType: 'Sedan' | 'SUV' | 'Pickup' | 'Van' | 'Truck' | 'Motorbike';
+  make: string;
+  model: string;
+  year: number;
+  condition: 'New' | 'Used' | 'Foreign Used' | 'Locally Used';
+  transmission: 'Manual' | 'Automatic' | 'CVT';
+  fuelType: 'Petrol' | 'Diesel' | 'Hybrid' | 'Electric';
+  mileage: number;
+  color: string;
+  description: string;
+  features: string[];
+  price: number;
+  isNegotiable: boolean;
+  aiSuggestedValue?: number;
+  registrationNumber?: string;
+  chassisNumber?: string;
+  mainImage: string;
+  gallery: string[];
+  videoUrl?: string;
+  location: {
+    county: string;
+    town: string;
+  };
+  availability: 'Immediate' | '1-3 Days' | '1 Week';
+  status: BuyMyCarListingStatus;
+  useEscrow: boolean;
+  views?: number;
+  leads?: number;
 };

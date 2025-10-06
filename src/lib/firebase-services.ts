@@ -1,6 +1,6 @@
 
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing, MamaAfricaListing } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -18,6 +18,7 @@ import travelListingsData from './data/travel-listings.json';
 import nestStaysListingsData from './data/nest-stays.json';
 import autoPartsListingsData from './data/autoparts-listings.json';
 import mamaAfricaListingsData from './data/mamaafrica-listings.json';
+import buyMyCarListingsData from './data/buymycar-listings.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -37,6 +38,7 @@ const travelListings: TravelListing[] = travelListingsData as TravelListing[];
 const nestStaysListings: StayListing[] = nestStaysListingsData as StayListing[];
 const autoPartsListings: AutoPartListing[] = autoPartsListingsData as AutoPartListing[];
 const mamaAfricaListings: MamaAfricaListing[] = mamaAfricaListingsData as MamaAfricaListing[];
+const buyMyCarListings: BuyMyCarListing[] = buyMyCarListingsData as BuyMyCarListing[];
 
 
 function createSlug(title: string) {
@@ -157,4 +159,9 @@ export const getAutoPartListings = async(): Promise<AutoPartListing[]> => {
 // MAMAAFRICA LISTINGS
 export const getMamaAfricaListings = async(): Promise<MamaAfricaListing[]> => {
     return JSON.parse(JSON.stringify(mamaAfricaListings));
+};
+
+// BUYMYCAR LISTINGS
+export const getBuyMyCarListings = async(): Promise<BuyMyCarListing[]> => {
+    return JSON.parse(JSON.stringify(buyMyCarListings));
 };
