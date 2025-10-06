@@ -380,3 +380,23 @@ export type Back2SchoolListing = {
   views?: number;
   orders?: number;
 };
+
+export type DukaListingStatus = 'Active' | 'Pending' | 'Out of Stock' | 'Archived';
+
+export type DukaListing = {
+  id: string;
+  vendorId: string;
+  name: string;
+  brand?: string;
+  category: 'Beverages' | 'Food & Snacks' | 'Household & Cleaning' | 'Personal Care' | 'Baby Products' | 'Dairy' | 'Cooking Essentials' | 'Electronics (Small)';
+  description: string;
+  sku?: string;
+  images: string[];
+  unitSize: string;
+  price: number;
+  discountedPrice?: number;
+  stock: number;
+  reorderLevel?: number;
+  expiryDate?: string;
+  status: DukaListingStatus;
+};
