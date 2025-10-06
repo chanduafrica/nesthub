@@ -11,7 +11,9 @@
         "price": 35000,
         "imageUrl": "/images/travel/maasai-mara.jpg",
         "duration": "3 Days, 2 Nights",
-        "inclusions": ["Park Fees", "Accommodation", "Game Drives", "Meals"]
+        "inclusions": ["Park Fees", "Accommodation", "Game Drives", "Meals"],
+        "views": 1254,
+        "bookings": 78
     },
     {
         "id": "tl2",
@@ -24,7 +26,9 @@
         "price": 18000,
         "imageUrl": "/images/travel/diani-beach.jpg",
         "hotelName": "Diani Beach Resort & Spa",
-        "amenities": ["Wi-Fi", "Pool", "Parking", "Breakfast", "Gym"]
+        "amenities": ["Wi-Fi", "Pool", "Parking", "Breakfast", "Gym"],
+        "views": 2345,
+        "bookings": 210
     },
     {
         "id": "tl3",
@@ -39,6 +43,23 @@
         "departure": "Nairobi Terminus",
         "arrival": "Mombasa Terminus",
         "departureTime": "08:00",
-        "seats": 120
+        "seats": 120,
+        "views": 0,
+        "bookings": 0
+    },
+    {
+        "id": "tl4",
+        "vendorId": "v26",
+        "listingType": "Tour",
+        "status": "Expired",
+        "title": "Amboseli Weekend Getaway (Past)",
+        "description": "A previous weekend trip to see the elephants of Amboseli.",
+        "location": "Amboseli, Kenya",
+        "price": 22000,
+        "imageUrl": "/images/travel/amboseli.jpg",
+        "duration": "2 Days, 1 Night",
+        "inclusions": ["Transport", "Accommodation", "Meals"],
+        "views": 890,
+        "bookings": 55
     }
 ]

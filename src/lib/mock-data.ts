@@ -178,6 +178,8 @@ export type TravelListing = {
     location: string;
     price: number;
     imageUrl: string;
+    views?: number;
+    bookings?: number;
     // Type-specific fields
     airline?: string;
     departure?: string;
