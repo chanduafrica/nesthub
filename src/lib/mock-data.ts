@@ -67,25 +67,41 @@ export type Vendor = {
   status: VendorStatus;
 };
 
+export type PropertyStatus = 'Available' | 'Booked' | 'Sold' | 'Pending';
 
 export type Property = {
   id: string;
+  vendorId: string;
   title: string;
   slug: string;
+  description?: string;
   location: string;
   price: number;
-  type: 'For Sale' | 'For Rent';
-  category: 'Apartment' | 'Villa' | 'Townhouse' | 'Office';
+  type: 'For Sale' | 'For Rent' | 'Short Stay' | 'Airbnb';
+  category: 'Apartment' | 'Villa' | 'Townhouse' | 'Office' | 'Plot' | 'Land' | 'Bungalow';
   beds: number;
   baths: number;
   area: number; // in sqft
+  amenities?: string[];
   imageUrl: string;
+  images?: string[];
+  videoUrl?: string;
+  status: PropertyStatus;
   shariaCompliant: boolean;
   agent: {
     name: string;
     avatarUrl: string;
   };
+  views?: number;
+  leads?: number;
+  commission?: string;
+  seo?: {
+    title: string;
+    description: string;
+    tags: string[];
+  }
 };
+
 
 export type Stay = {
     id: string;
