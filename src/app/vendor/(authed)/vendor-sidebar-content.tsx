@@ -28,7 +28,8 @@ import {
   UtensilsCrossed,
   Briefcase,
   Store,
-  Car
+  Car,
+  School
 } from 'lucide-react';
 import Link from 'next/link';
 import type { Vendor } from '@/lib/mock-data';
@@ -44,9 +45,9 @@ const portalConfig = {
     NestBiz: { icon: Landmark, href: '#' },
     NestParcel: { icon: Package, href: '#' },
     BuyMyCar: { icon: Car, href: '#' },
+    AutoParts: { icon: Car, href: '/vendor/autoparts' },
     Duka: { icon: ShoppingCart, href: '#' },
-    AutoParts: { icon: Car, href: '#' },
-    Back2School: { icon: Package, href: '#' },
+    Back2School: { icon: School, href: '#' },
 } as const;
 
 // This is now a pure client component that receives data via props.

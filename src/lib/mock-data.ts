@@ -231,3 +231,47 @@ export type StayListing = {
     rating?: number;
     totalBookings?: number;
 };
+
+export type AutoPartListingStatus = 'Active' | 'Pending' | 'Out of Stock' | 'Archived';
+
+export type AutoPartListing = {
+    id: string;
+    vendorId: string;
+    name: string;
+    category: string;
+    brand: string;
+    condition: 'New' | 'Used' | 'Refurbished';
+    description: string;
+    compatibility: {
+        make: string;
+        model: string;
+        yearRange: string;
+        fuelType?: 'Petrol' | 'Diesel' | 'Hybrid';
+        transmission?: 'Manual' | 'Automatic';
+    };
+    pricing: {
+        unitPrice: number;
+        bulkPrice?: number;
+    };
+    stock: {
+        quantity: number;
+        minOrderQuantity?: number;
+    };
+    media: {
+        mainImage: string;
+        gallery: string[];
+        videoUrl?: string;
+    };
+    logistics: {
+        deliveryOptions: ('Vendor Delivery' | 'Courier' | 'Pick-up')[];
+        shippingCostPolicy: 'Flat Rate' | 'Free Delivery' | 'Buyer Pays';
+        location: {
+            county: string;
+            town: string;
+        };
+    };
+    status: AutoPartListingStatus;
+    views?: number;
+    orders?: number;
+    totalSales?: number;
+};

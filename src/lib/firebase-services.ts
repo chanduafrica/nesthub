@@ -1,6 +1,6 @@
 
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -16,6 +16,7 @@ import insuranceQuotesData from './data/insurance-quotes.json';
 import back2schoolData from './data/back2school.json';
 import travelListingsData from './data/travel-listings.json';
 import nestStaysListingsData from './data/nest-stays.json';
+import autoPartsListingsData from './data/autoparts-listings.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -33,6 +34,7 @@ const insuranceQuotes: any[] = insuranceQuotesData as any[];
 const back2school: any[] = back2schoolData as any[];
 const travelListings: TravelListing[] = travelListingsData as TravelListing[];
 const nestStaysListings: StayListing[] = nestStaysListingsData as StayListing[];
+const autoPartsListings: AutoPartListing[] = autoPartsListingsData as AutoPartListing[];
 
 
 function createSlug(title: string) {
@@ -143,4 +145,9 @@ export const getTravelListings = async(): Promise<TravelListing[]> => {
 // NESTSTAYS LISTINGS
 export const getStayListings = async(): Promise<StayListing[]> => {
     return JSON.parse(JSON.stringify(nestStaysListings));
+};
+
+// AUTOPARTS LISTINGS
+export const getAutoPartListings = async(): Promise<AutoPartListing[]> => {
+    return JSON.parse(JSON.stringify(autoPartsListings));
 };
