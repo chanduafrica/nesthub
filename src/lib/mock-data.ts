@@ -150,8 +150,8 @@ export type Product = {
     stock?: number;
     category: string[];
     status: ProductStatus;
-    visibility: ProductVisibility;
-    productType: ProductType;
+    visibility?: ProductVisibility;
+    productType?: ProductType;
     isCeoPick?: boolean;
     inMiddayVault?: boolean;
     inExplosiveDeal?: boolean;
@@ -163,4 +163,29 @@ export type Product = {
         description: string;
         slug: string;
     };
+};
+
+export type TravelListingType = 'Flight' | 'SGR' | 'Bus' | 'Hotel' | 'Tour';
+export type TravelListingStatus = 'Active' | 'Pending' | 'Expired';
+
+export type TravelListing = {
+    id: string;
+    vendorId: string;
+    listingType: TravelListingType;
+    status: TravelListingStatus;
+    title: string;
+    description: string;
+    location: string;
+    price: number;
+    imageUrl: string;
+    // Type-specific fields
+    airline?: string;
+    departure?: string;
+    arrival?: string;
+    departureTime?: string;
+    seats?: number;
+    hotelName?: string;
+    amenities?: string[];
+    duration?: string;
+    inclusions?: string[];
 };

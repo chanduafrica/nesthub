@@ -1,5 +1,6 @@
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product } from './mock-data';
+
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -13,6 +14,7 @@ import viewingRequestsData from './data/viewing-requests.json';
 import mortgageLeadsData from './data/mortgage-leads.json';
 import insuranceQuotesData from './data/insurance-quotes.json';
 import back2schoolData from './data/back2school.json';
+import travelListingsData from './data/travel-listings.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -28,6 +30,7 @@ const viewingRequests: any[] = viewingRequestsData as any[];
 const mortgageLeads: any[] = mortgageLeadsData as any[];
 const insuranceQuotes: any[] = insuranceQuotesData as any[];
 const back2school: any[] = back2schoolData as any[];
+const travelListings: TravelListing[] = travelListingsData as TravelListing[];
 
 
 function createSlug(title: string) {
@@ -128,4 +131,9 @@ export const getInsuranceQuotes = async(): Promise<any[]> => {
 // BACK TO SCHOOL
 export const getBack2SchoolProducts = async(): Promise<any[]> => {
     return JSON.parse(JSON.stringify(back2school));
+};
+
+// TRAVEL LISTINGS
+export const getTravelListings = async(): Promise<TravelListing[]> => {
+    return JSON.parse(JSON.stringify(travelListings));
 };

@@ -36,8 +36,8 @@ import type { Vendor } from '@/lib/mock-data';
 const portalConfig = {
     NestMall: { icon: Store, href: '/vendor/products' },
     NestHomes: { icon: Home, href: '/vendor/nesthomes' },
+    NestTravel: { icon: Plane, href: '/vendor/nesttravel' },
     NestStays: { icon: BedDouble, href: '#' },
-    NestTravel: { icon: Plane, href: '#' },
     NestEvents: { icon: Ticket, href: '#' },
     MamaAfrica: { icon: UtensilsCrossed, href: '#' },
     NestJobs: { icon: Briefcase, href: '#' },

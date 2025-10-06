@@ -1,0 +1,44 @@
+
+[
+    {
+        "id": "tl1",
+        "vendorId": "v26",
+        "listingType": "Tour",
+        "status": "Active",
+        "title": "3-Day Maasai Mara Safari",
+        "description": "Experience the magic of the Maasai Mara with our all-inclusive 3-day safari package. Witness the great wildebeest migration (seasonal) and spot the Big Five.",
+        "location": "Maasai Mara, Kenya",
+        "price": 35000,
+        "imageUrl": "/images/travel/maasai-mara.jpg",
+        "duration": "3 Days, 2 Nights",
+        "inclusions": ["Park Fees", "Accommodation", "Game Drives", "Meals"]
+    },
+    {
+        "id": "tl2",
+        "vendorId": "v26",
+        "listingType": "Hotel",
+        "status": "Active",
+        "title": "Diani Beach Resort & Spa",
+        "description": "A luxurious beachfront resort offering world-class amenities and stunning ocean views.",
+        "location": "Diani, Kenya",
+        "price": 18000,
+        "imageUrl": "/images/travel/diani-beach.jpg",
+        "hotelName": "Diani Beach Resort & Spa",
+        "amenities": ["Wi-Fi", "Pool", "Parking", "Breakfast", "Gym"]
+    },
+    {
+        "id": "tl3",
+        "vendorId": "v26",
+        "listingType": "SGR",
+        "status": "Pending",
+        "title": "Nairobi to Mombasa SGR",
+        "description": "Travel comfortably and scenically from Nairobi to Mombasa on the Madaraka Express.",
+        "location": "Kenya",
+        "price": 1500,
+        "imageUrl": "/images/travel/sgr.jpg",
+        "departure": "Nairobi Terminus",
+        "arrival": "Mombasa Terminus",
+        "departureTime": "08:00",
+        "seats": 120
+    }
+]
