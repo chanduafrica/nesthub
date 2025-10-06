@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -392,18 +391,56 @@ const CuratedPicksSection = ({ homeTabsData }: { homeTabsData: any }) => (
     </section>
 );
 
+const PortalCard = ({ icon: Icon, title, description, href, comingSoon }: { icon: React.ElementType, title: string, description: string, href: string, comingSoon?: boolean }) => {
+    const cardContent = (
+        <Card className="hover:shadow-xl transition-shadow h-full">
+            <CardHeader className="flex flex-row items-center gap-4">
+                <Icon className="h-8 w-8 text-primary" />
+                <CardTitle className="!text-xl !text-foreground">{title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className="text-muted-foreground">{description}</p>
+            </CardContent>
+        </Card>
+    );
+
+    if (comingSoon) {
+        return (
+            <Dialog>
+                <DialogTrigger asChild>
+                    <div className="cursor-pointer no-underline h-full">{cardContent}</div>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle className="text-center text-2xl">Coming Soon!</DialogTitle>
+                    </DialogHeader>
+                    <div className="text-center py-4">
+                        <p className="text-lg">The {title} portal is under construction. Stay tuned!</p>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        );
+    }
+
+    return (
+        <Link href={href} className="no-underline h-full">
+            {cardContent}
+        </Link>
+    );
+};
+
 
 const portals = [
     { icon: Store, title: "NestMall", description: "Shop electronics, fashion, FMCG & wholesale.", href: "/modules/mall" },
     { icon: HomeIcon, title: "NestHomes", description: "Buy, rent, or build affordable green homes.", href: "/modules/homes" },
     { icon: Plane, title: "NestTravel", description: "Flights, SGR, buses, hotels, tours.", href: "/modules/travel" },
     { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya.", href: "/modules/stays" },
-    { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#" },
-    { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#" },
-    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "/modules/campfire" },
-    { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "/modules/mall" },
-    { icon: Package, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#" },
-    { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#" },
+    { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#", comingSoon: true },
+    { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#", comingSoon: true },
+    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#", comingSoon: true },
+    { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "#", comingSoon: true },
+    { icon: Package, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#", comingSoon: true },
+    { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#", comingSoon: true },
 ];
 
 const EcosystemPortals = () => (
@@ -414,17 +451,7 @@ const EcosystemPortals = () => (
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                  {portals.map((portal) => (
-                    <Link href={portal.href} key={portal.title} className="no-underline">
-                        <Card className="hover:shadow-xl transition-shadow h-full">
-                            <CardHeader className="flex flex-row items-center gap-4">
-                                <portal.icon className="h-8 w-8 text-primary" />
-                                <CardTitle className="!text-xl !text-foreground">{portal.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">{portal.description}</p>
-                            </CardContent>
-                        </Card>
-                    </Link>
+                    <PortalCard key={portal.title} {...portal} />
                 ))}
                  <Link href="/vendor-registration" className="no-underline">
                     <Card className="hover:shadow-xl transition-shadow h-full bg-secondary text-secondary-foreground">
@@ -868,3 +895,6 @@ const Footer = () => (
 
 
 
+
+
+    
