@@ -191,3 +191,43 @@ export type TravelListing = {
     duration?: string;
     inclusions?: string[];
 };
+
+export type StayListingStatus = 'Active' | 'Pending' | 'Booked' | 'Archived';
+export type StayPropertyType = 'Home' | 'Apartment' | 'Villa' | 'Cottage' | 'Farm Stay' | 'Studio';
+
+export type StayListing = {
+    id: string;
+    vendorId: string;
+    title: string;
+    description: string;
+    propertyType: StayPropertyType;
+    categoryTags: string[];
+    location: {
+        county: string;
+        town: string;
+        mapEmbed?: string;
+    };
+    coverImage: string;
+    gallery: string[];
+    videoUrl?: string;
+    pricing: {
+        perNight: number;
+        weeklyDiscount?: number;
+        monthlyDiscount?: number;
+        cleaningFee?: number;
+    };
+    amenities: string[];
+    safetyFeatures: string[];
+    houseRules: string[];
+    bookingSettings: {
+        instantBooking: boolean;
+        maxGuests: number;
+        bedrooms: number;
+        beds: number;
+        bathrooms: number;
+        cancellationPolicy: 'Flexible' | 'Moderate' | 'Strict';
+    };
+    status: StayListingStatus;
+    rating?: number;
+    totalBookings?: number;
+};

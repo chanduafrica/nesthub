@@ -1,0 +1,67 @@
+
+[
+    {
+        "id": "stay_1",
+        "vendorId": "v26",
+        "title": "Serene Garden Cottage in Karen",
+        "description": "A beautiful and tranquil cottage with a lush garden, perfect for a weekend getaway from the city hustle.",
+        "propertyType": "Cottage",
+        "categoryTags": ["Romantic", "Nature"],
+        "location": {
+            "county": "Nairobi",
+            "town": "Karen"
+        },
+        "coverImage": "/property/1.jpg",
+        "gallery": [],
+        "pricing": {
+            "perNight": 12000,
+            "weeklyDiscount": 10,
+            "monthlyDiscount": 20
+        },
+        "amenities": ["Wi-Fi", "Hot Shower", "Kitchen", "Free Parking"],
+        "safetyFeatures": ["CCTV", "First Aid Kit"],
+        "houseRules": ["No parties", "Check-in after 2 PM"],
+        "bookingSettings": {
+            "instantBooking": true,
+            "maxGuests": 2,
+            "bedrooms": 1,
+            "beds": 1,
+            "bathrooms": 1,
+            "cancellationPolicy": "Flexible"
+        },
+        "status": "Active",
+        "rating": 4.9,
+        "totalBookings": 15
+    },
+    {
+        "id": "stay_2",
+        "vendorId": "v26",
+        "title": "Modern Apartment with City Views",
+        "description": "Stylish apartment in the heart of Westlands with stunning views of the Nairobi skyline.",
+        "propertyType": "Apartment",
+        "categoryTags": ["Business", "Luxury"],
+        "location": {
+            "county": "Nairobi",
+            "town": "Westlands"
+        },
+        "coverImage": "/property/2.jpg",
+        "gallery": [],
+        "pricing": {
+            "perNight": 9500
+        },
+        "amenities": ["Wi-Fi", "Smart TV", "Gym", "Swimming Pool"],
+        "safetyFeatures": ["Smoke Detector"],
+        "houseRules": ["No smoking"],
+        "bookingSettings": {
+            "instantBooking": false,
+            "maxGuests": 4,
+            "bedrooms": 2,
+            "beds": 2,
+            "bathrooms": 2,
+            "cancellationPolicy": "Moderate"
+        },
+        "status": "Pending",
+        "rating": 0,
+        "totalBookings": 0
+    }
+]
