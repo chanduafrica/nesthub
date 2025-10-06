@@ -1,0 +1,75 @@
+
+[
+    {
+        "id": "ma1",
+        "vendorId": "v26",
+        "name": "Classic Kenyan Pilau",
+        "category": "Lunch",
+        "cuisine": "Kenyan",
+        "dishType": "Ready Meal",
+        "recipeStory": "A fragrant and flavorful rice dish that is a staple in Kenyan coastal households. Our family recipe has been passed down through generations.",
+        "cookingTime": 60,
+        "difficulty": "Medium",
+        "servings": 4,
+        "ingredients": [
+            { "name": "Basmati Rice", "quantity": "2", "unit": "cups" },
+            { "name": "Beef", "quantity": "500", "unit": "g" },
+            { "name": "Onions", "quantity": "2", "unit": "large" },
+            { "name": "Pilau Masala", "quantity": "2", "unit": "tbsp" }
+        ],
+        "preparationSteps": [
+            { "description": "Boil the beef until tender." },
+            { "description": "Fry onions until golden brown, add spices and beef." },
+            { "description": "Add rice and water, cook until fluffy." }
+        ],
+        "isForSale": true,
+        "pricing": {
+            "price": 450,
+            "portionSize": "1 Plate"
+        },
+        "delivery": {
+            "deliveryTime": "45-60 mins"
+        },
+        "allergens": [],
+        "status": "Active",
+        "mainImage": "/images/food/pilau.jpg",
+        "rating": 4.8,
+        "orders": 120
+    },
+    {
+        "id": "ma2",
+        "vendorId": "v2",
+        "name": "Jollof Rice with Chicken",
+        "category": "Dinner",
+        "cuisine": "Nigerian",
+        "dishType": "Ready Meal",
+        "recipeStory": "The iconic West African party dish! Our Jollof is made with a rich tomato base and seasoned to perfection.",
+        "cookingTime": 90,
+        "difficulty": "Medium",
+        "servings": 6,
+        "ingredients": [
+            { "name": "Long Grain Rice", "quantity": "3", "unit": "cups" },
+            { "name": "Chicken", "quantity": "1", "unit": "kg" },
+            { "name": "Tomato Paste", "quantity": "1", "unit": "can" },
+            { "name": "Scotch Bonnet Peppers", "quantity": "2-3", "unit": "" }
+        ],
+        "preparationSteps": [
+            { "description": "Blend tomatoes, peppers, and onions." },
+            { "description": "Fry the blended mixture to create the base stew." },
+            { "description": "Add rice and chicken stock, cook until done." }
+        ],
+        "isForSale": true,
+        "pricing": {
+            "price": 650,
+            "portionSize": "1 Plate with Chicken"
+        },
+        "delivery": {
+            "deliveryTime": "60-75 mins"
+        },
+        "allergens": [],
+        "status": "Pending",
+        "mainImage": "/images/food/jollof.jpg",
+        "rating": null,
+        "orders": 0
+    }
+]

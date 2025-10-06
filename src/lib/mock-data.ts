@@ -275,3 +275,34 @@ export type AutoPartListing = {
     orders?: number;
     totalSales?: number;
 };
+
+export type MamaAfricaListingStatus = 'Active' | 'Pending' | 'Sold Out' | 'Hidden';
+export type MamaAfricaDishType = 'Ready Meal' | 'DIY Recipe' | 'Ingredient Pack' | 'Lunch Box';
+
+export type MamaAfricaListing = {
+    id: string;
+    vendorId: string;
+    name: string;
+    category: string;
+    cuisine: string;
+    dishType: MamaAfricaDishType;
+    recipeStory: string;
+    cookingTime?: number; // in minutes
+    difficulty?: 'Easy' | 'Medium' | 'Hard';
+    servings?: number;
+    ingredients: { name: string; quantity: string; unit: string }[];
+    preparationSteps: { description: string; imageUrl?: string }[];
+    isForSale: boolean;
+    pricing: {
+        price?: number;
+        portionSize?: string;
+    };
+    delivery: {
+        deliveryTime?: string;
+    };
+    allergens: string[];
+    mainImage: string;
+    status: MamaAfricaListingStatus;
+    rating?: number;
+    orders?: number;
+};
