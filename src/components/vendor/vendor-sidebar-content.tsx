@@ -147,7 +147,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
                 </Link>
             </SidebarMenuButton>
             </SidebarMenuItem>
-             <SidebarMenuItem>
+            <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                     <Link href="/vendor/sparks">
                     <Award />
