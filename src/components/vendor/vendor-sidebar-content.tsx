@@ -29,7 +29,9 @@ import {
   Briefcase,
   Store,
   Car,
-  School
+  School,
+  Percent,
+  Award,
 } from 'lucide-react';
 import Link from 'next/link';
 import type { Vendor } from '@/lib/mock-data';
@@ -44,7 +46,7 @@ const portalConfig = {
     AutoParts: { icon: Car, href: '/vendor/autoparts' },
     Duka: { icon: ShoppingCart, href: '/vendor/duka' },
     Back2School: { icon: School, href: '/vendor/back2school' },
-    NestEvents: { icon: Ticket, href: '#' },
+    NestEvents: { icon: Ticket, href: '/vendor/nestevents' },
     NestJobs: { icon: Briefcase, href: '#' },
     NestBiz: { icon: Landmark, href: '/vendor/nestbiz' },
     NestParcel: { icon: Package, href: '#' },
@@ -123,7 +125,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/orders">
                 <ShoppingCart />
                 <span>Orders</span>
                 </Link>
@@ -131,11 +133,27 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/payouts">
                 <Landmark />
                 <span>Payouts</span>
                 </Link>
             </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+                <Link href="/vendor/commissions">
+                <Percent />
+                <span>Commissions</span>
+                </Link>
+            </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/vendor/sparks">
+                    <Award />
+                    <span>Sparks Rewards</span>
+                    </Link>
+                </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
