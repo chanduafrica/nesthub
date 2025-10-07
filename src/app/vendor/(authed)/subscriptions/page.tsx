@@ -96,7 +96,9 @@ export default function VendorSubscriptionsPage() {
                                 variant={plan.isCurrent ? 'outline' : 'default'}
                                 disabled={plan.isCurrent}
                             >
-                                {plan.cta}
+                                {plan.isCurrent && plan.name === 'Enterprise' ? <><Crown className="mr-2 h-4 w-4" /> {plan.cta}</> : 
+                                 plan.isCurrent ? <>{plan.cta}</> : 
+                                 <><Zap className="mr-2 h-4 w-4" /> {plan.cta}</>}
                             </Button>
                         </CardFooter>
                     </Card>
