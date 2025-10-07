@@ -32,6 +32,8 @@ import {
   School,
   Percent,
   Award,
+  Sparkles,
+  Crown,
 } from 'lucide-react';
 import Link from 'next/link';
 import type { Vendor } from '@/lib/mock-data';
@@ -131,6 +133,28 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
                 </Link>
             </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+                <Link href="#">
+                <Star />
+                <span>Reviews</span>
+                </Link>
+            </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+                <Link href="#">
+                <MessageSquare />
+                <span>Messages</span>
+                </Link>
+            </SidebarMenuButton>
+            </SidebarMenuItem>
+        </SidebarMenu>
+         <SidebarSeparator/>
+        <SidebarMenu>
+             <SidebarMenuItem>
+                <span className="px-2 text-xs font-medium text-muted-foreground">Financials & Growth</span>
+             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
                 <Link href="/vendor/payouts">
@@ -155,11 +179,11 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
                 </Link>
             </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
+             <SidebarMenuItem>
             <SidebarMenuButton asChild>
                 <Link href="#">
-                <Star />
-                <span>Reviews</span>
+                <Sparkles />
+                <span>Promotions</span>
                 </Link>
             </SidebarMenuButton>
             </SidebarMenuItem>
@@ -171,18 +195,18 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
                 </Link>
             </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-                <Link href="#">
-                <MessageSquare />
-                <span>Messages</span>
-                </Link>
-            </SidebarMenuButton>
-            </SidebarMenuItem>
         </SidebarMenu>
         </SidebarContent>
         <SidebarFooter>
         <SidebarMenu>
+             <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+                <Link href="#">
+                <Crown />
+                <span>Subscriptions</span>
+                </Link>
+            </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
                 <Link href="#">
