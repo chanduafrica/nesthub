@@ -131,7 +131,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/payouts">
                 <Landmark />
                 <span>Payouts</span>
                 </Link>
