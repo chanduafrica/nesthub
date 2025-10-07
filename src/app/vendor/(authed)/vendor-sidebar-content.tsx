@@ -123,7 +123,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/orders">
                 <ShoppingCart />
                 <span>Orders</span>
                 </Link>
