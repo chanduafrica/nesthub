@@ -148,12 +148,12 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/vendor/sparks">
-                    <Award />
-                    <span>Sparks Rewards</span>
-                    </Link>
-                </SidebarMenuButton>
+            <SidebarMenuButton asChild>
+                <Link href="/vendor/sparks">
+                <Award />
+                <span>Sparks Rewards</span>
+                </Link>
+            </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
