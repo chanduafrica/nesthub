@@ -454,3 +454,26 @@ export type NestBizListing = {
   }[];
   status: NestBizListingStatus;
 };
+
+export type NestEventListingStatus = 'Published' | 'Draft' | 'Completed' | 'Cancelled' | 'Pending';
+
+export type NestEventListing = {
+  id: string;
+  vendorId: string;
+  title: string;
+  category: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  venue: string;
+  organizer: string;
+  contactEmail: string;
+  contactPhone: string;
+  posterUrl: string;
+  ticketTiers: {
+    type: string;
+    price: number;
+    quantity: number;
+  }[];
+  status: NestEventListingStatus;
+};

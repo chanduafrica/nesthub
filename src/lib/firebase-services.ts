@@ -1,6 +1,6 @@
 
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -22,6 +22,7 @@ import buyMyCarListingsData from './data/buymycar-listings.json';
 import back2schoolListingsData from './data/back2school-listings.json';
 import dukaListingsData from './data/duka-listings.json';
 import nestbizListingsData from './data/nestbiz-listings.json';
+import nesteventsListingsData from './data/nestevents-listings.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -45,6 +46,7 @@ const buyMyCarListings: BuyMyCarListing[] = buyMyCarListingsData as BuyMyCarList
 const back2schoolListings: Back2SchoolListing[] = back2schoolListingsData as Back2SchoolListing[];
 const dukaListings: DukaListing[] = dukaListingsData as DukaListing[];
 const nestbizListings: NestBizListing[] = nestbizListingsData as NestBizListing[];
+const nesteventsListings: NestEventListing[] = nesteventsListingsData as NestEventListing[];
 
 
 function createSlug(title: string) {
@@ -185,4 +187,9 @@ export const getDukaListings = async(): Promise<DukaListing[]> => {
 // NESTBIZ LISTINGS
 export const getNestBizListings = async(): Promise<NestBizListing[]> => {
     return JSON.parse(JSON.stringify(nestbizListings));
+};
+
+// NESTEVENTS LISTINGS
+export const getEventListings = async(): Promise<NestEventListing[]> => {
+    return JSON.parse(JSON.stringify(nesteventsListings));
 };

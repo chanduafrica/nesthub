@@ -1,3 +1,5 @@
+
+
 'use client';
 import {
   Sidebar,
@@ -41,11 +43,11 @@ const portalConfig = {
     MamaAfrica: { icon: UtensilsCrossed, href: '/vendor/mamaafrica' },
     BuyMyCar: { icon: Car, href: '/vendor/buymycar' },
     AutoParts: { icon: Car, href: '/vendor/autoparts' },
-    Duka: { icon: ShoppingCart, href: '#' },
+    Duka: { icon: ShoppingCart, href: '/vendor/duka' },
     Back2School: { icon: School, href: '/vendor/back2school' },
-    NestEvents: { icon: Ticket, href: '#' },
+    NestEvents: { icon: Ticket, href: '/vendor/nestevents' },
     NestJobs: { icon: Briefcase, href: '#' },
-    NestBiz: { icon: Landmark, href: '#' },
+    NestBiz: { icon: Landmark, href: '/vendor/nestbiz' },
     NestParcel: { icon: Package, href: '#' },
 } as const;
 
