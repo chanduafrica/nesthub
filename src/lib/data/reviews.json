@@ -1,0 +1,55 @@
+
+[
+    {
+        "id": "rev1",
+        "vendorId": "v26",
+        "productId": "prod1",
+        "productTitle": "Samsung Galaxy S24 - 256GB",
+        "customerName": "Wanjiku Kamau",
+        "rating": 5,
+        "title": "Amazing Phone!",
+        "comment": "Absolutely love this phone. The camera is incredible and it's super fast. Delivery was also quicker than expected. Highly recommend this seller.",
+        "date": "2025-07-25",
+        "status": "Approved",
+        "sentiment": "Positive"
+    },
+    {
+        "id": "rev2",
+        "vendorId": "v26",
+        "productId": "prod2",
+        "productTitle": "Ankara Print High-Low Dress",
+        "customerName": "Amina Yusuf",
+        "rating": 4,
+        "title": "Beautiful dress, slightly big",
+        "comment": "The dress is gorgeous and the fabric is high quality. It was a little larger than the size chart indicated, but I was able to get it tailored. Overall, very happy with it.",
+        "date": "2025-07-24",
+        "status": "Approved",
+        "sentiment": "Positive"
+    },
+    {
+        "id": "rev3",
+        "vendorId": "v26",
+        "productId": "prod5",
+        "productTitle": "Super-fly Air Sneakers",
+        "customerName": "Musa Okello",
+        "rating": 3,
+        "title": "Decent shoes, but took a while to arrive.",
+        "comment": "The sneakers are okay, comfortable enough for daily wear. However, the shipping took over a week, which was longer than I expected.",
+        "date": "2025-07-22",
+        "status": "Approved",
+        "sentiment": "Neutral"
+    },
+    {
+        "id": "rev4",
+        "vendorId": "v26",
+        "productId": "prod1",
+        "productTitle": "Samsung Galaxy S24 - 256GB",
+        "customerName": "Juma Omondi",
+        "rating": 2,
+        "title": "Wrong color sent",
+        "comment": "I ordered the black one but received the grey model. Had to go through the return process which was a bit of a hassle. The phone itself is fine but the mistake was annoying.",
+        "date": "2025-07-21",
+        "status": "Pending",
+        "sentiment": "Negative"
+    }
+]

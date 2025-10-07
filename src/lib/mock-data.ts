@@ -165,6 +165,21 @@ export type Product = {
     };
 };
 
+export type Review = {
+    id: string;
+    vendorId: string;
+    productId: string;
+    productTitle: string;
+    customerName: string;
+    rating: number; // 1 to 5
+    title: string;
+    comment: string;
+    date: string;
+    status: 'Pending' | 'Approved' | 'Rejected';
+    sentiment?: 'Positive' | 'Neutral' | 'Negative';
+};
+
+
 export type TravelListingType = 'Flight' | 'SGR' | 'Bus' | 'Hotel' | 'Tour';
 export type TravelListingStatus = 'Active' | 'Pending' | 'Expired';
 

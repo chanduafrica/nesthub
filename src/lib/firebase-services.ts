@@ -1,6 +1,6 @@
 
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, Review, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -14,6 +14,7 @@ import viewingRequestsData from './data/viewing-requests.json';
 import mortgageLeadsData from './data/mortgage-leads.json';
 import insuranceQuotesData from './data/insurance-quotes.json';
 import back2schoolData from './data/back2school.json';
+import reviewsData from './data/reviews.json';
 import travelListingsData from './data/travel-listings.json';
 import nestStaysListingsData from './data/nest-stays.json';
 import autoPartsListingsData from './data/autoparts-listings.json';
@@ -38,6 +39,7 @@ const viewingRequests: any[] = viewingRequestsData as any[];
 const mortgageLeads: any[] = mortgageLeadsData as any[];
 const insuranceQuotes: any[] = insuranceQuotesData as any[];
 const back2school: any[] = back2schoolData as any[];
+const reviews: Review[] = reviewsData as Review[];
 const travelListings: TravelListing[] = travelListingsData as TravelListing[];
 const nestStaysListings: StayListing[] = nestStaysListingsData as StayListing[];
 const autoPartsListings: AutoPartListing[] = autoPartsListingsData as AutoPartListing[];
@@ -123,6 +125,11 @@ export const getProducts = async (): Promise<Product[]> => {
 export const getOffers = async(): Promise<Offer[]> => {
     return JSON.parse(JSON.stringify(offers));
 };
+
+// REVIEWS
+export const getReviews = async(): Promise<Review[]> => {
+    return JSON.parse(JSON.stringify(reviews));
+}
 
 // BUILD PROJECTS
 export const getBuildProjects = async(): Promise<any[]> => {
