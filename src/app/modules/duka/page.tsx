@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getDukaProducts, getDukaHomeContent } from "@/lib/firebase-services";
 import { DukaProduct } from "@/lib/mock-data";
