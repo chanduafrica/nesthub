@@ -110,7 +110,6 @@ function Header() {
         </nav>
 
         <div className="flex items-center justify-end space-x-2 ml-auto">
-          <Dialog>
              <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                       <Button variant="outline">
@@ -119,11 +118,7 @@ function Header() {
                       </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                      <DialogTrigger asChild>
-                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                            <span className="flex items-center gap-2"><User className="h-4 w-4"/> Customer Login</span>
-                        </DropdownMenuItem>
-                      </DialogTrigger>
+                      <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard')} />
                        <DropdownMenuItem asChild>
                           <a href="/vendor/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
                               <Store className="h-4 w-4"/> Vendor Login
@@ -131,8 +126,6 @@ function Header() {
                       </DropdownMenuItem>
                   </DropdownMenuContent>
              </DropdownMenu>
-             <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard')} />
-          </Dialog>
         </div>
       </div>
     </header>
@@ -536,25 +529,26 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 function ReferFriendPopup() {
     const { toast } = useToast();
-    const [isMounted, setIsMounted] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true);
+        setIsClient(true);
     }, []);
 
-    const referralLink = "https://sg-nest.com/join?ref=A4B2C1";
+    const referralCode = "A4B2C1";
+    const referralMessage = `Join me on SG-Nest, Africa's digital hub! Use my referral code *${referralCode}* to get amazing rewards when you sign up. Let's connect on Nest! https://sg-nest.com/join?ref=${referralCode}`;
 
     const copyToClipboard = () => {
         if (navigator.clipboard) {
-            navigator.clipboard.writeText(referralLink);
+            navigator.clipboard.writeText(referralMessage);
             toast({
                 title: "Copied!",
-                description: "Referral link copied to clipboard.",
+                description: "Referral message copied to clipboard.",
             });
         }
     };
-
-    if (!isMounted) {
+    
+    if (!isClient) {
         return <Button size="lg" variant="outline">Refer a Friend</Button>;
     }
 
@@ -567,17 +561,17 @@ function ReferFriendPopup() {
                 <DialogHeader>
                     <DialogTitle>Refer a Friend & Earn Sparks</DialogTitle>
                     <CardDescription>
-                        Share your unique link and you'll both get rewarded when they join and make their first purchase.
+                       Earn <span className="font-bold text-accent">Super Sparks Points</span> when your friends sign up, and even more once they make their first purchase!
                     </CardDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2">
                     <div className="grid flex-1 gap-2">
                         <Label htmlFor="link" className="sr-only">
-                        Link
+                        Code
                         </Label>
                         <Input
                         id="link"
-                        defaultValue={referralLink}
+                        defaultValue={`Your Code: ${referralCode}`}
                         readOnly
                         />
                     </div>
@@ -586,27 +580,27 @@ function ReferFriendPopup() {
                         <Copy className="h-4 w-4" />
                     </Button>
                 </div>
-                 <div className="py-2 text-center text-sm text-muted-foreground">Or share via</div>
+                 <div className="py-2 text-center text-sm text-muted-foreground">Share your code via</div>
                 <div className="flex justify-center gap-4">
-                    <a href={`https://wa.me/?text=Join%20me%20on%20SG-Nest!%20${referralLink}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                    <a href={`https://wa.me/?text=${encodeURIComponent(referralMessage)}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                         <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center">
                             <WhatsAppIcon className="h-7 w-7" />
                         </div>
                         <span className="text-xs">WhatsApp</span>
                     </a>
-                     <a href={`https://www.facebook.com/sharer/sharer.php?u=${referralLink}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                     <a href={`https://www.facebook.com/sharer/sharer.php?u=https://sg-nest.com&quote=${encodeURIComponent(referralMessage)}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                         <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center">
                             <Facebook className="h-6 w-6" />
                         </div>
                         <span className="text-xs">Facebook</span>
                     </a>
-                     <a href={`https://twitter.com/intent/tweet?url=${referralLink}&text=Join%20me%20on%20SG-Nest!`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                     <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(referralMessage)}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                        <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center">
                             <Twitter className="h-6 w-6" />
                         </div>
                         <span className="text-xs">Twitter</span>
                     </a>
-                     <a href={`mailto:?subject=Join%20me%20on%20SG-Nest&body=Use%20my%20link%20to%20get%20started:%20${referralLink}`} className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                     <a href={`mailto:?subject=Join me on SG-Nest!&body=${encodeURIComponent(referralMessage)}`} className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                         <div className="w-12 h-12 rounded-full bg-gray-500 text-white flex items-center justify-center">
                             <MailIcon className="h-6 w-6" />
                         </div>
@@ -775,6 +769,7 @@ const Footer = () => (
     
 
     
+
 
 
 
