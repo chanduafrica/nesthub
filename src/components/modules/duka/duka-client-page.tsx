@@ -10,6 +10,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/modules/duka/product-card";
 import { SearchDuka } from "./search-duka";
+import { CustomerLoginPopup, CustomerRegisterPopup } from "@/components/auth/customer-auth-dialogs";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
+
 
 interface DukaClientPageProps {
     initialProducts: DukaProduct[];
@@ -17,6 +21,14 @@ interface DukaClientPageProps {
 }
 
 function Header() {
+    const router = useRouter();
+
+    const handleLoginAndRedirect = () => {
+        // In a real app, you'd check for authentication status
+        // For now, we'll just redirect to the customer dashboard
+        router.push('/customer/dashboard');
+    }
+
     return (
         <header className="sticky top-0 z-40 w-full border-b bg-background">
             <div className="w-[94%] mx-auto flex h-16 items-center">
@@ -30,8 +42,18 @@ function Header() {
                     <Input placeholder="Search for groceries, shops..." className="pl-10" />
                 </div>
                 <nav className="ml-6 flex items-center space-x-4">
-                    <Button variant="ghost" asChild><Link href="#">My Orders</Link></Button>
-                    <Button>Login / Sign Up</Button>
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="ghost">My Orders</Button>
+                        </DialogTrigger>
+                        <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard#orders')} />
+                    </Dialog>
+                     <Dialog>
+                        <DialogTrigger asChild>
+                            <Button>Login / Sign Up</Button>
+                        </DialogTrigger>
+                        <CustomerLoginPopup onLoginSuccess={() => router.push('/modules/duka/dashboard')} />
+                    </Dialog>
                 </nav>
                  <div className="ml-auto flex items-center gap-4 md:hidden">
                     <Button variant="ghost" size="icon"><Search className="h-5 w-5" /></Button>
