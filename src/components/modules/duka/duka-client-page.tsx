@@ -42,6 +42,9 @@ function Header() {
                     <Input placeholder="Search for groceries, shops..." className="pl-10" />
                 </div>
                 <nav className="ml-6 flex items-center space-x-4">
+                    <Button variant="ghost" asChild>
+                        <Link href="/home">SG-Nest</Link>
+                    </Button>
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button variant="ghost">My Orders</Button>
