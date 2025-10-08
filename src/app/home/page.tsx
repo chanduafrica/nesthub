@@ -129,12 +129,6 @@ function Header() {
                               <Store className="h-4 w-4"/> Vendor Login
                           </a>
                       </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                       <DropdownMenuItem asChild>
-                          <a href="/admin/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 w-full">
-                              <ShieldQuestion className="h-4 w-4"/> Admin
-                          </a>
-                      </DropdownMenuItem>
                   </DropdownMenuContent>
              </DropdownMenu>
              <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard')} />
@@ -781,6 +775,7 @@ const Footer = () => (
     
 
     
+
 
 
 
