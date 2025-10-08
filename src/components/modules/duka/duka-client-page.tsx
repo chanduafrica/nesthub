@@ -51,12 +51,7 @@ function Header() {
                         </DialogTrigger>
                         <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard#orders')} />
                     </Dialog>
-                     <Dialog>
-                        <DialogTrigger asChild>
-                            <Button>Login / Sign Up</Button>
-                        </DialogTrigger>
-                        <CustomerLoginPopup onLoginSuccess={() => router.push('/modules/duka/dashboard')} />
-                    </Dialog>
+                    <CustomerLoginPopup onLoginSuccess={() => router.push('/modules/duka/dashboard')} trigger={<Button>Login / Sign Up</Button>} />
                 </nav>
                  <div className="ml-auto flex items-center gap-4 md:hidden">
                     <Button variant="ghost" size="icon"><Search className="h-5 w-5" /></Button>
@@ -234,5 +229,3 @@ export function DukaClientPage({ initialProducts, initialShops }: DukaClientPage
         </div>
     )
 }
-
-    

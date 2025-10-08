@@ -11,18 +11,26 @@ import { Store } from "lucide-react";
 
 interface CustomerLoginPopupProps {
   onLoginSuccess: () => void;
+  trigger?: React.ReactNode;
+  asDropdownItem?: boolean;
 }
 
-export function CustomerLoginPopup({ onLoginSuccess }: CustomerLoginPopupProps) {
+export function CustomerLoginPopup({ onLoginSuccess, trigger, asDropdownItem = false }: CustomerLoginPopupProps) {
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         onLoginSuccess();
     };
 
+    const TriggerComponent = asDropdownItem ? DropdownMenuItem : (trigger ? <>{trigger}</> : <Button>Customer Login</Button>);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Customer Login</DropdownMenuItem>
+                {asDropdownItem ? (
+                     <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Customer Login</DropdownMenuItem>
+                ) : (
+                    trigger || <Button>Customer Login</Button>
+                )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

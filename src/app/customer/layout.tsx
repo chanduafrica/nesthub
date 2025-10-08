@@ -9,6 +9,8 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { NestSearch } from '@/components/nest-search';
+import { CustomerLoginPopup } from "@/components/auth/customer-auth-dialogs";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
     { href: "/home", icon: HomeIcon, text: "Home" },
@@ -19,6 +21,8 @@ const navLinks = [
 ];
 
 function CustomerHeader() {
+    const router = useRouter();
+
     return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
         <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -96,7 +100,7 @@ function CustomerHeader() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+               <CustomerLoginPopup onLoginSuccess={() => router.push('/customer/dashboard')} asDropdownItem={true} />
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
