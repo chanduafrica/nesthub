@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { DukaProduct, DukaShop } from "@/lib/mock-data";
-import { Barcode, ChevronRight, Search, Sparkles } from "lucide-react";
+import { Barcode, ChevronRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/modules/duka/product-card";
@@ -21,8 +21,9 @@ function Header() {
         <header className="sticky top-0 z-40 w-full border-b bg-background">
             <div className="w-[94%] mx-auto flex h-16 items-center">
                 <Link href="/modules/duka" className="mr-6 flex items-center space-x-2">
-                    <Barcode className="h-6 w-6 text-primary" />
-                    <span className="font-bold text-lg">NestDuka</span>
+                    <span className="font-bold text-lg">
+                        <span className="text-primary">Nest</span><span className="text-secondary">Duka</span>
+                    </span>
                 </Link>
                 <div className="relative flex-1 hidden md:block">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -42,10 +43,19 @@ function Header() {
 
 function HeroSection() {
     return (
-        <section className="py-12 bg-muted/30">
-            <div className="w-[94%] mx-auto">
-                <h1 className="text-3xl font-bold">Your Daily Essentials, Delivered.</h1>
-                <p className="text-muted-foreground">Restock your pantry with ease from local shops and supermarkets.</p>
+        <section className="relative h-[40vh] flex items-center justify-center text-white">
+             <Image
+                src="https://picsum.photos/seed/dukahero4/1600/600"
+                alt="Fresh groceries"
+                fill
+                className="object-cover brightness-50"
+                data-ai-hint="fresh groceries"
+            />
+            <div className="relative z-10 w-[94%] mx-auto text-center px-4">
+                <h1 className="text-4xl md:text-5xl font-bold">Your Daily Essentials, Delivered.</h1>
+                <p className="mt-4 text-lg max-w-2xl mx-auto">
+                    Restock your pantry with ease from local shops and supermarkets.
+                </p>
             </div>
         </section>
     )
@@ -158,7 +168,7 @@ function Footer() {
                         </p>
                     </div>
                      <div>
-                        <h3 className="font-bold text-lg mb-2 flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> Sparks Card</h3>
+                        <h3 className="font-bold text-lg mb-2">Sparks Card</h3>
                          <p className="text-muted-foreground text-sm">
                             Earn and redeem loyalty points on every purchase with your Sparks Card.
                         </p>
