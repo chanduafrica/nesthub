@@ -19,7 +19,7 @@ interface DukaClientPageProps {
 function Header() {
     return (
         <header className="sticky top-0 z-40 w-full border-b bg-background">
-            <div className="container flex h-16 items-center">
+            <div className="w-[94%] mx-auto flex h-16 items-center">
                 <Link href="/modules/duka" className="mr-6 flex items-center space-x-2">
                     <Barcode className="h-6 w-6 text-primary" />
                     <span className="font-bold text-lg">NestDuka</span>
@@ -43,7 +43,7 @@ function Header() {
 function HeroSection() {
     return (
         <section className="py-12 bg-muted/30">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                 <h1 className="text-3xl font-bold">Good Evening, Jane 👋</h1>
                 <p className="text-muted-foreground">Restock your daily essentials with ease.</p>
             </div>
@@ -105,7 +105,7 @@ function BrandsSection({ shops }: { shops: DukaShop[] }) {
 function QuickReorderSection({ products }: { products: DukaProduct[] }) {
     return (
         <section className="py-8 bg-muted/30">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold">Quick Re-order</h2>
                 </div>
@@ -122,7 +122,7 @@ function QuickReorderSection({ products }: { products: DukaProduct[] }) {
 function MostPopularSection({ products }: { products: DukaProduct[] }) {
     return (
         <section className="py-12">
-            <div className="container">
+            <div className="w-[94%] mx-auto">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-bold">Most Popular</h2>
                      <Button variant="ghost" asChild>
@@ -149,7 +149,7 @@ function Footer() {
     ];
     return (
         <footer className="border-t bg-gray-100 dark:bg-gray-800">
-            <div className="container py-8">
+            <div className="w-[94%] mx-auto py-8">
                 <div className="grid md:grid-cols-2 gap-8">
                     <div>
                         <h3 className="font-bold text-lg mb-2">Shop with Confidence</h3>
@@ -185,12 +185,12 @@ export function DukaClientPage({ initialProducts, initialShops }: DukaClientPage
             <Header />
             <main>
                 <HeroSection />
-                <div className="container">
+                <div className="w-[94%] mx-auto">
                     <ShopsSection shops={initialShops} />
                 </div>
                 <QuickReorderSection products={initialProducts} />
                 <MostPopularSection products={initialProducts} />
-                 <div className="container">
+                 <div className="w-[94%] mx-auto">
                     <BrandsSection shops={initialShops} />
                 </div>
             </main>
