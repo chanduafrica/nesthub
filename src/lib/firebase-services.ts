@@ -1,6 +1,6 @@
 
 
-import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, Review, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing } from './mock-data';
+import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, Review, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing, DukaShop, DukaProduct } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
 import transactionsData from './data/transactions.json';
@@ -24,6 +24,8 @@ import back2schoolListingsData from './data/back2school-listings.json';
 import dukaListingsData from './data/duka-listings.json';
 import nestbizListingsData from './data/nestbiz-listings.json';
 import nesteventsListingsData from './data/nestevents-listings.json';
+import dukaShopsData from './data/duka-shops.json';
+import dukaProductsData from './data/duka-products.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -49,6 +51,8 @@ const back2schoolListings: Back2SchoolListing[] = back2schoolListingsData as Bac
 const dukaListings: DukaListing[] = dukaListingsData as DukaListing[];
 const nestbizListings: NestBizListing[] = nestbizListingsData as NestBizListing[];
 const nesteventsListings: NestEventListing[] = nesteventsListingsData as NestEventListing[];
+const dukaShops: DukaShop[] = dukaShopsData as DukaShop[];
+const dukaProducts: DukaProduct[] = dukaProductsData as DukaProduct[];
 
 
 function createSlug(title: string) {
@@ -57,6 +61,16 @@ function createSlug(title: string) {
 }
 
 // --- Service Functions for Data Reading ---
+
+// DUKA
+export const getDukaShops = async (): Promise<DukaShop[]> => {
+    return JSON.parse(JSON.stringify(dukaShops));
+};
+
+export const getDukaProducts = async (): Promise<DukaProduct[]> => {
+    return JSON.parse(JSON.stringify(dukaProducts));
+};
+
 
 // CLIENTS
 export const getClients = async (): Promise<Client[]> => {
@@ -200,3 +214,5 @@ export const getNestBizListings = async(): Promise<NestBizListing[]> => {
 export const getEventListings = async(): Promise<NestEventListing[]> => {
     return JSON.parse(JSON.stringify(nesteventsListings));
 };
+
+    

@@ -1,0 +1,50 @@
+
+[
+    {
+        "id": "shop1",
+        "name": "Naivas Supermarket",
+        "category": "Supermarket",
+        "logo": "/images/duka/naivas-logo.png",
+        "bannerImage": "/images/duka/naivas-banner.jpg",
+        "deliveryTime": "1-2 hours",
+        "rating": 4.5
+    },
+    {
+        "id": "shop2",
+        "name": "Carrefour",
+        "category": "Supermarket",
+        "logo": "/images/duka/carrefour-logo.png",
+        "bannerImage": "/images/duka/carrefour-banner.jpg",
+        "deliveryTime": "1-2 hours",
+        "rating": 4.6
+    },
+    {
+        "id": "shop3",
+        "name": "Quickmart",
+        "category": "Supermarket",
+        "logo": "/images/duka/quickmart-logo.png",
+        "bannerImage": "/images/duka/quickmart-banner.jpg",
+        "deliveryTime": "30-60 mins",
+        "rating": 4.7
+    },
+    {
+        "id": "shop4",
+        "name": "Wanyama's Grocery",
+        "category": "Local Shop",
+        "logo": "/images/duka/local-shop-logo.png",
+        "bannerImage": "/images/duka/local-shop-banner.jpg",
+        "deliveryTime": "15-30 mins",
+        "rating": 4.9
+    },
+    {
+        "id": "shop5",
+        "name": "Chandaria Wholesalers",
+        "category": "Wholesale",
+        "logo": "/images/duka/wholesaler-logo.png",
+        "bannerImage": "/images/duka/wholesaler-banner.jpg",
+        "deliveryTime": "Next-day",
+        "rating": 4.8
+    }
+]
+
+    

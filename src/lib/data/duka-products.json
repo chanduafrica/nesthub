@@ -1,0 +1,77 @@
+
+[
+    {
+        "id": "duka_prod_1",
+        "name": "Fresh Dairy Milk",
+        "brand": "Brookside",
+        "category": "Dairy",
+        "unitSize": "500ml",
+        "price": 70,
+        "images": ["/images/duka/milk.jpg"]
+    },
+    {
+        "id": "duka_prod_2",
+        "name": "Sliced White Bread",
+        "brand": "Broadways",
+        "category": "Bakery",
+        "unitSize": "400g",
+        "price": 65,
+        "images": ["/images/duka/bread.jpg"]
+    },
+    {
+        "id": "duka_prod_3",
+        "name": "Coca-Cola Soda",
+        "brand": "Coca-Cola",
+        "category": "Beverages",
+        "unitSize": "500ml",
+        "price": 80,
+        "images": ["/images/duka/coke.jpg"]
+    },
+    {
+        "id": "duka_prod_4",
+        "name": "Tropical Heat Crisps",
+        "brand": "Tropical Heat",
+        "category": "Snacks",
+        "unitSize": "50g",
+        "price": 50,
+        "images": ["/images/duka/crisps.jpg"]
+    },
+    {
+        "id": "duka_prod_5",
+        "name": "Sunlight Scouring Powder",
+        "brand": "Sunlight",
+        "category": "Cleaning",
+        "unitSize": "500g",
+        "price": 110,
+        "images": ["/images/duka/sunlight.jpg"]
+    },
+    {
+        "id": "duka_prod_6",
+        "name": "Blueband Margarine",
+        "brand": "Blueband",
+        "category": "Cooking Essentials",
+        "unitSize": "250g",
+        "price": 180,
+        "images": ["/images/duka/blueband.jpg"]
+    },
+    {
+        "id": "duka_prod_7",
+        "name": "Onions",
+        "brand": "Local Farm",
+        "category": "Fresh Food",
+        "unitSize": "1kg",
+        "price": 150,
+        "images": ["/images/duka/onions.jpg"]
+    },
+    {
+        "id": "duka_prod_8",
+        "name": "Tomatoes",
+        "brand": "Local Farm",
+        "category": "Fresh Food",
+        "unitSize": "1kg",
+        "price": 120,
+        "images": ["/images/duka/tomatoes.jpg"]
+    }
+]
+
+    

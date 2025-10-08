@@ -23,7 +23,7 @@ import { NestSearch } from '@/components/nest-search';
 
 const navLinks = [
   { href: "/modules/mall", icon: ShoppingCart, text: "NestMall" },
-  { href: "#", icon: Dna, text: "Duka" },
+  { href: "/modules/duka", icon: Dna, text: "Duka" },
   { href: "/modules/mall", icon: Car, text: "BuyMyCar" },
   { href: "#", icon: School, text: "Back2School" },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
@@ -896,5 +896,7 @@ const Footer = () => (
 
 
 
+
+    
 
     

@@ -1,5 +1,6 @@
 
 
+
 export type Client = {
   id: string;
   name: string;
@@ -492,3 +493,25 @@ export type NestEventListing = {
   }[];
   status: NestEventListingStatus;
 };
+
+export type DukaShop = {
+  id: string;
+  name: string;
+  category: 'Supermarket' | 'Local Shop' | 'Wholesale';
+  logo: string;
+  bannerImage: string;
+  deliveryTime: string;
+  rating: number;
+};
+
+export type DukaProduct = {
+  id: string;
+  name: string;
+  brand: string;
+  category: string;
+  unitSize: string;
+  price: number;
+  images: string[];
+};
+
+    
