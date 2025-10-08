@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { DukaProduct, DukaShop } from "@/lib/mock-data";
-import { Barcode, ChevronRight, Search } from "lucide-react";
+import { ChevronRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/modules/duka/product-card";
@@ -52,7 +52,7 @@ function HeroSection() {
                 data-ai-hint="fresh groceries"
             />
             <div className="relative z-10 w-[94%] mx-auto text-center px-4">
-                <h1 className="text-4xl md:text-5xl font-bold">Your Daily Essentials, Delivered.</h1>
+                <h1 className="text-4xl md:text-5xl font-bold text-white">Your Daily Essentials, Delivered.</h1>
                 <p className="mt-4 text-lg max-w-2xl mx-auto">
                     Restock your pantry with ease from local shops and supermarkets.
                 </p>
@@ -100,8 +100,8 @@ function BrandsSection({ shops }: { shops: DukaShop[] }) {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
                 {shops.slice(0,5).map(shop => (
                     <Card key={shop.id} className="hover:shadow-lg transition-shadow">
-                        <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                            <div className="relative w-24 h-16 mb-2">
+                        <CardContent className="p-4 flex flex-col items-center justify-center text-center h-24">
+                            <div className="relative w-24 h-16">
                                 <Image src={shop.logo} alt={shop.name} fill className="object-contain" />
                             </div>
                         </CardContent>

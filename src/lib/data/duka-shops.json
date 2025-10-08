@@ -4,8 +4,8 @@
         "id": "shop1",
         "name": "Naivas Supermarket",
         "category": "Supermarket",
-        "logo": "/images/duka/naivas-logo.png",
-        "bannerImage": "/images/duka/naivas-banner.jpg",
+        "logo": "https://www.naivas.co.ke/wp-content/uploads/2022/07/Naivas-Logo.svg",
+        "bannerImage": "https://picsum.photos/seed/naivas-banner/600/200",
         "deliveryTime": "1-2 hours",
         "rating": 4.5
     },
@@ -13,8 +13,8 @@
         "id": "shop2",
         "name": "Carrefour",
         "category": "Supermarket",
-        "logo": "/images/duka/carrefour-logo.png",
-        "bannerImage": "/images/duka/carrefour-banner.jpg",
+        "logo": "https://upload.wikimedia.org/wikipedia/fr/thumb/3/3b/Logo_Carrefour.svg/1200px-Logo_Carrefour.svg.png",
+        "bannerImage": "https://picsum.photos/seed/carrefour-banner/600/200",
         "deliveryTime": "1-2 hours",
         "rating": 4.6
     },
@@ -22,8 +22,8 @@
         "id": "shop3",
         "name": "Quickmart",
         "category": "Supermarket",
-        "logo": "/images/duka/quickmart-logo.png",
-        "bannerImage": "/images/duka/quickmart-banner.jpg",
+        "logo": "https://quickmart.co.ke/wp-content/uploads/2021/09/Quickmart-Logo.png",
+        "bannerImage": "https://picsum.photos/seed/quickmart-banner/600/200",
         "deliveryTime": "30-60 mins",
         "rating": 4.7
     },
@@ -31,8 +31,8 @@
         "id": "shop4",
         "name": "Wanyama's Grocery",
         "category": "Local Shop",
-        "logo": "/images/duka/local-shop-logo.png",
-        "bannerImage": "/images/duka/local-shop-banner.jpg",
+        "logo": "https://placehold.co/100x100/22c55e/ffffff/png?text=WG",
+        "bannerImage": "https://picsum.photos/seed/local-shop-banner/600/200",
         "deliveryTime": "15-30 mins",
         "rating": 4.9
     },
@@ -40,8 +40,8 @@
         "id": "shop5",
         "name": "Chandaria Wholesalers",
         "category": "Wholesale",
-        "logo": "/images/duka/wholesaler-logo.png",
-        "bannerImage": "/images/duka/wholesaler-banner.jpg",
+        "logo": "https://placehold.co/100x100/1767b0/ffffff/png?text=CW",
+        "bannerImage": "https://picsum.photos/seed/wholesaler-banner/600/200",
         "deliveryTime": "Next-day",
         "rating": 4.8
     }
