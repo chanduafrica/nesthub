@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { DukaProduct, DukaShop } from "@/lib/mock-data";
-import { Barcode, ChevronRight, Search } from "lucide-react";
+import { Barcode, ChevronRight, Search, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/modules/duka/product-card";
+import { SearchDuka } from "./search-duka";
 
 interface DukaClientPageProps {
     initialProducts: DukaProduct[];
@@ -138,6 +139,46 @@ function MostPopularSection({ products }: { products: DukaProduct[] }) {
     )
 }
 
+function Footer() {
+    const footerLinks = [
+        { href: "#", text: "Privacy hub" },
+        { href: "#", text: "Privacy policy" },
+        { href: "#", text: "Terms & Conditions" },
+        { href: "#", text: "Payment Terms" },
+        { href: "#", text: "Corporate & Bulk Purchases" },
+    ];
+    return (
+        <footer className="border-t bg-gray-100 dark:bg-gray-800">
+            <div className="container py-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 className="font-bold text-lg mb-2">Shop with Confidence</h3>
+                        <p className="text-muted-foreground text-sm">
+                            Powered by SG-Nest, NestDuka provides secure payments, verified sellers, and reliable delivery.
+                        </p>
+                    </div>
+                     <div>
+                        <h3 className="font-bold text-lg mb-2 flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> Sparks Card</h3>
+                         <p className="text-muted-foreground text-sm">
+                            Earn and redeem loyalty points on every purchase with your Sparks Card.
+                        </p>
+                    </div>
+                </div>
+                <div className="mt-8 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
+                    <nav className="flex flex-wrap gap-x-4 gap-y-2 justify-center">
+                        {footerLinks.map(link => (
+                            <Link key={link.text} href={link.href} className="text-sm text-muted-foreground hover:text-primary">
+                                {link.text}
+                            </Link>
+                        ))}
+                    </nav>
+                    <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} NestDuka by SG-Nest</p>
+                </div>
+            </div>
+        </footer>
+    )
+}
+
 export function DukaClientPage({ initialProducts, initialShops }: DukaClientPageProps) {
     return (
         <div className="bg-background min-h-screen">
@@ -153,6 +194,8 @@ export function DukaClientPage({ initialProducts, initialShops }: DukaClientPage
                     <BrandsSection shops={initialShops} />
                 </div>
             </main>
+            <Footer />
+            <SearchDuka allProducts={initialProducts} />
         </div>
     )
 }
