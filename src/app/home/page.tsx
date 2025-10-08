@@ -3,12 +3,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
-import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building, Package, Dna, School, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide } from "lucide-react";
+import { Briefcase, CheckCircle, HomeIcon, LayoutGrid, MessageSquare, Plane, ShoppingCart, Store, Ticket, UtensilsCrossed, Wallet, BarChart, Tv, Newspaper, Radio, Sparkles, BedDouble, Rocket, ShieldCheck, Cpu, Menu, Flame, Star, MapPin, Car, BookOpen, Gift, Lock, UserPlus, Award, Users, HandCoins, ShoppingBag, Edit, Share2, Copy, ChevronDown, User, ShieldQuestion, Building, Package, Dna, School, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
@@ -26,7 +26,7 @@ const navLinks = [
   { href: "/modules/mall", icon: ShoppingCart, text: "NestMall" },
   { href: "/modules/duka", icon: Dna, text: "Duka" },
   { href: "/modules/mall", icon: Car, text: "BuyMyCar" },
-  { href: "#", icon: School, text: "Back2School" },
+  { href: "#", icon: School, text: "Back2School", comingSoon: true },
   { href: "/modules/travel", icon: Plane, text: "Travel" },
   { href: "/modules/homes/properties", icon: Building, text: "Properties" },
   { href: "/modules/stays", icon: BedDouble, text: "Stays"},
@@ -394,6 +394,16 @@ const CuratedPicksSection = ({ homeTabsData }: { homeTabsData: any }) => (
 );
 
 const PortalCard = ({ icon: Icon, title, description, href, comingSoon }: { icon: React.ElementType, title: string, description: string, href: string, comingSoon?: boolean }) => {
+    const router = useRouter();
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleDialogSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+        }
+    };
+    
     const cardContent = (
         <Card className="hover:shadow-xl transition-shadow h-full">
             <CardHeader className="flex flex-row items-center gap-4">
@@ -418,6 +428,22 @@ const PortalCard = ({ icon: Icon, title, description, href, comingSoon }: { icon
                     </DialogHeader>
                     <div className="text-center py-4">
                         <p className="text-lg">We're working on something awesome for the {title} portal. Stay tuned!</p>
+                        <div className="my-6">
+                            <p className="text-sm text-muted-foreground mb-2">Or search our Nest for something awesome</p>
+                             <form onSubmit={handleDialogSearch} className="flex w-full max-w-sm items-center space-x-2 mx-auto">
+                                <Input 
+                                    type="text" 
+                                    placeholder="Search Nest..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                <DialogClose asChild>
+                                    <Button type="submit">
+                                        <Search className="h-4 w-4" />
+                                    </Button>
+                                </DialogClose>
+                            </form>
+                        </div>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -755,5 +781,6 @@ const Footer = () => (
     
 
     
+
 
 
