@@ -3,9 +3,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { Store } from "lucide-react";
 
 interface CustomerLoginPopupProps {
   onLoginSuccess: () => void;
@@ -16,39 +18,45 @@ export function CustomerLoginPopup({ onLoginSuccess }: CustomerLoginPopupProps) 
         e.preventDefault();
         onLoginSuccess();
     };
+
     return (
-        <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-                <DialogTitle>Customer Login</DialogTitle>
-                <DialogDescription>
-                    One account for all SG-NEST portals.
-                </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleLogin}>
-                <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email/Phone</Label>
-                        <Input
-                            id="email"
-                            type="text"
-                            placeholder="Email or Phone Number"
-                            defaultValue="customer@example.com"
-                        />
+        <Dialog>
+            <DialogTrigger asChild>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Customer Login</DropdownMenuItem>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>Customer Login</DialogTitle>
+                    <DialogDescription>
+                        One account for all SG-NEST portals.
+                    </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={handleLogin}>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Email/Phone</Label>
+                            <Input
+                                id="email"
+                                type="text"
+                                placeholder="Email or Phone Number"
+                                defaultValue="customer@example.com"
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="password">Password</Label>
+                            <Input id="password" type="password" defaultValue="password" />
+                        </div>
+                        <div className="flex justify-between items-center text-sm">
+                            <ForgotPasswordPopup />
+                            <CustomerRegisterPopup />
+                        </div>
                     </div>
-                    <div className="grid gap-2">
-                        <Label htmlFor="password">Password</Label>
-                        <Input id="password" type="password" defaultValue="password" />
-                    </div>
-                    <div className="flex justify-between items-center text-sm">
-                        <ForgotPasswordPopup />
-                        <CustomerRegisterPopup />
-                    </div>
-                </div>
-                <DialogFooter>
-                    <Button type="submit" className="w-full">Sign In</Button>
-                </DialogFooter>
-            </form>
-        </DialogContent>
+                    <DialogFooter>
+                        <Button type="submit" className="w-full">Sign In</Button>
+                    </DialogFooter>
+                </form>
+            </DialogContent>
+        </Dialog>
     );
 }
 
