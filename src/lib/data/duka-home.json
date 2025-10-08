@@ -1,0 +1,33 @@
+
+{
+    "heroSlides": [
+        {
+            "title": "Freshness Delivered Fast",
+            "description": "Get your daily groceries and fresh produce delivered to your doorstep in minutes.",
+            "imageUrl": "https://picsum.photos/seed/dukahero1/1600/500",
+            "link": "/modules/duka/fresh"
+        },
+        {
+            "title": "Mega Deals This Week",
+            "description": "Up to 30% off on household essentials, snacks, and more. Don't miss out!",
+            "imageUrl": "https://picsum.photos/seed/dukahero2/1600/500",
+            "link": "/modules/duka/deals"
+        },
+        {
+            "title": "Support Your Local Duka",
+            "description": "Shop from your favorite neighborhood stores and support local businesses.",
+            "imageUrl": "https://picsum.photos/seed/dukahero3/1600/500",
+            "link": "/modules/duka/local-shops"
+        }
+    ],
+    "categories": [
+        { "title": "Fresh Food", "imageUrl": "/images/duka/cat-fresh.png" },
+        { "title": "Beverages", "imageUrl": "/images/duka/cat-beverages.png" },
+        { "title": "Snacks", "imageUrl": "/images/duka/cat-snacks.png" },
+        { "title": "Cleaning", "imageUrl": "/images/duka/cat-cleaning.png" },
+        { "title": "Personal Care", "imageUrl": "/images/duka/cat-care.png" },
+        { "title": "Baby", "imageUrl": "/images/duka/cat-baby.png" },
+        { "title": "Pets", "imageUrl": "/images/duka/cat-pets.png" },
+        { "title": "All Products", "imageUrl": "/images/duka/cat-all.png" }
+    ]
+}

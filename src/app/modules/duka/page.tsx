@@ -2,11 +2,21 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getDukaProducts, getDukaShops } from "@/lib/firebase-services";
+import { getDukaProducts, getDukaShops, getDukaHomeContent } from "@/lib/firebase-services";
 import { DukaProduct, DukaShop } from "@/lib/mock-data";
-import { Barcode, ChevronRight, History, Home, ListFilter, Percent, PlusCircle, Search, ShoppingCart, User } from "lucide-react";
+import { Barcode, ChevronRight, History, Home, ListFilter, Percent, PlusCircle, Search, ShoppingCart, User, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { ProductCard } from "@/components/modules/duka/product-card";
+
 
 async function Header() {
     return (
@@ -16,12 +26,11 @@ async function Header() {
                     <Barcode className="h-6 w-6 text-primary" />
                     <span className="font-bold text-lg">NestDuka</span>
                 </Link>
-                <div className="relative flex-1">
+                <div className="relative flex-1 hidden md:block">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input placeholder="Search for products or shops..." className="pl-10" />
                 </div>
                 <nav className="ml-6 flex items-center space-x-4">
-                    <Button variant="ghost">Shop by Category</Button>
                     <Button variant="ghost" asChild><Link href="#">My Orders</Link></Button>
                 </nav>
                  <div className="ml-auto flex items-center gap-4">
@@ -33,97 +42,104 @@ async function Header() {
     )
 }
 
-async function ShopCard({ shop }: { shop: DukaShop }) {
+function HeroSection({ heroSlides }: { heroSlides: any[] }) {
     return (
-        <Card className="overflow-hidden">
-            <div className="relative h-24 w-full">
-                <Image src={shop.bannerImage} alt={shop.name} fill className="object-cover" />
-            </div>
-            <CardContent className="p-4">
-                <div className="flex items-start gap-4">
-                    <Image src={shop.logo} alt={`${shop.name} logo`} width={48} height={48} className="rounded-md border" />
-                    <div>
-                        <h3 className="font-semibold">{shop.name}</h3>
-                        <p className="text-xs text-muted-foreground">{shop.category}</p>
-                        <p className="text-xs text-muted-foreground">{shop.deliveryTime} delivery</p>
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
+        <Carousel
+            opts={{ loop: true }}
+            plugins={[Autoplay({ delay: 4000 })]}
+            className="w-full"
+        >
+            <CarouselContent>
+                {heroSlides.map((slide, index) => (
+                    <CarouselItem key={index}>
+                        <div className="relative h-[50vh] w-full">
+                            <Image
+                                src={slide.imageUrl}
+                                alt={slide.title}
+                                fill
+                                className="object-cover"
+                            />
+                            <div className="absolute inset-0 bg-black/40" />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
+                                <h2 className="text-4xl font-bold">{slide.title}</h2>
+                                <p className="mt-2 text-lg max-w-2xl">{slide.description}</p>
+                                <Button size="lg" className="mt-6">Shop Now</Button>
+                            </div>
+                        </div>
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 hidden md:flex" />
+            <CarouselNext className="right-4 hidden md:flex" />
+        </Carousel>
     );
 }
 
-async function ProductCard({ product }: { product: DukaProduct }) {
+function CategorySection({ categories }: { categories: any[] }) {
     return (
-        <Card className="overflow-hidden">
-            <div className="relative h-32 w-full">
-                <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
+        <section className="py-12">
+            <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-primary">Shop by Category</h2>
             </div>
-            <CardContent className="p-3">
-                <h4 className="font-semibold text-sm truncate">{product.name}</h4>
-                <p className="text-xs text-muted-foreground">{product.unitSize}</p>
-                <div className="mt-2 flex items-baseline justify-between">
-                    <p className="font-bold text-primary">KES {product.price.toLocaleString()}</p>
-                    <Button size="icon" className="h-8 w-8"><PlusCircle className="h-4 w-4" /></Button>
-                </div>
-            </CardContent>
-        </Card>
-    );
+             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+                {categories.map(cat => (
+                    <Link href="#" key={cat.title}>
+                        <Card className="text-center hover:shadow-md cursor-pointer transition-shadow h-full flex flex-col items-center justify-center p-2">
+                             <div className="relative w-16 h-16 mb-2">
+                                <Image src={cat.imageUrl} alt={cat.title} fill className="object-contain" />
+                            </div>
+                            <p className="font-semibold text-sm">{cat.title}</p>
+                        </Card>
+                    </Link>
+                ))}
+            </div>
+        </section>
+    )
 }
 
+function ProductCarouselSection({ title, products, link = "#" }: { title: string, products: DukaProduct[], link?: string }) {
+    return (
+        <section className="py-8">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold">{title}</h2>
+                <Button variant="ghost" asChild>
+                    <Link href={link}>View All <ChevronRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
+            </div>
+            <Carousel
+                opts={{ align: "start", skipSnaps: true }}
+                className="w-full"
+            >
+                <CarouselContent className="-ml-4">
+                    {products.map((product) => (
+                        <CarouselItem key={product.id} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 pl-4">
+                           <ProductCard product={product} />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                 <CarouselPrevious className="left-[-1rem] hidden sm:flex" />
+                 <CarouselNext className="right-[-1rem] hidden sm:flex" />
+            </Carousel>
+        </section>
+    );
+}
 
 export default async function DukaHomePage() {
-    const shops = await getDukaShops();
     const products = await getDukaProducts();
-
-    const featuredShops = shops.slice(0, 5);
-    const recentProducts = products.slice(0, 8);
+    const dukaHomeContent = await getDukaHomeContent();
 
     return (
         <div className="bg-muted/30 min-h-screen">
             <Header />
-            <main className="container py-8">
-                <Card className="mb-8">
-                    <CardHeader>
-                        <CardTitle>Good Evening, Jane 👋</CardTitle>
-                        <CardDescription>Restock your daily essentials with ease.</CardDescription>
-                    </CardHeader>
-                </Card>
-
-                <section className="mb-8">
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold">Your Quick Re-order</h2>
-                        <Button variant="ghost">View Past Orders <History className="ml-2 h-4 w-4" /></Button>
-                    </div>
-                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                        {recentProducts.slice(0, 4).map(product => <ProductCard key={product.id} product={product} />)}
-                    </div>
-                </section>
-                
-                <section className="mb-8">
-                    <h2 className="text-xl font-bold mb-4">Featured Shops</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {featuredShops.map(shop => <ShopCard key={shop.id} shop={shop} />)}
-                    </div>
-                </section>
-                
-                 <section>
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-xl font-bold">Shop by Category</h2>
-                        <Button variant="ghost">View All Categories <ChevronRight className="ml-2 h-4 w-4" /></Button>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
-                        {["Beverages", "Snacks", "Fresh Food", "Cleaning", "Personal Care", "Cooking"].map(cat => (
-                            <Card key={cat} className="p-4 text-center hover:shadow-md cursor-pointer">
-                                <p className="font-semibold text-sm">{cat}</p>
-                            </Card>
-                        ))}
-                    </div>
-                </section>
-
+            <main>
+                <HeroSection heroSlides={dukaHomeContent.heroSlides} />
+                <div className="container">
+                    <CategorySection categories={dukaHomeContent.categories} />
+                    <ProductCarouselSection title="Top Deals" products={products.slice(0, 8)} />
+                    <ProductCarouselSection title="Fresh Produce" products={products.filter(p => p.category === "Fresh Food")} />
+                    <ProductCarouselSection title="Beverages" products={products.filter(p => p.category === "Beverages")} />
+                </div>
             </main>
         </div>
     )
 }
-
-    

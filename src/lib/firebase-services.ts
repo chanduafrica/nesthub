@@ -1,5 +1,6 @@
 
 
+
 import type { Offer, Client, Vendor, Transaction, Property, Stay, HolidayPackage, Product, Review, TravelListing, StayListing, AutoPartListing, MamaAfricaListing, BuyMyCarListing, Back2SchoolListing, DukaListing, NestBizListing, NestEventListing, DukaShop, DukaProduct } from './mock-data';
 import clientsData from './data/clients.json';
 import vendorsData from './data/vendors.json';
@@ -26,6 +27,7 @@ import nestbizListingsData from './data/nestbiz-listings.json';
 import nesteventsListingsData from './data/nestevents-listings.json';
 import dukaShopsData from './data/duka-shops.json';
 import dukaProductsData from './data/duka-products.json';
+import dukaHomeData from './data/duka-home.json';
 
 // This is a workaround to make sure the type assertion works
 const clients: Client[] = clientsData as Client[];
@@ -63,6 +65,10 @@ function createSlug(title: string) {
 // --- Service Functions for Data Reading ---
 
 // DUKA
+export const getDukaHomeContent = async (): Promise<any> => {
+    return JSON.parse(JSON.stringify(dukaHomeData));
+};
+
 export const getDukaShops = async (): Promise<DukaShop[]> => {
     return JSON.parse(JSON.stringify(dukaShops));
 };
