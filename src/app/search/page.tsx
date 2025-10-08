@@ -1,12 +1,11 @@
 
-
 'use client';
 
 import { useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { searchNest } from '@/ai/flows/nest-search-flow';
 import type { NestSearchResult } from '@/ai/flows/nest-search-types';
 import { Loader2, ExternalLink, Menu, ShoppingCart, Dna, Car, School, Plane, Building, BedDouble, MessageSquare, UtensilsCrossed, Ticket, Info, FileText, Shield, RefreshCw, Mail as MailIconLucide, UserCircle, Award } from 'lucide-react';
@@ -299,7 +298,9 @@ export default function SearchResultsPage() {
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
-                <SearchResults />
+                <Suspense fallback={<div className="flex justify-center items-center h-64"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+                    <SearchResults />
+                </Suspense>
             </main>
             <Footer />
         </div>

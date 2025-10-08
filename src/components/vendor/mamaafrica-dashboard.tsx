@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { MamaAfricaListing, MamaAfricaListingStatus } from '@/lib/mock-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, MoreHorizontal, Eye, Edit, Trash, Utensils, ToggleOn, ToggleOff } from 'lucide-react';
+import { PlusCircle, MoreHorizontal, Eye, Edit, Trash, Utensils, ToggleLeft, ToggleRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -70,7 +70,7 @@ export function MamaAfricaDashboard({ initialListings }: { initialListings: Mama
                             <DropdownMenuItem><Eye className="mr-2 h-4 w-4"/>View Public</DropdownMenuItem>
                             <DropdownMenuItem><Edit className="mr-2 h-4 w-4"/>Edit</DropdownMenuItem>
                              <DropdownMenuItem>
-                                {listing.status === 'Sold Out' ? <><ToggleOn className="mr-2 h-4 w-4"/>Mark as Available</> : <><ToggleOff className="mr-2 h-4 w-4"/>Mark as Sold Out</>}
+                                {listing.status === 'Sold Out' ? <><ToggleRight className="mr-2 h-4 w-4"/>Mark as Available</> : <><ToggleLeft className="mr-2 h-4 w-4"/>Mark as Sold Out</>}
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="text-destructive" onClick={() => handleDelete(listing.id, listing.name)}>
