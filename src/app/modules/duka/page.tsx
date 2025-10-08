@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { getDukaProducts, getDukaHomeContent } from "@/lib/firebase-services";
 import { DukaProduct } from "@/lib/mock-data";
@@ -14,8 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { ProductCard } from "@/components/modules/duka/product-card";
+import { DukaHeroSection } from "@/components/modules/duka/duka-hero-section";
 
 
 async function Header() {
@@ -39,39 +38,6 @@ async function Header() {
             </div>
         </header>
     )
-}
-
-function HeroSection({ heroSlides }: { heroSlides: any[] }) {
-    return (
-        <Carousel
-            opts={{ loop: true }}
-            plugins={[Autoplay({ delay: 4000 })]}
-            className="w-full"
-        >
-            <CarouselContent>
-                {heroSlides.map((slide, index) => (
-                    <CarouselItem key={index}>
-                        <div className="relative h-[50vh] w-full">
-                            <Image
-                                src={slide.imageUrl}
-                                alt={slide.title}
-                                fill
-                                className="object-cover"
-                            />
-                            <div className="absolute inset-0 bg-black/40" />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-                                <h2 className="text-4xl font-bold">{slide.title}</h2>
-                                <p className="mt-2 text-lg max-w-2xl">{slide.description}</p>
-                                <Button size="lg" className="mt-6">Shop Now</Button>
-                            </div>
-                        </div>
-                    </CarouselItem>
-                ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-4 hidden md:flex" />
-            <CarouselNext className="right-4 hidden md:flex" />
-        </Carousel>
-    );
 }
 
 function CategorySection({ categories }: { categories: any[] }) {
@@ -131,7 +97,7 @@ export default async function DukaHomePage() {
         <div className="bg-muted/30 min-h-screen">
             <Header />
             <main>
-                <HeroSection heroSlides={dukaHomeContent.heroSlides} />
+                <DukaHeroSection heroSlides={dukaHomeContent.heroSlides} />
                 <div className="container">
                     <CategorySection categories={dukaHomeContent.categories} />
                     <ProductCarouselSection title="Top Deals" products={products.slice(0, 8)} />
