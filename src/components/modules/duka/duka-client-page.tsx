@@ -30,7 +30,7 @@ function Header() {
                 </div>
                 <nav className="ml-6 flex items-center space-x-4">
                     <Button variant="ghost" asChild><Link href="#">My Orders</Link></Button>
-                    <Button>Login</Button>
+                    <Button>Login / Sign Up</Button>
                 </nav>
                  <div className="ml-auto flex items-center gap-4 md:hidden">
                     <Button variant="ghost" size="icon"><Search className="h-5 w-5" /></Button>
@@ -44,8 +44,8 @@ function HeroSection() {
     return (
         <section className="py-12 bg-muted/30">
             <div className="w-[94%] mx-auto">
-                <h1 className="text-3xl font-bold">Good Evening, Jane 👋</h1>
-                <p className="text-muted-foreground">Restock your daily essentials with ease.</p>
+                <h1 className="text-3xl font-bold">Your Daily Essentials, Delivered.</h1>
+                <p className="text-muted-foreground">Restock your pantry with ease from local shops and supermarkets.</p>
             </div>
         </section>
     )
