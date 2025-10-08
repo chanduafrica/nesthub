@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  devIndicators: {
+    buildActivity: false,
+  },
   images: {
     remotePatterns: [
       {
