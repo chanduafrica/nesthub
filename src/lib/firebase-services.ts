@@ -220,5 +220,3 @@ export const getNestBizListings = async(): Promise<NestBizListing[]> => {
 export const getEventListings = async(): Promise<NestEventListing[]> => {
     return JSON.parse(JSON.stringify(nesteventsListings));
 };
-
-    

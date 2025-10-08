@@ -2,9 +2,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getDukaProducts, getDukaShops, getDukaHomeContent } from "@/lib/firebase-services";
-import { DukaProduct, DukaShop } from "@/lib/mock-data";
-import { Barcode, ChevronRight, History, Home, ListFilter, Percent, PlusCircle, Search, ShoppingCart, User, Heart } from "lucide-react";
+import { getDukaProducts, getDukaHomeContent } from "@/lib/firebase-services";
+import { DukaProduct } from "@/lib/mock-data";
+import { Barcode, ChevronRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -34,8 +34,7 @@ async function Header() {
                     <Button variant="ghost" asChild><Link href="#">My Orders</Link></Button>
                 </nav>
                  <div className="ml-auto flex items-center gap-4">
-                    <Button variant="ghost" size="icon"><ShoppingCart className="h-5 w-5" /></Button>
-                    <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
+                    <Button variant="ghost" size="icon"><Search className="h-5 w-5 md:hidden" /></Button>
                 </div>
             </div>
         </header>
