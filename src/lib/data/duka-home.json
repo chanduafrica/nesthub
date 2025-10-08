@@ -21,13 +21,13 @@
         }
     ],
     "categories": [
-        { "title": "Fresh Food", "imageUrl": "/images/duka/cat-fresh.png" },
-        { "title": "Beverages", "imageUrl": "/images/duka/cat-beverages.png" },
-        { "title": "Snacks", "imageUrl": "/images/duka/cat-snacks.png" },
-        { "title": "Cleaning", "imageUrl": "/images/duka/cat-cleaning.png" },
-        { "title": "Personal Care", "imageUrl": "/images/duka/cat-care.png" },
-        { "title": "Baby", "imageUrl": "/images/duka/cat-baby.png" },
-        { "title": "Pets", "imageUrl": "/images/duka/cat-pets.png" },
-        { "title": "All Products", "imageUrl": "/images/duka/cat-all.png" }
+        { "title": "Fresh Food", "imageUrl": "https://picsum.photos/seed/catfresh/100/100" },
+        { "title": "Beverages", "imageUrl": "https://picsum.photos/seed/catbev/100/100" },
+        { "title": "Snacks", "imageUrl": "https://picsum.photos/seed/catsnacks/100/100" },
+        { "title": "Cleaning", "imageUrl": "https://picsum.photos/seed/catclean/100/100" },
+        { "title": "Personal Care", "imageUrl": "https://picsum.photos/seed/catcare/100/100" },
+        { "title": "Baby", "imageUrl": "https://picsum.photos/seed/catbaby/100/100" },
+        { "title": "Pets", "imageUrl": "https://picsum.photos/seed/catpets/100/100" },
+        { "title": "All Products", "imageUrl": "https://picsum.photos/seed/catall/100/100" }
     ]
 }

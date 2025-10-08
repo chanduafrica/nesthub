@@ -7,7 +7,7 @@
         "category": "Dairy",
         "unitSize": "500ml",
         "price": 70,
-        "images": ["/images/duka/milk.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod1/400/400"]
     },
     {
         "id": "duka_prod_2",
@@ -16,7 +16,7 @@
         "category": "Bakery",
         "unitSize": "400g",
         "price": 65,
-        "images": ["/images/duka/bread.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod2/400/400"]
     },
     {
         "id": "duka_prod_3",
@@ -25,7 +25,7 @@
         "category": "Beverages",
         "unitSize": "500ml",
         "price": 80,
-        "images": ["/images/duka/coke.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod3/400/400"]
     },
     {
         "id": "duka_prod_4",
@@ -34,7 +34,7 @@
         "category": "Snacks",
         "unitSize": "50g",
         "price": 50,
-        "images": ["/images/duka/crisps.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod4/400/400"]
     },
     {
         "id": "duka_prod_5",
@@ -43,7 +43,7 @@
         "category": "Cleaning",
         "unitSize": "500g",
         "price": 110,
-        "images": ["/images/duka/sunlight.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod5/400/400"]
     },
     {
         "id": "duka_prod_6",
@@ -52,7 +52,7 @@
         "category": "Cooking Essentials",
         "unitSize": "250g",
         "price": 180,
-        "images": ["/images/duka/blueband.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod6/400/400"]
     },
     {
         "id": "duka_prod_7",
@@ -61,7 +61,7 @@
         "category": "Fresh Food",
         "unitSize": "1kg",
         "price": 150,
-        "images": ["/images/duka/onions.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod7/400/400"]
     },
     {
         "id": "duka_prod_8",
@@ -70,6 +70,6 @@
         "category": "Fresh Food",
         "unitSize": "1kg",
         "price": 120,
-        "images": ["/images/duka/tomatoes.jpg"]
+        "images": ["https://picsum.photos/seed/dukaprod8/400/400"]
     }
 ]
