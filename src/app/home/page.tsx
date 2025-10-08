@@ -465,7 +465,7 @@ const portals = [
     { icon: BedDouble, title: "NestStays", description: "Airbnb-style verified stays across Kenya.", href: "/modules/stays" },
     { icon: Ticket, title: "NestEvents", description: "Tickets for concerts, expos & conferences.", href: "#", comingSoon: true },
     { icon: UtensilsCrossed, title: "Mama Africa", description: "Authentic African recipes & food delivery.", href: "#", comingSoon: true },
-    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "#", comingSoon: true },
+    { icon: MessageSquare, title: "Campfire", description: "Youth digital forum: careers, wellness, money.", href: "/modules/campfire" },
     { icon: Car, title: "BuyMyCar", description: "Buy and sell new and used vehicles.", href: "#", comingSoon: true },
     { icon: Package, title: "Auto Parts", description: "Genuine spare parts & accessories.", href: "#", comingSoon: true },
     { icon: BookOpen, title: "Back to School", description: "Textbooks, uniforms, and supplies.", href: "#", comingSoon: true },
@@ -781,6 +781,7 @@ const Footer = () => (
     
 
     
+
 
 
 
