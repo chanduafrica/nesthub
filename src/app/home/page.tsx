@@ -417,7 +417,7 @@ const PortalCard = ({ icon: Icon, title, description, href, comingSoon }: { icon
                         <DialogTitle className="text-center text-2xl">Coming Soon!</DialogTitle>
                     </DialogHeader>
                     <div className="text-center py-4">
-                        <p className="text-lg">The {title} portal is under construction. Stay tuned!</p>
+                        <p className="text-lg">We're working on something awesome for the {title} portal. Stay tuned!</p>
                     </div>
                 </DialogContent>
             </Dialog>
@@ -755,4 +755,5 @@ const Footer = () => (
     
 
     
+
 
