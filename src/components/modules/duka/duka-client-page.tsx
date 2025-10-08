@@ -76,6 +76,31 @@ function ShopsSection({ shops }: { shops: DukaShop[] }) {
     );
 }
 
+function BrandsSection({ shops }: { shops: DukaShop[] }) {
+    // Using shops as a proxy for brands for now
+    return (
+        <section className="py-12">
+             <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold">Shop by Brands</h2>
+                <Button variant="ghost" asChild>
+                    <Link href="#">View All <ChevronRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                {shops.slice(0,5).map(shop => (
+                    <Card key={shop.id} className="hover:shadow-lg transition-shadow">
+                        <CardContent className="p-4 flex flex-col items-center justify-center text-center">
+                            <div className="relative w-24 h-16 mb-2">
+                                <Image src={shop.logo} alt={shop.name} fill className="object-contain" />
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+        </section>
+    );
+}
+
 function QuickReorderSection({ products }: { products: DukaProduct[] }) {
     return (
         <section className="py-8 bg-muted/30">
@@ -93,6 +118,25 @@ function QuickReorderSection({ products }: { products: DukaProduct[] }) {
     )
 }
 
+function MostPopularSection({ products }: { products: DukaProduct[] }) {
+    return (
+        <section className="py-12">
+            <div className="container">
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-2xl font-bold">Most Popular</h2>
+                     <Button variant="ghost" asChild>
+                        <Link href="#">View All <ChevronRight className="ml-2 h-4 w-4" /></Link>
+                    </Button>
+                </div>
+                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    {products.slice(0, 10).map((product) => (
+                       <ProductCard key={product.id} product={product} />
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
+}
 
 export function DukaClientPage({ initialProducts, initialShops }: DukaClientPageProps) {
     return (
@@ -104,6 +148,10 @@ export function DukaClientPage({ initialProducts, initialShops }: DukaClientPage
                     <ShopsSection shops={initialShops} />
                 </div>
                 <QuickReorderSection products={initialProducts} />
+                <MostPopularSection products={initialProducts} />
+                 <div className="container">
+                    <BrandsSection shops={initialShops} />
+                </div>
             </main>
         </div>
     )
