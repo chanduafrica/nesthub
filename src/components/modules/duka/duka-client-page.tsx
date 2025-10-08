@@ -234,3 +234,5 @@ export function DukaClientPage({ initialProducts, initialShops }: DukaClientPage
         </div>
     )
 }
+
+    
