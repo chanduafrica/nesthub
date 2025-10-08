@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { CountdownTimer } from "@/components/modules/home/countdown-timer";
 import { useState, useEffect } from "react";
@@ -16,7 +16,10 @@ import homeTabsData from '@/lib/data/home-tabs.json';
 import { Facebook, Twitter, Mail as MailIcon } from 'lucide-react';
 import { useRouter } from "next/navigation";
 import { NestSearch } from '@/components/nest-search';
-import { CustomerLoginPopup, CustomerRegisterPopup, ForgotPasswordPopup } from "@/components/auth/customer-auth-dialogs";
+import { CustomerLoginPopup, CustomerRegisterPopup } from "@/components/auth/customer-auth-dialogs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 
 const navLinks = [
@@ -543,9 +546,9 @@ function ReferFriendPopup() {
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle>Refer a Friend & Earn Sparks</DialogTitle>
-                    <DialogDescription>
+                    <CardDescription>
                         Share your unique link and you'll both get rewarded when they join and make their first purchase.
-                    </DialogDescription>
+                    </CardDescription>
                 </DialogHeader>
                 <div className="flex items-center space-x-2">
                     <div className="grid flex-1 gap-2">
@@ -752,3 +755,4 @@ const Footer = () => (
     
 
     
+
