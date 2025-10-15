@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import {
@@ -34,12 +35,12 @@ export default function VendorLoginPage() {
              <div>
                 <Link href="/" className="flex items-center space-x-2">
                     <span className="font-bold text-2xl text-white">
-                        <span className="opacity-80">SG-</span><span className="opacity-100">NEST</span>
+                        <span className="opacity-80">Nest</span><span className="opacity-100">Hub</span>
                     </span>
                 </Link>
                 <h2 className="mt-8 text-4xl font-bold text-white">Unlock Africa's Digital Marketplace</h2>
                 <p className="mt-4 text-lg text-primary-foreground/80">
-                    Join thousands of merchants scaling their business with SG-Nest.
+                    Join thousands of merchants scaling their business with Nest Hub.
                 </p>
              </div>
              <div className="space-y-6">
@@ -52,7 +53,7 @@ export default function VendorLoginPage() {
                     </div>
                 ))}
              </div>
-             <p className="text-sm text-primary-foreground/60">&copy; {new Date().getFullYear()} SG-Nest. All Rights Reserved.</p>
+             <p className="text-sm text-primary-foreground/60">&copy; {new Date().getFullYear()} Nest Hub. All Rights Reserved.</p>
         </div>
       <div className="flex w-full lg:w-1/2 items-center justify-center p-8">
           <div className="w-full max-w-md space-y-8">

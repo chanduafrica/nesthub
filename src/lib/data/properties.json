@@ -49,7 +49,7 @@
     "area": 1200,
     "imageUrl": "/property/3.jpg",
     "shariaCompliant": false,
-    "agent": { "name": "SGNEST SUPER VENDOR", "avatarUrl": "https://picsum.photos/100/100?random=a3" },
+    "agent": { "name": "NestHub Super Vendor", "avatarUrl": "https://picsum.photos/100/100?random=a3" },
     "status": "Booked",
     "views": 210,
     "leads": 15
@@ -67,7 +67,7 @@
     "area": 3000,
     "imageUrl": "/property/4.jpg",
     "shariaCompliant": false,
-    "agent": { "name": "SGNEST SUPER VENDOR", "avatarUrl": "https://picsum.photos/100/100?random=a4" },
+    "agent": { "name": "NestHub Super Vendor", "avatarUrl": "https://picsum.photos/100/100?random=a4" },
     "status": "Sold",
     "views": 500,
     "leads": 25
@@ -85,7 +85,7 @@
     "area": 2500,
     "imageUrl": "/property/5.jpg",
     "shariaCompliant": true,
-    "agent": { "name": "SGNEST SUPER VENDOR", "avatarUrl": "https://picsum.photos/100/100?random=a5" },
+    "agent": { "name": "NestHub Super Vendor", "avatarUrl": "https://picsum.photos/100/100?random=a5" },
     "status": "Available",
     "views": 98,
     "leads": 8
@@ -103,7 +103,7 @@
     "area": 5000,
     "imageUrl": "/property/6.jpg",
     "shariaCompliant": false,
-    "agent": { "name": "SGNEST SUPER VENDOR", "avatarUrl": "https://picsum.photos/100/100?random=a6" },
+    "agent": { "name": "NestHub Super Vendor", "avatarUrl": "https://picsum.photos/100/100?random=a6" },
      "status": "Pending",
      "views": 12,
      "leads": 1

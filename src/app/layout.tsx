@@ -4,7 +4,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'SG-Nest',
+  title: 'Nest Hub',
   description: "Africa’s Engine for Marketplaces, SuperApps & Digital Platforms",
 };
 

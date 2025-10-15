@@ -24,10 +24,10 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === 'sgnest' && password === 'sgn3st@#$') {
+    if (username === 'nesthub' && password === 'n3sthub@#$') {
       toast({
         title: 'Login Successful',
-        description: 'Welcome to DigitalNest!',
+        description: 'Welcome to Nest Hub!',
       });
       router.push('/home');
     } else {
@@ -44,8 +44,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md p-8 space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold">
-            <span className="text-primary">SG</span>
-            <span className="text-secondary"> NEST CONCEPT</span>
+            <span className="text-primary">Nest</span>
+            <span className="text-secondary"> Hub Concept</span>
           </h1>
         </div>
         <Card className="shadow-2xl">

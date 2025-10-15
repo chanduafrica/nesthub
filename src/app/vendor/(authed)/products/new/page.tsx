@@ -143,7 +143,7 @@ export default function AddProductPage() {
             },
             visibility: formData.get('visibility') as 'Published' | 'Draft',
             productType: formData.get('productType') as 'Physical' | 'Digital',
-            vendor: 'SGNEST SUPER VENDOR', // Hardcoded for prototype
+            vendor: 'NestHub Super Vendor', // Hardcoded for prototype
             rating: 0,
         };
 

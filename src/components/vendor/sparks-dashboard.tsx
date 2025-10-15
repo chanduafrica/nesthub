@@ -53,7 +53,7 @@ export function SparksDashboard({ initialTransactions }: SparksDashboardProps) {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-bold">Sparks Loyalty Program</h1>
-                    <p className="text-muted-foreground">Your rewards dashboard for being a valued NestVendor.</p>
+                    <p className="text-muted-foreground">Your rewards dashboard for being a valued NestHub Vendor.</p>
                 </div>
             </div>
 

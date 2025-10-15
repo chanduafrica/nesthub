@@ -31,9 +31,9 @@ function CustomerHeader() {
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <span className="font-bold text-lg">
-                <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+                <span className="text-primary">Nest</span><span className="text-secondary">Hub</span>
             </span>
-            <span className="sr-only">SG-Nest</span>
+            <span className="sr-only">Nest Hub</span>
           </Link>
           {navLinks.map(link => (
             <Link
@@ -63,9 +63,9 @@ function CustomerHeader() {
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                  <span className="font-bold text-lg">
-                    <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+                    <span className="text-primary">Nest</span><span className="text-secondary">Hub</span>
                 </span>
-                <span className="sr-only">SG-Nest</span>
+                <span className="sr-only">Nest Hub</span>
               </Link>
               {navLinks.map(link => (
                  <Link

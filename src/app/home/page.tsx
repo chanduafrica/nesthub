@@ -90,7 +90,7 @@ function Header() {
           </Sheet>
           <Link href="/" className="flex items-center space-x-2">
             <span className="font-bold text-lg">
-              <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+              <span className="text-primary">Nest</span><span className="text-secondary">Hub</span>
             </span>
           </Link>
         </div>
@@ -165,7 +165,7 @@ const HeroSection = () => (
           Your Gateway to Africa’s Digital Economy.
         </h1>
         <p className="mt-6 text-md md:text-lg max-w-3xl mx-auto">
-          From shopping to housing, travel to events — powered by Standard Group Nest.
+          From shopping to housing, travel to events — powered by Nest Hub.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <Button size="lg" variant="outline" className="rounded-full bg-transparent border-white text-white hover:bg-white hover:text-primary">Explore Marketplace</Button>
@@ -536,7 +536,7 @@ function ReferFriendPopup() {
     }, []);
 
     const referralCode = "A4B2C1";
-    const referralMessage = `Join me on SG-Nest, Africa's digital hub! Use my referral code *${referralCode}* to get amazing rewards when you sign up. Let's connect on Nest! https://sg-nest.com/join?ref=${referralCode}`;
+    const referralMessage = `Join me on Nest Hub, Africa's digital hub! Use my referral code *${referralCode}* to get amazing rewards when you sign up. Let's connect on Nest! https://nesthub.com/join?ref=${referralCode}`;
 
     const copyToClipboard = () => {
         if (navigator.clipboard) {
@@ -588,7 +588,7 @@ function ReferFriendPopup() {
                         </div>
                         <span className="text-xs">WhatsApp</span>
                     </a>
-                     <a href={`https://www.facebook.com/sharer/sharer.php?u=https://sg-nest.com&quote=${encodeURIComponent(referralMessage)}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                     <a href={`https://www.facebook.com/sharer/sharer.php?u=https://nesthub.com&quote=${encodeURIComponent(referralMessage)}`} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                         <div className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center">
                             <Facebook className="h-6 w-6" />
                         </div>
@@ -600,7 +600,7 @@ function ReferFriendPopup() {
                         </div>
                         <span className="text-xs">Twitter</span>
                     </a>
-                     <a href={`mailto:?subject=Join me on SG-Nest!&body=${encodeURIComponent(referralMessage)}`} className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
+                     <a href={`mailto:?subject=Join me on Nest Hub!&body=${encodeURIComponent(referralMessage)}`} className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary">
                         <div className="w-12 h-12 rounded-full bg-gray-500 text-white flex items-center justify-center">
                             <MailIcon className="h-6 w-6" />
                         </div>
@@ -616,7 +616,7 @@ const CommunitySection = () => (
   <section className="py-5 md:py-8 bg-muted/30">
     <div className="container text-center max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-primary">
-            Campfire by Standard Group.
+            Campfire by Nest Hub.
         </h2>
         <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">
             Campfire is our digital fireside - just like the African campfire where wisdom was shared, stories told, and generations guided. It’s a space to connect, learn, and grow together in today’s digital age.
@@ -645,7 +645,7 @@ const CommunitySection = () => (
     <div className="container max-w-6xl mx-auto px-4 mt-16">
         <div className="text-center">
             <h2 className="text-3xl font-bold text-accent">Sparks Points - Loyalty That Connects Us</h2>
-            <p className="mt-2 text-muted-foreground max-w-3xl mx-auto">Sparks is more than points - it’s the glow that connects our SG Nest community. Just like sparks around an African campfire, every purchase, referral, or sale keeps the fire alive and rewards you back.</p>
+            <p className="mt-2 text-muted-foreground max-w-3xl mx-auto">Sparks is more than points - it’s the glow that connects our Nest Hub community. Just like sparks around an African campfire, every purchase, referral, or sale keeps the fire alive and rewards you back.</p>
         </div>
         <div className="mt-12 grid md:grid-cols-2 gap-12 items-start">
             <div className="space-y-8">
@@ -683,7 +683,7 @@ const CommunitySection = () => (
             </div>
              <div className="space-y-8 p-8 bg-white rounded-lg shadow-lg">
                  <h3 className="text-2xl font-semibold text-primary">Redeem Sparks</h3>
-                 <p className="text-muted-foreground">Every month, redeem your Sparks for rewards across SG Nest:</p>
+                 <p className="text-muted-foreground">Every month, redeem your Sparks for rewards across Nest Hub:</p>
                  <ul className="space-y-3">
                     <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Shopping & travel discounts</li>
                     <li className="flex items-center gap-3"><CheckCircle className="h-5 w-5 text-green-500" /> Exclusive event access & premium content</li>
@@ -715,7 +715,7 @@ const Footer = () => (
       <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
         <div className="flex items-center gap-2">
           <p className="text-sm">
-            © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
+            © {new Date().getFullYear()} Nest Hub | All Rights Reserved.
           </p>
         </div>
          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">

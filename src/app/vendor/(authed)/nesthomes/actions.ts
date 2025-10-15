@@ -42,7 +42,7 @@ export async function handleAddProperty(propertyData: any) {
             status: propertyData.status,
             shariaCompliant: false, // Default value
             agent: { // Default agent info
-                name: "SGNEST SUPER VENDOR",
+                name: "NestHub Super Vendor",
                 avatarUrl: "https://picsum.photos/100/100?random=a26"
             },
             views: 0,

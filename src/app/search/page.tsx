@@ -83,7 +83,7 @@ function Header() {
           </Sheet>
           <Link href="/" className="flex items-center space-x-2">
             <span className="font-bold text-lg">
-              <span className="text-primary">SG-</span><span className="text-secondary">NEST</span>
+              <span className="text-primary">Nest</span><span className="text-secondary">Hub</span>
             </span>
           </Link>
         </div>
@@ -133,7 +133,7 @@ const Footer = () => (
       <div className="w-[94%] mx-auto flex flex-col items-center justify-between gap-6 py-8 md:flex-row">
         <div className="flex items-center gap-2">
           <p className="text-sm">
-            © {new Date().getFullYear()} Standard Group x NestHub | All Rights Reserved.
+            © {new Date().getFullYear()} Nest Hub | All Rights Reserved.
           </p>
         </div>
          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
