@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -41,7 +42,7 @@ const Header = () => {
                         <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">Nest Hub</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -244,7 +245,7 @@ const Footer = () => (
                 </div>
             </div>
             <div className="mt-8 border-t pt-4 text-center text-sm text-muted-foreground">
-                <p>&copy; 2025 NestHomes by SG-Nest. All rights reserved.</p>
+                <p>&copy; 2025 NestHomes by Nest Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>

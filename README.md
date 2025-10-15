@@ -1,6 +1,6 @@
-# SG-Nest: Your Gateway to Africa’s Digital Economy
+# Nest Hub: Your Gateway to Africa’s Digital Economy
 
-This is a Next.js application built with Firebase Studio, designed to power the SG-Nest ecosystem. It includes multiple modules like NestMall, NestHomes, NestTravel, and a powerful AI-driven search functionality.
+This is a Next.js application built with Firebase Studio, designed to power the Nest Hub ecosystem. It includes multiple modules like NestMall, NestHomes, NestTravel, and a powerful AI-driven search functionality.
 
 ## Table of Contents
 
@@ -101,7 +101,7 @@ Follow the prompts to associate your local project with your Firebase project. T
 Once your project is initialized, you can deploy your application with a single command. This command builds your Next.js app and deploys it to the App Hosting backend.
 
 ```bash
-firebase apphosting:backends:deploy
+npm run deploy
 ```
 
 After the deployment is complete, the CLI will output the URL of your live application.
@@ -122,3 +122,4 @@ After the deployment is complete, the CLI will output the URL of your live appli
 - **`npm run build`**: Creates a production-ready build of the application.
 - **`npm run start`**: Starts the production server (requires `npm run build` first).
 - **`npm run lint`**: Lints the code for errors and style issues.
+- **`npm run deploy`**: Deploys the application to Firebase App Hosting.

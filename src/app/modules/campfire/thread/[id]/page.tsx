@@ -53,7 +53,7 @@ const Header = () => (
                         <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Plane className="h-4 w-4" />Travel</Link>
                         <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Store className="h-4 w-4" />Marketplace</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">Nest Hub</Link>
                 </nav>
             </div>
              <div className="md:hidden">
@@ -76,7 +76,7 @@ const Header = () => (
                             <Link href="/modules/travel" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Plane className="h-5 w-5" />Travel</Link>
                             <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Briefcase className="h-5 w-5" />Stays</Link>
                             <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground"><Store className="h-5 w-5" />Marketplace</Link>
-                            <Link href="/" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground">SG-Nest</Link>
+                            <Link href="/" className="flex items-center gap-2 text-foreground/80 transition-colors hover:text-foreground">Nest Hub</Link>
                         </nav>
                     </SheetContent>
                 </Sheet>

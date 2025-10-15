@@ -66,7 +66,7 @@ const Header = () => {
                         <Link href="/modules/homes" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><HomeIcon className="h-4 w-4" />Properties</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
+                        <Link href="/" className="text-foreground/60 transition-colors hover:text-foreground/80">Nest Hub</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-end space-x-2">
@@ -342,7 +342,7 @@ const Footer = () => (
                         <Link href="/modules/homes" className="text-muted-foreground hover:text-primary">Properties</Link>
                         <Link href="/modules/mall" className="text-muted-foreground hover:text-primary">Marketplace</Link>
                         <Link href="/modules/events" className="text-muted-foreground hover:text-primary">Events</Link>
-                        <Link href="/" className="text-muted-foreground hovertext-primary">SG-Nest</Link>
+                        <Link href="/" className="text-muted-foreground hovertext-primary">Nest Hub</Link>
                     </nav>
                 </div>
                 <div>
@@ -364,7 +364,7 @@ const Footer = () => (
                 </div>
             </div>
             <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-                <p>&copy; {new Date().getFullYear()} NestTravel by SG-Nest. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} NestTravel by Nest Hub. All rights reserved.</p>
             </div>
         </div>
     </footer>
