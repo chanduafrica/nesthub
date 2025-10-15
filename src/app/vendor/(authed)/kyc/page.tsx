@@ -42,12 +42,12 @@ function KycContent() {
   const { toast } = useToast();
   
   const [formData, setFormData] = useState<KycData>({
-    businessName: "SGNEST SUPER VENDOR",
+    businessName: "NestHub Super Vendor",
     businessType: "company",
     regNumber: "",
     address: "",
     location: "",
-    portal: "All Portals",
+    portal: "Nest Hub",
     contactName: "",
     idNumber: "",
     contactPhone: "0754735164",

@@ -58,7 +58,7 @@ const portalConfig = {
 // It is no longer async.
 export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
   
-  const portalMenuItems = (vendor.portal === 'All Portals'
+  const portalMenuItems = (vendor.portal === 'Nest Hub'
     ? Object.keys(portalConfig)
     : [vendor.portal]).filter(
         (portalName): portalName is keyof typeof portalConfig => portalName in portalConfig
@@ -135,7 +135,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
              <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/reviews">
                 <Star />
                 <span>Reviews</span>
                 </Link>
@@ -143,7 +143,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
              <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/messages">
                 <MessageSquare />
                 <span>Messages</span>
                 </Link>
@@ -181,7 +181,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
              <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/promotions">
                 <Sparkles />
                 <span>Promotions</span>
                 </Link>
@@ -189,7 +189,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
             </SidebarMenuItem>
             <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/analytics">
                 <BarChartIcon />
                 <span>Analytics</span>
                 </Link>
@@ -201,7 +201,7 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
         <SidebarMenu>
              <SidebarMenuItem>
             <SidebarMenuButton asChild>
-                <Link href="#">
+                <Link href="/vendor/subscriptions">
                 <Crown />
                 <span>Subscriptions</span>
                 </Link>
