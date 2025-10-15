@@ -56,7 +56,7 @@ const Header = () => {
                         <Link href="/modules/stays" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Briefcase className="h-4 w-4" />Stays</Link>
                         <Link href="/modules/mall" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><LayoutGrid className="h-4 w-4" />Marketplace</Link>
                         <Link href="/modules/events" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80"><Ticket className="h-4 w-4" />Events</Link>
-                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">SG-Nest</Link>
+                        <Link href="/" className="flex items-center gap-2 text-foreground/60 transition-colors hover:text-foreground/80">Nest Hub</Link>
                     </nav>
                 </div>
                 <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -278,7 +278,7 @@ export default function CheckoutPage() {
                              <div className="space-y-4 pt-4 border-t">
                                 <p className="text-sm">Please transfer <strong>{formatCurrency(depositAmount)}</strong> to:</p>
                                 <ul className="text-sm list-disc pl-5 bg-muted p-4 rounded-md">
-                                    <li><strong>Bank Name:</strong> SG-Nest Escrow Bank</li>
+                                    <li><strong>Bank Name:</strong> Nest Hub Escrow Bank</li>
                                     <li><strong>Account Name:</strong> NestHomes Build-Safe Escrow</li>
                                     <li><strong>Account Number:</strong> 123456789012</li>
                                     <li><strong>Branch:</strong> DN Towers, Nairobi</li>

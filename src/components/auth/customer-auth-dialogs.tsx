@@ -36,7 +36,7 @@ export function CustomerLoginPopup({ onLoginSuccess, trigger, asDropdownItem = f
                 <DialogHeader>
                     <DialogTitle>Customer Login</DialogTitle>
                     <DialogDescription>
-                        One account for all SG-NEST portals.
+                        One account for all Nest Hub portals.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleLogin}>
@@ -105,7 +105,7 @@ export function CustomerRegisterPopup() {
                 <DialogHeader>
                     <DialogTitle>Create Customer Account</DialogTitle>
                     <DialogDescription>
-                        Join the SG-Nest ecosystem with a single account.
+                        Join the Nest Hub ecosystem with a single account.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
