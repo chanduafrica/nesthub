@@ -43,7 +43,7 @@ function Header() {
                 </div>
                 <nav className="ml-6 flex items-center space-x-4">
                     <Button variant="ghost" asChild>
-                        <Link href="/home">SG-Nest</Link>
+                        <Link href="/home">Nest Hub</Link>
                     </Button>
                     <Dialog>
                         <DialogTrigger asChild>
@@ -184,7 +184,7 @@ function Footer() {
                     <div>
                         <h3 className="font-bold text-lg mb-2">Shop with Confidence</h3>
                         <p className="text-muted-foreground text-sm">
-                            Powered by SG-Nest, NestDuka provides secure payments, verified sellers, and reliable delivery.
+                            Powered by Nest Hub, NestDuka provides secure payments, verified sellers, and reliable delivery.
                         </p>
                     </div>
                      <div>
@@ -202,7 +202,7 @@ function Footer() {
                             </Link>
                         ))}
                     </nav>
-                    <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} NestDuka by SG-Nest</p>
+                    <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} NestDuka by Nest Hub</p>
                 </div>
             </div>
         </footer>

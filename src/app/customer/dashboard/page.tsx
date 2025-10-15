@@ -45,7 +45,7 @@ export default function CustomerDashboardPage() {
                     </CardHeader>
                      <CardContent>
                         <div className="text-xs text-muted-foreground">
-                            Across all SG-Nest portals
+                            Across all Nest Hub portals
                         </div>
                     </CardContent>
                  </Card>
