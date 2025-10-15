@@ -27,8 +27,8 @@ export default function AdminLoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (
-        staffNumber === 'SGNEST01' &&
-        email === 'admin@sgnest.africa' &&
+        staffNumber === 'NESTHUB01' &&
+        email === 'admin@nesthub.africa' &&
         password === '1234567890'
     ) {
         toast({

@@ -228,5 +228,3 @@ export function VendorSidebarContent({ vendor }: { vendor: Vendor }) {
     </Sidebar>
   );
 }
-
-    
