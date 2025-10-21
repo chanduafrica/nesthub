@@ -14,6 +14,9 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { DollarSign, Rocket, Users } from 'lucide-react';
+import { VendorKybTermsPopup } from '@/components/auth/vendor-kyb-terms';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useState } from 'react';
 
 const benefits = [
     { icon: Rocket, text: "Reach millions of customers across Africa." },
@@ -23,10 +26,13 @@ const benefits = [
 
 export default function VendorLoginPage() {
   const router = useRouter();
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/vendor/otp');
+    if (agreedToTerms) {
+      router.push('/vendor/otp');
+    }
   };
 
   return (
@@ -80,10 +86,14 @@ export default function VendorLoginPage() {
                         <Label htmlFor="password">Password</Label>
                         <Input id="password" type="password" required />
                         </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox id="terms-checkbox" onCheckedChange={() => setAgreedToTerms(!agreedToTerms)} />
+                          <Label htmlFor="terms-checkbox">I agree to the <VendorKybTermsPopup /></Label>
+                        </div>
                         <p className="text-xs text-muted-foreground text-center">You will receive an OTP to verify your login.</p>
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full" disabled={!agreedToTerms}>
                             Sign In
                         </Button>
                     </CardFooter>
@@ -102,5 +112,3 @@ export default function VendorLoginPage() {
     </div>
   );
 }
-
-    
