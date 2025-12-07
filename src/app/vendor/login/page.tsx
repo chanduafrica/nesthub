@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { DollarSign, Rocket, Users } from 'lucide-react';
-import { VendorKybTermsPopup } from '@/components/auth/vendor-kyb-terms';
+import { VendorUsagePolicyPopup } from '@/components/auth/vendor-usage-policy';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 
@@ -88,7 +88,7 @@ export default function VendorLoginPage() {
                         </div>
                         <div className="flex items-center space-x-2">
                           <Checkbox id="terms-checkbox" onCheckedChange={() => setAgreedToTerms(!agreedToTerms)} />
-                          <Label htmlFor="terms-checkbox">I agree to the <VendorKybTermsPopup /></Label>
+                          <Label htmlFor="terms-checkbox">I agree to the <VendorUsagePolicyPopup /></Label>
                         </div>
                         <p className="text-xs text-muted-foreground text-center">You will receive an OTP to verify your login.</p>
                     </CardContent>
